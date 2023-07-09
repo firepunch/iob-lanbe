@@ -1,5 +1,6 @@
 {
-  "name": "iob",
+  "homepage": "/lanbe",
+  "name": "iob-lanbe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,8 +12,12 @@
   "dependencies": {
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "i18next": "^23.2.8",
     "next": "13.4.9",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-i18next": "^13.0.1",
+    "sass": "^1.63.6",
+    "zustand": "^4.3.9"
   }
 }
