@@ -6,7 +6,10 @@ if (!process.env.WORDPRESS_API_URL) {
 }
 
 import('next').NextConfig
-module.exports = {
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
   images: {
     domains: [
       // iob-develop.firepunch.buzz
@@ -18,3 +21,5 @@ module.exports = {
     ],
   },
 }
+
+module.exports = nextConfig
