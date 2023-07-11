@@ -1,8 +1,19 @@
+'use client';
+
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
+import styled from 'styled-components';
 
 const inter = Inter({ subsets: ['latin'] })
+
+const SkeletonBtn = styled.div`
+  margin-top: 0.75rem /* 12px */;
+  width: 25%;
+  height: 0.75rem /* 12px */;
+  border-radius: 0.5rem /* 8px */;
+  background-color: rgb(255 0 128 / 1);
+`;
 
 export default function Home() {
   return (
@@ -30,6 +41,8 @@ export default function Home() {
           </a>
         </div>
       </div>
+
+      <SkeletonBtn>Button</SkeletonBtn>
 
       <div className={styles.center}>
         <Image
