@@ -1,4 +1,4 @@
-import { CMS_NAME, CMS_URL } from '../src/lib/constants'
+import { CMS_NAME, CMS_URL } from '../app/utils/constants'
 
 export default function Intro() {
   return (

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { CMS_NAME, HOME_OG_IMAGE_URL } from '../src/lib/constants'
+import { CMS_NAME, HOME_OG_IMAGE_URL } from '../app/utils/constants'
 
 export default function Meta() {
   return (
