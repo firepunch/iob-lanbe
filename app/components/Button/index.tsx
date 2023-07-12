@@ -1,9 +1,10 @@
 import styles from './index.module.scss';
+import cls from 'classnames';
 
 interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'full';
   children: string;
   onClick?: () => void;
 }
@@ -18,7 +19,7 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={styles.button}
+      className={cls(styles.button, styles[size])}
       style={{ backgroundColor }}
       {...props}
     >
