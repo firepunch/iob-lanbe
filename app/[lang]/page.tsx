@@ -1,18 +1,9 @@
 import { Inter } from 'next/font/google';
-// import styled from 'styled-components';
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n";
 import Header from '../components/Header';
 import { getAllPosts } from '../utils/api';
 
 const inter = Inter({ subsets: ['latin'] })
-
-// const SkeletonBtn = styled.div`
-//   margin-top: 0.75rem /* 12px */;
-//   width: 25%;
-//   height: 0.75rem /* 12px */;
-//   border-radius: 0.5rem /* 8px */;
-//   background-color: rgb(255 0 128 / 1);
-// `;
 
 export default async function Home({
   params: {lang},
