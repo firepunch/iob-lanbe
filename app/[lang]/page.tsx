@@ -1,9 +1,8 @@
-import { Inter } from 'next/font/google';
+// import { Inter } from 'next/font/google';
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n";
 import Header from '../components/Header';
 import { getAllPosts } from '../utils/api';
-
-const inter = Inter({ subsets: ['latin'] })
+import {Button} from '../components/Button';
 
 export default async function Home({
   params: {lang},
@@ -21,7 +20,7 @@ export default async function Home({
     <main >
       <Header/>
       <p>Current locale: {lang}</p>
-      <p className={inter.className}>
+      <p>
         This text is rendered on the server: 
         {t("menu.about")}
       </p>
@@ -31,7 +30,7 @@ export default async function Home({
         {posts?.edges[0].node.title}
       </p>
 
-      <button>Button</button>
+      <Button>Button</Button>
     </main>
   )
 }

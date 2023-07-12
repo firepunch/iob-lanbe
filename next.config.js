@@ -6,6 +6,7 @@ if (!process.env.WORDPRESS_API_URL) {
 }
 
 /** @type {import('next').NextConfig} */
+const path = require('path')
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -26,6 +27,9 @@ const nextConfig = {
     localeDetection: false,
   },
   trailingSlash: true,
+  sassOptions: {
+    prependData: `@import 'app/styles/_variables.scss';`,
+  }
 }
 
 module.exports = nextConfig
