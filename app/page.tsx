@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import styled from 'styled-components';
+import { useTranslation } from 'next-i18next'
+import Header from './components/Header';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,8 +18,12 @@ const SkeletonBtn = styled.div`
 `;
 
 export default function Home() {
+  const { t } = useTranslation('footer')
+
   return (
     <main className={styles.main}>
+      <Header/>
+      
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

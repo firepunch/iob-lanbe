@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
-import Container from './components/container'
-import MoreStories from './components/more-stories'
-import HeroPost from './components/hero-post'
-import Intro from './components/intro'
-import Layout from './components/layout'
-import { getAllPostsForHome } from './src/lib/api'
-import { CMS_NAME } from './src/lib/constants'
+import Container from './wp-components/container'
+import MoreStories from './wp-components/more-stories'
+import HeroPost from './wp-components/hero-post'
+import Intro from './wp-components/intro'
+import Layout from './wp-components/layout'
+import { getAllPostsForHome } from './app/utils/api'
+import { CMS_NAME } from './app/utils/constants'
 
 export default function Index({ allPosts: { edges }, preview }) {
   const 
