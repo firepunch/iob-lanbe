@@ -5,7 +5,7 @@ if (!process.env.WORDPRESS_API_URL) {
   `)
 }
 
-import('next').NextConfig
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
@@ -19,6 +19,10 @@ const nextConfig = {
       '2.gravatar.com',
       'secure.gravatar.com',
     ],
+  },
+  i18n: {
+    locales: ["en", "ko"],
+    defaultLocale: "ko",
   },
 }
 
