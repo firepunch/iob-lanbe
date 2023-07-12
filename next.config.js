@@ -19,11 +19,7 @@ const nextConfig = {
       '2.gravatar.com',
       'secure.gravatar.com',
     ],
-  },
-  i18n: {
-    locales: ["en", "ko"],
-    defaultLocale: "ko",
-  },
+  }
 }
 
 module.exports = nextConfig

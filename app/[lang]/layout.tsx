@@ -1,20 +1,13 @@
-import '../globals.css'
-import { i18n } from '../../i18n-config'
+import './globals.css';
 import StyledComponentsRegistry from '../utils/registry';
-
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }))
-}
 
 export default function RootLayout({
   children,
-  params
 }: {
   children: React.ReactNode,
-  params: {lang: string}
 }) {
   return (
-    <html lang={params.lang}>
+    <html lang="en">
       <StyledComponentsRegistry>
         <body>
           {children}

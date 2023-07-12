@@ -4,15 +4,13 @@ import LanguageSwitcher from '../LanguageSwitcher';
 export default function Header() {
   return (
     <header>
-      <div>
-        <Link href='/'>
-          <h2>
-            i18n Test
-          </h2>
-        </Link>
+      <Link href='/'>
+        <h1>
+          IOB
+        </h1>
+      </Link>
 
-        <LanguageSwitcher />
-      </div>
+      <LanguageSwitcher />
     </header>
   );
 }

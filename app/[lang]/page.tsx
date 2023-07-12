@@ -1,39 +1,39 @@
-'use client';
-
 import { Inter } from 'next/font/google';
-import styled from 'styled-components';
-import { getDictionary } from '../../get-dictionary';
-import { Locale } from '../../i18n-config';
+// import styled from 'styled-components';
 import Header from '../components/Header';
-import styles from './page.module.css';
+import { getLocalePartsFrom, locales, ValidLocale, getTranslator } from "../../i18n";
 
 const inter = Inter({ subsets: ['latin'] })
 
-const SkeletonBtn = styled.div`
-  margin-top: 0.75rem /* 12px */;
-  width: 25%;
-  height: 0.75rem /* 12px */;
-  border-radius: 0.5rem /* 8px */;
-  background-color: rgb(255 0 128 / 1);
-`;
+// const SkeletonBtn = styled.div`
+//   margin-top: 0.75rem /* 12px */;
+//   width: 25%;
+//   height: 0.75rem /* 12px */;
+//   border-radius: 0.5rem /* 8px */;
+//   background-color: rgb(255 0 128 / 1);
+// `;
+
+export async function generateStaticParams() {
+  return locales.map((locale) => getLocalePartsFrom({locale}))
+}
 
 export default async function Home({
-  params: {lang}
+  params
 }: {
-  params: {lang: Locale}
+  params: {lang:string;}
 }) {
-  const dictionary = await getDictionary(lang)
+  const translate = await getTranslator(params.lang as ValidLocale   )
 
   return (
-    <main className={styles.main}>
+    <main >
       <Header/>
-      <p>Current locale: {lang}</p>
+      <p>Current locale: {params.lang}</p>
       <p className={inter.className}>
         This text is rendered on the server: 
-        {dictionary.menu.about}
-        </p>
+        {translate("menu.about")}
+      </p>
 
-      <SkeletonBtn>Button</SkeletonBtn>
+      <button>Button</button>
     </main>
   )
 }
