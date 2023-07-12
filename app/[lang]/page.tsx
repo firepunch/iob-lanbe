@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google';
 // import styled from 'styled-components';
+import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n";
 import Header from '../components/Header';
-import { getLocalePartsFrom, locales, ValidLocale, getTranslator } from "../../i18n";
+import { getAllPosts } from '../utils/api';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,27 +14,37 @@ const inter = Inter({ subsets: ['latin'] })
 //   background-color: rgb(255 0 128 / 1);
 // `;
 
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({locale}))
-}
-
 export default async function Home({
-  params
+  params: {lang},
 }: {
-  params: {lang:string;}
+  params: {lang:string;},
 }) {
-  const translate = await getTranslator(params.lang as ValidLocale   )
+  console.log('lang: ', lang)
+
+  const t = await getTranslator(lang as ValidLocale)
+  const postsData = getAllPosts(lang.toUpperCase())
+
+  const [posts] = await Promise.all([postsData])
 
   return (
     <main >
       <Header/>
-      <p>Current locale: {params.lang}</p>
+      <p>Current locale: {lang}</p>
       <p className={inter.className}>
         This text is rendered on the server: 
-        {translate("menu.about")}
+        {t("menu.about")}
+      </p>
+
+      <p>
+        First Post Title:
+        {posts?.edges[0].node.title}
       </p>
 
       <button>Button</button>
     </main>
   )
+}
+
+export async function generateStaticParams() {
+  return locales.map((locale) => getLocalePartsFrom({locale}))
 }

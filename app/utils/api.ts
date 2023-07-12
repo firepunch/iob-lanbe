@@ -27,6 +27,37 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
   return json.data
 }
 
+export async function getAllPosts(language) {
+  const data = await fetchAPI(
+    `
+    query posts($language: LanguageCodeFilterEnum!) {
+      posts(where: {language: $language}) {
+        edges {
+          node {
+            id
+            excerpt
+            title
+            slug
+            language {
+              code
+              locale
+            }
+          }
+        }
+      }
+      generalSettings {
+        title
+        description
+      }
+    }`,
+    {
+      variables: { language },
+    }
+  )
+
+  return data.posts
+}
+
 export async function getPreviewPost(id, idType = 'DATABASE_ID') {
   const data = await fetchAPI(
     `
