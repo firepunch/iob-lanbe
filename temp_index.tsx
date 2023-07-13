@@ -9,8 +9,7 @@ import { getAllPostsForHome } from './app/utils/api'
 import { CMS_NAME } from './app/utils/constants'
 
 export default function Index({ allPosts: { edges }, preview }) {
-  const 
-  heroPost = edges[0]?.node
+  const heroPost = edges[0]?.node
   const morePosts = edges.slice(1)
 
   return (

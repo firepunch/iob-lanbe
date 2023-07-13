@@ -28,7 +28,7 @@ const nextConfig = {
   trailingSlash: true,
   sassOptions: {
     prependData: `@import 'app/styles/_variables.scss'; @import 'app/styles/_mixins.scss';`,
-  }
+  },
 }
 
 module.exports = nextConfig

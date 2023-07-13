@@ -7,13 +7,13 @@ export async function middleware(req:NextRequest) {
     req.nextUrl.pathname.startsWith('/_next') ||
     req.nextUrl.pathname.includes('/api/') ||
     PUBLIC_FILE.test(req.nextUrl.pathname)
-    ) {
-      return
-    }
+  ) {
+    return
+  }
 
-    if(req.nextUrl.locale==='default') {
-      return NextResponse.redirect(
-        new URL(`/ko${req.nextUrl.pathname}`, req.url)
-      )
-    }
+  if(req.nextUrl.locale==='default') {
+    return NextResponse.redirect(
+      new URL(`/ko${req.nextUrl.pathname}`, req.url)
+    )
+  }
 }
