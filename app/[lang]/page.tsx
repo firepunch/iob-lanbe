@@ -2,10 +2,10 @@
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n";
 import Header from '../components/Header';
 import { getAllPosts } from '../utils/api';
-import {Button} from '../components/Button';
+import { Button } from '../components/Button';
 
 export default async function Home({
-  params: {lang},
+  params: { lang },
 }: {
   params: {lang:string;},
 }) {
@@ -36,5 +36,5 @@ export default async function Home({
 }
 
 export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({locale}))
+  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
