@@ -1,6 +1,7 @@
+import Link from 'next/link'
+import { Button, ContentCard, PageHeading, Select } from '@/components/index'
 import { getContents } from '@/utils/api'
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { Header, Button } from '@/components/index'
 
 export default async function Category({
   params: { lang },
@@ -13,22 +14,24 @@ export default async function Category({
   const [contents] = await Promise.all([contentsData])
 
   return (
-    <main>
-      <Header/>
-      <h2>Category</h2>
-      <p>Current locale: {lang}</p>
-      <p>
-        This text is rendered on the server: 
-        {t("menu.about")}
-      </p>
+    <>
+      <PageHeading title={t("category.all")}/>
+      <span>Sort by:</span>
+      <Select
+        options={t("sorter_options")}
+      />
 
-      <p>
-        First Post Title:
-        {posts?.edges[0].node.title}
-      </p>
+      {contents?.map(item => (
+        <Link key={item.id} href={`/${item.slug}`}>
+          <ContentCard
+            thumbnail_url={item.featuredImage.node.sourceUrl}
+            {...item} 
+          />
+        </Link>
+      ))}
 
-      <Button>Button</Button>
-    </main>
+      <Button>Load more</Button>
+    </>
   )
 }
 
