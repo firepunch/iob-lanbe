@@ -1,5 +1,5 @@
-import styles from './index.module.scss';
-import cls from 'classnames';
+import styles from './index.module.scss'
+import cls from 'classnames'
 
 interface ButtonProps {
   primary?: boolean;
@@ -25,5 +25,5 @@ export const Button = ({
     >
       {children}
     </button>
-  );
-};
+  )
+}

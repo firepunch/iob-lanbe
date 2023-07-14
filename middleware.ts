@@ -11,7 +11,7 @@ export async function middleware(req:NextRequest) {
     return
   }
 
-  if(req.nextUrl.locale==='default') {
+  if(req.nextUrl.locale === 'ko') {
     return NextResponse.redirect(
       new URL(`/ko${req.nextUrl.pathname}`, req.url)
     )

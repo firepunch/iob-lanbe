@@ -1,16 +1,14 @@
 // import { Inter } from 'next/font/google';
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n";
-import Header from '../components/Header';
-import { getAllPosts } from '../utils/api';
-import { Button } from '../components/Button';
+import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "../../i18n"
+import Header from '../components/Header'
+import { getAllPosts } from '../utils/api'
+import { Button } from '../components/Button'
 
 export default async function Home({
   params: { lang },
 }: {
   params: {lang:string;},
 }) {
-  console.log('lang: ', lang)
-
   const t = await getTranslator(lang as ValidLocale)
   const postsData = getAllPosts(lang.toUpperCase())
 

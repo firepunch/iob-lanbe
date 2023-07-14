@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation'
 import { locales } from '../../../i18n'
 
 export default function LanguageSwitcher() {
@@ -21,5 +21,5 @@ export default function LanguageSwitcher() {
         </li>
       ))}
     </ul>
-  );
+  )
 }
