@@ -6,7 +6,7 @@ import { locales } from '../../../i18n'
 
 export default function LanguageSwitcher() {
   const pathName = usePathname()
-  const redirectedPathName=(locale: string) => {
+  const redirectedPathName = (locale: string) => {
     if(!pathName) return '/'
     const segments = pathName.split('/')
     segments[1] = locale
