@@ -1,6 +1,6 @@
+import { getContents } from '@/utils/api'
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
 import { Header, Button } from '@/components/index'
-import { getAllPosts } from '@/utils/api'
 
 export default async function Category({
   params: { lang },
@@ -8,9 +8,9 @@ export default async function Category({
   params: { lang: string; },
 }) {
   const t = await getTranslator(lang as ValidLocale)
-  const postsData = getAllPosts(lang.toUpperCase())
+  const contentsData = getContents(lang.toUpperCase())
 
-  const [posts] = await Promise.all([postsData])
+  const [contents] = await Promise.all([contentsData])
 
   return (
     <main>
