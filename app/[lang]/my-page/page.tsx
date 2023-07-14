@@ -1,9 +1,8 @@
-// import { Inter } from 'next/font/google';
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
 import { Header, Button } from '@/components/index'
 import { getAllPosts } from '@/utils/api'
 
-export default async function Home({
+export default async function Category({
   params: { lang },
 }: {
   params: { lang: string; },
@@ -16,7 +15,8 @@ export default async function Home({
   return (
     <main >
       <Header/>
-      <h2>Home</h2>
+      <h2>My Page</h2>
+
       <p>Current locale: {lang}</p>
       <p>
         This text is rendered on the server: 
