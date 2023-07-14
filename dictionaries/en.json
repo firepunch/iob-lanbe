@@ -1,5 +1,35 @@
 {
   "menu": {
-    "about": "About us"
-  }
+    "about": "About us",
+    "content": "Content"
+  },
+  "category": {
+    "all": "All Content",
+    "market_research": "Market Research",
+    "market_entry": "Market Entry",
+    "market": "Market",
+    "market_desc": "We shed light on rapidly growing industries and markets in Southeast Asia, as well as the driving forces behind their growth.",
+    "corporate": "Corporate",
+    "corporate_desc": "We analyze the distinguishing factors behind the success of Southeast Asian companies or overseas companies expanding into the region.",
+    "consumer": "Consumer",
+    "consumer_desc": "We introduce trends, lifestyles, and culture based on consumer groups categorized by age, income levels, and more.",
+    "marketing": "Marketing",
+    "marketing_desc": "We deliver case studies on successful marketing strategies, campaigns, creative approaches, and more.",
+    "partnership": "Partnership",
+    "partnership_desc": "We provide partnership examples that can contribute to more successful business expansion and growth.",
+    "channel": "Channel",
+    "channel_desc": "We deliver insights on online and offline retail channels specific to each country.",
+    "payment": "Payment",
+    "payment_desc": "We introduce emerging payment methods and trends on a country-by-country basis."
+  },
+  "sorter_options": [{
+    "label": "Newest",
+    "value": "newest"
+  }, {
+    "label": "Oldest",
+    "value": "oldest"
+  }, {
+    "label": "Most viewed",
+    "value": "most_viewed"
+  }]
 }
