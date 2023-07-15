@@ -1,5 +1,5 @@
 import Container from './container'
-import { EXAMPLE_PATH } from '../app/utils/constants'
+import { EXAMPLE_PATH } from '../utils/constants'
 
 export default function Footer() {
   return (

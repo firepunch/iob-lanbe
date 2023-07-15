@@ -1,6 +1,6 @@
 import Container from './container'
 import cn from 'classnames'
-import { EXAMPLE_PATH } from '../app/utils/constants'
+import { EXAMPLE_PATH } from '../utils/constants'
 
 export default function Alert({ preview }) {
   return (

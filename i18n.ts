@@ -28,12 +28,13 @@ export const getLocalePartsFrom = ({ pathname, locale }: LocaleSource) => {
 
 const dictionaries: Record<ValidLocale, any> = {
   "en": () =>
-    import("./dictionaries/en.json").then((module) => module.default),
+    import("src/dictionaries/en.json").then((module) => module.default),
   "ko": () =>
-    import("./dictionaries/ko.json").then((module) => module.default),
+    import("src/dictionaries/ko.json").then((module) => module.default),
 } as const
 
 export const getTranslator = async (locale: ValidLocale) => {
+  // TODO locale valid 아닐 때 리다이렉트
   const dictionary = await dictionaries[locale]()
   return (key: string, params?: { [key: string]: string | number }) => {
     let translation = key

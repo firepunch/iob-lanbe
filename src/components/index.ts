@@ -4,4 +4,5 @@ export { default as Footer } from "./Footer"
 export { default as PageHeading } from "./PageHeading"
 export { Select } from "./Select"
 export { ContentCard } from "./ContentCard"
+export { ReportCard } from "./ReportCard"
 

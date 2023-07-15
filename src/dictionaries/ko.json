@@ -1,6 +1,8 @@
 {
   "menu": {
-    "about": "소개"
+    "about": "소개",
+    "content": "콘텐츠",
+    "report": "리포트"
   },
   "category": {
     "all": "All Content",

@@ -1,21 +1,22 @@
 import Link from "next/link"
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { PageHeading, ReportCard } from "@/components/index"
+import { getTranslator } from "i18n"
+import { getLocalePartsFrom, locales } from "i18n"
 import { getAllProducts } from "@/utils/api"
+import { ValidLocale } from "i18n"
+import { PageHeading, ReportCard } from "@/components/index"
 
-export default async function Category({
+export default async function Report({
   params: { lang },
 }: {
   params: { lang: string; },
 }) {
   const t = await getTranslator(lang as ValidLocale)
   const reportsData = getAllProducts()
-
   const [reports] = await Promise.all([reportsData])
 
   return (
     <>
-      <PageHeading title={t("menu.report")}/>
+      <PageHeading title={t("menu.report")}/> 
       {reports?.map(({ node }) => (
         <Link key={node.id} href={`/${node.id}`}>
           <ReportCard

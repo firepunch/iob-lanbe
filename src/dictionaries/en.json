@@ -1,7 +1,8 @@
 {
   "menu": {
     "about": "About us",
-    "content": "Content"
+    "content": "Content",
+    "report": "Report"
   },
   "category": {
     "all": "All Content",

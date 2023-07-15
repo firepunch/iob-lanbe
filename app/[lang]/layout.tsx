@@ -1,4 +1,4 @@
-import { Footer, Header } from "@/components/index"
+import { Footer, Header } from "src/components/index"
 import "@/styles/_global.scss"
 
 export default function RootLayout({
@@ -6,6 +6,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode,
 }) {
+  
   return (
     <html lang="en">
       <body>
