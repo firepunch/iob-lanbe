@@ -1,6 +1,7 @@
+import Link from "next/link"
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { Header, Button } from "@/components/index"
-import { getAllPosts } from "@/utils/api"
+import { PageHeading, ReportCard } from "@/components/index"
+import { getAllProducts } from "@/utils/api"
 
 export default async function Category({
   params: { lang },
@@ -8,28 +9,23 @@ export default async function Category({
   params: { lang: string; },
 }) {
   const t = await getTranslator(lang as ValidLocale)
-  const postsData = getAllPosts(lang.toUpperCase())
+  const reportsData = getAllProducts()
 
-  const [posts] = await Promise.all([postsData])
+  const [reports] = await Promise.all([reportsData])
 
   return (
-    <main >
-      <Header/>
-      <h2>Report</h2>
-
-      <p>Current locale: {lang}</p>
-      <p>
-        This text is rendered on the server: 
-        {t("menu.about")}
-      </p>
-
-      <p>
-        First Post Title:
-        {posts?.edges[0].node.title}
-      </p>
-
-      <Button>Button</Button>
-    </main>
+    <>
+      <PageHeading title={t("menu.report")}/>
+      {reports?.map(({ node }) => (
+        <Link key={node.id} href={`/${node.id}`}>
+          <ReportCard
+            thumbnail={node.image}
+            title={node.name}
+            description={node.shortDescription}
+          />
+        </Link>
+      ))}
+    </>
   )
 }
 

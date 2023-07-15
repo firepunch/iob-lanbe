@@ -58,6 +58,46 @@ export async function getContents(language) {
   return data.posts.nodes
 }
 
+export async function getAllProducts() {
+  const data = await fetchAPI(
+    `
+    query {
+      products(first: 10) {
+        edges {
+          cursor
+          node {
+            id
+            name
+            shortDescription(format: RAW)
+            image {
+              id
+              sourceUrl
+              altText
+            }
+            ... on SimpleProduct {
+              id
+              name
+              price
+              salePrice
+              regularPrice
+            }
+            ... on VariableProduct {
+              id
+              name
+              price
+              salePrice
+              regularPrice
+            }
+            type
+          }
+        }
+      }
+    }`,
+  )
+
+  return data.products.edges
+}
+
 export async function getAllPosts(language) {
   const data = await fetchAPI(
     `
