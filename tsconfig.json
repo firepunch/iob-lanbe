@@ -2,9 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["app/components/*"],
-      "@/styles/*": ["app/styles/*"],
-      "@/utils/*": ["app/utils/*"],
+      "@/components": ["src/components/index.ts"],
+      "@/components/*": ["src/components/*"],
+      "@/queries/*": ["src/queries/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/utils/*": ["src/utils/*"],
     },
     "target": "es5",
     "lib": [
