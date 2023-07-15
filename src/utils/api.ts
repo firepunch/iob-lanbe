@@ -1,3 +1,6 @@
+import PRODUCTS_QUERY from "@/queries/products"
+import POSTS_QUERY from "@/queries/posts"
+
 const API_URL = process.env.WORDPRESS_API_URL
 
 async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
@@ -28,124 +31,27 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
 }
 
 export async function getContents(language) {
-  const data = await fetchAPI(
-    `
-    query posts($language: LanguageCodeFilterEnum!) {
-      posts(where: {language: $language}) {
-        nodes {
-          id
-          title
-          slug
-          date
-          featuredImage {
-            node {
-              id
-              sourceUrl
-            }
-          }
-          language {
-            code
-            locale
-          }
-        }
-      }
-    }`,
-    {
-      variables: { language },
-    }
-  )
+  const data = await fetchAPI(POSTS_QUERY, {
+    variables: { language },
+  })
 
-  return data.posts.nodes
+  return data.posts.edges
 }
 
 export async function getAllProducts() {
-  const data = await fetchAPI(
-    `
-    query {
-      products(first: 10) {
-        edges {
-          cursor
-          node {
-            id
-            name
-            shortDescription(format: RAW)
-            image {
-              id
-              sourceUrl
-              altText
-            }
-            ... on SimpleProduct {
-              id
-              name
-              price
-              salePrice
-              regularPrice
-            }
-            ... on VariableProduct {
-              id
-              name
-              price
-              salePrice
-              regularPrice
-            }
-            type
-          }
-        }
-      }
-    }`,
-  )
-
+  const data = await fetchAPI(PRODUCTS_QUERY)
   return data.products.edges
 }
 
 export async function getAllPosts(language) {
-  const data = await fetchAPI(
-    `
-    query posts($language: LanguageCodeFilterEnum!) {
-      posts(where: {language: $language}) {
-        edges {
-          node {
-            id
-            excerpt
-            title
-            slug
-            language {
-              code
-              locale
-            }
-          }
-        }
-      }
-      generalSettings {
-        title
-        description
-      }
-    }`,
-    {
-      variables: { language },
-    }
-  )
+  const data = await fetchAPI(POSTS_QUERY, {
+    variables: { language },
+  })
 
   return data.posts
 }
 
-export async function getPreviewPost(id, idType = "DATABASE_ID") {
-  const data = await fetchAPI(
-    `
-    query PreviewPost($id: ID!, $idType: PostIdType!) {
-      post(id: $id, idType: $idType) {
-        databaseId
-        slug
-        status
-      }
-    }`,
-    {
-      variables: { id, idType },
-    }
-  )
-  return data.post
-}
-
+// EXAMPLE
 export async function getAllPostsWithSlug() {
   const data = await fetchAPI(`
     {
