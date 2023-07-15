@@ -1,17 +1,17 @@
-import cls from 'classnames'
-import styles from './index.module.scss'
+import cls from "classnames"
+import styles from "./index.module.scss"
 
 interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string;
-  size?: 'small' | 'medium' | 'full';
+  size?: "small" | "medium" | "full";
   children: string;
   onClick?: () => void;
 }
 
 export const Button = ({
   primary = false,
-  size = 'medium',
+  size = "medium",
   backgroundColor,
   children,
   ...props

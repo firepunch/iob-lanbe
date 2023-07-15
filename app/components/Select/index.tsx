@@ -1,5 +1,5 @@
-import cls from 'classnames'
-import styles from './index.module.scss'
+import cls from "classnames"
+import styles from "./index.module.scss"
 
 interface SelectProps {
   options: { value: string; label: string; }[];

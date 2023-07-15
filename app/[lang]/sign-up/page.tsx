@@ -1,6 +1,6 @@
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { Header, Button } from '@/components/index'
-import { getAllPosts } from '@/utils/api'
+import { Header, Button } from "@/components/index"
+import { getAllPosts } from "@/utils/api"
 
 export default async function Category({
   params: { lang },

@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { Button, ContentCard, PageHeading, Select } from '@/components/index'
-import { getContents } from '@/utils/api'
+import Link from "next/link"
+import { Button, ContentCard, PageHeading, Select } from "@/components/index"
+import { getContents } from "@/utils/api"
 import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
 
 export default async function Category({

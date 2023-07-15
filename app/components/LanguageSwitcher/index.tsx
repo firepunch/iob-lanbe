@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { locales } from '../../../i18n'
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { locales } from "../../../i18n"
 
 export default function LanguageSwitcher() {
   const pathName = usePathname()
   const redirectedPathName = (locale: string) => {
-    if(!pathName) return '/'
-    const segments = pathName.split('/')
+    if(!pathName) return "/"
+    const segments = pathName.split("/")
     segments[1] = locale
-    return segments.join('/')
+    return segments.join("/")
   }
 
   return (

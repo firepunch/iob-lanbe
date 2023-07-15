@@ -1,18 +1,18 @@
-import { useRouter } from 'next/router'
-import ErrorPage from 'next/error'
-import Head from 'next/head'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import Container from '../../wp-components/container'
-import PostBody from '../../wp-components/post-body'
-import MoreStories from '../../wp-components/more-stories'
-import Header from '../../wp-components/header'
-import PostHeader from '../../wp-components/post-header'
-import SectionSeparator from '../../wp-components/section-separator'
-import Layout from '../../wp-components/layout'
-import PostTitle from '../../wp-components/post-title'
-import Tags from '../../wp-components/tags'
-import { getAllPostsWithSlug, getPostAndMorePosts } from '../utils/api'
-import { CMS_NAME } from '../utils/constants'
+import { useRouter } from "next/router"
+import ErrorPage from "next/error"
+import Head from "next/head"
+import { GetStaticPaths, GetStaticProps } from "next"
+import Container from "../../wp-components/container"
+import PostBody from "../../wp-components/post-body"
+import MoreStories from "../../wp-components/more-stories"
+import Header from "../../wp-components/header"
+import PostHeader from "../../wp-components/post-header"
+import SectionSeparator from "../../wp-components/section-separator"
+import Layout from "../../wp-components/layout"
+import PostTitle from "../../wp-components/post-title"
+import Tags from "../../wp-components/tags"
+import { getAllPostsWithSlug, getPostAndMorePosts } from "../utils/api"
+import { CMS_NAME } from "../utils/constants"
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter()
