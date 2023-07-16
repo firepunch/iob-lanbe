@@ -11,6 +11,10 @@ export default function Header() {
         </h1>
       </Link>
 
+      <Link href='/category'>
+        Category
+      </Link>
+
       <LanguageSwitcher />
     </header>
   )
