@@ -11,7 +11,7 @@ export default async function Report({
   params: { lang: string; },
 }) {
   const t = await getTranslator(lang as ValidLocale)
-  const reportsData = getAllProducts()
+  const reportsData = getAllProducts(lang)
   const [reports] = await Promise.all([reportsData])
 
   return (

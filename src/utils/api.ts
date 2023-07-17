@@ -1,3 +1,4 @@
+import { ValidLocale } from "i18n"
 import PRODUCTS_QUERY from "@/queries/products"
 import POSTS_QUERY from "@/queries/posts"
 
@@ -38,8 +39,10 @@ export async function getContents(language) {
   return data.posts.edges
 }
 
-export async function getAllProducts() {
-  const data = await fetchAPI(PRODUCTS_QUERY)
+export async function getAllProducts(language) {
+  const data = await fetchAPI(PRODUCTS_QUERY, {
+    variables: { language },
+  })
   return data.products.edges
 }
 
