@@ -7,7 +7,7 @@ export default async function Header({
 }: {
   lang: ValidLocale
 }) {
-  const t = await getTranslator(lang as ValidLocale)
+  const dict = await getTranslator(lang)
 
   return (
     <header>
@@ -19,22 +19,22 @@ export default async function Header({
 
       <nav>
         <Link href={`/${lang}/about`}>
-          {t("menu.about")}
+          {dict.menu.about}
         </Link>
         <Link href={`/${lang}/category`}>
-          {t("menu.content")}
+          {dict.menu.content}
         </Link>
         <Link href={`/${lang}/report`}>
-          {t("menu.report")}
+          {dict.menu.report}
         </Link>
         <Link href={`/${lang}/search`}>
-          {t("menu.search")}
+          {dict.menu.search}
         </Link>
         <Link href={`/${lang}/login`}>
-          {t("menu.sign_in")}
+          {dict.menu.sign_in}
         </Link>
         <Link href={`/${lang}/my-page`}>
-          {t("menu.my_page")}
+          {dict.menu.my_page}
         </Link>
       </nav>
 

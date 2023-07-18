@@ -1,24 +1,24 @@
+import { ValidLocale, getTranslator } from "i18n"
 import Link from "next/link"
 import { Button, ContentCard, PageHeading, Select } from "src/components/index"
 import { getContents } from "src/utils/api"
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
 
 export default async function Category({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
-  const t = await getTranslator(lang as ValidLocale)
+  const dict = await getTranslator(lang)
   const contentsData = getContents(lang.toUpperCase())
 
   const [contents] = await Promise.all([contentsData])
 
   return (
     <>
-      <PageHeading title={t("category.all")}/>
+      <PageHeading title={dict.category.all}/>
       <span>Sort by:</span>
       <Select
-        options={t("sorter_options")}
+        options={dict.sorter_options}
       />
 
       {contents?.map(item => (
@@ -33,8 +33,4 @@ export default async function Category({
       <Button>Load more</Button>
     </>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }

@@ -1,39 +1,15 @@
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { Header, Button } from "src/components/index"
-import { getAllPosts } from "src/utils/api"
+import { ValidLocale, getTranslator } from "i18n"
 
-export default async function Category({
+export default async function Payment({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
-  const t = await getTranslator(lang as ValidLocale)
-  const postsData = getAllPosts(lang.toUpperCase())
-
-  const [posts] = await Promise.all([postsData])
+  const dict = await getTranslator(lang)
 
   return (
-    <main >
-      <Header/>
-      <h2>Payment</h2>
-
-      <p>카드 등록</p>
-      <p>Current locale: {lang}</p>
-      <p>
-        This text is rendered on the server: 
-        {t("menu.about")}
-      </p>
-
-      <p>
-        First Post Title:
-        {posts?.edges[0].node.title}
-      </p>
-
-      <Button>Button</Button>
-    </main>
+    <>
+      <h2>{dict.menu.about}</h2>
+    </>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
