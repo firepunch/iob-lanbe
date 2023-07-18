@@ -21,13 +21,24 @@ const nextConfig = {
     ],
   },
   i18n: {
-    locales: ["default", "en", "ko"],
-    defaultLocale: "default",
+    locales: ["en", "ko"],
+    defaultLocale: "en",
     localeDetection: false,
   },
   trailingSlash: true,
   sassOptions: {
     prependData: `@import 'src/styles/_variables.scss'; @import 'src/styles/_mixins.scss';`,
+  },
+  async redirects() {
+    return [{
+      source: "/",
+      destination: "/en",
+      permanent: true,
+    }, {
+      source: "/:locale",
+      destination: "/en",
+      permanent: true,
+    }]
   },
 }
 
