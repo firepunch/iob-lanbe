@@ -1,34 +1,32 @@
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { Header, Button } from "src/components/index"
-import { getAllPosts } from "src/utils/api"
+"use client"
 
-export default async function Category({
+import { getLocalePartsFrom, locales } from "i18n"
+import Link from "next/link"
+
+export default function Category({
   params: { lang },
 }: {
   params: { lang: string; },
 }) {
-  const t = await getTranslator(lang as ValidLocale)
-  const postsData = getAllPosts(lang.toUpperCase())
 
-  const [posts] = await Promise.all([postsData])
+  const copyToClipboard = (e) => {
+    navigator.clipboard.writeText(window.location.toString())
+  }
 
   return (
     <main >
-      <Header/>
-      <h2>Post Detail</h2>
+      <h2 id="content-header">Post Detail</h2>
 
-      <p>Current locale: {lang}</p>
-      <p>
-        This text is rendered on the server: 
-        {t("menu.about")}
-      </p>
+      <div style={{ background: "black", height: "100vh" }}>
+      </div>
 
-      <p>
-        First Post Title:
-        {posts?.edges[0].node.title}
-      </p>
+      <Link href="#content-header">Scroll to top</Link>
 
-      <Button>Button</Button>
+      <div className="">
+        <button onClick={copyToClipboard}>
+          Copy
+        </button>
+      </div>
     </main>
   )
 }
