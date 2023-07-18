@@ -1,19 +1,18 @@
-import { Footer, Header } from "@/components"
-import "@/styles/_global.scss"
 import { ValidLocale, getLocaleParams } from "i18n"
+import { Footer, Header } from "@/components"
 
 export async function generateStaticParams() {
   return getLocaleParams()
 }
 
-export default function RootLayout({
+export default function LangLayout({
   children,
   params: { lang },
 }: {
   children: React.ReactNode,
   params: { lang: ValidLocale; },
 }) {
-  
+
   return (
     <html lang={lang}>
       <body>
@@ -25,9 +24,4 @@ export default function RootLayout({
       </body>
     </html>
   )
-}
-
-export const metadata = {
-  title: "Ideas on board",
-  description: "This is IOB website.",
 }
