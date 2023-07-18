@@ -1,6 +1,6 @@
-import { ValidLocale } from "i18n"
 import PRODUCTS_QUERY from "@/queries/products"
 import POSTS_QUERY from "@/queries/posts"
+import POST_BY_SLUG_QUERY from "@/queries/postBySlug"
 
 const API_URL = process.env.WORDPRESS_API_URL
 
@@ -34,6 +34,14 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
 export async function getContents(language) {
   const data = await fetchAPI(POSTS_QUERY, {
     variables: { language },
+  })
+
+  return data.posts.edges
+}
+
+export async function getContentBySlug(postSlug) {
+  const data = await fetchAPI(POST_BY_SLUG_QUERY, {
+    variables: { postSlug },
   })
 
   return data.posts.edges
