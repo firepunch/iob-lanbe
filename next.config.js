@@ -30,15 +30,7 @@ const nextConfig = {
     prependData: `@import 'src/styles/_variables.scss'; @import 'src/styles/_mixins.scss';`,
   },
   async redirects() {
-    return [{
-      source: "/",
-      destination: "/en",
-      permanent: true,
-    }, {
-      source: "/:locale",
-      destination: "/en",
-      permanent: true,
-    }]
+    return []
   },
 }
 

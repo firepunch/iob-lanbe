@@ -1,20 +1,20 @@
-import Link from "next/link"
 import { PageHeading, ReportCard } from "@/components/index"
 import { getAllProducts } from "@/utils/api"
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
+import { ValidLocale, getTranslator } from "i18n"
+import Link from "next/link"
 
-export default async function Report({
+export default async function Reports({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const t = await getTranslator(lang as ValidLocale)
+  const dict = await getTranslator(lang)
   const reportsData = getAllProducts(lang)
   const [reports] = await Promise.all([reportsData])
 
   return (
     <>
-      <PageHeading title={t("menu.report")}/> 
+      <PageHeading title={dict.menu.report}/> 
       {reports?.map(({ node }) => (
         <Link key={node.id} href={`/${node.id}`}>
           <ReportCard
@@ -27,7 +27,4 @@ export default async function Report({
     </>
   )
 }
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
-}
+Ò

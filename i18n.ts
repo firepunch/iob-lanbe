@@ -1,4 +1,4 @@
-export const defaultLocale = "ko"
+export const defaultLocale = "en"
 export const locales = ["en", "ko"] as const
 export type ValidLocale = typeof locales[number];
 
@@ -12,6 +12,8 @@ type ISOLocale = {
 };
 
 type LocaleSource = PathnameLocale | ISOLocale;
+
+export const getLocaleParams = () => locales.map(lang=>({ lang }))
 
 export const getLocalePartsFrom = ({ pathname, locale }: LocaleSource) => {
   if (locale) {
@@ -33,21 +35,4 @@ const dictionaries: Record<ValidLocale, any> = {
     import("src/dictionaries/ko.json").then((module) => module.default),
 } as const
 
-export const getTranslator = async (lang: ValidLocale) => {
-  const locale = locales.includes(lang) ? lang : "en"
-  const dictionary = await dictionaries[locale]()
-  return (key: string, params?: { [key: string]: string | number }) => {
-    let translation = key
-      .split(".")
-      .reduce((obj, key) => obj && obj[key], dictionary)
-    if (!translation) {
-      return key
-    }
-    if (params && Object.entries(params).length) {
-      Object.entries(params).forEach(([key, value]) => {
-        translation = translation!.replace(`{{ ${key} }}`, String(value))
-      })
-    }
-    return translation
-  }
-}
+export const getTranslator = async (locale: ValidLocale) => dictionaries[locale]()

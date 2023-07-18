@@ -1,22 +1,21 @@
-import Link from "next/link"
-import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
-import { getContents } from "@/utils/api"
 import { ContentCard } from "@/components"
+import { getContents } from "@/utils/api"
+import { ValidLocale, getTranslator } from "i18n"
+import Link from "next/link"
 
 export default async function Home({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
-  const t = await getTranslator(lang as ValidLocale)
+  const dict = await getTranslator(lang)
   const contentsData = getContents(lang.toUpperCase())
 
   const [contents] = await Promise.all([contentsData])
 
   return (
-    <main>
-      <h2>Home</h2>
-      <p>Current locale: {lang}</p>
+    <>
+      <h2>{dict.menu.about}</h2>
       {contents?.map(item => (
         <Link 
           key={item.id} 
@@ -27,10 +26,6 @@ export default async function Home({
           />
         </Link>
       ))}
-    </main>
+    </>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
