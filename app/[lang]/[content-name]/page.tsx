@@ -2,8 +2,7 @@
 
 import { getLocalePartsFrom, locales } from "i18n"
 import Link from "next/link"
-import React, { useState } from "react"
-import { LinkedinIcon, LinkedinShareButton, EmailShareButton, EmailIcon } from "react-share"
+import { useState } from "react"
 
 export default function Category({
   params: { lang },
@@ -11,8 +10,10 @@ export default function Category({
   params: { lang: string; },
 }) {
 
+  const shareLink = "https://www.naver.com/"  // || window.location.toString()
+  
   const copyURLButton = (e) => {
-    navigator.clipboard.writeText(window.location.toString())
+    navigator.clipboard.writeText(shareLink)
   }
 
   const [prevZoomed, setZoomed] = useState(false)
@@ -20,6 +21,16 @@ export default function Category({
   const fontSizeButton = () => {
     setZoomed(prevZoomed => !prevZoomed)
     setFontSize(prevFontSize => (prevZoomed ? prevFontSize - 5 : prevFontSize + 5))
+  }
+
+  const objectToGetParams = (object: {
+    [key: string]: string | number | undefined | null;
+  }) => {
+    const params = Object.entries(object)
+      .filter(([, value]) => value !== undefined && value !== null)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+
+    return params.length > 0 ? `?${params.join("&")}` : ""
   }
 
   return (
@@ -35,12 +46,9 @@ export default function Category({
         <button>share</button>
         <div className="">
           <button onClick={copyURLButton}>URL</button>
-          
-          <LinkedinIcon size={32} round />
-          <LinkedinShareButton url={window.location.toString()} title="title"> LinkedIn </LinkedinShareButton>
-          
-          <EmailIcon size={32} round />
-          <EmailShareButton url={window.location.toString()}> Mail </EmailShareButton>
+          <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
+          <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
+          <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, referrer: "" })}`}>Teams</a>
         </div>
       </div>
 
