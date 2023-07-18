@@ -11,7 +11,7 @@ export default async function Footer( {
   return (
     <footer>
       Footer
-      <Link href='/'>
+      <Link href="/">
         IOB
       </Link>
       <nav>

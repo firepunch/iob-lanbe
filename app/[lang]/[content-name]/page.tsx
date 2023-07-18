@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import { getLocalePartsFrom, locales } from "i18n"
@@ -33,7 +33,7 @@ export default function Category({
     <main>
       <h2 id="content-header">Post Detail</h2>
 
-      <div style={{ background: "black", height: "100vh" }}>
+      <div style={{ background: 'black', height: '100vh' }}>
       </div>
 
       <Link href="#content-header">Scroll to top</Link>

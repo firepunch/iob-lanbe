@@ -1,7 +1,7 @@
-import { ValidLocale, getTranslator } from "i18n"
-import Link from "next/link"
-import { Button, ContentCard, PageHeading, Select } from "src/components/index"
-import { getContents } from "src/utils/api"
+import { ValidLocale, getTranslator } from 'i18n'
+import Link from 'next/link'
+import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
+import { getContents } from 'src/utils/api'
 
 export default async function Category({
   params: { lang },

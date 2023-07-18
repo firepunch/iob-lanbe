@@ -1,5 +1,5 @@
-import cls from "classnames"
-import styles from "./index.module.scss"
+import cls from 'classnames'
+import styles from './index.module.scss'
 
 interface ReportCardProps {
   thumbnail?: {sourceUrl:string; altText:string};
@@ -11,8 +11,8 @@ interface ReportCardProps {
 
 export const ReportCard = ({
   thumbnail,
-  title = "",
-  description = "",
+  title = '',
+  description = '',
   onClick,
   onSave,
   ...props

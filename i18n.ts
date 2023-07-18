@@ -13,7 +13,7 @@ type ISOLocale = {
 
 type LocaleSource = PathnameLocale | ISOLocale;
 
-export const getLocaleParams = () => locales.map(lang=>({ lang }))
+export const getLocaleParams = () => locales.map(lang => ({ lang }))
 
 export const getLocalePartsFrom = ({ pathname, locale }: LocaleSource) => {
   if (locale) {

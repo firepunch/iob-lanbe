@@ -1,5 +1,5 @@
-import { ValidLocale, getLocaleParams } from "i18n"
-import { Footer, Header } from "@/components"
+import { ValidLocale, getLocaleParams } from 'i18n'
+import { Footer, Header } from '@/components'
 
 export async function generateStaticParams() {
   return getLocaleParams()
