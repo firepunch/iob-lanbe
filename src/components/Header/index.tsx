@@ -30,7 +30,7 @@ export default async function Header({
         <Link href={`/${lang}/search`}>
           {dict.menu.search}
         </Link>
-        <Link href={`/${lang}/login`}>
+        <Link href={`/${lang}/sign-in`}>
           {dict.menu.sign_in}
         </Link>
         <Link href={`/${lang}/my-page`}>
