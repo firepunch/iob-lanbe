@@ -2,7 +2,11 @@
   "menu": {
     "about": "소개",
     "content": "콘텐츠",
-    "report": "리포트"
+    "report": "리포트",
+    "project": "프로젝트",
+    "search": "검색",
+    "sign_in": "가입",
+    "my_page": "내 계정"
   },
   "category": {
     "all": "All Content",

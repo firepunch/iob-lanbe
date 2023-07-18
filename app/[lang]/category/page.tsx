@@ -24,7 +24,7 @@ export default async function Category({
       {contents?.map(item => (
         <Link key={item.id} href={`/${item.slug}`}>
           <ContentCard
-            thumbnail_url={item.featuredImage.node.sourceUrl}
+            thumbnail_url={item.featuredImage?.node.sourceUrl}
             {...item} 
           />
         </Link>

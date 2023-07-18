@@ -1,14 +1,12 @@
 import Link from "next/link"
-import { getTranslator } from "i18n"
-import { getLocalePartsFrom, locales } from "i18n"
-import { getAllProducts } from "@/utils/api"
-import { ValidLocale } from "i18n"
 import { PageHeading, ReportCard } from "@/components/index"
+import { getAllProducts } from "@/utils/api"
+import { ValidLocale, getLocalePartsFrom, getTranslator, locales } from "i18n"
 
 export default async function Report({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
   const t = await getTranslator(lang as ValidLocale)
   const reportsData = getAllProducts(lang)

@@ -2,7 +2,11 @@
   "menu": {
     "about": "About us",
     "content": "Content",
-    "report": "Report"
+    "report": "Report",
+    "project": "Project",
+    "search": "Search",
+    "sign_in": "Sign in",
+    "my_page": "My Page"
   },
   "category": {
     "all": "All Content",

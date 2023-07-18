@@ -1,16 +1,19 @@
-import { Footer, Header } from "src/components/index"
+import { Footer, Header } from "@/components"
+import { getLocalePartsFrom,ValidLocale, locales } from "i18n"
 import "@/styles/_global.scss"
 
 export default function RootLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode,
+  params: { lang: ValidLocale; },
 }) {
   
   return (
     <html lang="en">
       <body>
-        <Header/>
+        <Header lang={lang}/>
         <main>
           {children}
         </main>
@@ -18,6 +21,10 @@ export default function RootLayout({
       </body>
     </html>
   )
+}
+
+export async function generateStaticParams() {
+  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
 
 export const metadata = {
