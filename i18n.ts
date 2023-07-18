@@ -33,8 +33,8 @@ const dictionaries: Record<ValidLocale, any> = {
     import("src/dictionaries/ko.json").then((module) => module.default),
 } as const
 
-export const getTranslator = async (locale: ValidLocale) => {
-  // TODO locale valid 아닐 때 리다이렉트
+export const getTranslator = async (lang: ValidLocale) => {
+  const locale = locales.includes(lang) ? lang : "en"
   const dictionary = await dictionaries[locale]()
   return (key: string, params?: { [key: string]: string | number }) => {
     let translation = key
