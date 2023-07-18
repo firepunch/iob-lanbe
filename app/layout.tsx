@@ -1,4 +1,4 @@
-import "@/styles/_global.scss"
+import '@/styles/_global.scss'
 
 export default function RootLayout({
   children,
@@ -14,6 +14,6 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  title: "Ideas on board",
-  description: "This is IOB website.",
+  title: 'Ideas on board',
+  description: 'This is IOB website.',
 }

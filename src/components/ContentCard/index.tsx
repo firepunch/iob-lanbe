@@ -1,5 +1,5 @@
-import cls from "classnames"
-import styles from "./index.module.scss"
+import cls from 'classnames'
+import styles from './index.module.scss'
 
 interface ContentCardProps {
   thumbnail_url?: string;
@@ -13,9 +13,9 @@ interface ContentCardProps {
 
 export const ContentCard = ({
   thumbnail_url,
-  country = "",
-  date = "",
-  title = "",
+  country = '',
+  date = '',
+  title = '',
   tags = [],
   onClick,
   onSave,

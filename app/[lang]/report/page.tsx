@@ -1,7 +1,7 @@
-import { PageHeading, ReportCard } from "@/components/index"
-import { getAllProducts } from "@/utils/api"
-import { ValidLocale, getTranslator } from "i18n"
-import Link from "next/link"
+import { PageHeading, ReportCard } from '@/components/index'
+import { getAllProducts } from '@/utils/api'
+import { ValidLocale, getTranslator } from 'i18n'
+import Link from 'next/link'
 
 export default async function Reports({
   params: { lang },
@@ -27,4 +27,3 @@ export default async function Reports({
     </>
   )
 }
-Ò

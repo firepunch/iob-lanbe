@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { getLocalePartsFrom, locales } from "i18n"
-import Link from "next/link"
+import { getLocalePartsFrom, locales } from 'i18n'
+import Link from 'next/link'
 
 export default function Category({
   params: { lang },
@@ -17,7 +17,7 @@ export default function Category({
     <main >
       <h2 id="content-header">Post Detail</h2>
 
-      <div style={{ background: "black", height: "100vh" }}>
+      <div style={{ background: 'black', height: '100vh' }}>
       </div>
 
       <Link href="#content-header">Scroll to top</Link>

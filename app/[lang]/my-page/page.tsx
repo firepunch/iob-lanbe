@@ -1,4 +1,4 @@
-import { ValidLocale, getTranslator } from "i18n"
+import { ValidLocale, getTranslator } from 'i18n'
 
 export default async function MyPage({
   params: { lang },

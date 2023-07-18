@@ -1,6 +1,6 @@
-import Link from "next/link"
-import LanguageSwitcher from "../LanguageSwitcher"
-import { ValidLocale, getTranslator } from "i18n"
+import Link from 'next/link'
+import LanguageSwitcher from '../LanguageSwitcher'
+import { ValidLocale, getTranslator } from 'i18n'
 
 export default async function Header({
   lang,
@@ -11,7 +11,7 @@ export default async function Header({
 
   return (
     <header>
-      <Link href='/'>
+      <Link href="/">
         <h1>
           IOB
         </h1>

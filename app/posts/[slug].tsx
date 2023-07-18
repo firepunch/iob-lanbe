@@ -1,18 +1,18 @@
-import { useRouter } from "next/router"
-import ErrorPage from "next/error"
-import Head from "next/head"
-import { GetStaticPaths, GetStaticProps } from "next"
-import Container from "../../src/components-wp/container"
-import PostBody from "../../src/components-wp/post-body"
-import MoreStories from "../../src/components-wp/more-stories"
-import Header from "../../src/components-wp/header"
-import PostHeader from "../../src/components-wp/post-header"
-import SectionSeparator from "../../src/components-wp/section-separator"
-import Layout from "../../src/components-wp/layout"
-import PostTitle from "../../src/components-wp/post-title"
-import Tags from "../../src/components-wp/tags"
-import { getAllPostsWithSlug, getPostAndMorePosts } from "../../src/utils/api"
-import { CMS_NAME } from "../../src/utils/constants"
+import { useRouter } from 'next/router'
+import ErrorPage from 'next/error'
+import Head from 'next/head'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import Container from '../../src/components-wp/container'
+import PostBody from '../../src/components-wp/post-body'
+import MoreStories from '../../src/components-wp/more-stories'
+import Header from '../../src/components-wp/header'
+import PostHeader from '../../src/components-wp/post-header'
+import SectionSeparator from '../../src/components-wp/section-separator'
+import Layout from '../../src/components-wp/layout'
+import PostTitle from '../../src/components-wp/post-title'
+import Tags from '../../src/components-wp/tags'
+import { getAllPostsWithSlug, getPostAndMorePosts } from '../../src/utils/api'
+import { CMS_NAME } from '../../src/utils/constants'
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter()

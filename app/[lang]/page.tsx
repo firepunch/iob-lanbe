@@ -1,7 +1,7 @@
-import { ContentCard } from "@/components"
-import { getContents } from "@/utils/api"
-import { ValidLocale, getTranslator } from "i18n"
-import Link from "next/link"
+import { ContentCard } from '@/components'
+import { getContents } from '@/utils/api'
+import { ValidLocale, getTranslator } from 'i18n'
+import Link from 'next/link'
 
 export default async function Home({
   params: { lang },
