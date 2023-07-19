@@ -5,4 +5,5 @@ export { default as PageHeading } from './PageHeading'
 export { Select } from './Select'
 export { ContentCard } from './ContentCard'
 export { ReportCard } from './ReportCard'
+export { default as CheckoutForm } from './CheckoutForm'
 
