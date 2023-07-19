@@ -6,6 +6,7 @@ import Link from "next/link"
 import styles from "./index.module.scss"
 import cls from "classnames"
 import { objectToGetParams } from "src/utils/api"
+
 export default function Category({
   params: { lang },
 }: {
