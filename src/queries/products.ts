@@ -6,6 +6,8 @@ query products($language: String) {
       node {
         id
         name
+        type
+        slug
         shortDescription(format: RAW)
         image {
           id
@@ -26,7 +28,6 @@ query products($language: String) {
           salePrice
           regularPrice
         }
-        type
       }
     }
   }
