@@ -1,21 +1,20 @@
 import cls from 'classnames'
 import styles from './index.module.scss'
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>  {
   primary?: boolean;
   backgroundColor?: string;
   size?: 'small' | 'medium' | 'full';
   children: string;
-  onClick?: () => void;
 }
 
-export const Button = ({
+export default function Button ({
   primary = false,
   size = 'medium',
   backgroundColor,
   children,
   ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
     <button
       type="button"
