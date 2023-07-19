@@ -1,5 +1,6 @@
 import PRODUCTS_QUERY from '@/queries/products'
 import POSTS_QUERY from '@/queries/posts'
+import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 
 const API_URL = process.env.WORDPRESS_API_URL
@@ -29,6 +30,14 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
     throw new Error('Failed to fetch API')
   }
   return json.data
+}
+
+export async function getProductBySlug(productSlug) {
+  const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
+    variables: { productSlug },
+  })
+
+  return data.product
 }
 
 export async function getContents(language) {
