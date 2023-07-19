@@ -1,24 +1,30 @@
-import { ValidLocale, getTranslator } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
 import { getContents } from 'src/utils/api'
+
+export async function generateMetadata({ params: { lang } }) {
+  const { t } = await getTranslation(lang, 'second-page')
+  return { title: t('h1') }
+}
 
 export default async function Category({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const dict = await getTranslator(lang)
+  const { t } = await getTranslation(lang, 'second-page')
   const contentsData = getContents(lang.toUpperCase())
 
   const [contents] = await Promise.all([contentsData])
 
   return (
     <>
-      <PageHeading title={dict.category.all}/>
+      <PageHeading title={t('h1')}/>
       <span>Sort by:</span>
       <Select
-        options={dict.sorter_options}
+        options={[]}
       />
 
       {contents?.map(item => (

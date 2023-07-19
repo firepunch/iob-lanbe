@@ -1,17 +1,18 @@
-'use client'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
+import Link from 'next/link'
 
-import { useState } from "react"
-import { getLocalePartsFrom, locales } from "i18n"
-import Link from "next/link"
-import styles from "./index.module.scss"
-import cls from "classnames"
-import { objectToGetParams } from "src/utils/lib"
+export async function generateMetadata({ params: { lang } }) {
+  const { t } = await getTranslation(lang, 'second-page')
+  return { title: t('h1') }
+}
 
-export default function Category({
+export default async function Category({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
+  const { t } = await getTranslation(lang, 'second-page')
 
   const shareLink = "https://www.naver.com/"  // || window.location.toString()
   
@@ -31,7 +32,7 @@ export default function Category({
 
   return (
     <main>
-      <h2 id="content-header">Post Detail</h2>
+      <h2 id="content-header">{t('h1')}</h2>
 
       <div style={{ background: 'black', height: '100vh' }}>
       </div>
@@ -58,8 +59,4 @@ export default function Category({
 
     </main>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
