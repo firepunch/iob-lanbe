@@ -25,7 +25,7 @@ export default function Category({
   }
 
   const [isOpen, setMenu] = useState(false)
-  const shareButton = () => {
+  const handleShareMenu = () => {
     setMenu(isOpen => !isOpen)
   }
 
@@ -39,8 +39,8 @@ export default function Category({
       <Link href="#content-header">Scroll to top</Link>
 
       <div className="">
-        <button>share</button>
-        <div className="">
+        <button onClick={handleShareMenu}>share</button>
+        <div className={cls(styles.menu, { [styles.open]: !isOpen })}>
           <button onClick={copyURLButton}>URL</button>
           <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
           <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>

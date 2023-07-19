@@ -5,3 +5,12 @@
     font-size: rem(25);
   }
 }
+
+.menu{
+  display: show;
+  
+  &.open{
+    display: none;
+  }
+
+}
