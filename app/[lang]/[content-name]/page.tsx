@@ -44,7 +44,7 @@ export default function Category({
           <button onClick={copyURLButton}>URL</button>
           <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
           <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
-          <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, referrer: "" })}`}>Teams</a>
+          <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}>Teams</a>
         </div>
         <button onClick={handleFontSize} title="handle Font Size"> Size </button>
       </div>
