@@ -3,7 +3,7 @@
 import { getLocalePartsFrom, locales } from "i18n"
 import Link from "next/link"
 import { useState } from "react"
-
+import { objectToGetParams } from "src/utils/api"
 export default function Category({
   params: { lang },
 }: {
@@ -23,14 +23,9 @@ export default function Category({
     setFontSize(prevFontSize => (prevZoomed ? prevFontSize - 5 : prevFontSize + 5))
   }
 
-  const objectToGetParams = (object: {
-    [key: string]: string | number | undefined | null;
-  }) => {
-    const params = Object.entries(object)
-      .filter(([, value]) => value !== undefined && value !== null)
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
-
-    return params.length > 0 ? `?${params.join("&")}` : ""
+  const [isOpen, setMenu] = useState(false)
+  const shareButton = () => {
+    setMenu(isOpen => !isOpen)
   }
 
   return (
@@ -42,14 +37,12 @@ export default function Category({
 
       <Link href="#content-header">Scroll to top</Link>
 
-      <div className="">
-        <button>share</button>
-        <div className="">
-          <button onClick={copyURLButton}>URL</button>
-          <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
-          <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
-          <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, referrer: "" })}`}>Teams</a>
-        </div>
+      <div onClick={() => shareButton()}>share</div>
+      <div className={isOpen ? "show-menu" : "hide-menu"}>
+        <button onClick={copyURLButton}>URL</button>
+        <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
+        <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
+        <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, referrer: "" })}`}>Teams</a>
       </div>
 
       <div>
