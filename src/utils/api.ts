@@ -62,16 +62,6 @@ export async function getAllPosts(language) {
   return data.posts
 }
 
-export const objectToGetParams = (object: {
-  [key: string]: string | number | undefined | null;
-}) => {
-  const params = Object.entries(object)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
-
-  return params.length > 0 ? `?${params.join("&")}` : ""
-}
-
 // EXAMPLE
 export async function getAllPostsWithSlug() {
   const data = await fetchAPI(`

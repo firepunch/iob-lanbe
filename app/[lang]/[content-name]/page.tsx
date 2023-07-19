@@ -5,7 +5,7 @@ import { getLocalePartsFrom, locales } from "i18n"
 import Link from "next/link"
 import styles from "./index.module.scss"
 import cls from "classnames"
-import { objectToGetParams } from "src/utils/api"
+import { objectToGetParams } from "src/utils/lib"
 
 export default function Category({
   params: { lang },
@@ -24,9 +24,9 @@ export default function Category({
     setIsZoomed(prevZoomed => !prevZoomed)
   }
 
-  const [isOpen, setMenu] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const handleShareMenu = () => {
-    setMenu(isOpen => !isOpen)
+    setIsOpen(isOpen => !isOpen)
   }
 
   return (
