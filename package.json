@@ -23,6 +23,7 @@
     "graphql": "^16.7.1",
     "next": "13.4.10",
     "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "stripe": "^12.13.0",
