@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { getLocalePartsFrom, locales } from "i18n"
 import Link from "next/link"
-import { useState } from "react"
+import styles from "./index.module.scss"
+import cls from "classnames"
 
 export default function Category({
   params: { lang },
@@ -16,11 +18,9 @@ export default function Category({
     navigator.clipboard.writeText(shareLink)
   }
 
-  const [prevZoomed, setZoomed] = useState(false)
-  const [fontSize, setFontSize] = useState(20)
-  const fontSizeButton = () => {
-    setZoomed(prevZoomed => !prevZoomed)
-    setFontSize(prevFontSize => (prevZoomed ? prevFontSize - 5 : prevFontSize + 5))
+  const [isZoomed, setIsZoomed] = useState(false)
+  const handleFontSize = () => {
+    setIsZoomed(prevZoomed => !prevZoomed)
   }
 
   const objectToGetParams = (object: {
@@ -50,11 +50,14 @@ export default function Category({
           <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
           <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, referrer: "" })}`}>Teams</a>
         </div>
+        <button onClick={handleFontSize} title="handle Font Size"> Size </button>
       </div>
 
-      <div>
-        <p style={{ fontSize: `${fontSize}px` }}>This is some text for size test.</p>
-        <button onClick={fontSizeButton} title="handle Font Size"> Size </button>
+      <div className={cls(styles.content, { [styles.large]: isZoomed })}>
+        <p>This is some text for size test.</p>
+        <p>This is some text for size test.</p>
+        <p>This is some text for size test.</p>
+        <ul>This is some text for size test.</ul>
       </div>
 
     </main>
