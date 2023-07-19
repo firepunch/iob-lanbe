@@ -1,15 +1,13 @@
-import { ValidLocale, getTranslator } from 'i18n'
+import { ValidLocale } from '@/i18n/settings'
 
-export default async function Category({
+export default async function About({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const dict = await getTranslator(lang)
-
   return (
     <>
-      <h2>{dict.menu.about}</h2>
+      <h2>About</h2>
     </>
   )
 }

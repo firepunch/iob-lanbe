@@ -7,6 +7,7 @@ if (!process.env.WORDPRESS_API_URL) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: true,
   experimental: {
     appDir: true,
   },
@@ -14,18 +15,12 @@ const nextConfig = {
     domains: [
       // iob-develop.firepunch.buzz
       process.env.WORDPRESS_API_URL.match(/(?!(w+)\.)\w*-(?:\w+\.)+\w+/)[0], // Valid WP Image domain.
-      "0.gravatar.com",
-      "1.gravatar.com",
-      "2.gravatar.com",
-      "secure.gravatar.com",
+      '0.gravatar.com',
+      '1.gravatar.com',
+      '2.gravatar.com',
+      'secure.gravatar.com',
     ],
   },
-  i18n: {
-    locales: ["default", "en", "ko"],
-    defaultLocale: "default",
-    localeDetection: true,
-  },
-  trailingSlash: true,
   sassOptions: {
     prependData: `@import 'src/styles/_variables.scss'; @import 'src/styles/_mixins.scss';`,
   },
