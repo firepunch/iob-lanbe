@@ -16,7 +16,7 @@ export default async function Reports({
     <>
       <PageHeading title={dict.menu.report}/> 
       {reports?.map(({ node }) => (
-        <Link key={node.id} href={`/${node.id}`}>
+        <Link key={node.id} href={`${node.slug}`}>
           <ReportCard
             thumbnail={node.image}
             title={node.name}
