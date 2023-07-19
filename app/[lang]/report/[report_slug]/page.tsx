@@ -1,5 +1,6 @@
 import { getProductBySlug } from '@/utils/api'
 import { ValidLocale, getTranslator } from 'i18n'
+import { Button } from '@/components'
 
 export default async function Report({
   params: { lang, report_slug },
@@ -14,6 +15,7 @@ export default async function Report({
     <>
       <h2>{dict.menu.about}</h2>
       <p>{report.name}</p>
+      <a href={`/${lang}/checkout`}>Pay now</a>
     </>
   )
 }
