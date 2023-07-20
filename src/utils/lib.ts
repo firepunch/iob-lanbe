@@ -5,5 +5,5 @@ export const objectToGetParams = (object: {
     .filter(([, value]) => value !== undefined && value !== null)
     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
   
-  return params.length > 0 ? `?${params.join("&")}` : ""
+  return params.length > 0 ? `?${params.join('&')}` : ''
 } 
