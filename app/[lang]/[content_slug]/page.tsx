@@ -14,10 +14,6 @@ export default async function Category({
 }) {
   const { t } = await getTranslation(lang, 'second-page')
 
-  const copyToClipboard = (e) => {
-    navigator.clipboard.writeText(window.location.toString())
-  }
-
   return (
     <main >
       <h2 id="content-header">{t('h1')}</h2>
@@ -26,12 +22,6 @@ export default async function Category({
       </div>
 
       <Link href="#content-header">Scroll to top</Link>
-
-      <div className="">
-        <button onClick={copyToClipboard}>
-          Copy
-        </button>
-      </div>
     </main>
   )
 }
