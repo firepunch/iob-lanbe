@@ -22,13 +22,13 @@ export default async function Home({
   return (
     <>
       <h2>{t('h1')}</h2>
-      {contents?.map(item => (
+      {contents?.map(({ node }) => (
         <Link 
-          key={item.id} 
-          href={`/${encodeURIComponent(item.slug)}`}>
+          key={node.id} 
+          href={`/${encodeURIComponent(node.slug)}`}>
           <ContentCard
-            thumbnail_url={item.featuredImage?.node.sourceUrl}
-            {...item} 
+            thumbnail_url={node.featuredImage?.node.sourceUrl}
+            {...node}
           />
         </Link>
       ))}
