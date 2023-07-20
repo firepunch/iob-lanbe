@@ -1,0 +1,17 @@
+{
+  "sort_option_values" : ["newest", "oldest", "most_viewed"],
+  "sort_option_newest": "Newest",
+  "sort_option_oldest": "Newest",
+  "sort_option_most_viewed": "Most viewed",
+  "sort_options_value_newest": "Newest",
+  "sort_options": [{
+    "label": "Newest",
+    "value": "newest"
+  }, {
+    "label": "Oldest",
+    "value": "oldest"
+  }, {
+    "label": "Most viewed",
+    "value": "most_viewed"
+  }]
+}

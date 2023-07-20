@@ -1,0 +1,12 @@
+{
+  "sort_options": [{
+    "label": "최신순",
+    "value": "newest"
+  }, {
+    "label": "오래된순",
+    "value": "oldest"
+  }, {
+    "label": "조회순",
+    "value": "most_viewed"
+  }]
+}
