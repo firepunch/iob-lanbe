@@ -1,7 +1,7 @@
 import cls from 'classnames'
 import styles from './index.module.scss'
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>  {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean;
   backgroundColor?: string;
   size?: 'small' | 'medium' | 'full';

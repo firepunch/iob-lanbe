@@ -1,0 +1,10 @@
+.option-wrapper {
+}
+
+.share-wrapper {
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}
