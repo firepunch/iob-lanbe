@@ -22,7 +22,7 @@ export default function RootLayout({
         <ApolloWrapper>
           {children}
         </ApolloWrapper>
-        <Footer />
+        <Footer lang={lang} />
       </body>
     </html>
   )
