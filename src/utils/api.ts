@@ -68,7 +68,7 @@ export async function getContentBySlug(postSlug) {
     variables: { postSlug },
   })
 
-  return data.posts.edges
+  return data.post
 }
 
 export async function getAllProducts(language) {

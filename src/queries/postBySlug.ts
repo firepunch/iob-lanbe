@@ -7,7 +7,7 @@ query postBySlug($postSlug: ID!) {
     uri
     date
     content
-    excerpt
+    excerpt(format: RAW)
     categories {
       edges {
         node {
