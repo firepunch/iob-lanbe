@@ -1,38 +1,31 @@
-import { getTranslation } from '@/i18n/index'
-import { ValidLocale } from '@/i18n/settings'
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
+import cls from 'classnames'
+import { ValidLocale } from '@/i18n/settings'
+import { objectToGetParams } from '@/utils/lib'
+import styles from './index.module.scss'
 
-export async function generateMetadata({ params: { lang } }) {
-  const { t } = await getTranslation(lang, 'second-page')
-  return { title: t('h1') }
-}
-
-export default async function Category({
-  params: { lang },
+export default function Category({
+  params: { lang, content_slug },
 }: {
-  params: { lang: ValidLocale; },
+  params: { lang: ValidLocale; content_slug: string; },
 }) {
-  const { t } = await getTranslation(lang, 'second-page')
-
-  const shareLink = "https://www.naver.com/"  // || window.location.toString()
-  
-  const copyURLButton = (e) => {
-    navigator.clipboard.writeText(shareLink)
-  }
-
   const [isZoomed, setIsZoomed] = useState(false)
-  const handleFontSize = () => {
-    setIsZoomed(prevZoomed => !prevZoomed)
-  }
-
   const [isOpen, setIsOpen] = useState(false)
-  const handleShareMenu = () => {
-    setIsOpen(isOpen => !isOpen)
-  }
+  console.log(content_slug)
+  // const { t } = await getTranslation(lang, 'content-page')
+
+  const shareLink = 'https://www.naver.com/'  // || window.location.toString()
+  
+  const copyURLButton = (e) => navigator.clipboard.writeText(shareLink)
+  const handleFontSize = () => setIsZoomed(prevZoomed => !prevZoomed)
+  const handleShareMenu = () => setIsOpen(isOpen => !isOpen)
 
   return (
     <main>
-      <h2 id="content-header">{t('h1')}</h2>
+      <h2 id="content-header">Content Title</h2>
 
       <div style={{ background: 'black', height: '100vh' }}>
       </div>
@@ -43,7 +36,7 @@ export default async function Category({
         <button onClick={handleShareMenu}>share</button>
         <div className={cls(styles.menu, { [styles.open]: !isOpen })}>
           <button onClick={copyURLButton}>URL</button>
-          <a href={`mailto:${objectToGetParams({ subject: "title", body: shareLink })}`}>Gmail</a>
+          <a href={`mailto:${objectToGetParams({ subject: 'title', body: shareLink })}`}>Gmail</a>
           <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
           <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}>Teams</a>
         </div>
