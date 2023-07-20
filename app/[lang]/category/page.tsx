@@ -2,7 +2,7 @@ import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
-import { getContents } from 'src/utils/api'
+import { getContents } from '@/utils/api'
 
 export default async function Category({
   params: { lang },
