@@ -1,13 +1,10 @@
 import Link from 'next/link'
 import LanguageSwitcher from '../LanguageSwitcher'
-import { ValidLocale, getTranslator } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 
-export default async function Header({
-  lang,
-}: {
-  lang: ValidLocale
-}) {
-  const dict = await getTranslator(lang)
+export default async function Header({ lang }: { lang: ValidLocale }) {
+  const { t } = await getTranslation(lang, 'header')
 
   return (
     <header>
@@ -19,22 +16,22 @@ export default async function Header({
 
       <nav>
         <Link href={`/${lang}/about`}>
-          {dict.menu.about}
+          {t('about')}
         </Link>
         <Link href={`/${lang}/category`}>
-          {dict.menu.content}
+          {t('content')}
         </Link>
         <Link href={`/${lang}/report`}>
-          {dict.menu.report}
+          {t('report')}
         </Link>
         <Link href={`/${lang}/search`}>
-          {dict.menu.search}
+          {t('search')}
         </Link>
         <Link href={`/${lang}/sign-in`}>
-          {dict.menu.sign_in}
+          {t('sign_in')}
         </Link>
         <Link href={`/${lang}/my-page`}>
-          {dict.menu.my_page}
+          {t('my_page')}
         </Link>
       </nav>
 

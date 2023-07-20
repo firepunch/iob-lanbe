@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from '../src/components/Button';
+import Button from '../src/components/Button'
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
@@ -9,9 +9,9 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-};
+}
 
-export default meta;
+export default meta
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
@@ -19,18 +19,18 @@ export const Primary: Story = {
     primary: true,
     children: 'Button',
   },
-};
+}
 
 export const Full: Story = {
   args: {
     size: 'full',
     children: 'Button',
   },
-};
+}
 
 export const Small: Story = {
   args: {
     size: 'small',
     children: 'Button',
   },
-};
+}

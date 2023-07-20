@@ -1,4 +1,5 @@
-import { ValidLocale, getTranslator } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
 import { getContents } from 'src/utils/api'
@@ -8,24 +9,25 @@ export default async function Category({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const dict = await getTranslator(lang)
+  const { t: ct } = await getTranslation(lang, 'common')
+  const { t } = await getTranslation(lang, 'category-page')
   const contentsData = getContents(lang.toUpperCase())
 
   const [contents] = await Promise.all([contentsData])
 
   return (
     <>
-      <PageHeading title={dict.category.all}/>
+      <PageHeading title={t('all')}/>
       <span>Sort by:</span>
       <Select
-        options={dict.sorter_options}
+        options={ct('sort_options', { returnObjects: true }) }
       />
 
-      {contents?.map(item => (
-        <Link key={item.id} href={`/${item.slug}`}>
+      {contents?.map(({ node }) => (
+        <Link key={node.id} href={`/${node.slug}`}>
           <ContentCard
-            thumbnail_url={item.featuredImage?.node.sourceUrl}
-            {...item} 
+            thumbnail_url={node.featuredImage?.node.sourceUrl}
+            {...node} 
           />
         </Link>
       ))}

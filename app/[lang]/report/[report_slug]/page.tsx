@@ -1,19 +1,25 @@
 import { getProductBySlug } from '@/utils/api'
-import { ValidLocale, getTranslator } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 import { Button } from '@/components'
+
+export async function generateMetadata({ params: { lang } }) {
+  const { t } = await getTranslation(lang, 'second-page')
+  return { title: t('h1') }
+}
 
 export default async function Report({
   params: { lang, report_slug },
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
-  const dict = await getTranslator(lang)
+  const { t } = await getTranslation(lang, 'second-page')
   const reportData = getProductBySlug(report_slug)
   const [report] = await Promise.all([reportData])
 
   return (
     <>
-      <h2>{dict.menu.about}</h2>
+      <h2>{t('h1')}</h2>
       <p>{report.name}</p>
       <a href={`/${lang}/checkout`}>Pay now</a>
     </>

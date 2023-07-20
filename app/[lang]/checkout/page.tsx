@@ -1,6 +1,7 @@
 'use client'
 
-import { ValidLocale, getTranslator } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { CheckoutForm } from '@/components'
@@ -12,13 +13,12 @@ const stripePromise = loadStripe(
 export default function Checkout({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
-  // const dict = await getTranslator(lang as ValidLocale)
+  // const { t } = await getTranslation(lang, 'second-page')
 
   return (
     <>
-      {/* <p>{dict.menu.about}</p> */}
       <p>Your order:</p>
       <Elements stripe={stripePromise}>
         <CheckoutForm />

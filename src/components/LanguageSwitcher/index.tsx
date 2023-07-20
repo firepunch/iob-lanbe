@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { locales } from '../../../i18n'
+import { languages } from '@/i18n/settings'
 
 export default function LanguageSwitcher() {
   const pathName = usePathname()
@@ -15,7 +15,7 @@ export default function LanguageSwitcher() {
 
   return (
     <ul>
-      {locales.map((locale) => (
+      {languages.map((locale) => (
         <li key={locale}>
           <Link href={redirectedPathName(locale)}>{locale}</Link>
         </li>

@@ -1,36 +1,27 @@
-'use client'
-
-import { getLocalePartsFrom, locales } from 'i18n'
+import { getTranslation } from '@/i18n/index'
+import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 
-export default function Category({
+export async function generateMetadata({ params: { lang } }) {
+  const { t } = await getTranslation(lang, 'second-page')
+  return { title: t('h1') }
+}
+
+export default async function Category({
   params: { lang },
 }: {
-  params: { lang: string; },
+  params: { lang: ValidLocale; },
 }) {
-
-  const copyToClipboard = (e) => {
-    navigator.clipboard.writeText(window.location.toString())
-  }
+  const { t } = await getTranslation(lang, 'second-page')
 
   return (
     <main >
-      <h2 id="content-header">Post Detail</h2>
+      <h2 id="content-header">{t('h1')}</h2>
 
       <div style={{ background: 'black', height: '100vh' }}>
       </div>
 
       <Link href="#content-header">Scroll to top</Link>
-
-      <div className="">
-        <button onClick={copyToClipboard}>
-          Copy
-        </button>
-      </div>
     </main>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
