@@ -18,17 +18,19 @@ export default async function Category({
     <main>
       <h2 id="content-header">Content Title</h2>
 
-      <ContentArea>
-        <p>{content.title}</p>
-        <p>{content.date}</p>
-        <p>{content.excerpt}</p>
-        <p>
-          {content.categories?.edges?.map(({ node }) => (
-            <p key={node.id}>{node.name}</p>
-          ))}
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: content.content }} />
-      </ContentArea>
+      {content && (
+        <ContentArea>
+          <p>{content.title}</p>
+          <p>{content.date}</p>
+          <p>{content.excerpt}</p>
+          <p>
+            {content.categories?.edges?.map(({ node }) => (
+              <p key={node.id}>{node.name}</p>
+            ))}
+          </p>
+          <div dangerouslySetInnerHTML={{ __html: content.content }} />
+        </ContentArea>
+      )}
 
       <p>{t('login_wall')}</p>
     </main>

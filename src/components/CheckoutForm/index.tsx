@@ -1,33 +1,13 @@
 'use client'
 
-import { gql, useMutation } from '@apollo/client'
-import { PaymentElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-
+import { CHECKOUT_QUERY } from '@/queries/checkout'
+import { useMutation } from '@apollo/client'
+import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
 import Button from '../Button'
 
 interface CheckoutFormProps {
 }
-
-const CHECKOUT = gql`
-  mutation Checkout($input: CheckoutInput!) {
-    checkout(input: $input) {
-      order {
-        databaseId
-        orderNumber
-        total
-        lineItems {
-          nodes {
-            product {
-              name
-              databaseId
-            }
-          }
-        }
-      }
-    }
-  }
-`
 
 export default function CheckoutForm ({
   ...props
@@ -35,7 +15,7 @@ export default function CheckoutForm ({
   const stripe = useStripe()
   const elements = useElements()
   
-  const [checkout] = useMutation(CHECKOUT, {
+  const [checkout] = useMutation(CHECKOUT_QUERY, {
     onCompleted({ checkout }) {
       console.log(checkout.order)
       alert('SUCCESS')
@@ -46,6 +26,8 @@ export default function CheckoutForm ({
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('handleSubmit')
+    
     e.preventDefault()
 
     try {
@@ -105,11 +87,11 @@ export default function CheckoutForm ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <PaymentElement/>  
+      {/* <PaymentElement/>   */}
       <CardElement
         options={{ hidePostalCode: true }}
-      />
-      <Button disabled={!stripe}>Pay</Button>
+      />  
+      <Button type="submit" disabled={!stripe}>Pay</Button>
     </form>
   )
 }
