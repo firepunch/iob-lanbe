@@ -18,11 +18,11 @@ export default function RootLayout({
     <html lang={lang}>
       <head />
       <body>
-        <Header lang={lang} />
         <ApolloWrapper>
+          <Header lang={lang} />
           {children}
+          <Footer lang={lang} />
         </ApolloWrapper>
-        <Footer lang={lang} />
       </body>
     </html>
   )
