@@ -4,7 +4,7 @@ import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
 
-const API_URL = process.env.WORDPRESS_API_URL as string
+const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
   const headers = { 'Content-Type': 'application/json' }
