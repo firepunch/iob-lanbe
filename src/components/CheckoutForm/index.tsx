@@ -53,8 +53,7 @@ export default function CheckoutForm ({
         ],
       }
        
-      const checkoutData = createOrder(input)
-      const [checkout] = await Promise.all([checkoutData])
+      const checkout = await createOrder(input)
 
       console.log('SUCCESS')
       console.log(checkout)
