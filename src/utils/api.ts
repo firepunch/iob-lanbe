@@ -15,7 +15,12 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  // WPGraphQL Plugin must be enabled
+  if (localStorage.getItem('woo-session')) {
+    headers[
+      'woocommerce-session'
+    ] = `Session ${localStorage.getItem('woo-session')}`
+  }
+
   const res = await fetch(API_URL, {
     headers,
     method: 'POST',
