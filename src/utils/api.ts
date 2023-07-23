@@ -1,5 +1,6 @@
-import PRODUCTS_QUERY from '@/queries/products'
+import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY from '@/queries/posts'
+import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
 
@@ -30,6 +31,14 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
     throw new Error('Failed to fetch API')
   }
   return json.data
+}
+
+export async function createOrder(input) {
+  const data = await fetchAPI(CHECKOUT_QUERY, {
+    variables: { input },
+  })
+
+  return data.product
 }
 
 export async function getProductBySlug(productSlug) {
