@@ -44,7 +44,7 @@ export default async function Category({
           </p>
           <p>
             {content.author?.node?.roles?.edges?.map(({ node }) => (
-              <p key={node.id}>roles: {node.id}</p>
+              <p key={node.id}>roles:{node.id}</p>
             ))}
           </p>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
