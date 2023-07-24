@@ -28,6 +28,25 @@ export default async function Category({
               <p key={node.id}>{node.name}</p>
             ))}
           </p>
+          <p>
+            {content.tages?.edges?.map(({ node }) => (
+              <p key={node.id}>{node.name}</p>
+            ))}
+          </p>
+          <p>
+            {Array.isArray(content.author) ? (
+              content.author.map(({ node }) => (
+                <p key={node.name}>{node.name}</p>
+              ))
+            ) : (
+              <p>{content.author?.node?.name}</p>
+            )}
+          </p>
+          <p>
+            {content.author?.node?.roles?.edges?.map(({ node }) => (
+              <p key={node.id}>roles: {node.id}</p>
+            ))}
+          </p>
           <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </ContentArea>
       )}
