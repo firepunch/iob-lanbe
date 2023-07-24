@@ -35,7 +35,7 @@ export default async function Footer( {
           {t('terms-conditions')}
         </Link>
         <Link href={`/${lang}/cookie-policy`}>
-          {t('Cookie Policy')}
+          {t('cookie-policy')}
         </Link>
 
       </nav>
