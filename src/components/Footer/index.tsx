@@ -8,18 +8,36 @@ export default async function Footer( {
   lang: ValidLocale
 }){
   const { t } = await getTranslation(lang, 'footer')
-
+  
   return (
     <footer>
       Footer
       <Link href="/">
-        IOB
+        <h1>
+          IOB
+        </h1>
       </Link>
 
       <nav>
         <Link href={`/${lang}/content`}>
           {t('content')}
         </Link>
+        <Link href={`/${lang}/report`}>
+          {t('report')}
+        </Link>
+        <Link href={`https://www.linkedin.com/`}>
+          {t('linkedin')}
+        </Link>
+        <Link href={`/${lang}/privacy-policy`}>
+          {t('privacy-policy')}
+        </Link>
+        <Link href={`/${lang}/terms-conditions`}>
+          {t('terms-conditions')}
+        </Link>
+        <Link href={`/${lang}/cookie-policy`}>
+          {t('Cookie Policy')}
+        </Link>
+
       </nav>
     </footer>
   )
