@@ -2,13 +2,12 @@ import Link from "next/link"
 import LanguageSwitcher from "../LanguageSwitcher"
 import { ValidLocale, getTranslator } from "i18n"
 
-export default async function Category( {
+export default async function Footer( {
   lang,
 }: {
   lang: ValidLocale
 }){
   const t = await getTranslator(lang as ValidLocale)
-  
   return (
     <footer>
       Footer

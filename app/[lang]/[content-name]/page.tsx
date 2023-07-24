@@ -28,31 +28,9 @@ export default function Category({
     setIsOpen(isOpen => !isOpen)
   }
 
-  async function getPosts() {
-    const postsData = getAllPosts(lang.toUpperCase())
-    const [posts] = await Promise.all([postsData])
-    return (
-      <>
-        {posts?.map(({ node }) => (
-          <Link key={node.id} href={`/${node.id}`}>
-            <ContentCard
-              thumbnail_url={node.image}
-              country={node.country}
-              title={node.title}
-              date={node.date}
-              tags={node.tags}
-              {...node} 
-            />
-          </Link>
-        ))}
-      </>
-    )
-  }
-
   return (
     <main>
       <h2 id="content-header">Post Detail</h2>
-      { getPosts() }
       <Link href="#content-header">Scroll to top</Link>
 
       <div className="">
