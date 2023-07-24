@@ -35,7 +35,7 @@ const dictionaries: Record<ValidLocale, any> = {
 
 export const getTranslator = async (locale: ValidLocale) => {
   // TODO locale valid 아닐 때 리다이렉트
-  const dictionary = await dictionaries[locale]()
+  const dictionary = await dictionaries[locale]
   return (key: string, params?: { [key: string]: string | number }) => {
     let translation = key
       .split(".")

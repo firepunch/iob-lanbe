@@ -58,8 +58,7 @@ export async function getAllPosts(language) {
   const data = await fetchAPI(POSTS_QUERY, {
     variables: { language },
   })
-
-  return data.posts
+  return data.posts.edges
 }
 
 // EXAMPLE

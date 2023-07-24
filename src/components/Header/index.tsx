@@ -1,6 +1,7 @@
 import Link from "next/link"
 import LanguageSwitcher from "../LanguageSwitcher"
 import { ValidLocale, getTranslator } from "i18n"
+import React, { useState, useEffect } from "react"
 
 export default async function Header({
   lang,
@@ -8,7 +9,6 @@ export default async function Header({
   lang: ValidLocale
 }) {
   const t = await getTranslator(lang as ValidLocale)
-
   return (
     <header>
       <Link href='/'>
@@ -35,6 +35,30 @@ export default async function Header({
         </Link>
         <Link href={`/${lang}/my-page`}>
           {t("menu.my_page")}
+        </Link>
+      </nav>
+      
+      <nav>
+        <Link href={`/${lang}/market`}>
+          {t("Market")}
+        </Link>
+        <Link href={`/${lang}/corporate`}>
+          {t("Corporate")}
+        </Link>
+        <Link href={`/${lang}/consumer`}>
+          {t("Consumer")}
+        </Link>
+        <Link href={`/${lang}/marketing`}>
+          {t("Marketing")}
+        </Link>
+        <Link href={`/${lang}/partnership`}>
+          {t("Partnership")}
+        </Link>
+        <Link href={`/${lang}/channel`}>
+          {t("Channel")}
+        </Link>
+        <Link href={`/${lang}/payment`}>
+          {t("Payment")}
         </Link>
       </nav>
 

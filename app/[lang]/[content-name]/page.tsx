@@ -1,41 +1,58 @@
 "use client"
-
-import { useState } from "react"
-import { getLocalePartsFrom, locales } from "i18n"
+import React, { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import styles from "./index.module.scss"
 import cls from "classnames"
 import { objectToGetParams } from "src/utils/lib"
+import { getAllPosts } from "src/utils/api"
+import { ContentCard } from "@/components/index"
 
-export default function Category({
+export default function Category({ 
   params: { lang },
 }: {
   params: { lang: string; },
 }) {
-
   const shareLink = "https://www.naver.com/"  // || window.location.toString()
   
   const copyURLButton = (e) => {
     navigator.clipboard.writeText(shareLink)
   }
+  const [isZoom, setIsZoom] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const [isZoomed, setIsZoomed] = useState(false)
   const handleFontSize = () => {
-    setIsZoomed(prevZoomed => !prevZoomed)
+    setIsZoom(prevZoomed => !prevZoomed)
   }
 
-  const [isOpen, setIsOpen] = useState(false)
   const handleShareMenu = () => {
     setIsOpen(isOpen => !isOpen)
+  }
+
+  async function getPosts() {
+    const postsData = getAllPosts(lang.toUpperCase())
+    const [posts] = await Promise.all([postsData])
+    return (
+      <>
+        {posts?.map(({ node }) => (
+          <Link key={node.id} href={`/${node.id}`}>
+            <ContentCard
+              thumbnail_url={node.image}
+              country={node.country}
+              title={node.title}
+              date={node.date}
+              tags={node.tags}
+              {...node} 
+            />
+          </Link>
+        ))}
+      </>
+    )
   }
 
   return (
     <main>
       <h2 id="content-header">Post Detail</h2>
-
-      <div style={{ background: "black", height: "100vh" }}>
-      </div>
-
+      { getPosts() }
       <Link href="#content-header">Scroll to top</Link>
 
       <div className="">
@@ -47,19 +64,14 @@ export default function Category({
           <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}>Teams</a>
         </div>
         <button onClick={handleFontSize} title="handle Font Size"> Size </button>
-      </div>
-
-      <div className={cls(styles.content, { [styles.large]: isZoomed })}>
-        <p>This is some text for size test.</p>
-        <p>This is some text for size test.</p>
-        <p>This is some text for size test.</p>
-        <ul>This is some text for size test.</ul>
+        <div className={cls(styles.content, { [styles.large]: isZoom })}>
+          <p>This is some text for size test.</p>
+          <p>This is some text for size test.</p>
+          <p>This is some text for size test.</p>
+          <ul>This is some text for size test.</ul>
+        </div>
       </div>
 
     </main>
   )
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => getLocalePartsFrom({ locale }))
 }
