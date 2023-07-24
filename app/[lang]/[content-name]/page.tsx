@@ -1,11 +1,9 @@
 "use client"
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import styles from "./index.module.scss"
 import cls from "classnames"
 import { objectToGetParams } from "src/utils/lib"
-import { getAllPosts } from "src/utils/api"
-import { ContentCard } from "@/components/index"
 
 export default function Category({ 
   params: { lang },
