@@ -31,13 +31,13 @@ export default async function Category( {
         <Link href={`https://linkedin.com`}>
           {t("LinkedIn")}
         </Link>
-        <Link href={`/${lang}/privacy`}>
+        <Link href={`/${lang}/privacy-policy`}>
           {t("Privacy Policy")}
         </Link>
-        <Link href={`/${lang}/terms`}>
+        <Link href={`/${lang}/terms-conditions`}>
           {t("Terms & Conditions")}
         </Link>
-        <Link href={`/${lang}/cookie`}>
+        <Link href={`/${lang}/cookie-policy`}>
           {t("Cookie Policy")}
         </Link>
       </nav>
