@@ -1,7 +1,7 @@
 import { ContentArea } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { getContentBySlug } from '@/utils/api'
+import { getContentBySlug } from '@/api_gql'
 
 export default async function Category({
   params: { lang, content_slug },

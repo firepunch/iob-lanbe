@@ -1,5 +1,5 @@
 import { PageHeading, ReportCard } from '@/components/index'
-import { getAllProducts } from '@/utils/api'
+import { getAllProducts } from '@/api_gql'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'

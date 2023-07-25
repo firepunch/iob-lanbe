@@ -1,4 +1,4 @@
-import { getProductBySlug } from '@/utils/api'
+import { getProductBySlug } from '@/api_gql'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import { Button } from '@/components'

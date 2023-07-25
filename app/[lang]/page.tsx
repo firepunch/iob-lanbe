@@ -1,7 +1,7 @@
 import { ContentCard } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { getContents } from '@/utils/api'
+import { getContents } from '@/api_gql'
 import Link from 'next/link'
 
 export async function generateMetadata({ params: { lang } }) {
