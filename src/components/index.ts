@@ -7,4 +7,5 @@ export { ContentCard } from './ContentCard'
 export { ReportCard } from './ReportCard'
 export { default as CheckoutForm } from './CheckoutForm'
 export { default as ContentArea } from './ContentArea'
+export { default as SignUpForm } from './SignUpForm'
 
