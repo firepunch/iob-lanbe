@@ -2,14 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@/components": ["src/components/index.ts"],
-      "@/components/*": ["src/components/*"],
-      "@/queries/*": ["src/queries/*"],
-      "@/styles/*": ["src/styles/*"],
-      "@/api_gql": ["src/api_gql.ts"],
-      "@/api_wp": ["src/api_wp.ts"],
-      "@/utils/*": ["src/utils/*"],
-      "@/i18n/*": ["src/i18n/*"],
     },
     "target": "es5",
     "lib": [
