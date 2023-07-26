@@ -1,7 +1,16 @@
+import { ICreateUser } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
-async function fetchAPI(path, method = 'GET', { data }: Record<string, object> = {}) {
+async function fetchAPI({
+  method = 'GET', 
+  path,
+  data = {},
+}: {
+  method: 'GET' | 'POST' | 'DELETE',
+  path: string,
+  data: object
+}) {
   const headers = { 'Content-Type': 'application/json' }
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
@@ -10,17 +19,11 @@ async function fetchAPI(path, method = 'GET', { data }: Record<string, object> =
     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  // if (localStorage.getItem('woo-session')) {
-  //   headers[
-  //     'woocommerce-session'
-  //   ] = `Session ${localStorage.getItem('woo-session')}`
-  // }
-
-  const res = await fetch(`${API_URL}/wp/v2${path}`, {
+  const res = await fetch(`${API_URL}/wp-json/wp/v2${path}`, {
     headers,
     method,
     body: JSON.stringify({
-      data,
+      ...data,
     }),
   })
 
@@ -30,4 +33,14 @@ async function fetchAPI(path, method = 'GET', { data }: Record<string, object> =
     throw new Error('Failed to fetch API')
   }
   return json.data
+}
+
+export async function createUser(data: ICreateUser) {
+  const res = await fetchAPI({
+    method: 'POST',
+    path: '/users',
+    data,
+  })
+
+  return res
 }
