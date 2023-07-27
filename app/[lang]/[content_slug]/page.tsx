@@ -1,7 +1,7 @@
 import { ContentArea } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { getContentBySlug } from '@/utils/api'
+import { getAllPosts, getContentBySlug } from '@/utils/api'
 
 export default async function Category({
   params: { lang, content_slug },
@@ -10,9 +10,32 @@ export default async function Category({
 }) {
   const { t } = await getTranslation(lang, 'content-page')
   const contentData = getContentBySlug(content_slug)
-
   const [content] = await Promise.all([contentData])
-  console.log(content)
+
+  const contentsData = getAllPosts(lang)
+  const [contents] = await Promise.all([contentsData])
+
+  const recommendFunc = contents.map(async ({ node }) => {
+    // var con = contents[0]
+    // var recommendContents = getContentBySlug(con.node.slug)
+    // var [recommend] = await Promise.all([recommendContents])
+    var recommendContents = getContentBySlug(node.slug)
+    var [recommend] = await Promise.all([recommendContents])
+    return (
+      <>
+        <p>{recommend.title}</p>
+        <p>{recommend.date}</p>
+        <p>{recommend.categories?.edges?.map(({ node }) => (
+          <p key={node.id}>{node.name}</p>
+        ))}
+        </p>
+        <p>{recommend.tages?.edges?.map(({ node }) => (
+          <p key={node.id}>{node.name}</p>
+        ))}
+        </p> 
+      </>
+    )
+  })
 
   return (
     <main>
@@ -52,6 +75,9 @@ export default async function Category({
       )}
 
       <p>{t('login_wall')}</p>
+
+      <h2>Recommended</h2>     
+      <p>{ recommendFunc }</p>
     </main>
   )
 }
