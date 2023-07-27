@@ -1,6 +1,6 @@
 const POSTS_QUERY = `
-query posts {
-  posts {
+query posts($language: LanguageCodeFilterEnum!) {
+  posts(where: {language: $language}) {
     edges {
       node {
         id

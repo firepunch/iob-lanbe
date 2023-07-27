@@ -1,7 +1,7 @@
 import { ContentArea } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { getAllPosts, getContentBySlug } from '@/utils/api'
+import { getContents, getContentBySlug } from '@/utils/api'
 
 export default async function Category({
   params: { lang, content_slug },
@@ -12,13 +12,10 @@ export default async function Category({
   const contentData = getContentBySlug(content_slug)
   const [content] = await Promise.all([contentData])
 
-  const contentsData = getAllPosts(lang)
+  const contentsData = getContents(lang.toUpperCase())
   const [contents] = await Promise.all([contentsData])
 
   const recommendFunc = contents.map(async ({ node }) => {
-    // var con = contents[0]
-    // var recommendContents = getContentBySlug(con.node.slug)
-    // var [recommend] = await Promise.all([recommendContents])
     var recommendContents = getContentBySlug(node.slug)
     var [recommend] = await Promise.all([recommendContents])
     return (
