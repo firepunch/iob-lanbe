@@ -16,6 +16,9 @@ query postBySlug($postSlug: ID!) {
         }
       }
     }
+    postCountry {
+      lanbeCountry
+    }
     tags {
       edges {
         node {

@@ -1,7 +1,7 @@
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
-import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
+import { Button, ContentCard, PageHeading, Select } from '@/components'
 import { getContents } from '@/api_gql'
 
 export default async function Category({
@@ -14,6 +14,8 @@ export default async function Category({
   const contentsData = getContents(lang.toUpperCase())
 
   const [contents] = await Promise.all([contentsData])
+
+  console.log(ct('sort_options', { returnObjects: true }))
 
   return (
     <>
