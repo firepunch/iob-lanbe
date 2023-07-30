@@ -1,4 +1,4 @@
-import { ICreateUser } from './types/api'
+import { ICreateUser, ILogin } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -6,10 +6,12 @@ async function fetchAPI({
   method = 'GET', 
   path,
   data = {},
+  isCustom = false,
 }: {
   method: 'GET' | 'POST' | 'DELETE',
   path: string,
-  data: object
+  data: object,
+  isCustom?: boolean
 }) {
   const headers = { 'Content-Type': 'application/json' }
 
@@ -19,7 +21,7 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json/wp/v2${path}`, {
+  const res = await fetch(`${API_URL}/wp-json${isCustom ? '/custom-plugin' : '/wp/v2'}${path}`, {
     headers,
     method,
     body: JSON.stringify({
@@ -39,6 +41,17 @@ export async function createUser(data: ICreateUser) {
   const res = await fetchAPI({
     method: 'POST',
     path: '/users',
+    data,
+  })
+
+  return res
+}
+
+export async function login(data: ILogin) {
+  const res = await fetchAPI({
+    isCustom: true,
+    method: 'POST',
+    path: '/login',
     data,
   })
 
