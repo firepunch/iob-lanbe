@@ -19,7 +19,7 @@ export default function SignUpForm ({
     try {
       await createUser({
         username: 'test user',
-        email: 'firepunch119@gmail.com',
+        email: 'alfla456@gmail.com',
         password: '1234',
       })
     } catch {
