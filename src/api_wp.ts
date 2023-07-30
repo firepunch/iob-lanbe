@@ -13,10 +13,10 @@ async function fetchAPI({
 }) {
   const headers = { 'Content-Type': 'application/json' }
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+  if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
       'Authorization'
-    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+    ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
   const res = await fetch(`${API_URL}/wp-json/wp/v2${path}`, {
