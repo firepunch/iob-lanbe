@@ -2,6 +2,8 @@ import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY from '@/queries/posts'
 import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
+import CATEGORIES_QUERY from '@/queries/categories'
+import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
@@ -83,6 +85,20 @@ export async function getAllPosts(language) {
   })
 
   return data.posts.edges
+}
+
+export async function getAllCategories(language){
+  const data = await fetchAPI(CATEGORIES_QUERY, {
+    variables: { language },
+  })
+  return data.categories.edges
+}
+
+export async function getContentsByCategory(categoryId) {
+  const data = await fetchAPI(CATEGORY_POSTS_QUERY, {
+    variables: { categoryId },
+  })
+  return data.category
 }
 
 // EXAMPLE
