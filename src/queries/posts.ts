@@ -7,6 +7,9 @@ query posts($language: LanguageCodeFilterEnum!) {
         title
         slug
         date
+        postCountry {
+          lanbeCountry
+        }
         featuredImage {
           node {
             id

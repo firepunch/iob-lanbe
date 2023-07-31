@@ -1,7 +1,7 @@
 import { ContentArea } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { getContents, getContentBySlug } from '@/utils/api'
+import { getContents, getContentBySlug } from '@/api_gql'
 import Link from 'next/link'
 import { ContentCard } from '@/components'
 

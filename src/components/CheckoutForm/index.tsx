@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client'
 import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
 import Button from '../Button'
-import { createOrder } from '@/utils/api'
+import { createOrder } from '@/api_gql'
 
 interface CheckoutFormProps {
 }

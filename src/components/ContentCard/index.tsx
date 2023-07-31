@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 
 interface ContentCardProps {
   thumbnail_url?: string;
-  country?: string;
+  postCountry?: { lanbeCountry?: string };
   date?: string;
   title?: string;
   tags?: string[];
@@ -13,7 +13,7 @@ interface ContentCardProps {
 
 export const ContentCard = ({
   thumbnail_url,
-  country = '',
+  postCountry = {},
   date = '',
   title = '',
   tags = [],
@@ -28,7 +28,7 @@ export const ContentCard = ({
         <img src="https://via.placeholder.com/200" alt="thumbnail" />
       }
       <div>
-        <span>{country}</span>
+        <span>{postCountry?.lanbeCountry}</span>
         <span>{date}</span>
       </div>
       <p>{title}</p>

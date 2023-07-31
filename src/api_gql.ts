@@ -6,13 +6,13 @@ import { CHECKOUT_QUERY } from '@/queries/checkout'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
-async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
+async function fetchAPI(query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
       'Authorization'
-    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+    ] = `Basic ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
   // if (localStorage.getItem('woo-session')) {
@@ -21,7 +21,7 @@ async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
   //   ] = `Session ${localStorage.getItem('woo-session')}`
   // }
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(`${API_URL}/graphql`, {
     headers,
     method: 'POST',
     body: JSON.stringify({
