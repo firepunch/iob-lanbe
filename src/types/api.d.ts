@@ -7,4 +7,5 @@ export interface ICreateUser {
 export interface ILogin {
   id: string
   password: string
+  remember?: boolean
 }

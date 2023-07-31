@@ -21,7 +21,7 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json${isCustom ? '/custom-plugin' : '/wp/v2'}${path}`, {
+  const res = await fetch(`${API_URL}/wp-json${isCustom ? '/custom-api/v1' : '/wp/v2'}${path}`, {
     headers,
     method,
     body: JSON.stringify({
