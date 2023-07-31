@@ -1,0 +1,17 @@
+{
+  "about": "About us",
+  "content": "Content",
+  "report": "Report",
+  "project": "Project",
+  "search": "Search",
+  "sign_in": "Sign in",
+  "my_page": "My Page",
+
+  "f_content": "I.O.B Content",
+  "f_report": "I.O.B Report",
+  "f_project": "I.O.B Report",
+  "f_linkedin": "LinkedIn",
+  "f_privacy-policy": "Privacy Policy",
+  "f_terms-conditions": "Terms & Conditions",
+  "f_cookie-policy": "Cookie Policy"
+}
