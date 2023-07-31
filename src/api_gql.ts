@@ -82,7 +82,7 @@ export async function getAllPosts(language) {
     variables: { language },
   })
 
-  return data.posts
+  return data.posts.edges
 }
 
 // EXAMPLE
