@@ -2,7 +2,7 @@ import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
-import { getContents, getAllCategories, getContentsByCategory } from '@/utils/api'
+import { getContents, getAllCategories, getContentsByCategory } from '@/api_gql'
 
 export default async function Category({
   params: { lang },
@@ -38,6 +38,8 @@ export default async function Category({
       ))}
     }
   })
+
+  console.log(ct('sort_options', { returnObjects: true }))
 
   return (
     <>

@@ -11,7 +11,7 @@ import SectionSeparator from '../../src/components-wp/section-separator'
 import Layout from '../../src/components-wp/layout'
 import PostTitle from '../../src/components-wp/post-title'
 import Tags from '../../src/components-wp/tags'
-import { getAllPostsWithSlug, getPostAndMorePosts } from '../../src/utils/api'
+import { getAllPostsWithSlug, getPostAndMorePosts } from '@/api_gql'
 import { CMS_NAME } from '../../src/utils/constants'
 
 export default function Post({ post, posts, preview }) {
