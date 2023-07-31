@@ -2,6 +2,9 @@ import { ContentArea } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import { getContents, getContentBySlug } from '@/utils/api'
+import Link from 'next/link'
+import { ContentCard } from '@/components'
+
 
 export default async function Category({
   params: { lang, content_slug },
@@ -14,25 +17,6 @@ export default async function Category({
 
   const contentsData = getContents(lang.toUpperCase())
   const [contents] = await Promise.all([contentsData])
-
-  const recommendFunc = contents.map(async ({ node }) => {
-    var recommendContents = getContentBySlug(node.slug)
-    var [recommend] = await Promise.all([recommendContents])
-    return (
-      <>
-        <p>{recommend.title}</p>
-        <p>{recommend.date}</p>
-        <p>{recommend.categories?.edges?.map(({ node }) => (
-          <p key={node.id}>{node.name}</p>
-        ))}
-        </p>
-        <p>{recommend.tages?.edges?.map(({ node }) => (
-          <p key={node.id}>{node.name}</p>
-        ))}
-        </p> 
-      </>
-    )
-  })
 
   return (
     <main>
@@ -74,7 +58,16 @@ export default async function Category({
       <p>{t('login_wall')}</p>
 
       <h2>Recommended</h2>     
-      <p>{ recommendFunc }</p>
+      {contents?.map(({ node }) => (
+        <Link 
+          key={node.id} 
+          href={`/${encodeURIComponent(node.slug)}`}>
+          <ContentCard
+            thumbnail_url={node.featuredImage?.node.sourceUrl}
+            {...node}
+          />
+        </Link>
+      ))}
     </main>
   )
 }
