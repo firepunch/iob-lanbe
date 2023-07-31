@@ -13,10 +13,9 @@ export default async function Category({
 }) {
   const { t } = await getTranslation(lang, 'content-page')
   const contentData = getContentBySlug(content_slug)
-  const [content] = await Promise.all([contentData])
+  const recommendData = getContents(lang.toUpperCase())
 
-  const contentsData = getContents(lang.toUpperCase())
-  const [contents] = await Promise.all([contentsData])
+  const [content, recommend] = await Promise.all([contentData, recommendData])
 
   return (
     <main>
@@ -58,7 +57,7 @@ export default async function Category({
       <p>{t('login_wall')}</p>
 
       <h2>Recommended</h2>     
-      {contents?.map(({ node }) => (
+      {recommend?.map(({ node }) => (
         <Link 
           key={node.id} 
           href={`/${encodeURIComponent(node.slug)}`}>
