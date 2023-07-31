@@ -1,19 +1,39 @@
-import { SignInForm } from '@/components'
-import { getTranslation } from '@/i18n'
-import { ValidLocale } from '@/types'
+'use client'
 
-export default async function SignIn({
+import { SignInForm } from '@/components'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/types'
+import { login } from '@/api_wp'
+import { useState } from 'react'
+
+export default function SignIn({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = await getTranslation(lang, 'sign-in')
+  const [errorCode, setErrorCode] = useState()
+  const { t } = useTranslation(lang, 'sign-in')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      const { code } = await login({
+        id: 'asdf',
+        password: '1234',
+      })
+
+      setErrorCode(code)
+    } catch (err) {
+      console.error('login error', err)
+    }
+  }
 
   return (
-    <SignInForm>
-      <label htmlFor="id">{t('id')}</label>
-      <input type="text" id="id" />
-      <button type="submit">{t('sign_in')}</button>
-    </SignInForm>
+    <SignInForm 
+      t={t} 
+      errorCode={errorCode}
+      onSubmit={handleSubmit} 
+    />
   )
 }
