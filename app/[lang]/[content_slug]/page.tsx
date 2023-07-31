@@ -5,7 +5,6 @@ import { getContents, getContentBySlug } from '@/api_gql'
 import Link from 'next/link'
 import { ContentCard } from '@/components'
 
-
 export default async function Category({
   params: { lang, content_slug },
 }: {
@@ -14,7 +13,6 @@ export default async function Category({
   const { t } = await getTranslation(lang, 'content-page')
   const contentData = getContentBySlug(content_slug)
   const recommendData = getContents(lang.toUpperCase())
-
   const [content, recommend] = await Promise.all([contentData, recommendData])
 
   return (
