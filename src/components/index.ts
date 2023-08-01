@@ -12,5 +12,8 @@ export { default as ContentArea } from './ContentArea'
 export { default as SignUpForm } from './SignUpForm'
 export { default as SignInForm } from './SignInForm'
 export { default as EmailForm } from './EmailForm'
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 

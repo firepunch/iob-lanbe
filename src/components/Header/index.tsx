@@ -2,13 +2,12 @@ import Link from 'next/link'
 import LanguageSwitcher from '../LanguageSwitcher'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
+import styles from './index.module.scss'
 
 export default async function Header({ lang }: { lang: ValidLocale }) {
   const { t } = await getTranslation(lang, 'header')
-<<<<<<< Updated upstream
-=======
+
   // const { k } = await getTranslation(lang, 'category-page')
->>>>>>> Stashed changes
 
   return (
     <header>
@@ -25,8 +24,6 @@ export default async function Header({ lang }: { lang: ValidLocale }) {
         <Link href={`/${lang}/category`}>
           {t('content')}
         </Link>
-<<<<<<< Updated upstream
-=======
         <input className={styles['dropdown']} type="checkbox"/>
         <ul className={styles['sub-menu']}>
           <p>Market Research</p>
@@ -55,7 +52,6 @@ export default async function Header({ lang }: { lang: ValidLocale }) {
             {t('payment')}
           </Link></li>
         </ul>
->>>>>>> Stashed changes
         <Link href={`/${lang}/report`}>
           {t('report')}
         </Link>
