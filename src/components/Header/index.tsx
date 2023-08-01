@@ -7,7 +7,6 @@ import styles from './index.module.scss'
 export default async function Header({ lang }: { lang: ValidLocale }) {
   const { t } = await getTranslation(lang, 'header')
   // const { k } = await getTranslation(lang, 'category-page')
-  const queryParams = 'market'
 
   // const { k } = await getTranslation(lang, 'category-page')
 

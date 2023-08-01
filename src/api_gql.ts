@@ -94,9 +94,9 @@ export async function getAllCategories(language){
   return data.categories.edges
 }
 
-export async function getContentsByCategory(categoryId) {
+export async function getContentsByCategory(categorySlug) {
   const data = await fetchAPI(CATEGORY_POSTS_QUERY, {
-    variables: { categoryId },
+    variables: { categorySlug },
   })
   return data.category
 }
