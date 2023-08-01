@@ -6,6 +6,8 @@ import styles from './index.module.scss'
 
 export default async function Header({ lang }: { lang: ValidLocale }) {
   const { t } = await getTranslation(lang, 'header')
+  // const { k } = await getTranslation(lang, 'category-page')
+  const queryParams = 'market'
 
   // const { k } = await getTranslation(lang, 'category-page')
 
@@ -13,15 +15,15 @@ export default async function Header({ lang }: { lang: ValidLocale }) {
     <header>
       <Link href="/">
         <h1>
-          IOB
+        IOB
         </h1>
       </Link>
-
-      <nav>
+      <input className={styles['hamburger']} type="checkbox"/>
+      <div className={styles['menu']}>
         <Link href={`/${lang}/about`}>
           {t('about')}
         </Link>
-        <Link href={`/${lang}/category`}>
+        <Link className={styles['content-menu']} href={`/${lang}/category`} >
           {t('content')}
         </Link>
         <input className={styles['dropdown']} type="checkbox"/>
@@ -64,8 +66,7 @@ export default async function Header({ lang }: { lang: ValidLocale }) {
         <Link href={`/${lang}/my-page`}>
           {t('my_page')}
         </Link>
-      </nav>
-
+      </div>  
       <LanguageSwitcher />
     </header>
   )

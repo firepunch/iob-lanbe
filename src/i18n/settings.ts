@@ -5,7 +5,7 @@ export type ValidLocale = 'en' | 'ko'
 
 export function getOptions(lng = fallbackLng, ns = defaultNS) {
   return {
-    // debug: true,
+    debug: true,
     supportedLngs: languages,
     // preload: languages,
     fallbackLng,

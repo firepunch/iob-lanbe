@@ -20,7 +20,7 @@ export default async function Category({
   
   return (
     <>
-      <PageHeading title={t('all')}/>
+      <PageHeading title={t(nameQueryParam)}/>
       <span>Sort by:</span>
       <Select
         options={ct('sort_options', { returnObjects: true }) }
