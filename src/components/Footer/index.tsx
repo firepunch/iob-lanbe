@@ -1,14 +1,14 @@
 import Link from 'next/link'
 import { ValidLocale } from '@/i18n/settings'
-import { getTranslation } from '@/i18n/index'
+import { TI18N } from '@/types'
 
-export default async function Footer( {
+export default function Footer({
+  t,
   lang,
 }: {
+  t: TI18N
   lang: ValidLocale
-}){
-  const { t } = await getTranslation(lang, 'footer')
-  
+}) {
   return (
     <footer>
       Footer

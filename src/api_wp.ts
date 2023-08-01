@@ -6,12 +6,12 @@ async function fetchAPI({
   method = 'GET', 
   path,
   data = {},
-  isCustom = false,
+  customPrefixPath,
 }: {
   method: 'GET' | 'POST' | 'DELETE',
   path: string,
   data: object,
-  isCustom?: boolean
+  customPrefixPath?: string
 }) {
   const headers = { 'Content-Type': 'application/json' }
 
@@ -21,7 +21,7 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json${isCustom ? '/custom-api/v1' : '/wp/v2'}${path}`, {
+  const res = await fetch(`${API_URL}/wp-json${customPrefixPath || '/wp/v2'}${path}`, {
     headers,
     method,
     body: JSON.stringify({
@@ -50,9 +50,9 @@ export async function createUser(data: ICreateUser) {
 
 export async function login(data: ILogin) {
   const res = await fetchAPI({
-    isCustom: true,
-    method: 'POST',
+    customPrefixPath: '/custom-api/v1',
     path: '/login',
+    method: 'POST',
     data,
   })
 
