@@ -82,7 +82,25 @@ export async function getAllPosts(language) {
     variables: { language },
   })
 
+<<<<<<< Updated upstream:src/utils/api.ts
   return data.posts
+=======
+  return data.posts.edges
+}
+
+export async function getAllCategories(language){
+  const data = await fetchAPI(CATEGORIES_QUERY, {
+    variables: { language },
+  })
+  return data.categories.edges
+}
+
+export async function getContentsByCategory(categorySlug) {
+  const data = await fetchAPI(CATEGORY_POSTS_QUERY, {
+    variables: { categorySlug },
+  })
+  return data.category
+>>>>>>> Stashed changes:src/api_gql.ts
 }
 
 // EXAMPLE

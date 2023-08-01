@@ -7,4 +7,10 @@ export { ContentCard } from './ContentCard'
 export { ReportCard } from './ReportCard'
 export { default as CheckoutForm } from './CheckoutForm'
 export { default as ContentArea } from './ContentArea'
+<<<<<<< Updated upstream
+=======
+export { default as SignUpForm } from './SignUpForm'
+export { default as SignInForm } from './SignInForm'
+export { default as EmailForm } from './EmailForm'
+>>>>>>> Stashed changes
 
