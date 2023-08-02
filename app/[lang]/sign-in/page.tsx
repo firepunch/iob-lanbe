@@ -5,12 +5,14 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
 import { login } from '@/api_wp'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function SignIn({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const { push } = useRouter()
   const [errorCode, setErrorCode] = useState()
   const { t } = useTranslation(lang, 'sign-in')
 
@@ -18,12 +20,15 @@ export default function SignIn({
     e.preventDefault()
 
     try {
-      const { code } = await login({
-        id: 'asdf',
-        password: '1234',
+      const { status, code } = await login({
+        id: 'test user',
       })
 
-      setErrorCode(code)
+      if (status === 200) {
+        push(`/${lang}`)
+      } else {
+        setErrorCode(code)
+      }
     } catch (err) {
       console.error('login error', err)
     }
