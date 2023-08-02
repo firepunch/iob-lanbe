@@ -3,7 +3,7 @@
 import { SignInForm } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
-import { login } from '@/api_wp'
+import { loginUser } from '@/api_gql'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -20,15 +20,12 @@ export default function SignIn({
     e.preventDefault()
 
     try {
-      const { status, code } = await login({
-        id: 'test user',
+      const { authToken, refreshToken, sessionToken } = await loginUser({
+        username: 'test user',
+        password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
       })
 
-      if (status === 200) {
-        push(`/${lang}`)
-      } else {
-        setErrorCode(code)
-      }
+      push(`/${lang}`)
     } catch (err) {
       console.error('login error', err)
     }

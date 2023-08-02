@@ -2,7 +2,7 @@
 
 import cls from 'classnames'
 import styles from './index.module.scss'
-import { createUser } from '@/api_wp'
+import { createUser } from '@/api_gql'
 
 interface SignUpFormProps {
   children?: React.ReactNode;
@@ -18,9 +18,10 @@ export default function SignUpForm ({
 
     try {
       await createUser({
-        username: 'test user',
-        email: 'alfla456@gmail.com',
-        password: '1234',
+        clientMutationId: 'uniqueId',
+        username: 'your_username',
+        password: 'your_password',
+        email: 'your_email',
       })
     } catch {
       console.error('error')

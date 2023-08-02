@@ -5,6 +5,7 @@ import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
+import { LOGIN_QUERY, REGISTER_QUERY } from '@/queries/users'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -101,22 +102,21 @@ export async function getContentsByCategory(categoryId) {
   return data.category
 }
 
-// EXAMPLE
-export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(`
-    {
-      posts(first: 10000) {
-        edges {
-          node {
-            slug
-          }
-        }
-      }
-    }
-  `)
-  return data?.posts
+export async function createUser(input) {
+  const data = await fetchAPI(REGISTER_QUERY, {
+    variables: { input },
+  })
+  return data
 }
 
+export async function loginUser(input) {
+  const data = await fetchAPI(LOGIN_QUERY, {
+    variables: { input },
+  })
+  return data.login
+}
+
+// EXAMPLE
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `
