@@ -1,17 +1,18 @@
-import { ICreateUser, ILogin } from './types/api'
+import { ICreateUser } from './types/api'
+import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI({
   method = 'GET', 
+  customPrefixPath,
   path,
   data = {},
-  customPrefixPath,
 }: {
   method: 'GET' | 'POST' | 'DELETE',
+  customPrefixPath?: string
   path: string,
   data: object,
-  customPrefixPath?: string
 }) {
   const headers = { 'Content-Type': 'application/json' }
 
@@ -40,18 +41,8 @@ async function fetchAPI({
 
 export async function createUser(data: ICreateUser) {
   const res = await fetchAPI({
-    method: 'POST',
-    path: '/users',
-    data,
-  })
-
-  return res
-}
-
-export async function login(data: ILogin) {
-  const res = await fetchAPI({
     customPrefixPath: '/custom-api/v1',
-    path: '/login',
+    path: '/users',
     method: 'POST',
     data,
   })
