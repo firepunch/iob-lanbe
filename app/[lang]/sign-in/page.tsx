@@ -1,11 +1,12 @@
 'use client'
 
+import { loginUser } from '@/api_gql'
 import { SignInForm } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
-import { loginUser } from '@/api_gql'
-import { useState } from 'react'
+import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function SignIn({
   params: { lang },
@@ -13,26 +14,29 @@ export default function SignIn({
   params: { lang: ValidLocale; },
 }) {
   const { push } = useRouter()
-  const [errorCode, setErrorCode] = useState()
   const { t } = useTranslation(lang, 'sign-in')
+  const [errorCode, setErrorCode] = useState()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
-      const { authToken, refreshToken, sessionToken } = await loginUser({
-        username: 'test user',
+      const tokens = await loginUser({
+        username: 'test 2user',
         password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
       })
 
-      push(`/${lang}`)
+      // TODO remember ? sessionStorage : localStorage
+      setStorageData(AUTH_TOKEN, tokens)
+
+      // push(`/${lang}`)
     } catch (err) {
       console.error('login error', err)
     }
   }
 
   return (
-    <SignInForm 
+    <SignInForm
       t={t} 
       errorCode={errorCode}
       onSubmit={handleSubmit} 
