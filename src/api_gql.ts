@@ -5,24 +5,22 @@ import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
-import { LOGIN_QUERY, REGISTER_QUERY } from '@/queries/users'
+import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
+import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI(query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
+  const tokens = getStorageData(AUTH_TOKEN)
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers[
-      'Authorization'
-    ] = `Basic ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  if (tokens?.authToken) {
+    headers['Authorization'] = `Bearer ${tokens.authToken}`
   }
-
-  // if (localStorage.getItem('woo-session')) {
-  //   headers[
-  //     'woocommerce-session'
-  //   ] = `Session ${localStorage.getItem('woo-session')}`
-  // }
+  
+  if (tokens?.sessionToken) {
+    headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
+  }
 
   const res = await fetch(`${API_URL}/graphql`, {
     headers,
@@ -33,11 +31,19 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
     }),
   })
 
+  if (!tokens?.sessionToken) {
+    setStorageData(AUTH_TOKEN, {
+      ...tokens,
+      sessionToken: res.headers.get('woocommerce-session'),
+    })
+  }
+
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    throw new Error(`Failed to fetch API\n${json.errors?.[0]?.message}`)
   }
+
   return json.data
 }
 
@@ -106,7 +112,7 @@ export async function createUser(input) {
   const data = await fetchAPI(REGISTER_QUERY, {
     variables: { input },
   })
-  return data
+  return data.registerUser
 }
 
 export async function loginUser(input) {
