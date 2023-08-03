@@ -7,9 +7,11 @@ import { loadStripe } from '@stripe/stripe-js'
 import { CheckoutForm } from '@/components'
 import getPaymentIntent from '@/utils/stripe-intent'
 import { useEffect, useState } from 'react'
+import useUserState from '@/stores/userStore'
+import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 
 const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 )
 
 export default function Checkout({
@@ -17,14 +19,17 @@ export default function Checkout({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  // const [clientSecret, setClientSecret] = useState()
-  // const { clientSecret } = await getPaymentIntent('report-1')
-  const clientSecret = 'pi_3NWFRwE1PMbDvOF614vvLZ6Y_secret_hFQIxJbEaJVinTl0uRm3UWcuj'
-  // const { t } = await getTranslation(lang, 'second-page')
+  const [clientSecret, setClientSecret] = useState()
  
+  const handleStripe = async () => {
+    const { clientSecret } = await getPaymentIntent('report-1')
+    setClientSecret(clientSecret)
+  }
+  
   return (
     <>
       <p>Your order:</p>
+      <button onClick={handleStripe}>Get Client Secret</button>
       {clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <CheckoutForm />
