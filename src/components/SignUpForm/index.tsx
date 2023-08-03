@@ -1,37 +1,28 @@
 'use client'
 
-import cls from 'classnames'
-import styles from './index.module.scss'
-import { createUser } from '@/api_gql'
+import { TI18N } from '@/types'
 
 interface SignUpFormProps {
+  t: TI18N;
+  errorCode?: string;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   children?: React.ReactNode;
 }
 
 export default function SignUpForm ({
+  t,
+  errorCode,
+  onSubmit,
   children,
   ...props
 }: SignUpFormProps) {
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    try {
-      await createUser({
-        clientMutationId: 'uniqueId',
-        username: 'your_username',
-        password: 'your_password',
-        email: 'your_email',
-      })
-    } catch {
-      console.error('error')
-    }
-  }
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        {children}
+      <form onSubmit={onSubmit}>
+        <label htmlFor="first_name">{t('first_name')}</label>
+        <input type="text" id="first_name" />
+        <button type="submit">{t('sign_up')}</button>
       </form>
     </>
   )

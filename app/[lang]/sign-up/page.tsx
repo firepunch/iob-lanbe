@@ -1,19 +1,44 @@
+'use client'
+
 import { SignUpForm } from '@/components'
 import { getTranslation } from '@/i18n'
 import { ValidLocale } from '@/types'
+import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
+import { useTranslation } from '@/i18n/client'
+import { createUser } from '@/api_wp'
 
-export default async function SignUp({
+export default function SignUp({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = await getTranslation(lang, 'sign-up')
+  const { t } = useTranslation(lang, 'sign-up')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      const { clientMutationId, user } = await createUser({
+        clientMutationId: generateRandomString(),
+        username: 'test 2user',
+        email: 'email@email.com',
+        password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
+      })
+
+      setStorageData(AUTH_TOKEN, {
+        clientMutationId,
+        authToken: user.jwtAuthToken,
+        refreshToken: user.jwtRefreshToken,
+      })
+    } catch (err) {
+      console.error('login error', err)
+    }
+  }
 
   return (
-    <SignUpForm>
-      <label htmlFor="name">{t('name')}</label>
-      <input type="text" id="name" />
-      <button type="submit">{t('sign_up')}</button>
-    </SignUpForm>
+    <SignUpForm
+      t={t} 
+      onSubmit={handleSubmit} 
+    />
   )
 }
