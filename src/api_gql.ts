@@ -116,6 +116,13 @@ export async function loginUser(input) {
   return data.login
 }
 
+export async function refreshToken() {
+  const data = await fetchAPI(REFRESH_TOKEN_QUERY, {
+    variables: { refreshToken },
+  })
+  return data
+}
+
 // EXAMPLE
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
