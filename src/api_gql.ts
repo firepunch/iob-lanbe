@@ -14,7 +14,7 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
   const headers = { 'Content-Type': 'application/json' }
   const tokens = getStorageData(AUTH_TOKEN)
 
-  if (tokens?.authToken) {
+  if (tokens?.authToken && !query?.includes('LoginUser')) {
     headers['Authorization'] = `Bearer ${tokens.authToken}`
   }
   
