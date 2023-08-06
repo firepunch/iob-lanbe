@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
 
-export const CHECKOUT_QUERY = `mutation Checkout($input: CheckoutInput!) {
+export const CHECKOUT_QUERY = `
+mutation Checkout($input: CheckoutInput!) {
   checkout(input: $input) {
     order {
       currency

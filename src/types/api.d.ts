@@ -4,3 +4,8 @@ export interface ICreateUser {
   email: string
   password: string
 }
+
+export interface ILoginUser {
+  username: string
+  password: string
+}

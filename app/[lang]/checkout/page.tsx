@@ -30,11 +30,9 @@ export default function Checkout({
     <>
       <p>Your order:</p>
       <button onClick={handleStripe}>Get Client Secret</button>
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
-        </Elements> 
-      )} 
+      <Elements stripe={stripePromise}>
+        <CheckoutForm />
+      </Elements> 
     </>
   )
 }

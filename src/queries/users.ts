@@ -5,6 +5,20 @@ mutation LoginUser($input: LoginInput!) {
     authToken
     refreshToken
     sessionToken
+    customer {
+      sessionToken
+    }
+    user {
+      wooSessionToken
+    }
+  }
+}
+`
+
+export const USER_QUERY = `
+query GetUser($input: ID!) {
+  user(id: $input, idType: USERNAME) {
+    wooSessionToken
   }
 }
 `

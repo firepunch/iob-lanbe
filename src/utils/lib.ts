@@ -14,7 +14,7 @@ export const generateRandomString = () => (
 
 export const AUTH_TOKEN = 'IOB_TOKENS'
 export const setStorageData = (key: string, data: string | object, isSession = false) => {
-  if (!window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
 
   isSession ?
     sessionStorage.setItem(key, JSON.stringify(data)) :
@@ -22,7 +22,7 @@ export const setStorageData = (key: string, data: string | object, isSession = f
 }
 
 export const getStorageData = (key: string, isSession = false) => {
-  if (!window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
 
   const item = isSession ?
     sessionStorage.getItem(key) :

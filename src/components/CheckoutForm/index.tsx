@@ -27,10 +27,9 @@ export default function CheckoutForm ({
   // })
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit')
-    const tokens = getStorageData(AUTH_TOKEN)
-    
     e.preventDefault()
+
+    const tokens = getStorageData(AUTH_TOKEN)
 
     try {
       const source = await handleStripe()
@@ -99,7 +98,7 @@ export default function CheckoutForm ({
       {/* <PaymentElement/>   */}
       <CardElement
         options={{ hidePostalCode: true }}
-      />  
+      />
       <Button type="submit" disabled={!stripe}>Pay</Button>
     </form>
   )
