@@ -1,4 +1,5 @@
 import { ICreateUser, ILogin, IEmailForm } from './types/api'
+import { isEmpty } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -6,14 +7,14 @@ async function fetchAPI({
   method = 'GET', 
   path,
   data = {},
-  isCustom = false,
+  customPrefixPath,
 }: {
   method: 'GET' | 'POST' | 'DELETE',
   path: string,
-  data: object,
-  isCustom?: boolean
+  data: object | FormData,
+  customPrefixPath?: string
 }) {
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = customPrefixPath?.includes('contact-form-7') ? {} : { 'Content-Type':'application/json' }
 
   if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
@@ -21,12 +22,15 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json${isCustom ? '/custom-api/v1' : '/wp/v2'}${path}`, {
-    headers,
+  const res = await fetch(`${API_URL}/wp-json${customPrefixPath || '/wp/v2'}${path}`, {
+    ...!isEmpty(headers) &&  headers,
     method,
-    body: JSON.stringify({
-      ...data,
-    }),
+    body: customPrefixPath?.includes('contact-form-7') ?
+      data :
+      JSON.stringify({
+        ...data,
+      }) as any,
+
   })
 
   const json = await res.json()
@@ -50,22 +54,23 @@ export async function createUser(data: ICreateUser) {
 
 export async function login(data: ILogin) {
   const res = await fetchAPI({
-    isCustom: true,
-    method: 'POST',
+    customPrefixPath: '/custom-api/v1',
     path: '/login',
+    method: 'POST',
     data,
   })
+  console.log(res)
 
   return res
 }
 
-export async function sendEmailForm(data: IEmailForm) {
+export async function sendEmailForm(data) {
   const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3116/feedback',
     method: 'POST',
-    path: '/wp-json/contact-form-7/v1/contact-forms/3116/feedback',
     data,
-    isCustom: true,
   })
-
+  console.log(res)
   return res
 }

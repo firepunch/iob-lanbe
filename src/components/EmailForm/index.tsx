@@ -1,7 +1,10 @@
+'use client'
+import { useState } from 'react'
+
 interface emailFormProps {
   t: any;
   errorCode?: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (email) => void;
   children?: React.ReactNode;
 }
 
@@ -10,14 +13,20 @@ export default function EmailForm({
   errorCode,
   onSubmit,
   children,
+  ...props
 }: emailFormProps) {
+  const [email, setEmail] = useState('')
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    onSubmit(email)
+  }
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="email">이메일:</label>
-        <input type="email" id="email" />
-        <p>{t(errorCode)}</p>
+      <form  data-name="email" onSubmit={handleFormSubmit}>
+        <p>email:</p>
+        <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
         <button type="submit">전송</button>
       </form>
     </>

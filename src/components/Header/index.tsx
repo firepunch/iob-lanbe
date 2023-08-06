@@ -1,15 +1,18 @@
 import Link from 'next/link'
 import LanguageSwitcher from '../LanguageSwitcher'
-import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import styles from './index.module.scss'
+import { TI18N } from '@/types'
 
-export default async function Header({ lang }: { lang: ValidLocale }) {
-  const { t } = await getTranslation(lang, 'header')
-  // const { k } = await getTranslation(lang, 'category-page')
-
-  // const { k } = await getTranslation(lang, 'category-page')
-
+export default function Header({
+  ct,
+  t,
+  lang, 
+}: { 
+  ct: TI18N
+  t: TI18N
+  lang: ValidLocale 
+}) {
   return (
     <header>
       <Link href="/">
@@ -27,31 +30,43 @@ export default async function Header({ lang }: { lang: ValidLocale }) {
         </Link>
         <input className={styles['dropdown']} type="checkbox"/>
         <ul className={styles['sub-menu']}>
-          <p>Market Research</p>
+          <p>{ct('market_research')}</p>
           <li>
             <Link href={`/${lang}/category/?name=market`}>
-              {t('market')}
+              {ct('market')}
             </Link>
           </li>
-          <li><Link href={`/${lang}/category/?name=corporate`}>
-            {t('corporate')}
-          </Link></li>
-          <li><Link href={`/${lang}/category/?name=consumer`}>
-            {t('consumer')}
-          </Link></li>
-          <p>Market Entry</p>
-          <li><Link href={`/${lang}/category/?name=marketing`}>
-            {t('marketing')}
-          </Link></li>
-          <li><Link href={`/${lang}/category/?name=partnership`}>
-            {t('partnership')}
-          </Link></li>
-          <li><Link href={`/${lang}/category/?name=channel`}>
-            {t('channel')}
-          </Link></li>
-          <li><Link href={`/${lang}/category/?name=payment`}>
-            {t('payment')}
-          </Link></li>
+          <li>
+            <Link href={`/${lang}/category/?name=corporate`}>
+              {ct('corporate')}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/category/?name=consumer`}>
+              {ct('consumer')}
+            </Link>
+          </li>
+          <p>{ct('market_entry')}</p>
+          <li>
+            <Link href={`/${lang}/category/?name=marketing`}>
+              {ct('marketing')}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/category/?name=partnership`}>
+              {ct('partnership')}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/category/?name=channel`}>
+              {ct('channel')}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${lang}/category/?name=payment`}>
+              {ct('payment')}
+            </Link>
+          </li>
         </ul>
         <Link href={`/${lang}/report`}>
           {t('report')}

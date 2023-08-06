@@ -1,0 +1,17 @@
+{
+  "about": "소개",
+  "content": "콘텐츠",
+  "report": "리포트",
+  "project": "프로젝트",
+  "search": "검색",
+  "sign_in": "가입",
+  "my_page": "내 계정",
+
+  "f_content": "I.O.B 콘텐츠",
+  "f_report": "I.O.B 리포트",
+  "f_project": "I.O.B 프로젝트",
+  "f_linkedin": "LinkedIn",
+  "f_privacy-policy": "개인 정보 보호 정책",
+  "f_terms-conditions": "이용 약관",
+  "f_cookie-policy": "쿠키 정책"
+}

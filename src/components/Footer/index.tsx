@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { ValidLocale } from '@/i18n/settings'
 import { useTranslation } from '@/i18n/client'
@@ -7,20 +5,21 @@ import { EmailForm } from '@/components'
 import { IEmailForm } from '@/types/api'
 import { sendEmailForm } from 'src/api_wp'
 import { useState } from 'react'
+import { TI18N } from '@/types'
 
-export default function Footer( {
+export default function Footer({
+  t,
   lang,
 }: {
+  t: TI18N
   lang: ValidLocale
-}){
-  const [email, setEmail] = useState('')
-  const { t } = useTranslation(lang, 'footer')
+}) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const formData: IEmailForm = {
-      email: email,
+      email: 'example@gmail.com',
     }
 
     try {
@@ -32,6 +31,7 @@ export default function Footer( {
       alert('이메일 폼 전송에 실패했습니다.')
     }
   }
+
   return (
     <footer>
       Footer
