@@ -14,3 +14,10 @@ export interface ILoginUser {
 export interface IEmailForm{
   'user-email': string
 }
+
+export interface ISearchRequest{
+  'first-name': string,
+  'last-name': string,
+  'user-email': string,
+  'message': string
+}

@@ -1,4 +1,4 @@
-import { ICreateUser, ILogin, IEmailForm } from './types/api'
+import { ICreateUser, ILoginUser, IEmailForm } from './types/api'
 import { isEmpty } from './utils/lib'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
@@ -62,6 +62,15 @@ export async function sendEmailForm(data) {
     method: 'POST',
     data,
   })
-  console.log(res)
+  return res
+}
+
+export async function SearchRequest(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3143/feedback',
+    method: 'POST',
+    data,
+  })
   return res
 }
