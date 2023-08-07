@@ -1,36 +1,14 @@
 import Link from 'next/link'
 import { ValidLocale } from '@/i18n/settings'
-import { useTranslation } from '@/i18n/client'
-import { EmailForm } from '@/components'
-import { IEmailForm } from '@/types/api'
-import { sendEmailForm } from 'src/api_wp'
-import { useState } from 'react'
 import { TI18N } from '@/types'
 
-export default function Footer({
+export default async function Footer({
   t,
-  lang,
+  lang, 
 }: {
   t: TI18N
   lang: ValidLocale
-}) {
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const formData: IEmailForm = {
-      email: 'example@gmail.com',
-    }
-
-    try {
-      const response = await sendEmailForm(formData)
-      console.log('서버 응답:', response)
-      alert('이메일 폼 전송에 성공했습니다!')
-    } catch (error) {
-      console.error('이메일 폼 전송 에러:', error.message)
-      alert('이메일 폼 전송에 실패했습니다.')
-    }
-  }
+}) {  
 
   return (
     <footer>
@@ -40,11 +18,6 @@ export default function Footer({
           IOB
         </h1>
       </Link>
-      <EmailForm 
-        t={t}
-        onSubmit={handleSubmit}
-      />
-
       <nav>
         <Link href={`/${lang}/content`}>
           {t('content')}
