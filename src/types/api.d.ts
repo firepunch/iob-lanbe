@@ -11,5 +11,5 @@ export interface ILogin {
 }
 
 export interface IEmailForm{
-  email: string
+  'user-email': string
 }
