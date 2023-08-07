@@ -74,3 +74,13 @@ export async function SearchRequest(data) {
   })
   return res
 }
+
+export async function ProjectInquiry(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3144/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
