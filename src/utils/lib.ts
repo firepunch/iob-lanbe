@@ -7,3 +7,7 @@ export const objectToGetParams = (object: {
   
   return params.length > 0 ? `?${params.join('&')}` : ''
 } 
+
+export const isEmpty = (obj) => (
+  Object.keys(obj).length == 0
+)
