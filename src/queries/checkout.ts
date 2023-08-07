@@ -11,8 +11,7 @@ mutation Checkout($input: CheckoutInput!) {
       total
     }
   }
-}
-`
+}`
 
 export const OLD_CHECKOUT_QUERY = gql`
 mutation Checkout($input: CheckoutInput!) {

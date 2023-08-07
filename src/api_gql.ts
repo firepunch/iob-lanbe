@@ -5,23 +5,28 @@ import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import { CHECKOUT_QUERY } from '@/queries/checkout'
+import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
+import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+import { ILoginUser } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI(query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
+  const tokens = getStorageData(AUTH_TOKEN)
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers[
-      'Authorization'
-    ] = `Basic ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  if (tokens?.authToken && !query?.includes('LoginUser') && !query?.includes('GetUser')) {
+    // headers['Authorization'] = `Bearer ${tokens.authToken}`
   }
+  
+  headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkxMzI2MjUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEifX19.uYE9xbhbsd8KuEP3-BJrAnNP9SgDp2zchjpSdi1fiz4`
+  headers['X-JWT-Auth'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkxMzI2MjUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEifX19.uYE9xbhbsd8KuEP3-BJrAnNP9SgDp2zchjpSdi1fiz4`
+  headers['X-JWT-Refresh'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNzIyODYxOTUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEiLCJ1c2VyX3NlY3JldCI6ImdyYXBocWxfand0XzY0Y2E1NjFhZTQyZjgifX19.hf9bxzU7X2MpLzAiHS5xOiQVwx7-l5HybdHb3mZZcmk`
+  headers['woocommerce-session'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkyNTM1NTUwLCJkYXRhIjp7ImN1c3RvbWVyX2lkIjoidF9lNWY5OGIxNDNiMjFjZWI2YjAwOWUzZmU2MDE5ZGMifX0.gd1sUXljQ1gYgQkkvISFuyxsxYs4Q8nhHp5NpeQ118Q'
 
-  // if (localStorage.getItem('woo-session')) {
-  //   headers[
-  //     'woocommerce-session'
-  //   ] = `Session ${localStorage.getItem('woo-session')}`
-  // }
+  if (tokens?.sessionToken) {
+    // headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
+  }
 
   const res = await fetch(`${API_URL}/graphql`, {
     headers,
@@ -32,11 +37,19 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
     }),
   })
 
+  if (!tokens?.sessionToken) {
+    setStorageData(AUTH_TOKEN, {
+      ...tokens,
+      sessionToken: res.headers.get('woocommerce-session'),
+    })
+  }
+
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    throw new Error(`Failed to fetch API\n${json.errors?.[0]?.message}`)
   }
+
   return json.data
 }
 
@@ -101,22 +114,28 @@ export async function getContentsByCategory(categorySlug) {
   return data.category
 }
 
-// EXAMPLE
-export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(`
-    {
-      posts(first: 10000) {
-        edges {
-          node {
-            slug
-          }
-        }
-      }
-    }
-  `)
-  return data?.posts
+export async function createUser(input) {
+  const data = await fetchAPI(REGISTER_QUERY, {
+    variables: { input },
+  })
+  return data.registerUser
 }
 
+export async function loginUser(input: ILoginUser) {
+  const data = await fetchAPI(LOGIN_QUERY, {
+    variables: { input },
+  })
+  return data.login
+}
+
+export async function refreshToken() {
+  const data = await fetchAPI(REFRESH_TOKEN_QUERY, {
+    variables: { refreshToken },
+  })
+  return data
+}
+
+// EXAMPLE
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `

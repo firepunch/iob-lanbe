@@ -6,6 +6,7 @@ import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/rea
 import { Source } from '@stripe/stripe-js'
 import Button from '../Button'
 import { createOrder } from '@/api_gql'
+import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 
 interface CheckoutFormProps {
 }
@@ -26,32 +27,34 @@ export default function CheckoutForm ({
   // })
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit')
-    
     e.preventDefault()
+
+    const tokens = getStorageData(AUTH_TOKEN)
 
     try {
       const source = await handleStripe()
       const input = {
-        clientMutationId: '12345',
+        isPaid: false,
+        clientMutationId: tokens?.clientMutationId,
+        customerNote: 'abc123',
         paymentMethod: 'stripe', // <-- Hey WooCommerce, we'll be using Stripe
         shippingMethod: 'Flat rate',
         billing: { // <-- Hard-coding this for simplicity
-          firstName: 'George',
-          lastName: 'Costanza',
+          firstName: '123George',
+          lastName: '345Costanza',
           address1: `129 West 81st Street, Apartment 5A`,
           city: `New York`,
           state: `NY`,
           postcode: `12345`,
           email: `firepunch119@gmail.com`,
         },
-        metaData: [
-          {
-            key: `_stripe_source_id`,
-            value: source.id,
-          },
-        ],
+        metaData: [{
+          key: `_stripe_source_id`,
+          value: source.id,
+        }],
       }
+
+      console.log('input', JSON.stringify(input))
        
       const checkout = await createOrder(input)
 
@@ -95,7 +98,7 @@ export default function CheckoutForm ({
       {/* <PaymentElement/>   */}
       <CardElement
         options={{ hidePostalCode: true }}
-      />  
+      />
       <Button type="submit" disabled={!stripe}>Pay</Button>
     </form>
   )
