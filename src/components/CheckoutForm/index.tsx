@@ -1,12 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { CHECKOUT_QUERY } from '@/queries/checkout'
 import { useMutation } from '@apollo/client'
 import { LinkAuthenticationElement, CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
 import Button from '../Button'
-import { createOrder } from '@/api_gql'
+import { createOrderNew } from '@/api_gql'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import getPaymentIntent from '@/utils/stripe-intent'
 
@@ -75,42 +74,46 @@ export default function CheckoutForm ({
 
     setIsProcessing(true)
 
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
+      redirect: 'if_required',
       confirmParams: {
         return_url: `${window.location.origin}/completion`,
       },
-      // redirect: 'if_required',
     })
 
     if (error) {
       setErrorMessage(error?.message)
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+    } else if (paymentIntent?.status === 'succeeded') {
+      console.log(paymentIntent)
+
       const input = {
-        paymentMethod: 'stripe',
-        billing: {
-          email: `firepunch119@gmail.com`,
-        },
-        metaData: [
-          {
-            key: `_stripe_source_id`,
-            // value: paymentIntent.id,
-          },
-        ],
+        'isPaid': true,
+        'lineItems': [{
+          'productId': 3123,
+          'quantity': 1,
+        }],
+        'paymentMethod': 'stripe',
+        'currency': 'KRW',
+        // 'customerId': 231936701,
+        'transactionId': paymentIntent.id,
+        'metaData': [{
+          'key': '_stripe_source_id',
+          'value': paymentIntent.id,
+        }],
       }
 
       try {
         console.log('input', JSON.stringify(input))
-        // const checkout = await createOrder(input)
+        const checkout = await createOrderNew(input)
 
         console.log('SUCCESS')
-        // console.log(checkout)
+        console.log(checkout)
       } catch (err) {
         console.log('Error', err)
       }
+    } else {
+      setErrorMessage('Unexpected state') 
     }
 
     setIsProcessing(false)

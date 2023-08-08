@@ -4,12 +4,43 @@ mutation LoginUser($input: LoginInput!) {
     clientMutationId
     authToken
     refreshToken
-    sessionToken
-    customer {
-      sessionToken
+  }
+}
+`
+
+export const CART_QUERY = `
+query MyQuery {
+  cart {
+    contents {
+      edges {
+        node {
+          id
+          quantity
+          subtotal
+        }
+      }
     }
-    user {
-      wooSessionToken
+  }
+}
+`
+
+export const ADD_TO_CART_QUERY = `
+mutation MyMutation3 {
+  addToCart(input: {productId: 3123}) {
+    cart {
+      contents {
+        nodes {
+          key
+          product {
+            node {
+              id
+              name
+            }
+          }
+          quantity
+          subtotal
+        }
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ export default async function handler(itemId: string) {
   // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
       customer: 'cus_OP0fjcDLMumfvn',
-      amount: 1002,
+      amount: 1088,
       currency: 'krw',
 
       payment_method_types: ['card'],
