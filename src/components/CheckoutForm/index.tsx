@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { LinkAuthenticationElement, CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
@@ -19,6 +20,7 @@ export default function CheckoutForm ({
 }: CheckoutFormProps) {
   const stripe = useStripe()
   const elements = useElements()
+  const router = useRouter()
 
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string|undefined>()
@@ -109,6 +111,19 @@ export default function CheckoutForm ({
 
         console.log('SUCCESS')
         console.log(checkout)
+
+        router.push(
+          {
+            pathname: '/completion',
+            query: {
+              orderId: checkout.id,
+              id: paymentIntent.id,
+            },
+          }, 
+          undefined, 
+          { shallow: true }
+        )
+
       } catch (err) {
         console.log('Error', err)
       }

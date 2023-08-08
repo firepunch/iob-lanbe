@@ -3,8 +3,24 @@ import { gql } from '@apollo/client'
 export const ORDER_QUERY = `
 mutation Order($input: CreateOrderInput!) {
   createOrder(input: $input) {
-    clientMutationId
     orderId
+    order {
+      downloadableItems {
+        nodes {
+          id
+          name
+          url
+          product {
+            id
+            link
+            name
+            ... on SimpleProduct {
+              price
+            }
+          }
+        }
+      }
+    }
   }
 }
 `
