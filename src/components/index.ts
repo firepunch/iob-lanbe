@@ -9,4 +9,6 @@ export { default as CheckoutForm } from './CheckoutForm'
 export { default as ContentArea } from './ContentArea'
 export { default as SignUpForm } from './SignUpForm'
 export { default as SignInForm } from './SignInForm'
+export { default as MyPageContent } from './MyPage/Content'
+export { default as MyPagePayment } from './MyPage/Payment'
 
