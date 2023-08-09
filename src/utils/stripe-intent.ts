@@ -1,4 +1,5 @@
 const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string)
+const CUSTOMER_ID = 'cus_OP0fjcDLMumfvn'
 
 const calculateOrderAmount = (itemId: string) => {
   // Replace this constant with a calculation of the order's amount
@@ -7,11 +8,21 @@ const calculateOrderAmount = (itemId: string) => {
   return 1088
 }
 
-export default async function handler(itemId: string) {
+export const fetchCardsIntent = async () => {
+  const results = await stripe.paymentMethods.list({
+    customer: CUSTOMER_ID,
+    type: 'card',
+    limit: 2,
+  })
+
+  return results
+}
+
+export const stripeCheckoutIntent = async (itemId: string) => {
   try {
   // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      customer: 'cus_OP0fjcDLMumfvn',
+      customer: CUSTOMER_ID,
       amount: 1088,
       currency: 'krw',
 
@@ -40,8 +51,8 @@ export default async function handler(itemId: string) {
     console.log('Error code is: ', err.code)
 
     if (err.code) {
-      const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(err.raw.payment_intent.id)
-      console.log('PI retrieved: ', paymentIntentRetrieved.id)
+      const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(err.raw.payment_intent?.id)
+      console.log('PI retrieved: ', paymentIntentRetrieved?.id)
     }
   }
 
