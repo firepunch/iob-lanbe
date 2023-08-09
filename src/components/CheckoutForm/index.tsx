@@ -1,14 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useMutation } from '@apollo/client'
-import { LinkAuthenticationElement, CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { Source } from '@stripe/stripe-js'
-import Button from '../Button'
 import { createOrderNew } from '@/api_gql'
-import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
-import getPaymentIntent from '@/utils/stripe-intent'
+import { CardElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { Source } from '@stripe/stripe-js'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import Button from '../Button'
 
 interface CheckoutFormProps {
   clientSecret: string

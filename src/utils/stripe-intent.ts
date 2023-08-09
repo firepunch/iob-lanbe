@@ -18,7 +18,7 @@ export const fetchCardsIntent = async () => {
   return results
 }
 
-export const stripeCheckoutIntent = async (itemId: string) => {
+export const checkoutIntent = async (itemId: string) => {
   try {
   // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({

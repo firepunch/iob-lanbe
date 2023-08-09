@@ -5,7 +5,7 @@ import { ValidLocale } from '@/i18n/settings'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { CheckoutForm } from '@/components'
-import getPaymentIntent from '@/utils/stripe-intent'
+import { checkoutIntent } from '@/utils/stripe-intent'
 import { useEffect, useState } from 'react'
 import useUserState from '@/stores/userStore'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
@@ -24,7 +24,7 @@ export default function Checkout({
 
   useEffect(() => {
     const handleStripe = async () => {
-      const { clientSecret } = await getPaymentIntent('report-1')
+      const { clientSecret } = await checkoutIntent('report-1')
       setClientSecret(clientSecret)
     }
 
