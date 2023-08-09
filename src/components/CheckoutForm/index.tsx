@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useMutation } from '@apollo/client'
 import { LinkAuthenticationElement, CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
@@ -107,22 +107,13 @@ export default function CheckoutForm ({
 
       try {
         console.log('input', JSON.stringify(input))
-        const checkout = await createOrderNew(input)
+        const data = await createOrderNew(input)
 
         console.log('SUCCESS')
-        console.log(checkout)
+        console.log(data)
 
-        router.push(
-          {
-            pathname: '/completion',
-            query: {
-              orderId: checkout.id,
-              id: paymentIntent.id,
-            },
-          }, 
-          undefined, 
-          { shallow: true }
-        )
+        router.push(`/completion?order_id=${data.id}&id=${paymentIntent.id}`)
+        // Save downloadable Items to store
 
       } catch (err) {
         console.log('Error', err)

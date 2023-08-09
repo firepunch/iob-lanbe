@@ -65,7 +65,7 @@ export async function createOrderNew(input) {
     variables: { input },
   })
 
-  return data.product
+  return data.createOrder
 }
 
 export async function fetchCart() {
