@@ -1,42 +1,38 @@
 'use client'
 
-import { CHECKOUT_QUERY } from '@/queries/checkout'
-import { useMutation } from '@apollo/client'
-import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { createOrderNew } from '@/api_gql'
+import { CardElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Button from '../Button'
-import { createOrder } from '@/api_gql'
 
 interface CheckoutFormProps {
+  clientSecret: string
 }
 
 export default function CheckoutForm ({
+  clientSecret,
   ...props
 }: CheckoutFormProps) {
   const stripe = useStripe()
   const elements = useElements()
- 
-  // const [checkout] = useMutation(CHECKOUT_QUERY, {
-  //   onCompleted({ checkout }) {
-  //     console.log(checkout.order)
-  //   },
-  //   onError(error) {
-  //     console.error(error)
-  //   },
-  // })
+  const router = useRouter()
+
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string|undefined>()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('handleSubmit')
-    
     e.preventDefault()
 
     try {
       const source = await handleStripe()
+
       const input = {
         clientMutationId: '12345',
-        paymentMethod: 'stripe', // <-- Hey WooCommerce, we'll be using Stripe
+        paymentMethod: 'stripe',
         shippingMethod: 'Flat rate',
-        billing: { // <-- Hard-coding this for simplicity
+        billing: {
           firstName: 'George',
           lastName: 'Costanza',
           address1: `129 West 81st Street, Apartment 5A`,
@@ -52,7 +48,8 @@ export default function CheckoutForm ({
           },
         ],
       }
-       
+
+      console.log('input', JSON.stringify(input))
       const checkout = await createOrder(input)
 
       console.log('SUCCESS')
@@ -67,6 +64,64 @@ export default function CheckoutForm ({
     }
   }
 
+  const handleStripeNew = async (e) => {
+    e.preventDefault()
+ 
+    if (!stripe || !elements) {
+      return
+    }
+
+    setIsProcessing(true)
+
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      redirect: 'if_required',
+      confirmParams: {
+        return_url: `${window.location.origin}/completion`,
+      },
+    })
+
+    if (error) {
+      setErrorMessage(error?.message)
+    } else if (paymentIntent?.status === 'succeeded') {
+      console.log(paymentIntent)
+
+      const input = {
+        'isPaid': true,
+        'lineItems': [{
+          'productId': 3123,
+          'quantity': 1,
+        }],
+        'paymentMethod': 'stripe',
+        'currency': 'KRW',
+        // 'customerId': 231936701,
+        'transactionId': paymentIntent.id,
+        'metaData': [{
+          'key': '_stripe_source_id',
+          'value': paymentIntent.id,
+        }],
+      }
+
+      try {
+        console.log('input', JSON.stringify(input))
+        const data = await createOrderNew(input)
+
+        console.log('SUCCESS')
+        console.log(data)
+
+        router.push(`/completion?order_id=${data.id}&id=${paymentIntent.id}`)
+        // Save downloadable Items to store
+
+      } catch (err) {
+        console.log('Error', err)
+      }
+    } else {
+      setErrorMessage('Unexpected state') 
+    }
+
+    setIsProcessing(false)
+  }
+
   const handleStripe = async (): Promise<Source> => {
     if (!stripe || !elements) {
       throw Error('stripe or elements undefined')
@@ -76,12 +131,14 @@ export default function CheckoutForm ({
     if (!cardElements) {
       throw Error(`cardElements not found`)
     }
-    
+
     const { source, error: sourceError } = await stripe.createSource(
       cardElements, {
         type: 'card',
+        currency: 'KRW',
       }
     )
+
     console.log('source', source)
     if (sourceError || !source) {
       throw Error(sourceError?.message || `Unknown error generating source`)
@@ -91,12 +148,25 @@ export default function CheckoutForm ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* <PaymentElement/>   */}
-      <CardElement
-        options={{ hidePostalCode: true }}
-      />  
-      <Button type="submit" disabled={!stripe}>Pay</Button>
+    <form onSubmit={handleStripeNew}>
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+      />
+      <PaymentElement 
+        options={{
+          defaultValues: {
+            billingDetails: {
+              email: 'foo@bar.com',
+              name: 'John Doe',
+              phone: '888-888-8888',
+            },
+          },
+        }} 
+      /> 
+      <Button type="submit" disabled={isProcessing}>
+        {isProcessing ? 'Processing...' : 'Pay now'}
+      </Button>
+      {errorMessage && <div>{errorMessage}</div>}
     </form>
   )
 }

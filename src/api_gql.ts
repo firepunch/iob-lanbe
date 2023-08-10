@@ -4,24 +4,26 @@ import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
-import { CHECKOUT_QUERY } from '@/queries/checkout'
+import { CHECKOUT_QUERY, ORDER_QUERY } from '@/queries/orders'
+import { ADD_TO_CART_QUERY, CART_QUERY, LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
+import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+import { ILoginUser } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI(query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
+  const tokens = getStorageData(AUTH_TOKEN)
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers[
-      'Authorization'
-    ] = `Basic ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  if (tokens?.authToken && !query?.includes('LoginUser') && !query?.includes('GetUser')) {
+    headers['Authorization'] = `Bearer ${tokens.authToken}`
   }
 
-  // if (localStorage.getItem('woo-session')) {
-  //   headers[
-  //     'woocommerce-session'
-  //   ] = `Session ${localStorage.getItem('woo-session')}`
-  // }
+  // headers['woocommerce-session'] = 'Session eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkyNTM1NTUwLCJkYXRhIjp7ImN1c3RvbWVyX2lkIjoidF9lNWY5OGIxNDNiMjFjZWI2YjAwOWUzZmU2MDE5ZGMifX0.gd1sUXljQ1gYgQkkvISFuyxsxYs4Q8nhHp5NpeQ118Q'
+
+  if (tokens?.sessionToken) {
+    headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
+  }
 
   const res = await fetch(`${API_URL}/graphql`, {
     headers,
@@ -32,11 +34,21 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
     }),
   })
 
+
+  console.log(!tokens?.sessionToken, res.headers)
+  if (!tokens?.sessionToken) {
+    setStorageData(AUTH_TOKEN, {
+      ...tokens,
+      sessionToken: res.headers.get('woocommerce-session'),
+    })
+  }
+
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    throw new Error(`Failed to fetch API\n${json.errors?.[0]?.message}`)
   }
+
   return json.data
 }
 
@@ -46,6 +58,26 @@ export async function createOrder(input) {
   })
 
   return data.product
+}
+
+export async function createOrderNew(input) {
+  const data = await fetchAPI(ORDER_QUERY, {
+    variables: { input },
+  })
+
+  return data.createOrder
+}
+
+export async function fetchCart() {
+  const data = await fetchAPI(CART_QUERY)
+
+  return data
+}
+
+export async function addCart() {
+  const data = await fetchAPI(ADD_TO_CART_QUERY)
+
+  return data
 }
 
 export async function getProductBySlug(productSlug) {
@@ -101,22 +133,28 @@ export async function getContentsByCategory(categorySlug) {
   return data.category
 }
 
-// EXAMPLE
-export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(`
-    {
-      posts(first: 10000) {
-        edges {
-          node {
-            slug
-          }
-        }
-      }
-    }
-  `)
-  return data?.posts
+export async function createUser(input) {
+  const data = await fetchAPI(REGISTER_QUERY, {
+    variables: { input },
+  })
+  return data.registerUser
 }
 
+export async function loginUser(input: ILoginUser) {
+  const data = await fetchAPI(LOGIN_QUERY, {
+    variables: { input },
+  })
+  return data.login
+}
+
+export async function refreshToken() {
+  const data = await fetchAPI(REFRESH_TOKEN_QUERY, {
+    variables: { refreshToken },
+  })
+  return data
+}
+
+// EXAMPLE
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `
