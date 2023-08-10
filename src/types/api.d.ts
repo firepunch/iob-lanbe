@@ -18,4 +18,11 @@ export interface IStripeCard {
     exp_year: number
     exp_month: number
   }
+  billing_details: {
+    email: string
+    name: string
+    address: {
+      country: string
+    }
+  }
 }

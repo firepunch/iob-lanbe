@@ -29,11 +29,17 @@ export default function Payment({
               {item.card.last4}
               {item.card.exp_month}
               {item.card.exp_year}
+
+              {item.billing_details.email}
+              {item.billing_details.name}
+              {item.billing_details.address.country}
             </li>
           ))}
         </ul>
       )}
-      <Link href={{ pathname: '/payment' }}>Add a new card</Link>
+      <Link href={{ pathname: '/payment' }}>
+        Add a new card
+      </Link>
     </>
   )
 }
