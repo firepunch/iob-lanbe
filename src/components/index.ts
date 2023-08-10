@@ -11,3 +11,6 @@ export { default as SignUpForm } from './SignUpForm'
 export { default as SignInForm } from './SignInForm'
 export { default as EmailForm } from './EmailForm'
 export { default as SearchRequestForm } from './SearchRequestForm'
+export { default as MyPageContent } from './MyPage/Content'
+export { default as MyPagePayment } from './MyPage/Payment'
+

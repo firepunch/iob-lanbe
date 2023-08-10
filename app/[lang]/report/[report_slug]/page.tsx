@@ -1,7 +1,7 @@
 import { getProductBySlug } from '@/api_gql'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
-import { Button } from '@/components'
+import Link from 'next/link'
 
 export async function generateMetadata({ params: { lang } }) {
   const { t } = await getTranslation(lang, 'second-page')
@@ -21,7 +21,9 @@ export default async function Report({
     <>
       <h2>{t('h1')}</h2>
       <p>{report.name}</p>
-      <a href={`/${lang}/checkout`}>Pay now</a>
+      <Link href={`/${lang}/checkout`}>
+        Pay now
+      </Link>
     </>
   )
 }

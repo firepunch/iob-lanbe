@@ -33,7 +33,7 @@ export const getStorageData = (key: string, isSession = false) => {
     sessionStorage.getItem(key) :
     localStorage.getItem(key)
 
-  if (!item) return
+  if (!item || item === 'undefined') return
 
   return JSON.parse(item)
 }
