@@ -15,7 +15,7 @@ export default function Payment({
 
   useEffect(() => {
     fetchCardsIntent().then(result => (
-      setSavedCards(result.data)
+      setSavedCards(result?.data)
     ))
   }, [])
 

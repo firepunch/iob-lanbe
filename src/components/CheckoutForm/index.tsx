@@ -8,9 +8,11 @@ import { useState } from 'react'
 import Button from '../Button'
 
 interface CheckoutFormProps {
+  savedCards: any[]
 }
 
 export default function CheckoutForm ({
+  savedCards,
   ...props
 }: CheckoutFormProps) {
   const stripe = useStripe()
@@ -139,10 +141,18 @@ export default function CheckoutForm ({
 
   return (
     <form onSubmit={handleStripeNew}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-      />
-      <PaymentElement 
+      <p>Use An Existing Payment Method</p>
+      <ul>
+        {savedCards?.map(item => (
+          <li key={item.id}>
+            <span >Select</span>
+            {item.id}
+          </li>
+        ))}
+      </ul>
+
+      <p>Or Enter a New Payment Method</p>
+      <PaymentElement
         options={{
           defaultValues: {
             billingDetails: {

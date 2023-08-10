@@ -54,7 +54,7 @@ export default function PaymentForm () {
   return (
     <form onSubmit={handleSubmit}>
       {/* <AddressElement options={{ mode: 'shipping' }} /> */}
-      <CardElement/>
+      <CardElement options={{ hidePostalCode: true }} />
       <Button type="submit" disabled={isProcessing}>
         {isProcessing ? 'Processing...' : 'Save'}
       </Button>
