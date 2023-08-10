@@ -5,7 +5,9 @@ import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import { CHECKOUT_QUERY, ORDER_QUERY } from '@/queries/orders'
-import { ADD_TO_CART_QUERY, CART_QUERY, LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
+import { ADD_TO_CART_QUERY, CART_QUERY } from '@/queries/users'
+import POST_BY_SEARCH from '@/queries/postBySearch'
+import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 import { ILoginUser } from './types/api'
 
@@ -152,6 +154,15 @@ export async function refreshToken() {
     variables: { refreshToken },
   })
   return data
+}
+
+export async function getContentsBySearch(input) {
+  const data = await fetchAPI(POST_BY_SEARCH, {
+    variables: { input },
+  })
+  console.log(data)
+  return data
+
 }
 
 // EXAMPLE

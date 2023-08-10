@@ -36,10 +36,24 @@ export default function Search({
   }
 
   return (
-    <SearchRequestForm
-      t={t} 
-      errorCode={errorCode}
-      onSubmit={handleSubmit} 
-    />
+    <>
+      {/* <div>
+        Search
+        <input
+          type="text"
+          onChange={(e) => handleSearchSubmit()}
+        />
+        <button>OK</button>
+      </div>
+      {data &&
+        data.feed.links.map((link, index) => (
+          <Link key={link.id} link={link} index={index} />
+        ))} */}
+      <SearchRequestForm
+        t={t} 
+        errorCode={'errorCode'}
+        onSubmit={handleSubmit} 
+      />
+    </>
   )
 }
