@@ -2,7 +2,7 @@
 
 import { ValidLocale } from '@/i18n/settings'
 import { IStripeCard } from '@/types/api'
-import { fetchCardsIntent } from '@/utils/stripe-intent'
+import { detachCardIntent, fetchCardsIntent } from '@/utils/stripe-intent'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -18,6 +18,16 @@ export default function Payment({
       setSavedCards(result.data)
     ))
   }, [])
+
+  const handleDetach = async (cardId: string) => {
+    try {
+      await detachCardIntent(cardId)
+      alert('삭제 성공')
+    } catch (err) {
+      console.log(err)
+      alert('삭제 실패')
+    }
+  }
   
   return (
     <>
@@ -25,6 +35,13 @@ export default function Payment({
         <ul>
           {savedCards.map(item => (
             <li key={item.id}>
+              {savedCards.length === 2 && (
+                <button onClick={() => handleDetach(item.id)}>
+                  Remove
+                </button>
+              )}
+              {item.id}
+
               {item.card.brand}
               {item.card.last4}
               {item.card.exp_month}

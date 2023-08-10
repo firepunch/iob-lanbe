@@ -18,6 +18,10 @@ export const fetchCardsIntent = async () => {
   return results
 }
 
+export const detachCardIntent = async (cardId: string) => (
+  stripe.paymentMethods.detach(cardId)
+)
+
 export const checkoutIntent = async (itemId: string) => {
   try {
   // Create a PaymentIntent with the order amount and currency
