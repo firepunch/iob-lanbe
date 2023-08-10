@@ -1,7 +1,7 @@
 'use client'
 
 import { ValidLocale } from '@/i18n/settings'
-import { IStripeCard, IStripePaymentIntents } from '@/types/api'
+import { IStripeCard, IPaymentHistory } from '@/types/api'
 import { detachCardIntent, fetchCardsIntent, fetchHistoryIntent } from '@/utils/stripe-intent'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -12,7 +12,7 @@ export default function Payment({
   lang: ValidLocale
 }) {
   const [savedCards, setSavedCards] = useState<IStripeCard[]>([])
-  const [historyData, setHistoryData] = useState<IStripePaymentIntents[]>([])
+  const [historyData, setHistoryData] = useState<IPaymentHistory>({ data: [], hasMore: false })
 
   useEffect(() => {
     fetchCardsIntent().then(result => (
@@ -20,7 +20,7 @@ export default function Payment({
     ))
 
     fetchHistoryIntent().then(result => (
-      setHistoryData(result?.data)
+      setHistoryData({ data: result?.data, hasMore: result?.has_more })
     ))
   }, [])
 
@@ -61,15 +61,18 @@ export default function Payment({
       )}
 
       <h3>Payment History</h3>
-      {historyData?.length && (
-        <ul>
-          {historyData.map(item => (
-            <li key={item.id}>
-              {item.amount}
-              {item.currency}
-            </li>
-          ))}
-        </ul>
+      {historyData?.data?.length && (
+        <>
+          <ul>
+            {historyData.data.map(item => (
+              <li key={item.id}>
+                {item.amount}
+                {item.currency}
+              </li>
+            ))}
+          </ul>
+          {historyData.hasMore && <button>Load more</button>}
+        </>      
       )}
       <Link href={{ pathname: '/payment' }}>
         Add a new card

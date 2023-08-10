@@ -31,4 +31,10 @@ export interface IStripePaymentIntents {
   id: string
   amount: number
   currency: string
+  created: number
+}
+
+export interface IPaymentHistory {
+  data: IStripePaymentIntents[]
+  hasMore: boolean
 }
