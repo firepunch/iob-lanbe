@@ -1,8 +1,8 @@
 'use client'
 
 import { ValidLocale } from '@/i18n/settings'
-import { IStripeCard } from '@/types/api'
-import { detachCardIntent, fetchCardsIntent } from '@/utils/stripe-intent'
+import { IStripeCard, IStripePaymentIntents } from '@/types/api'
+import { detachCardIntent, fetchCardsIntent, fetchHistoryIntent } from '@/utils/stripe-intent'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -12,10 +12,15 @@ export default function Payment({
   lang: ValidLocale
 }) {
   const [savedCards, setSavedCards] = useState<IStripeCard[]>([])
+  const [historyData, setHistoryData] = useState<IStripePaymentIntents[]>([])
 
   useEffect(() => {
     fetchCardsIntent().then(result => (
       setSavedCards(result?.data)
+    ))
+
+    fetchHistoryIntent().then(result => (
+      setHistoryData(result?.data)
     ))
   }, [])
 
@@ -50,6 +55,18 @@ export default function Payment({
               {item.billing_details.email}
               {item.billing_details.name}
               {item.billing_details.address.country}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h3>Payment History</h3>
+      {historyData?.length && (
+        <ul>
+          {historyData.map(item => (
+            <li key={item.id}>
+              {item.amount}
+              {item.currency}
             </li>
           ))}
         </ul>

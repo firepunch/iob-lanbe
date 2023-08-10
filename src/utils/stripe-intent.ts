@@ -16,6 +16,12 @@ export const fetchCardsIntent = async () => (
   })
 )
 
+export const fetchHistoryIntent = async () => (
+  stripe.paymentIntents.list({
+    limit: 10,
+  })
+)
+
 export const detachCardIntent = async (cardId: string) => (
   stripe.paymentMethods.detach(cardId)
 )

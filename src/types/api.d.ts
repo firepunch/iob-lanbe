@@ -26,3 +26,9 @@ export interface IStripeCard {
     }
   }
 }
+
+export interface IStripePaymentIntents {
+  id: string
+  amount: number
+  currency: string
+}
