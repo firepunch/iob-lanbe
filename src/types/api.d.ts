@@ -20,4 +20,14 @@ export interface ISearchRequest{
   'last-name': string,
   'user-email': string,
   'message': string
+
+
+export interface IStripeCard {
+  id: string
+  card: {
+    brand: string
+    last4: string
+    exp_year: number
+    exp_month: number
+  }
 }

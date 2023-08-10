@@ -4,8 +4,8 @@ import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
-import { CHECKOUT_QUERY } from '@/queries/checkout'
-import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
+import { CHECKOUT_QUERY, ORDER_QUERY } from '@/queries/orders'
+import { ADD_TO_CART_QUERY, CART_QUERY, LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 import { ILoginUser } from './types/api'
 
@@ -16,16 +16,13 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
   const tokens = getStorageData(AUTH_TOKEN)
 
   if (tokens?.authToken && !query?.includes('LoginUser') && !query?.includes('GetUser')) {
-    // headers['Authorization'] = `Bearer ${tokens.authToken}`
+    headers['Authorization'] = `Bearer ${tokens.authToken}`
   }
-  
-  headers['Authorization'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkxMzI2MjUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEifX19.uYE9xbhbsd8KuEP3-BJrAnNP9SgDp2zchjpSdi1fiz4`
-  headers['X-JWT-Auth'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkxMzI2MjUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEifX19.uYE9xbhbsd8KuEP3-BJrAnNP9SgDp2zchjpSdi1fiz4`
-  headers['X-JWT-Refresh'] = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNzIyODYxOTUwLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIyMzE5MzY3MDEiLCJ1c2VyX3NlY3JldCI6ImdyYXBocWxfand0XzY0Y2E1NjFhZTQyZjgifX19.hf9bxzU7X2MpLzAiHS5xOiQVwx7-l5HybdHb3mZZcmk`
-  headers['woocommerce-session'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkyNTM1NTUwLCJkYXRhIjp7ImN1c3RvbWVyX2lkIjoidF9lNWY5OGIxNDNiMjFjZWI2YjAwOWUzZmU2MDE5ZGMifX0.gd1sUXljQ1gYgQkkvISFuyxsxYs4Q8nhHp5NpeQ118Q'
+
+  // headers['woocommerce-session'] = 'Session eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0YWdpbmctZDUwZC1pb2J0ZWFtLndwY29tc3RhZ2luZy5jb20iLCJpYXQiOjE2OTEzMjU5NTAsIm5iZiI6MTY5MTMyNTk1MCwiZXhwIjoxNjkyNTM1NTUwLCJkYXRhIjp7ImN1c3RvbWVyX2lkIjoidF9lNWY5OGIxNDNiMjFjZWI2YjAwOWUzZmU2MDE5ZGMifX0.gd1sUXljQ1gYgQkkvISFuyxsxYs4Q8nhHp5NpeQ118Q'
 
   if (tokens?.sessionToken) {
-    // headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
+    headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
   }
 
   const res = await fetch(`${API_URL}/graphql`, {
@@ -37,6 +34,8 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
     }),
   })
 
+
+  console.log(!tokens?.sessionToken, res.headers)
   if (!tokens?.sessionToken) {
     setStorageData(AUTH_TOKEN, {
       ...tokens,
@@ -59,6 +58,26 @@ export async function createOrder(input) {
   })
 
   return data.product
+}
+
+export async function createOrderNew(input) {
+  const data = await fetchAPI(ORDER_QUERY, {
+    variables: { input },
+  })
+
+  return data.createOrder
+}
+
+export async function fetchCart() {
+  const data = await fetchAPI(CART_QUERY)
+
+  return data
+}
+
+export async function addCart() {
+  const data = await fetchAPI(ADD_TO_CART_QUERY)
+
+  return data
 }
 
 export async function getProductBySlug(productSlug) {
