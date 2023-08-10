@@ -8,11 +8,9 @@ import { useState } from 'react'
 import Button from '../Button'
 
 interface CheckoutFormProps {
-  clientSecret: string
 }
 
 export default function CheckoutForm ({
-  clientSecret,
   ...props
 }: CheckoutFormProps) {
   const stripe = useStripe()
@@ -50,14 +48,7 @@ export default function CheckoutForm ({
       }
 
       console.log('input', JSON.stringify(input))
-      const checkout = await createOrder(input)
-
-      console.log('SUCCESS')
-      console.log(checkout)
-
-      // await checkout({
-      //   variables: {},
-      // })
+      // const checkout = await createOrder(input)
     } catch (error) {
       console.log('ERROR')
       console.error(error)
@@ -66,14 +57,13 @@ export default function CheckoutForm ({
 
   const handleStripeNew = async (e) => {
     e.preventDefault()
+    setIsProcessing(true)
  
     if (!stripe || !elements) {
       return
     }
 
-    setIsProcessing(true)
-
-    const { error, paymentIntent } = await stripe.confirmPayment({
+    const { paymentIntent, error } = await stripe.confirmPayment({
       elements,
       redirect: 'if_required',
       confirmParams: {

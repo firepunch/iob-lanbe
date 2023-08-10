@@ -46,19 +46,10 @@ export default function Checkout({
       <button onClick={handlePost}>ADD to CART</button>
       
       {stripePromise && clientSecret && (
-        <Elements 
+        <Elements
           stripe={stripePromise} 
-          options={{
-            // mode: 'payment',
-            // amount: 1001,
-            // currency: 'krw',
-            // locale: lang,
-            clientSecret,
-            // setupFutureUsage: 'off_session',
-          }}>
-          <CheckoutForm 
-            clientSecret="ㅋㅌㅊ"
-          />
+          options={{ clientSecret }}>
+          <CheckoutForm />
         </Elements> 
       )}
     </>
