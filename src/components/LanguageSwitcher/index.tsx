@@ -3,6 +3,8 @@
 import { ValidLocale } from '@/types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import LanguageImg from '@/imgs/lang_black.png'
+import Image from 'next/image'
 
 export default function LanguageSwitcher({ lang }: { lang: ValidLocale }) {
   const pathName = usePathname()
@@ -16,7 +18,7 @@ export default function LanguageSwitcher({ lang }: { lang: ValidLocale }) {
 
   return (
     <Link href={redirectedPathName(otherLocale)}>
-      <img src="./imgs/lang_black.png" alt="Change language" />
+      <Image src={LanguageImg} alt="Change Language" />
       {lang.toUpperCase()}
     </Link>
   )

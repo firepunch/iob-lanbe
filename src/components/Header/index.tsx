@@ -1,7 +1,14 @@
 import { ValidLocale } from '@/i18n/settings'
 import { TI18N } from '@/types'
+import Image from 'next/image'
 import Link from 'next/link'
 import LanguageSwitcher from '../LanguageSwitcher'
+
+import LanguageImg from '@/imgs/lang_white.png'
+import SearchImg from '@/imgs/search_black.png'
+import ArrowWhiteImg from '@/imgs/arrow_white.png'
+import ArrowBlackImg from '@/imgs/arrow_black.png'
+import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 
 export default async function Header({
   ct,
@@ -19,7 +26,7 @@ export default async function Header({
       <header>
         {/* mobile version change language */}
         <a href="#" className="language-mobile">
-          <img src="./imgs/lang_white.png" alt="Language" />
+          <Image src={LanguageImg} alt="Language" />
         </a>
         {/* //mobile version change language */}
 
@@ -43,7 +50,7 @@ export default async function Header({
                   <p>{t('content_intro')}</p>
 
                   <Link href={`/${lang}/category`}>
-                    <img src="./imgs/arrow_white.png" alt="Arrow" />
+                    <Image src={ArrowWhiteImg} alt="Arrow" />
                     {t('content_see_all')}
                   </Link>
                 </div>
@@ -53,19 +60,19 @@ export default async function Header({
                     <li>{ct('market_research')}</li>
                     <li>
                       <Link href={`/${lang}/category/?name=market`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('market')}
                       </Link>
                     </li>
                     <li>
                       <Link href={`/${lang}/category/?name=corporate`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('corporate')}
                       </Link>
                     </li>
                     <li>
                       <Link href={`/${lang}/category/?name=consumer`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('consumer')}
                       </Link>
                     </li>
@@ -75,25 +82,25 @@ export default async function Header({
                     <li>{ct('market_entry')}</li>
                     <li>
                       <Link href={`/${lang}/category/?name=marketing`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('marketing')}
                       </Link>
                     </li>
                     <li>
                       <Link href={`/${lang}/category/?name=partnership`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('partnership')}
                       </Link>
                     </li>
                     <li>
                       <Link href={`/${lang}/category/?name=channel`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('channel')}
                       </Link>
                     </li>
                     <li>
                       <Link href={`/${lang}/category/?name=payment`}>
-                        <img src="./imgs/arrow_white.png" alt="Arrow" />
+                        <Image src={ArrowWhiteImg} alt="Arrow" />
                         {ct('payment')}
                       </Link>
                     </li>
@@ -116,13 +123,13 @@ export default async function Header({
           <ul>
             <li>
               <Link href={`/${lang}/search`}>
-                <img src="./imgs/search_black.png" alt="Search" />
+                <Image src={SearchImg} alt="Search" />
                 {t('search')}
               </Link>
             </li>
             <li>
               <Link href={`/${lang}/sign-in`}>
-                <img src="./imgs/arrow_black.png" alt="Sign in" />
+                <Image src={ArrowBlackImg} alt="Arrow" />
                 {t('sign_in')}
               </Link>
             </li>
@@ -135,7 +142,7 @@ export default async function Header({
 
         {/* mobile version hamburger menu */}
         <a href="#" className="hamburger-mobile">
-          <img src="./imgs/hamburger_white.png" alt="Hamburger menu" />
+          <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
         </a>
         {/* //mobile version hamburger menu */}
       </header>
