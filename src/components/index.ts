@@ -11,5 +11,8 @@ export { default as SignUpForm } from './SignUpForm'
 export { default as SignInForm } from './SignInForm'
 export { default as MyPageContent } from './MyPage/Content'
 export { default as MyPagePayment } from './MyPage/Payment'
+export { default as MyPageIdeas } from './MyPage/Ideas'
+export { default as MyPageSettings } from './MyPage/Settings'
+export { default as MyPageReport } from './MyPage/Report'
 export { default as PaymentForm } from './PaymentForm'
 

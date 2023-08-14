@@ -1,15 +1,15 @@
 'use client'
 
-import { ValidLocale } from '@/i18n/settings'
-import { IStripeCard, IPaymentHistory } from '@/types/api'
+import { TI18N } from '@/types'
+import { IPaymentHistory, IStripeCard } from '@/types/api'
 import { detachCardIntent, fetchCardsIntent, fetchHistoryIntent } from '@/utils/stripe-intent'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Payment({
-  lang,
+  t, 
 }: {
-  lang: ValidLocale
+  t: TI18N
 }) {
   const [savedCards, setSavedCards] = useState<IStripeCard[]>([])
   const [historyData, setHistoryData] = useState<IPaymentHistory>({ data: [], hasMore: false })
@@ -36,6 +36,8 @@ export default function Payment({
   
   return (
     <>
+      <h2>{t('payment').toUpperCase()}</h2>
+
       {savedCards?.length && (
         <ul>
           {savedCards.map(item => (
@@ -65,7 +67,7 @@ export default function Payment({
         <>
           <ul>
             {historyData.data.map(item => (
-              <li key={item.id}>
+              <li key={item.id}>t
                 {item.amount}
                 {item.currency}
               </li>
