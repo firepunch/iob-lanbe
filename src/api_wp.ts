@@ -1,5 +1,11 @@
-import { ICreateNote, ICreateUser, IFetchNotes } from './types/api'
-import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+import {
+  ICreateNote,
+  ICreateUser,
+  ICreateWatchList,
+  IFetchNotes,
+  IFetchWatchList,
+  IRemoveWatchList,
+} from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
@@ -48,6 +54,39 @@ export async function createUser(data: ICreateUser) {
     customPrefixPath: '/custom-api/v1',
     path: '/users',
     method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function fetchWatchList(data: IFetchWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createWatchList(data: ICreateWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function removeWatchList(data: IRemoveWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'DELETE',
     data,
   })
 

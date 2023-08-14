@@ -15,6 +15,22 @@ export interface ICreateWatchList {
   content_id: number
   type: 'post' | 'report'
 }
+
+export interface IRemoveWatchList {
+  id: number
+}
+
+export interface IFetchNotes {
+  user_id: number
+  post_id?: number
+}
+
+export interface ICreateNote {
+  user_id: number
+  post_id: number
+  content: string
+}
+
 export interface ILoginUser {
   username: string
   password: string
