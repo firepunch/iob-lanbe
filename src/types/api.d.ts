@@ -5,6 +5,16 @@ export interface ICreateUser {
   password: string
 }
 
+export interface IFetchWatchList {
+  user_id: number
+  type: 'post' | 'report'
+}
+
+export interface ICreateWatchList {
+  user_id: number
+  content_id: number
+  type: 'post' | 'report'
+}
 export interface ILoginUser {
   username: string
   password: string

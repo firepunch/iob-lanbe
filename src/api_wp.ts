@@ -1,7 +1,11 @@
-import { ICreateUser } from './types/api'
+import { ICreateNote, ICreateUser, IFetchNotes } from './types/api'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+const API_MAP = {
+  wpAPI: '',
+  customAPI: '/custom-api/v1',
+}
 
 async function fetchAPI({
   method = 'GET', 
@@ -43,6 +47,28 @@ export async function createUser(data: ICreateUser) {
   const res = await fetchAPI({
     customPrefixPath: '/custom-api/v1',
     path: '/users',
+    method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function fetchNotes(data: IFetchNotes) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createNote(data: ICreateNote) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
     method: 'POST',
     data,
   })
