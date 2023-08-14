@@ -1,0 +1,31 @@
+// Font families
+@font-face {
+    font-family: 'inter';
+    src: url(/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+@font-face {
+    font-family: 'quantico';
+    src: url(/fonts/Quantico/Quantico-Bold.ttf);
+}
+
+$primary-font: 'inter';
+$secondary-font: 'quantico';
+
+// Font sizes
+$base-font-size: 1rem;
+$smaller-font-size: .85rem;
+$h1-font-size: 1.5rem;
+$large-font-size: 2.25rem;
+
+// Font weights
+$thin-font-weight: 300;
+$regular-font-weight: 400;
+$bold-font-weight: 600;
+
+// title font style
+@mixin titles {
+    font-family: $secondary-font;
+    font-size: $h1-font-size;
+    font-weight: $bold-font-weight;
+}

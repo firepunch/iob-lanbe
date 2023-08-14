@@ -1,0 +1,142 @@
+// mobile first
+#signup-wrap {
+    width: 85%;
+    margin: auto;
+    margin-top: 8rem;
+
+    @include flex-column;
+    align-items: center;
+
+    h2 {
+        @include titles;
+        text-align: center;
+    }
+
+    #signup-inputs-wrap {
+        .signup-inputs-row {
+            form,
+            .sortby-country,
+            .sortby-function {
+                @include flex-column;
+                margin: 1rem 0;
+
+                label {
+                    font-size: $smaller-font-size;
+                    margin-bottom: .25rem;
+                    margin-left: 1rem;
+                }
+
+                input[type=text],
+                select {
+                    height: 3rem;
+                    border: .075rem solid $black;
+                    border-radius: 10rem;
+                    padding: 0 1rem;
+                    outline: none;
+                }
+            }
+
+            #pw-form {
+                p {
+                    width: 90%;
+                    margin-left: 1rem;
+                    font-size: .65rem;
+                }
+            }
+        }
+    }
+
+    #signup-checkboxes {
+        @include flex-column;
+        margin: 1rem 0;
+
+        .newsletter-checkbox,
+        .marketing-checkbox,
+        .required-checkbox {
+            display: flex;
+            align-items: baseline;
+            margin: .35rem 0;
+
+            p {
+                font-size: .65rem;
+                margin: 0;
+                margin-left: .5rem;
+            }
+        }
+    }
+
+    .signup-button {
+        @include mobile-button-style($black);
+        background-color: $black;
+        color: $white;
+        margin-bottom: 3rem;
+    }
+}
+
+@media (min-width: 768px) {
+    #signup-wrap {
+        h2 {
+            font-size: $large-font-size;
+        }
+
+        #signup-inputs-wrap {
+            .signup-inputs-row {
+                width: 95%;
+                margin: auto;
+                display: flex;
+                justify-content: space-around;
+    
+                form,
+                .sortby-country,
+                .sortby-function {
+                    width: 48%;
+                }
+            }
+        }
+
+        #signup-checkboxes {
+            width: 55%;
+        }
+
+        .signup-button {
+            width: 90%;
+            margin-bottom: 5rem;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #signup-wrap {
+        width: 90%;
+        margin-top: 5rem;
+
+        #signup-inputs-wrap {
+            width: 85%;
+        }
+
+        #signup-checkboxes {
+            width: 40%;
+        }
+
+        .signup-button {
+            width: 35%;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    #signup-wrap {
+        #signup-checkboxes {
+            width: 35%;
+
+
+            .newsletter-checkbox,
+            .marketing-checkbox,
+            .required-checkbox {
+                p {
+                    font-size: $smaller-font-size;
+                }
+            }
+        }
+    }
+}
