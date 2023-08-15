@@ -1,11 +1,9 @@
-import { useTranslation } from '@/i18n/client'
+import { getContentsByCategory } from '@/api_gql'
+import { Icons, Select } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, PostCard, PageHeading, Select, Icons } from '@/components'
-import { getContents, getAllCategories, getContentsByCategory } from '@/api_gql'
-import { useRouter } from 'next/navigation'
 
 import ArrowBlackDown from '@/imgs/arrow_black_down.png'
 
@@ -17,7 +15,7 @@ export default async function Category({
   searchParams: { name?: string }
 }) {
   /**
-    const categoryData = getContentsByCategory(nameQueryParam)
+  const categoryData = getContentsByCategory(nameQueryParam)
   const [category] = await Promise.all([categoryData])
   {category?.posts?.edges?.map(async ({ node }) => {
         console.log(node.title)
@@ -56,7 +54,6 @@ export default async function Category({
 
   return (
     <>
-      {/* title, other content pages, filter, sorting */}
       <section id="subcateg-content-title">
         <div id="title-top">
           <div className="title-arrow">
@@ -159,260 +156,10 @@ export default async function Category({
           </div>
         </div>
       </section>
-      {/* //title, other content pages, filter, sorting */}
 
       {/* grid */}
       <section id="contents-grid">
         <div id="all-contents-wrap">
-
-          <PostCard 
-          
-          />
-          {/* 1 */}
-          <div className="indiv-content i-c-1">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-            </div>
-          </div>
-
-          {/* 2 */}
-          <div className="indiv-content i-c-2">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Long Long Tag</div>
-            </div>
-          </div>
-
-          {/* 3 */}
-          <div className="indiv-content i-c-3">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-            </div>
-          </div>
-
-          {/* 4 */}
-          <div className="indiv-content i-c-4">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Long Long Tag</div>
-            </div>
-          </div>
-
-          {/* 5 */}
-          <div className="indiv-content i-c-5">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Tag</div>
-            </div>
-          </div>
-
-          {/* 6 */}
-          <div className="indiv-content i-c-6">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Long Long Tag</div>
-            </div>
-          </div>
-
-          {/* 7 */}
-          <div className="indiv-content i-c-7">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-            </div>
-          </div>
-
-          {/* 8 */}
-          <div className="indiv-content i-c-8">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Long Long Tag</div>
-            </div>
-          </div>
-
-          {/* 9 */}
-          <div className="indiv-content i-c-9">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-            </div>
-          </div>
         </div>
 
         {/* pagination */}
