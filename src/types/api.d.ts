@@ -31,3 +31,7 @@ export interface IStripeCard {
     exp_month: number
   }
 }
+
+export interface ISearchBar{
+  search: string
+}

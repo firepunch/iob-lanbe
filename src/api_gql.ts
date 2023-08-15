@@ -4,12 +4,12 @@ import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORIES_QUERY from '@/queries/categories'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
+import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
 import { CHECKOUT_QUERY, ORDER_QUERY } from '@/queries/orders'
 import { ADD_TO_CART_QUERY, CART_QUERY } from '@/queries/users'
-import POST_BY_SEARCH from '@/queries/postBySearch'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
-import { ILoginUser } from './types/api'
+import { ILoginUser, ISearchBar } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -156,15 +156,12 @@ export async function refreshToken() {
   return data
 }
 
-export async function getContentsBySearch(input) {
-  const data = await fetchAPI(POST_BY_SEARCH, {
-    variables: { input },
+export async function getContentByDatabaseID(databaseID) {
+  const data = await fetchAPI(DATABASEID_POSTS_QUERY, {
+    variables: { databaseID },
   })
-  console.log(data)
   return data
-
 }
-
 // EXAMPLE
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(

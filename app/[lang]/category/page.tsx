@@ -3,7 +3,6 @@ import { ValidLocale } from '@/i18n/settings'
 import Link from 'next/link'
 import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
 import { getContents, getAllCategories, getContentsByCategory } from '@/api_gql'
-import { getContentsBySearch } from '@/api_gql'
 
 export default async function Category({
   params: { lang },
@@ -41,10 +40,6 @@ export default async function Category({
   })
 
   console.log(ct('sort_options', { returnObjects: true }))
-
-  // const searchData = getContentsBySearch('indonesia')
-  // const [data] = await Promise.all([searchData])
-  // console.log(data)
   
   return (
     <>

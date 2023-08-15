@@ -23,22 +23,22 @@ async function fetchAPI({
 
   const res = await fetch(`${API_URL}${customPrefixPath || '/wp/v2'}${path}`, {
     ...!isEmpty(headers) &&  headers,
-    method,
-    body: customPrefixPath?.includes('contact-form-7') ?
-      data :
-      JSON.stringify({
-        ...data,
-      }) as any,
-
+    method: method,
+    ...(method !== 'GET' && {
+      body: customPrefixPath?.includes('contact-form-7') ?
+        data :
+        JSON.stringify({
+          ...data,
+        }) as any,
+    }),
   })
-
+  
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
     throw new Error('Failed to fetch API')
   }
-
-  return json.data
+  return method === 'GET' ? json : json.data
 }
 
 export async function createUser(data: ICreateUser) {
@@ -68,6 +68,16 @@ export async function SearchRequest(data) {
     customPrefixPath: '/wp-json/contact-form-7/v1/contact-forms',
     path: '/3143/feedback',
     method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function searchContent(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/index.php/wp-json/wp/v2/',
+    path: `search?search=${data.search}`,
+    method: 'GET',
     data,
   })
   return res

@@ -27,7 +27,7 @@ export default function SearchRequestForm ({
       <input type="email" id="email" /><br></br>
       <label htmlFor="id">message</label>
       <input type="text" id="message" /><br></br>
-      {errorCode && <p>{t(errorCode)}</p>}
+      {/* {errorCode && <p>{t(errorCode)}</p>} */}
       <button type="submit">submit</button>
     </form>
   )

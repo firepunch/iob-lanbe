@@ -1,22 +1,27 @@
 'use client'
 
-import { SearchRequestForm } from '@/components'
+import { SearchRequestForm, SearchBar } from '@/components'
 import { ValidLocale } from '@/i18n/settings'
 import { useTranslation } from '@/i18n/client'
 import { useState } from 'react'
-import { SearchRequest } from '@/api_wp'
+import { SearchRequest, searchContent } from '@/api_wp'
+import { getContentByDatabaseID } from '@/api_gql'
+import { ContentCard } from '@/components'
+import Link from 'next/link'
 
-export default function Search({
+export default  function Search({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
   const { t } = useTranslation(lang, 'search')
   const [errorCode, setErrorCode] = useState()
+  const contents = {}
+  // const [contents, setContentsCode] = useState()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    
     try {
       const formData = new FormData()
       // const { id, value } = e.target
@@ -35,25 +40,49 @@ export default function Search({
     }
   }
 
+  const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const searchText = 'vietnam'
+    // window.location.href = `?search=${searchText}`
+    try {
+      const res = await searchContent({
+        search: searchText,
+      })
+      setErrorCode(res)
+      res.map(async ({ id }) => {
+        const contentData = await getContentByDatabaseID(id)
+        const [content] = await Promise.all([contentData])
+    
+        contents[id] = content
+      })
+    } catch (error) {
+      console.error('submit error:', error)
+    }
+  }
+  {contents && Object.keys(contents).map((id) => {
+    const post = contents[id]
+    return (
+      <Link key={post.id} href={`/${encodeURIComponent(post.slug)}`}>
+        <ContentCard
+          thumbnail_url={post.featuredImage?.node.sourceUrl}
+          {...post}
+        />
+      </Link>
+    )
+  })}
+
   return (
     <>
-      {/* <div>
-        Search
-        <input
-          type="text"
-          onChange={(e) => handleSearchSubmit()}
-        />
-        <button>OK</button>
-      </div>
-      {data &&
-        data.feed.links.map((link, index) => (
-          <Link key={link.id} link={link} index={index} />
-        ))} */}
+      <SearchBar
+        t={t} 
+        errorCode={errorCode}
+        onSubmit={handleSearchSubmit} 
+      />
       <SearchRequestForm
         t={t} 
-        errorCode={'errorCode'}
+        errorCode={errorCode}
         onSubmit={handleSubmit} 
-      />
+      />idont know
     </>
   )
 }
