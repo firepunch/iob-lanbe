@@ -15,4 +15,4 @@ export { default as MyPageIdeas } from './MyPage/Ideas'
 export { default as MyPageSettings } from './MyPage/Settings'
 export { default as MyPageReport } from './MyPage/Report'
 export { default as PaymentForm } from './PaymentForm'
-
+export { default as Icons } from './Icons'
