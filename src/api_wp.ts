@@ -1,9 +1,22 @@
-import { ICreateUser, ILogin, IEmailForm } from './types/api'
-import { isEmpty } from './utils/lib'
-import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+import {
+  ICreateNote,
+  ICreateUser,
+  ICreateWatchList,
+  IFetchNotes,
+  IEmailForm,
+  ILoginUser,
+  ILogin,
+  IFetchWatchList,
+  IRemoveWatchList,
+} from './types/api'
+import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+const API_MAP = {
+  wpAPI: '',
+  customAPI: '/custom-api/v1',
+}
 
 async function fetchAPI({
   method = 'GET', 
@@ -15,7 +28,6 @@ async function fetchAPI({
   customPrefixPath?: string
   path: string,
   data: object | FormData,
-  customPrefixPath?: string
 }) {
   const headers = customPrefixPath?.includes('contact-form-7') ? {} : { 'Content-Type':'application/json' }
 
@@ -54,6 +66,90 @@ export async function createUser(data: ICreateUser) {
   })
   console.log(res)
 
+  return res
+}
+
+export async function sendEmailForm(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3116/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function SearchRequest(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3143/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function ProjectInquiry(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3144/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function fetchWatchList(data: IFetchWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createWatchList(data: ICreateWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function removeWatchList(data: IRemoveWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'DELETE',
+    data,
+  })
+
+  return res
+}
+
+export async function fetchNotes(data: IFetchNotes) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createNote(data: ICreateNote) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
+    method: 'POST',
+    data,
+  })
   return res
 }
 

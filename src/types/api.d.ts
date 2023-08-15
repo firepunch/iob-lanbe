@@ -5,6 +5,32 @@ export interface ICreateUser {
   password: string
 }
 
+export interface IFetchWatchList {
+  user_id: number
+  type: 'post' | 'report'
+}
+
+export interface ICreateWatchList {
+  user_id: number
+  content_id: number
+  type: 'post' | 'report'
+}
+
+export interface IRemoveWatchList {
+  id: number
+}
+
+export interface IFetchNotes {
+  user_id: number
+  post_id?: number
+}
+
+export interface ICreateNote {
+  user_id: number
+  post_id: number
+  content: string
+}
+
 export interface ILoginUser {
   username: string
   password: string
@@ -15,6 +41,17 @@ export interface IEmailForm{
   'user-email': string
 }
 
+export interface IEmailForm{
+  'user-email': string
+}
+
+export interface ISearchRequest{
+  'first-name': string,
+  'last-name': string,
+  'user-email': string,
+  'message': string
+
+
 export interface IStripeCard {
   id: string
   card: {
@@ -23,4 +60,23 @@ export interface IStripeCard {
     exp_year: number
     exp_month: number
   }
+  billing_details: {
+    email: string
+    name: string
+    address: {
+      country: string
+    }
+  }
+}
+
+export interface IStripePaymentIntents {
+  id: string
+  amount: number
+  currency: string
+  created: number
+}
+
+export interface IPaymentHistory {
+  data: IStripePaymentIntents[]
+  hasMore: boolean
 }

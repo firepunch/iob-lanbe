@@ -1,0 +1,260 @@
+#report-firstpage {
+    width: 100%;
+    margin-top: 5rem;
+    padding: 2rem;
+    @include flex-column;
+
+    #report-firstpage-left {
+        .save-share {
+            @include flex-spacebetween;
+
+            img {
+                width: 1.5rem;
+            }
+        }
+
+        h2 {
+            @include titles;
+            font-size: 1.75rem;
+        }
+
+        .report-details {
+            width: 100%;
+            display: flex;
+
+            ul:nth-child(1) {
+                margin-right: 1.5rem;
+
+                li {
+                    font-weight: $bold-font-weight;
+                }
+            }
+
+            ul {
+                padding: 0;
+
+                li {
+                    margin: .75rem 0;
+                    width: 100%;
+                    font-size: $smaller-font-size;
+                }
+            }
+        }
+    }
+
+    #report-firstpage-right {
+        margin-top: 3rem;
+        
+        h4 {
+            font-style: italic;
+        }
+
+        p {
+            line-height: 1.5rem;
+        }
+    }
+}
+
+#report-snippets {
+    width: 100%;
+
+    img {
+        width: 100%;
+    }
+
+    #report-image-text1,
+    #report-image-text2 {
+        display: flex;
+        flex-direction: column-reverse;
+
+        p {
+            width: 85%;
+            margin: 2rem auto;
+            line-height: 1.5rem;
+        }
+    }
+
+    #report-image-text2 {
+        flex-direction: column;
+    }
+}
+
+#report-price-cta {
+    width: 85%;
+    margin: auto;
+
+    #report-price-cta-wrap {
+        margin-top: 5rem;
+
+        .report-title {
+            @include titles;
+            font-size: $base-font-size;
+            width: 70%;
+        }
+
+        .report-total-price {
+            width: 100%;
+            @include flex-spacebetween;
+            border-top: .35rem solid $black;
+            font-weight: $bold-font-weight;
+        }
+
+        .report-cta {
+            @include flex-column;
+            align-items: center;
+            margin: 3rem 0;
+
+            p {
+                font-size: $smaller-font-size;
+                font-weight: $bold-font-weight;
+                margin: 0;
+            }
+            
+            a {
+                @include mobile-button-style($black);
+                background-color: $black;
+                color: $white;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 576px) {
+    #report-firstpage {
+        width: 80%;
+        margin: 2rem auto;
+
+        #report-firstpage-left {
+            margin-top: 4rem;
+        }
+
+        #report-firstpage-right {
+            margin-top: 0;
+        }
+    }
+
+    #report-snippets {
+        #report-image-text1,
+        #report-image-text2 {
+            p {
+                width: 70%;
+                margin: 3rem auto;
+            }
+        }
+    }
+
+    #report-price-cta {
+        width: 70%;
+    }
+}
+
+@media (min-width: 768px) {
+    #report-snippets {
+
+        #report-image-text1,
+        #report-image-text2 {
+            flex-direction: row;
+
+            img {
+                width: 50%;
+            }
+        }
+    }
+
+    #report-price-cta {
+        width: 45%;
+        margin-bottom: 7rem;
+
+        #report-price-cta-wrap {
+            margin-top: 7rem;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #report-firstpage {
+        width: 100%;
+        // margin: 0;
+        flex-direction: row;
+        align-items: center;
+
+        #report-firstpage-left,
+        #report-firstpage-right {
+            width: 45%;
+            margin: 0 auto;
+        }
+
+        #report-firstpage-left {
+
+            .save-share {
+                width: 90%;
+                margin-top: 0;
+            }
+
+            .report-details {
+                
+                ul {
+                    li {
+                        font-size: $base-font-size;
+                    }
+                }
+            }
+        }
+
+        #report-firstpage-right {
+            margin-top: 3rem;
+        }
+    }
+
+    #report-snippets {
+
+        #report-image-text1,
+        #report-image-text2 {
+            align-items: center;
+        }
+    }
+
+    #report-price-cta {
+        width: 40%;
+    }
+}
+
+
+@media (min-width: 1400px) {
+    #report-firstpage {
+        width: 80%;
+
+        #report-firstpage-left,
+        #report-firstpage-right {
+            width: 40%;
+            margin: 3rem;
+        }
+
+        #report-firstpage-left {
+
+            .report-details {
+                margin-top: 3rem;
+            }
+        }
+
+        #report-firstpage-right {
+            margin-top: 6rem;
+        }
+    }
+
+    #report-price-cta {
+        width: 30%;
+        margin-bottom: 12rem;
+
+        #report-price-cta-wrap {
+            margin-top: 12rem;
+
+            .report-cta {
+                a {
+                    width: 80%;
+                }
+            }
+        }
+    }
+}

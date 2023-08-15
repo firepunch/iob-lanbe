@@ -39,7 +39,9 @@ export default function LocaleLayout({
       <head />
       <body>
         <Header lang={lang} ct={ct} t={t} />
-        {children}
+        <main>
+          {children}
+        </main>
         <Footer lang={lang} t={t} />
         <EmailForm 
           t={t}

@@ -1,0 +1,132 @@
+// all content title
+#all-content-title {
+    width: 95%;
+    margin: auto;
+
+    #title-top {
+        width: 90%;
+        margin: auto;
+        padding-top: 8.5rem;
+
+        .title-arrow {
+            @include flex-spacebetween;
+            border-bottom: .35rem solid $black;
+
+            h2 {
+                @include titles;
+                margin: .5rem 0;
+            }
+
+            // default로 화살표는 아래를 향함. 모바일에서 화살표 누르면 화살표 rotate과 함께 아래 다른 콘텐츠 카테고리 나타남
+            img:active {
+                transform: rotate(180deg);
+            }
+        }
+
+        .other-content-pages {
+            @include other-contents-pages;
+            
+            // 모바일에서 화살표 누르면 나타나는 부분
+            display: none;
+        }
+
+        #filters-sorting {
+            width: 100%;
+            margin-top: 1rem;
+            @include flex-spacebetween;
+    
+            .filters {
+                .all-button,
+                .country-button {
+                    width: fit-content;
+                    height: 1.75rem;
+                    padding: 0 .85rem;
+                    border: 1px solid $black;
+                    border-radius: 10rem;
+                    background-color: transparent;
+                }
+
+                .all-button {
+                    background-color: $black;
+                    color: $white;
+                }
+            }
+
+            .sort {
+                label {
+                    font-size: .65rem;
+                }
+
+                #sortby {
+                    height: 1.75rem;
+                    padding-left: .05rem;
+                    border-radius: 10rem;
+                }
+            }
+        }
+    }
+}
+
+#contents-grid {
+    width: 85%;
+    margin: auto;
+    margin-top: 5rem;
+
+    #all-contents-wrap {
+        @include standard-grid;
+        padding-left: 1.5%;
+    }
+
+    #pagination {
+        margin-top: 3rem;
+        margin-bottom: 10rem;
+
+        .pagination-on-mobile {
+            @include mobile-button-style($black);
+            background-color: $black;
+            color: $white;
+        }
+
+        .pagination-on-web {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #all-content-title {
+        // width: 95%;
+
+        #title-top {
+            height: 20rem;
+            padding-top: 13rem;
+            position: relative;
+
+            .title-arrow {
+                img {
+                    display: none;
+                }
+            }
+
+            .other-content-pages {
+                display: flex;
+                position: absolute;
+                top: 5rem;
+                right: 0;
+            }
+        }
+    }
+
+    #contents-grid {
+
+        #pagination {
+            .pagination-on-mobile {
+                display: none;
+            }
+
+            .pagination-on-web {
+                @include pagination;
+            }
+        }
+    }
+}

@@ -1,13 +1,30 @@
 'use client'
 
+import { loadStripe } from '@stripe/stripe-js'
 import { ValidLocale } from '@/i18n/settings'
-import { CardElement } from '@stripe/react-stripe-js'
+import { CardElement, Elements } from '@stripe/react-stripe-js'
+import { PaymentForm } from '@/components'
+import { useEffect, useState } from 'react'
+import { createCardIntent } from '@/utils/stripe-intent'
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+)
 
 export default function Payment({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
+
+  const [clientSecret, setClientSecret] = useState()
+
+  useEffect(() => {
+    // createCardIntent().then(({ clientSecret }) => {
+    //   setClientSecret(clientSecret)
+    // })
+  }, [])
+
   const handleAddCard = async () => {
     // const stripeResponse = await stripe.confirmCardSetup(client_secret, {
     //       payment_method: {
@@ -32,8 +49,11 @@ export default function Payment({
   return (
     <>
       <h2>Add Card</h2>
-      <CardElement />
-      <button onClick={handleAddCard}>Submit</button>
+      {stripePromise &&  (
+        <Elements stripe={stripePromise} >
+          <PaymentForm />
+        </Elements>
+      )}
     </>
   )
 }

@@ -1,0 +1,149 @@
+// content thumbnail
+.indiv-content {
+    .thumbnail {
+        width: 100%;
+        height: 12rem;
+        background-color: $black;
+        position: relative;
+
+        .save {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+    }
+
+    .location-date {
+        display: flex;
+        align-items: center;
+        font-size: $smaller-font-size;
+
+        .country {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            
+            img {
+                @include icon-size;
+            }
+        }
+
+        .country::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            margin: 0 .5rem;
+            background-color: $black;
+        }
+    }
+
+    .indiv-content-title {
+        font-size: $base-font-size;
+        font-weight: $bold-font-weight;
+    }
+}
+
+// report thumbnail
+.indiv-report {
+    .thumbnail {
+        width: 100%;
+        height: 12rem;
+        margin-bottom: 1rem;
+        background-color: $black;
+        position: relative;
+
+        .save {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+    }
+
+    .indiv-report-title {
+        font-size: $base-font-size;
+        font-weight: $bold-font-weight;
+    }
+
+    .report-description {
+        font-size: $smaller-font-size;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .indiv-content,
+    .indiv-report {
+
+        .thumbnail {
+            height: 16rem;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .indiv-content,
+    .indiv-report {
+        
+        .thumbnail {
+            width: 96%;
+            height: 8.5rem;
+        }
+
+        .location-date {
+            width: 95%;
+            font-size: .75rem;
+
+            .country {
+                img {
+                    width: 1rem;
+                    height: 1rem;
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .indiv-content-title {
+            display: inline-block;
+            width: 95%;
+            margin-bottom: .85rem;
+
+            font-size: $smaller-font-size;
+            font-weight: $bold-font-weight;
+        }
+
+        .report-description {
+            width: 95%;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .indiv-content,
+    .indiv-report {
+
+        .thumbnail {
+            height: 12rem;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .indiv-content,
+    .indiv-report {
+
+        .indiv-content-title {
+            font-size: $base-font-size;
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .indiv-content,
+    .indiv-report {
+
+        .thumbnail {
+            height: 17rem;
+        }
+    }
+}

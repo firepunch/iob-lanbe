@@ -1,11 +1,14 @@
 'use client'
 
+import { ValidLocale } from '@/types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { languages } from '@/i18n/settings'
+import LanguageImg from '@/imgs/lang_black.png'
+import Image from 'next/image'
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ lang }: { lang: ValidLocale }) {
   const pathName = usePathname()
+  const otherLocale = lang === 'ko' ? 'en' : 'ko'
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
     const segments = pathName.split('/')
@@ -14,12 +17,9 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <ul>
-      {languages.map((locale) => (
-        <li key={locale}>
-          <Link href={redirectedPathName(locale)}>{locale}</Link>
-        </li>
-      ))}
-    </ul>
+    <Link href={redirectedPathName(otherLocale)}>
+      <Image src={LanguageImg} alt="Change Language" />
+      {lang.toUpperCase()}
+    </Link>
   )
 }

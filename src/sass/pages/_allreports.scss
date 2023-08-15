@@ -1,0 +1,151 @@
+// all report title
+#all-report-title {
+    width: 95%;
+    margin: auto;
+
+    #report-title-description {
+        width: 90%;
+        margin: auto;
+        padding-top: 8.5rem;
+
+        h2 {
+            @include titles;
+            margin: .5rem 0;
+        }
+
+        p {
+            font-weight: $bold-font-weight;
+            font-size: $smaller-font-size;
+        }
+
+        h2::after,
+        p::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: .3rem;
+            margin: .5rem 0;
+            background-color: $black;
+        }
+
+        p::after {
+            margin-top: 1rem;
+        }
+    }
+
+    .sort {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        label {
+            font-size: .65rem;
+            margin-right: .75rem;
+        }
+
+        #sortby {
+            height: 1.75rem;
+            padding-left: .05rem;
+            border-radius: 10rem;
+        }
+    }
+}
+
+#reports-grid {
+    width: 85%;
+    margin: auto;
+    margin-top: 5rem;  
+    
+    #all-reports-wrap {
+        @include standard-grid;
+        padding-left: 1.5%;
+    }
+
+    #pagination {
+        margin-top: 3rem;
+        margin-bottom: 10rem;
+
+        .pagination-on-mobile {
+            @include mobile-button-style($black);
+            background-color: $black;
+            color: $white;
+        }
+
+        .pagination-on-web {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #all-report-title {
+
+        #report-title-description {
+            height: 17.5rem;
+            padding-top: 13rem;
+            position: relative;
+
+            p::after {
+                display: none;
+            }
+
+            p {
+                width: 45%;
+                position: absolute;
+                top: 10rem;
+                right: 0;
+                font-size: $smaller-font-size;
+            }
+        }
+    }
+
+    #reports-grid {
+
+        #pagination {
+            .pagination-on-mobile {
+                display: none;
+            }
+
+            .pagination-on-web {
+                @include pagination;
+            }    
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #all-report-title {
+        #report-title-description {
+            p {
+                width: 50%;
+                top: 11rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    #all-report-title {
+        #report-title-description {
+            p {
+                width: 45%;
+                font-size: $base-font-size;
+                top: 10.5rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    #all-report-title {
+
+        #report-title-description {
+            p {
+                top: 10rem;
+                width: 38.5%;
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+.tags {
+    width: 100%;
+    margin-top: .75rem;
+    display: flex;
+    align-items: center;
+
+    .indiv-tag {
+        width: fit-content;
+        height: 1.5rem;
+        margin-right: .25rem;
+        padding: 0 .5rem;
+
+        @include flex-center;
+
+        font-size: .625rem;
+        border: 1px solid $black;
+        border-radius: 10rem;
+    }
+
+    .plus {
+        @include flex-center;
+
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 1px solid $black;
+        border-radius: 10rem;
+        font-size: .75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .tags {
+        width: 95%;
+        margin: auto 0;
+    }
+}

@@ -68,18 +68,6 @@ export async function createOrderNew(input) {
   return data.createOrder
 }
 
-export async function fetchCart() {
-  const data = await fetchAPI(CART_QUERY)
-
-  return data
-}
-
-export async function addCart() {
-  const data = await fetchAPI(ADD_TO_CART_QUERY)
-
-  return data
-}
-
 export async function getProductBySlug(productSlug) {
   const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
     variables: { productSlug },
