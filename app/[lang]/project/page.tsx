@@ -1,10 +1,10 @@
 'use client'
 
-import { SearchRequestForm } from '@/components'
+import { ProjectForm } from '@/components'
 import { ValidLocale } from '@/i18n/settings'
 import { useTranslation } from '@/i18n/client'
 import { useState } from 'react'
-import { SearchRequest } from '@/api_wp'
+import { ProjectInquiry } from '@/api_wp'
 
 export default function Search({
   params: { lang },
@@ -24,11 +24,14 @@ export default function Search({
       // setFormData(formData)
       formData.append('first-name', 'yu')
       formData.append('last-name', 'da')
+      formData.append('organization', 'iob')
+      formData.append('job-title', 'job')
       formData.append('user-email', 'ex@gmail.com')
+      formData.append('contact-no', '010-1111-1111')
       formData.append('message', 'hello')
       console.log(e.target)
 
-      const { code } = await SearchRequest(formData)
+      const { code } = await ProjectInquiry(formData)
       setErrorCode(code)
     } catch (error) {
       console.error('이메일 폼 전송 에러:', error)
@@ -36,10 +39,13 @@ export default function Search({
   }
 
   return (
-    <SearchRequestForm
-      t={t} 
-      errorCode={errorCode}
-      onSubmit={handleSubmit} 
-    />
+    <>
+      <h1>project page</h1>
+      <ProjectForm
+        t={t} 
+        errorCode={errorCode}
+        onSubmit={handleSubmit} 
+      />
+    </>
   )
 }

@@ -1,11 +1,15 @@
+=======
 import {
   ICreateNote,
   ICreateUser,
   ICreateWatchList,
   IFetchNotes,
+  IEmailForm,
+  ILoginUser,
   IFetchWatchList,
   IRemoveWatchList,
 } from './types/api'
+import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
@@ -22,9 +26,9 @@ async function fetchAPI({
   method: 'GET' | 'POST' | 'DELETE',
   customPrefixPath?: string
   path: string,
-  data: object,
+  data: object | FormData,
 }) {
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = customPrefixPath?.includes('contact-form-7') ? {} : { 'Content-Type':'application/json' }
 
   if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
@@ -33,11 +37,14 @@ async function fetchAPI({
   }
 
   const res = await fetch(`${API_URL}/wp-json${customPrefixPath || '/wp/v2'}${path}`, {
-    headers,
+    ...!isEmpty(headers) &&  headers,
     method,
-    body: JSON.stringify({
-      ...data,
-    }),
+    body: customPrefixPath?.includes('contact-form-7') ?
+      data :
+      JSON.stringify({
+        ...data,
+      }) as any,
+
   })
 
   const json = await res.json()
@@ -56,7 +63,38 @@ export async function createUser(data: ICreateUser) {
     method: 'POST',
     data,
   })
+  console.log(res)
 
+  return res
+}
+
+export async function sendEmailForm(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3116/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function SearchRequest(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3143/feedback',
+    method: 'POST',
+    data,
+  })
+  return res
+}
+
+export async function ProjectInquiry(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3144/feedback',
+    method: 'POST',
+    data,
+  })
   return res
 }
 

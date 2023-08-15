@@ -18,6 +18,16 @@ export default  function Category({
   params: { lang: ValidLocale; },
   searchParams: { name?: string }
 }) {
+
+  /**
+    const categoryData = getContentsByCategory(nameQueryParam)
+  const [category] = await Promise.all([categoryData])
+  {category?.posts?.edges?.map(async ({ node }) => {
+        console.log(node.title)
+        // <p key={node.id}> {node.title}</p>
+      })}
+  */
+  
   const [data, setData] = useState([])
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
@@ -51,8 +61,6 @@ export default  function Category({
   //     ))}
   //   }
   // })
-
-  // console.log(ct('sort_options', { returnObjects: true }))
 
   return (
     <>

@@ -2,13 +2,14 @@ import Link from 'next/link'
 import { ValidLocale } from '@/i18n/settings'
 import { TI18N } from '@/types'
 
-export default function Footer({
+export default async function Footer({
   t,
-  lang,
+  lang, 
 }: {
   t: TI18N
   lang: ValidLocale
-}) {
+}) {  
+
   return (
     <footer>
       Footer
@@ -17,7 +18,6 @@ export default function Footer({
           IOB
         </h1>
       </Link>
-
       <nav>
         <Link href={`/${lang}/content`}>
           {t('content')}
@@ -37,7 +37,6 @@ export default function Footer({
         <Link href={`/${lang}/cookie-policy`}>
           {t('cookie-policy')}
         </Link>
-
       </nav>
     </footer>
   )

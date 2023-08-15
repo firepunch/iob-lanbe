@@ -1,6 +1,6 @@
 const CATEGORY_POSTS_QUERY = `
-  query GetCategoryPosts($categoryId: ID!) {
-    category(id: $categoryId) {
+  query GetCategoryPosts($categorySlug: ID!) {
+    category(id: $categorySlug, idType: SLUG) {
       name
       posts {
         edges {

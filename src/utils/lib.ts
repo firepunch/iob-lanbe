@@ -6,7 +6,12 @@ export const objectToGetParams = (object: {
     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
   
   return params.length > 0 ? `?${params.join('&')}` : ''
-}
+} 
+
+export const isEmpty = (obj) => (
+  Object.keys(obj).length == 0
+)
+
 
 export const generateRandomString = () => (
   Math.floor(Math.random() * Date.now()).toString(36)

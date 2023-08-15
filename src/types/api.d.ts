@@ -34,7 +34,19 @@ export interface ICreateNote {
 export interface ILoginUser {
   username: string
   password: string
+  remember?: boolean
 }
+
+export interface IEmailForm{
+  'user-email': string
+}
+
+export interface ISearchRequest{
+  'first-name': string,
+  'last-name': string,
+  'user-email': string,
+  'message': string
+
 
 export interface IStripeCard {
   id: string

@@ -5,6 +5,7 @@ const CATEGORIES_QUERY = `
         node {
           id
           name
+          slug
         }
       }
     }

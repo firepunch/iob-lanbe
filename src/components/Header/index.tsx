@@ -10,7 +10,7 @@ import ArrowWhiteImg from '@/imgs/arrow_white.png'
 import ArrowBlackImg from '@/imgs/arrow_black.png'
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 
-export default async function Header({
+export default function Header({
   ct,
   t,
   lang,
