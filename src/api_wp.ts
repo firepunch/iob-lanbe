@@ -152,14 +152,3 @@ export async function createNote(data: ICreateNote) {
   })
   return res
 }
-
-export async function sendEmailForm(data) {
-  const res = await fetchAPI({
-    customPrefixPath: '/contact-form-7/v1/contact-forms',
-    path: '/3116/feedback',
-    method: 'POST',
-    data,
-  })
-  console.log(res)
-  return res
-}

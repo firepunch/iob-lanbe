@@ -11,7 +11,7 @@ import { ILoginUser } from './types/api'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
-async function fetchAPI(query = '', { variables }: Record<string, object> = {}) {
+const fetchAPI = async (query = '', { variables }: Record<string, object> = {}) => {
   const headers = { 'Content-Type': 'application/json' }
   const tokens = getStorageData(AUTH_TOKEN)
 
@@ -34,8 +34,6 @@ async function fetchAPI(query = '', { variables }: Record<string, object> = {}) 
     }),
   })
 
-
-  console.log(!tokens?.sessionToken, res.headers)
   if (!tokens?.sessionToken) {
     setStorageData(AUTH_TOKEN, {
       ...tokens,
@@ -114,7 +112,7 @@ export async function getAllCategories(language){
   return data.categories.edges
 }
 
-export async function getContentsByCategory(categorySlug) {
+export const getContentsByCategory = async (categorySlug) => {
   const data = await fetchAPI(CATEGORY_POSTS_QUERY, {
     variables: { categorySlug },
   })

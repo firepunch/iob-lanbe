@@ -1,6 +1,5 @@
-'use client'
-
 import { useTranslation } from '@/i18n/client'
+import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,9 +8,8 @@ import { getContents, getAllCategories, getContentsByCategory } from '@/api_gql'
 import { useRouter } from 'next/navigation'
 
 import ArrowBlackDown from '@/imgs/arrow_black_down.png'
-import { useEffect, useState } from 'react'
 
-export default  function Category({
+export default async function Category({
   params: { lang },
   searchParams: { name },
 }: {
@@ -27,18 +25,13 @@ export default  function Category({
       })}
   */
   
-  const [data, setData] = useState([])
-  const { t: ct } = useTranslation(lang, 'common')
-  const { t } = useTranslation(lang, 'category-page')
+  const { t: ct } = await getTranslation(lang, 'common')
+  const { t } = await getTranslation(lang, 'category-page')
   const categoryName = name || 'all'
 
-  useEffect(() => {
-    // lang.toUpperCase()
-    getContentsByCategory(categoryName).then(data => {
-      console.log(data)
-      setData(data)
-    })
-  }, [])
+  const postData = getContentsByCategory(categoryName)
+  const [posts] = await Promise.all([postData])
+  console.log(posts)
 
   // category?.map(async ({ node }) => {
   //   if (node.name == nameQueryParam){

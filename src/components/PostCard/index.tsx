@@ -1,5 +1,7 @@
-import cls from 'classnames'
-import styles from './index.module.scss'
+import Image from 'next/image'
+
+import SaveImg from '@/imgs/save.png'
+import LocationBlackImg from '@/imgs/locationicon_black.png'
 
 interface PostCardProps {
   thumbnail?: {sourceUrl:string; altText:string};
@@ -22,13 +24,13 @@ export const PostCard = ({
       <div className="indiv-content i-c-1">
         <div className="thumbnail">
           <div className="save">
-            <img src="./imgs/save.png" alt="Save"/>
+            <Image src={SaveImg} alt="Save" />
           </div>
         </div>
 
         <div className="location-date">
           <div className="country">
-            <img src="./imgs/locationicon_black.png" alt="Location icon"/>
+            <Image src={LocationBlackImg} alt="Location icon" />
             <p>COUNTRY</p>
           </div>
 
@@ -36,7 +38,7 @@ export const PostCard = ({
         </div>
 
         <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
+          Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
         </a>
 
         <div className="tags">
@@ -45,7 +47,7 @@ export const PostCard = ({
         </div>
       </div>
 
-      <div className={styles.card}>
+      <div>
         {thumbnail ? 
           <img src={thumbnail.sourceUrl} alt={thumbnail.altText} /> :
           <img src="https://via.placeholder.com/200" alt="thumbnail" />
