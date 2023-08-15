@@ -41,6 +41,10 @@ export interface IEmailForm{
   'user-email': string
 }
 
+export interface IEmailForm{
+  'user-email': string
+}
+
 export interface ISearchRequest{
   'first-name': string,
   'last-name': string,

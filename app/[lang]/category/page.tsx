@@ -18,7 +18,6 @@ export default  function Category({
   params: { lang: ValidLocale; },
   searchParams: { name?: string }
 }) {
-
   /**
     const categoryData = getContentsByCategory(nameQueryParam)
   const [category] = await Promise.all([categoryData])

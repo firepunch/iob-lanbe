@@ -1,4 +1,3 @@
-=======
 import {
   ICreateNote,
   ICreateUser,
@@ -6,10 +5,12 @@ import {
   IFetchNotes,
   IEmailForm,
   ILoginUser,
+  ILogin,
   IFetchWatchList,
   IRemoveWatchList,
 } from './types/api'
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
@@ -149,6 +150,16 @@ export async function createNote(data: ICreateNote) {
     method: 'POST',
     data,
   })
+  return res
+}
 
+export async function sendEmailForm(data) {
+  const res = await fetchAPI({
+    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    path: '/3116/feedback',
+    method: 'POST',
+    data,
+  })
+  console.log(res)
   return res
 }
