@@ -2,6 +2,8 @@ import cls from 'classnames'
 import styles from './index.module.scss'
 
 interface SelectProps {
+  name: string
+  id: string
   options: { value: string; label: string; }[];
   onChange?: () => void;
 }
