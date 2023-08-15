@@ -137,17 +137,7 @@ export default async function Category({
           ))}
         </div>
 
-        {/* pagination */}
-        <div id="pagination">
-          <button type="button" className="pagination-on-mobile">Load more</button>
-
-          <a href="#" className="pagination-on-web">
-            <a href="#" className="prev">Previous</a>
-            <div className="page"><p>1-9 out of 5</p></div>
-            <a href="#" className="next">Next</a>
-          </a>
-        </div>
-        {/* //pagination */}
+        <Pagination />
 
       </section>
       {/* //grid */}

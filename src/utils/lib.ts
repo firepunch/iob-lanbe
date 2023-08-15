@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 export const objectToGetParams = (object: {
     [key: string]: string | number | undefined | null;
   }) => {
@@ -44,3 +46,5 @@ function remove_data(key) {
   }
   localStorage.removeItem(key)
 }
+
+export const dateFormat = (rcvDate: string) => format(new Date(rcvDate), 'yy.MM.dd')
