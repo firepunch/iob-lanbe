@@ -5,7 +5,6 @@ import {
   IFetchNotes,
   IEmailForm,
   ILoginUser,
-  ILogin,
   IFetchWatchList,
   IRemoveWatchList,
 } from './types/api'
@@ -16,20 +15,21 @@ const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
   wpAPI: '',
   customAPI: '/custom-api/v1',
+  formAPI: '/contact-form-7/v1/contact-forms',
 }
 
 async function fetchAPI({
   method = 'GET', 
-  customPrefixPath,
+  prefixPath,
   path,
   data = {},
 }: {
   method: 'GET' | 'POST' | 'DELETE',
-  customPrefixPath?: string
+  prefixPath: 'wpAPI' | 'customAPI' | 'formAPI'
   path: string,
   data: object | FormData,
 }) {
-  const headers = customPrefixPath?.includes('contact-form-7') ? {} : { 'Content-Type':'application/json' }
+  const headers = prefixPath === 'formAPI' ? {} : { 'Content-Type':'application/json' }
 
   if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
@@ -37,15 +37,14 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json${customPrefixPath || '/wp/v2'}${path}`, {
+  const res = await fetch(`${API_URL}/wp-json${API_MAP[prefixPath]}${path}`, {
     ...!isEmpty(headers) &&  headers,
     method,
-    body: customPrefixPath?.includes('contact-form-7') ?
+    body: prefixPath === 'formAPI' ?
       data :
       JSON.stringify({
         ...data,
       }) as any,
-
   })
 
   const json = await res.json()
@@ -59,19 +58,18 @@ async function fetchAPI({
 
 export async function createUser(data: ICreateUser) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/users',
     method: 'POST',
     data,
   })
-  console.log(res)
 
   return res
 }
 
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
-    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    prefixPath: 'formAPI',
     path: '/3116/feedback',
     method: 'POST',
     data,
@@ -81,7 +79,7 @@ export async function sendEmailForm(data) {
 
 export async function SearchRequest(data) {
   const res = await fetchAPI({
-    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    prefixPath: 'formAPI',
     path: '/3143/feedback',
     method: 'POST',
     data,
@@ -91,7 +89,7 @@ export async function SearchRequest(data) {
 
 export async function ProjectInquiry(data) {
   const res = await fetchAPI({
-    customPrefixPath: '/contact-form-7/v1/contact-forms',
+    prefixPath: 'formAPI',
     path: '/3144/feedback',
     method: 'POST',
     data,
@@ -101,7 +99,7 @@ export async function ProjectInquiry(data) {
 
 export async function fetchWatchList(data: IFetchWatchList) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'GET',
     data,
@@ -112,7 +110,7 @@ export async function fetchWatchList(data: IFetchWatchList) {
 
 export async function createWatchList(data: ICreateWatchList) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'POST',
     data,
@@ -123,7 +121,7 @@ export async function createWatchList(data: ICreateWatchList) {
 
 export async function removeWatchList(data: IRemoveWatchList) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'DELETE',
     data,
@@ -134,7 +132,7 @@ export async function removeWatchList(data: IRemoveWatchList) {
 
 export async function fetchNotes(data: IFetchNotes) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/notes',
     method: 'GET',
     data,
@@ -145,7 +143,7 @@ export async function fetchNotes(data: IFetchNotes) {
 
 export async function createNote(data: ICreateNote) {
   const res = await fetchAPI({
-    customPrefixPath: '/custom-api/v1',
+    prefixPath: 'customAPI',
     path: '/notes',
     method: 'POST',
     data,
