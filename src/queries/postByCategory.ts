@@ -1,7 +1,6 @@
-const CATEGORY_POSTS_QUERY = `
-  query GetCategoryPosts($categorySlug: ID!) {
+const POST_BY_CATEGORY_QUERY = `
+  query postByCategory($categorySlug: ID!) {
     category(id: $categorySlug, idType: SLUG) {
-      name
       posts {
         edges {
           node {
@@ -9,11 +8,21 @@ const CATEGORY_POSTS_QUERY = `
             title
             slug
             date
+            tags {
+              nodes {
+                id
+                name
+              }
+            }
             featuredImage {
               node {
                 id
                 sourceUrl
               }
+            }
+            lanbePost {
+              country
+              is_save
             }
             language {
               code
@@ -26,4 +35,4 @@ const CATEGORY_POSTS_QUERY = `
   }
 `
 
-export default CATEGORY_POSTS_QUERY
+export default POST_BY_CATEGORY_QUERY
