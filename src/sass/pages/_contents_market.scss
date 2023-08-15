@@ -1,0 +1,158 @@
+#subcateg-content-title {
+    width: 95%;
+    margin: auto;
+
+    #title-top {
+        width: 90%;
+        margin: auto;
+        padding-top: 8.5rem;
+
+        .title-arrow {
+            @include flex-spacebetween;
+            align-items: last baseline;
+
+            border-bottom: .35rem solid $black;
+
+            .title-categ-subcateg {
+                @include flex-column;
+
+                p {
+                    font-size: .75rem;
+                    margin: 0;
+                    margin-left: .25rem;
+                }
+
+                h2 {
+                    @include titles;
+                    font-size: $large-font-size;
+                    margin: .25rem 0;
+                }
+            }
+
+            // default로 화살표는 아래를 향함. 모바일에서 화살표 누르면 화살표 rotate과 함께 아래 다른 콘텐츠 카테고리 나타남
+            img:active {
+                transform: rotate(180deg);
+            }
+        }
+
+        .other-content-pages {
+            @include other-contents-pages;
+            
+            // 모바일에서 화살표 누르면 나타나는 부분
+            display: none;
+        }
+
+        #categ-description {
+            width: 100%;
+            border-bottom: .35rem solid $black;
+
+            p {
+                font-size: $smaller-font-size;
+            }
+        }
+
+        #filters-sorting {
+            width: 100%;
+            margin-top: 1rem;
+            @include flex-spacebetween;
+    
+            .filters {
+                .all-button,
+                .country-button {
+                    width: fit-content;
+                    height: 1.75rem;
+                    padding: 0 .85rem;
+                    border: 1px solid $black;
+                    border-radius: 10rem;
+                    background-color: transparent;
+                }
+
+                .all-button {
+                    background-color: $black;
+                    color: $white;
+                }
+            }
+
+            .sort {
+                label {
+                    font-size: .65rem;
+                }
+
+                #sortby {
+                    height: 1.75rem;
+                    padding-left: .05rem;
+                    border-radius: 10rem;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #subcateg-content-title {
+        #title-top {
+            padding-top: 13rem;
+            position: relative; 
+
+            .other-content-pages {
+                display: flex;
+                position: absolute;
+                top: 6.5rem;
+                right: 0;
+            }
+
+            .title-arrow {
+                img {
+                    display: none;
+                }
+            }
+
+            #categ-description {
+                p {
+                    width: 45%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #subcateg-content-title {
+        #title-top {
+            #categ-description {
+
+                p {
+                    width: 35%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    #subcateg-content-title {
+        #title-top {
+            #categ-description {
+
+                p {
+                    width: 40%;
+                    font-size: $base-font-size;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    #subcateg-content-title {
+        #title-top {
+            #categ-description {
+
+                p {
+                    width: 30%;
+                    font-size: $base-font-size;
+                }
+            }
+        }
+    }
+}

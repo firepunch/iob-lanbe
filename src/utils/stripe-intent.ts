@@ -8,15 +8,23 @@ const calculateOrderAmount = (itemId: string) => {
   return 1088
 }
 
-export const fetchCardsIntent = async () => {
-  const results = await stripe.paymentMethods.list({
+export const fetchCardsIntent = async () => (
+  stripe.paymentMethods.list({
     customer: CUSTOMER_ID,
     type: 'card',
     limit: 2,
   })
+)
 
-  return results
-}
+export const fetchHistoryIntent = async () => (
+  stripe.paymentIntents.list({
+    limit: 10,
+  })
+)
+
+export const detachCardIntent = async (cardId: string) => (
+  stripe.paymentMethods.detach(cardId)
+)
 
 export const checkoutIntent = async (itemId: string) => {
   try {
@@ -58,5 +66,42 @@ export const checkoutIntent = async (itemId: string) => {
 
   return {
     clientSecret: undefined,
+  }
+}
+
+export const createCardIntent = async () => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      customer: CUSTOMER_ID,
+      amount: 0,
+      currency: 'krw',
+      payment_method_types: ['card'],
+      automatic_payment_methods: {
+        enabled: true,
+      },
+      // setup_future_usage: 'off_session',
+      // off_session: true,
+      // confirm: true,
+    })
+
+    return {
+      clientSecret: paymentIntent.client_secret,
+    }
+  } catch (err) {
+    console.log('Error code is: ', err.code)
+  }
+
+  return {
+    clientSecret: undefined,
+  }
+}
+
+export const attachCardIntent = async (paymentId: string) => {
+  try {
+    await stripe.paymentMethods.attach(paymentId, {
+      customer: CUSTOMER_ID,
+    })
+  } catch (err) {
+    console.log('error: ', err)
   }
 }

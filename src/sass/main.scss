@@ -1,0 +1,36 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/globals";
+@import "base/typography";
+
+@import "components/buttons";
+@import "components/thumbnails";
+@import "components/tags";
+@import "components/allcontentlist";
+@import "components/pagination";
+
+@import "layout/navigation";
+@import "layout/footer";
+@import "layout/3columngrid";
+
+// page별 scss
+@import "pages/home";
+
+@import "pages/allcontents";
+@import "pages/contentarticle";
+// 2가지 카테고리 탐색 페이지
+@import "pages/contents_market";
+@import "pages/contents_marketing";
+
+@import "pages/mypage_blank";
+@import "pages/mypage_saved";
+
+@import "pages/allreports";
+@import "pages/report_beforesignin";
+
+@import "pages/signin";
+@import "pages/signup";
+@import "pages/welcome";
+
+@import "pages/project_beforesignin";

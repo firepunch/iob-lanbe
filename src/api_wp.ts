@@ -1,8 +1,21 @@
-import { ICreateUser, ILoginUser, IEmailForm } from './types/api'
-import { isEmpty } from './utils/lib'
-import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
+=======
+import {
+  ICreateNote,
+  ICreateUser,
+  ICreateWatchList,
+  IFetchNotes,
+  IEmailForm,
+  ILoginUser,
+  IFetchWatchList,
+  IRemoveWatchList,
+} from './types/api'
+import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+const API_MAP = {
+  wpAPI: '',
+  customAPI: '/custom-api/v1',
+}
 
 async function fetchAPI({
   method = 'GET', 
@@ -82,5 +95,60 @@ export async function ProjectInquiry(data) {
     method: 'POST',
     data,
   })
+  return res
+}
+
+export async function fetchWatchList(data: IFetchWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createWatchList(data: ICreateWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function removeWatchList(data: IRemoveWatchList) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/watchlist',
+    method: 'DELETE',
+    data,
+  })
+
+  return res
+}
+
+export async function fetchNotes(data: IFetchNotes) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
+    method: 'GET',
+    data,
+  })
+
+  return res
+}
+
+export async function createNote(data: ICreateNote) {
+  const res = await fetchAPI({
+    customPrefixPath: '/custom-api/v1',
+    path: '/notes',
+    method: 'POST',
+    data,
+  })
+
   return res
 }

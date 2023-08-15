@@ -1,0 +1,39 @@
+// mobile first
+main {
+    #default-content {
+        #saved-content {
+            @include standard-grid;
+            margin-top: 3rem;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #default-content {
+        #saved-content {            
+            .thumbnail {
+                height: 9rem;
+            }
+        }
+    }
+} 
+
+@media (min-width: 1200px) {
+    #default-content {
+        #saved-content {            
+            .thumbnail {
+                height: 11rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    #default-content {
+        #saved-content {            
+            .thumbnail {
+                height: 14rem;
+            }
+        }
+    }
+}
