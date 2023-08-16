@@ -1,12 +1,11 @@
 import {
   ICreateNote,
   ICreateUser,
-  ICreateWatchList,
   IFetchNotes,
   IEmailForm,
   ILoginUser,
   IFetchWatchList,
-  IRemoveWatchList,
+  IBodyWatchList,
 } from './types/api'
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
@@ -112,7 +111,7 @@ export async function fetchWatchList(data: IFetchWatchList) {
   return res
 }
 
-export async function createWatchList(data: ICreateWatchList) {
+export async function createWatchList(data: IBodyWatchList) {
   return fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
@@ -121,15 +120,13 @@ export async function createWatchList(data: ICreateWatchList) {
   })
 }
 
-export async function removeWatchList(data: IRemoveWatchList) {
-  const res = await fetchAPI({
+export async function removeWatchList(data: IBodyWatchList) {
+  return fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'DELETE',
     data,
   })
-
-  return res
 }
 
 export async function fetchNotes(data: IFetchNotes) {
