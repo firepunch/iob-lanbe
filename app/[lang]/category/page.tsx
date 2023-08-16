@@ -10,19 +10,19 @@ import { Icons, Pagination, PostCard, Select } from '@/components'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
 import ArrowBlackDown from '@/imgs/arrow_black_down.png'
+import { useSearchParams } from 'next/navigation'
 
-export default  function Category({
+export default function Category({
   params: { lang },
-  searchParams,
 }: {
   params: { lang: ValidLocale }
-  searchParams?: { name?: string }
 }) {
+  const searchParams = useSearchParams()
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
-      
-  const categoryName = searchParams?.name || 'all'
+
+  const categoryName = searchParams.get('name') || 'all'
 
   useEffect(() => {
     getContentsByCategory(categoryName, 231936698).then(result => {
