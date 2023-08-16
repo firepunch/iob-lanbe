@@ -18,7 +18,7 @@ export const PostCard = ({
   slug,
   title = '',
   date = '',
-  lanbePost: { is_save, country },
+  lanbeContent: { is_save, country },
   onToggleBookmark,
 }: PostCardProps) => {
   return (

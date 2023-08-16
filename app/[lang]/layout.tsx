@@ -60,5 +60,3 @@ export default async function LocaleLayout({
     </html>
   )
 }
-
-export const dynamic = 'force-dynamic'

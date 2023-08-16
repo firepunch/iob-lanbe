@@ -170,7 +170,7 @@ export default function Category({
               key={node.id}
               onToggleBookmark={() => (
                 handleToggleBookmark({
-                  isSaved: node.lanbePost.is_save,
+                  isSaved: node.lanbeContent.is_save,
                   databaseId: node.databaseId,
                 })
               )}

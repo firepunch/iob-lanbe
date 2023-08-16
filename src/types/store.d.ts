@@ -12,7 +12,7 @@ export type ITags = {
   }[]
 }
 
-export type ILanbePost = {
+export type ILanbeContent = {
   is_save: boolean
   country: string
 }
@@ -26,5 +26,10 @@ export interface IPost {
   country: string
   featuredImage?: IFeaturedImage
   tags: ITags
-  lanbePost: ILanbePost
+  lanbeContent: ILanbeContent
+}
+
+export interface IReport extends IPost {
+  name: string
+  shortDescription: string
 }

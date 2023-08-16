@@ -20,7 +20,7 @@ query posts($language: LanguageCodeFilterEnum!, $userId: Float) {
               sourceUrl
             }
           }
-          lanbePost(user_id: $userId){
+          lanbeContent(user_id: $userId){
             is_save
             country
           }
