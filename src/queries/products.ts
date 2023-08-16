@@ -1,9 +1,10 @@
 const PRODUCTS_QUERY = `
-query products($language: String) {
+query products($language: String, $userId: Float) {
   products(where: {category: $language}) {
     edges {
       cursor
       node {
+        databaseId
         id
         name
         type
@@ -13,6 +14,10 @@ query products($language: String) {
           id
           sourceUrl
           altText
+        }
+        lanbeContent(user_id: $userId, type: "report") {
+          country
+          is_save
         }
         ... on SimpleProduct {
           id

@@ -88,9 +88,9 @@ export async function getContentBySlug(postSlug) {
   return data.post
 }
 
-export async function getAllProducts(language) {
+export async function getAllProducts(language, userId ) {
   const data = await fetchAPI(PRODUCTS_QUERY, {
-    variables: { language },
+    variables: { language, userId },
   })
   return data.products.edges
 }
