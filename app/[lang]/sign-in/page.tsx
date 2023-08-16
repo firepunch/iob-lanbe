@@ -60,7 +60,6 @@ export default function SignIn({
 
   return (
     <section id="main-signin-wrap">
-
       <div id="signin-info">
         <h2>{t('sign_in_h2')}</h2>
 

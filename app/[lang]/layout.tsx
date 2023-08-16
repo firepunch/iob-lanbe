@@ -11,6 +11,7 @@ export function generateStaticParams() {
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
+  'sign-up',
 ]
 
 export default async function LocaleLayout({
