@@ -1,6 +1,9 @@
 export const LOGIN_QUERY = `
 mutation LoginUser($input: LoginInput!) {
   login(input: $input) {
+    user {
+      databaseId
+    }
     clientMutationId
     authToken
     refreshToken
