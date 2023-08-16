@@ -45,7 +45,7 @@
                     margin-left: 1rem;
                 }
 
-                input[type=text] {
+                input[type=email], input[type=password] {
                     height: 3rem;
                     border: .075rem solid $black;
                     border-radius: 10rem;
