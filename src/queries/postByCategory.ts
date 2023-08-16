@@ -22,10 +22,8 @@ const POST_BY_CATEGORY_QUERY = `
               }
             }
             lanbePost(user_id: $userId){
-              country
               is_save
-              post_ids
-              post_id
+              country
             }
             language {
               code
