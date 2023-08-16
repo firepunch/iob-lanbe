@@ -29,7 +29,11 @@ async function fetchAPI({
   path: string,
   data: object | FormData,
 }) {
-  const headers = prefixPath === 'formAPI' ? {} : { 'Content-Type':'application/json' }
+  const headers = {}
+  
+  if (prefixPath !== 'formAPI') {
+    headers['Content-Type'] = 'application/json'
+  }
 
   if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
     headers[
@@ -38,7 +42,7 @@ async function fetchAPI({
   }
 
   const res = await fetch(`${API_URL}/wp-json${API_MAP[prefixPath]}${path}`, {
-    ...!isEmpty(headers) &&  headers,
+    ...!isEmpty(headers) && { headers },
     method,
     body: prefixPath === 'formAPI' ?
       data :
