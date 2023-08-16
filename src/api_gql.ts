@@ -95,19 +95,19 @@ export async function getAllProducts(language) {
   return data.products.edges
 }
 
-export async function getAllPosts(language) {
-  const data = await fetchAPI(POSTS_QUERY, {
-    variables: { language },
-  })
-
-  return data.posts.edges
-}
-
 export async function getAllCategories(language) {
   const data = await fetchAPI(CATEGORIES_QUERY, {
     variables: { language },
   })
   return data.categories.edges
+}
+
+export async function getAllPosts(language, userId) {
+  const data = await fetchAPI(POSTS_QUERY, {
+    variables: { language, userId },
+  })
+
+  return data.posts.edges
 }
 
 export async function getContentsByCategory(categorySlug, userId) {

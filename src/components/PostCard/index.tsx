@@ -44,7 +44,7 @@ export const PostCard = ({
         <div className="location-date">
           <div className="country">
             <Image src={LocationBlackImg} alt="Location icon" />
-            <p>{country.toUpperCase()}</p>
+            <p>{country?.toUpperCase()}</p>
           </div>
 
           <p className="date">
@@ -56,7 +56,7 @@ export const PostCard = ({
           {title}
         </p>
 
-        {tags?.nodes?.length && (
+        {tags?.nodes && (
           <div className="tags">
             {tags.nodes.map(item => (
               <div key={item.id} className="indiv-tag">

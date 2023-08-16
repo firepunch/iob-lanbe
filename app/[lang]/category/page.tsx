@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from '@/i18n/client'
-import { getContentsByCategory } from '@/api_gql'
+import { getAllPosts, getContentsByCategory } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Icons, Pagination, PostCard, Select } from '@/components'
 import useContentState from '@/stores/contentStore'
@@ -25,10 +25,16 @@ export default function Category({
   const categoryName = searchParams.get('name') || 'all'
 
   useEffect(() => {
-    getContentsByCategory(categoryName, 231936698).then(result => {
-      updatePosts(result)
-    })
-  }, [categoryName])
+    if (categoryName === 'all') {
+      getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+        updatePosts(result)
+      })
+    } else {
+      getContentsByCategory(categoryName, 231936698).then(result => {
+        updatePosts(result)
+      })
+    }
+  }, [categoryName, updatePosts])
   
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -71,19 +77,19 @@ export default function Category({
                 {t('market_research')}
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category', query: { name: 'market' } }}>
+                <Link href={{ query: { name: 'market' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('market')}</p>
                 </Link>
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'corporate' } }}>
+                <Link href={{ query: { name: 'corporate' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('corporate')}</p>
                 </Link>
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'consumer' } }}>
+                <Link href={{ query: { name: 'consumer' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('consumer')}</p>
                 </Link>
@@ -95,25 +101,25 @@ export default function Category({
                 {t('market_entry')}
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'marketing' } }}>
+                <Link href={{ query: { name: 'marketing' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('marketing')}</p>
                 </Link>
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'partnership' } }}>
+                <Link href={{ query: { name: 'partnership' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('partnership')}</p>
                 </Link>
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'channel' } }}>
+                <Link href={{ query: { name: 'channel' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('channel')}</p>
                 </Link>
               </li>
               <li className="sub-categ">
-                <Link href={{ pathname: '/category',  query: { name: 'payment' } }}>
+                <Link href={{ query: { name: 'payment' } }}>
                   <Icons type="arrowBlack" />
                   <p>{t('payment')}</p>
                 </Link>
