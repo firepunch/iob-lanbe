@@ -3,7 +3,6 @@ import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import { getContents, getContentBySlug } from '@/api_gql'
 import Link from 'next/link'
-import { ContentCard } from '@/components'
 
 export default async function Category({
   params: { lang, content_slug },
@@ -59,10 +58,6 @@ export default async function Category({
         <Link 
           key={node.id} 
           href={`/${encodeURIComponent(node.slug)}`}>
-          <ContentCard
-            thumbnail_url={node.featuredImage?.node.sourceUrl}
-            {...node}
-          />
         </Link>
       ))}
     </main>

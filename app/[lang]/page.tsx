@@ -1,4 +1,3 @@
-import { ContentCard } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import { getContents } from '@/api_gql'
@@ -26,10 +25,6 @@ export default async function Home({
         <Link 
           key={node.id} 
           href={`/${encodeURIComponent(node.slug)}`}>
-          <ContentCard
-            thumbnail_url={node.featuredImage?.node.sourceUrl}
-            {...node}
-          />
         </Link>
       ))}
     </>
