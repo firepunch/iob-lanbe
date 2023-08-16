@@ -54,10 +54,14 @@ export const PostCard = ({
     <Link href={`/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
         <div className="thumbnail">
-          {thumbnail && <Image src={thumbnail.sourceUrl} alt={thumbnail.altText} />}
-          <div className="save" onClick={handleWatchList}>
-            <Image src={SaveImg} alt="Save" />
-          </div>
+          {featuredImage && (
+            <Image 
+              src={featuredImage.node.sourceUrl} 
+              alt={featuredImage.node.altText}
+              sizes="100vw"
+              fill={true}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
         </div>
 
         <div className="location-date">

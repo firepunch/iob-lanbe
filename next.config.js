@@ -13,12 +13,8 @@ const nextConfig = {
   },
   images: {
     domains: [
-      // iob-develop.firepunch.buzz
       process.env.NEXT_PUBLIC_WORDPRESS_API_URL.match(/(?!(w+)\.)\w*-(?:\w+\.)+\w+/)[0], // Valid WP Image domain.
-      '0.gravatar.com',
-      '1.gravatar.com',
-      '2.gravatar.com',
-      'secure.gravatar.com',
+      'i0.wp.com',
     ],
   },
   sassOptions: {
