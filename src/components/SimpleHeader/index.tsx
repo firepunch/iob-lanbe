@@ -11,16 +11,14 @@ export default function Header({
   lang: ValidLocale
 }) {
   return (
-    <>
-      <header>
-        <LanguageSwitcher isSimple lang={lang} />
-        <h1>
-          <Link href="/">I.O.B</Link>
-        </h1>
-        <a href="#" className="hamburger-mobile">
-          <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
-        </a>
-      </header>
-    </>
+    <header>
+      <LanguageSwitcher isSimple lang={lang} />
+      <h1>
+        <Link href="/">I.O.B</Link>
+      </h1>
+      <a href="#" className="hamburger-mobile">
+        <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
+      </a>
+    </header>
   )
 }
