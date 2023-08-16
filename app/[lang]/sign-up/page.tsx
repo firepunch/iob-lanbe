@@ -106,7 +106,7 @@ export default function SignUp({
                 <input type="email" id="username" name="username" placeholder={t('email_placeholder')} />
               </div>
 
-              <div className="field">
+              <div className="field pw-field">
                 <label htmlFor="password">*{t('password')}</label>
                 <input type="password" id="password" name="password" placeholder={t('password_placeholder')} />
                 <p>{t('password_rule')}</p>
