@@ -109,14 +109,12 @@ export async function fetchWatchList(data: IFetchWatchList) {
 }
 
 export async function createWatchList(data: ICreateWatchList) {
-  const res = await fetchAPI({
+  return fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'POST',
     data,
   })
-
-  return res
 }
 
 export async function removeWatchList(data: IRemoveWatchList) {

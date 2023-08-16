@@ -11,7 +11,6 @@ export interface IFetchWatchList {
 }
 
 export interface ICreateWatchList {
-  user_id: number
   content_id: number
   type: 'post' | 'report'
 }
