@@ -61,7 +61,6 @@ main {
         margin-top: 14rem;
 
         a {
-          display: block;
           width: 20%;
           background-color: transparent;
           border: none;
@@ -83,7 +82,7 @@ main {
           }
         }
 
-        a:nth-child(5) {
+        button:nth-child(5) {
           border-right: none;
         }
       }
@@ -215,7 +214,7 @@ main {
             }
           }
 
-          a:hover {
+          button:hover {
             background-color: $white;
 
             p {
