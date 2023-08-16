@@ -1,29 +1,56 @@
+'use client'
+
+import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from '@/i18n/client'
 import { getContentsByCategory } from '@/api_gql'
-import { Icons, PostCard, Select, Pagination } from '@/components'
-import { getTranslation } from '@/i18n/index'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import { Icons, Pagination, PostCard, Select } from '@/components'
+import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
 import ArrowBlackDown from '@/imgs/arrow_black_down.png'
-import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
 
-export default async function Category({
+export default  function Category({
   params: { lang },
   searchParams,
 }: {
   params: { lang: ValidLocale }
   searchParams?: { name?: string }
 }) {
-  const { t: ct } = await getTranslation(lang, 'common')
-  const { t } = await getTranslation(lang, 'category-page')
+  const { posts, updatePosts } = useContentState(state => state)
+  const { t: ct } = useTranslation(lang, 'common')
+  const { t } = useTranslation(lang, 'category-page')
       
   const categoryName = searchParams?.name || 'all'
 
-  const postData = getContentsByCategory(categoryName, 231936698)
-  const [posts] = await Promise.all([postData])
+  useEffect(() => {
+    getContentsByCategory(categoryName, 231936698).then(result => {
+      updatePosts(result)
+    })
+  }, [categoryName])
+  
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+    try {
+      if (isSaved) {
+        await removeWatchList({
+          content_id: databaseId,
+          type: 'post',
+        })
+      } else {
+        await createWatchList({
+          content_id: databaseId,
+          type: 'post',
+        })
+      }
 
-  console.log(posts[0])
+      const result = await getContentsByCategory(categoryName, 231936698)
+      updatePosts(result)
+    } catch (err) {
+      console.log(err)
+      alert('저장 실패')
+    }
+  }
 
   return (
     <>
@@ -130,13 +157,17 @@ export default async function Category({
         </div>
       </section>
 
-      {/* grid */}
       <section id="contents-grid">
         <div id="all-contents-wrap">
-          {posts?.length && posts.map(({ node }) => (
+          {posts?.map(({ node }) => (
             <PostCard
               key={node.id}
-              thumbnail_url={node.featuredImage?.node}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbePost.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
               {...node}
             />
           ))}

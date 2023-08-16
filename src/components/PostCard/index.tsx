@@ -1,55 +1,26 @@
 'use client'
 
+import { IPost } from '@/types/store'
+import { dateFormat } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { dateFormat } from '@/utils/lib'
-
-import SaveImg from '@/imgs/save.png'
+import Bookmark from '../Bookmark'
 import LocationBlackImg from '@/imgs/locationicon_black.png'
-import { createWatchList } from '@/api_wp'
-import { id } from 'date-fns/locale'
-import { error } from 'console'
 
-interface PostCardProps {
-  thumbnail?: {sourceUrl: string; altText: string};
-  tags?: {nodes: {id: string; name: string}[]};
-  lanbePost: {is_save: boolean; country: string};
-  databaseId: number;
-  slug: string;
-  title: string;
-  date: string;
-  country: string;
-  onClick?: () => void;
-  onSave?: () => void;
+interface PostCardProps extends IPost {
+  onToggleBookmark: () => void;
 }
 
 export const PostCard = ({
-  thumbnail,
+  featuredImage,
   tags,
   databaseId,
   slug,
   title = '',
   date = '',
   lanbePost: { is_save, country },
-  onClick,
-  onSave,
-  ...props
+  onToggleBookmark,
 }: PostCardProps) => {
-  
-  const handleWatchList = async (e) => {
-    e.preventDefault()
-
-    try {
-      await createWatchList({
-        content_id: databaseId,
-        type: 'post',
-      })
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
-  }
-  
   return (
     <Link href={`/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
@@ -62,6 +33,12 @@ export const PostCard = ({
               fill={true}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
+          )}
+          <Bookmark 
+            contentId={databaseId} 
+            isSaved={is_save} 
+            onToggle={onToggleBookmark}
+          />
         </div>
 
         <div className="location-date">
