@@ -1,9 +1,10 @@
 const POST_BY_CATEGORY_QUERY = `
-  query postByCategory($categorySlug: ID!) {
+  query postByCategory($categorySlug: ID!, $userId: Float) {
     category(id: $categorySlug, idType: SLUG) {
       posts {
         edges {
           node {
+            databaseId
             id
             title
             slug
@@ -20,9 +21,11 @@ const POST_BY_CATEGORY_QUERY = `
                 sourceUrl
               }
             }
-            lanbePost {
+            lanbePost(user_id: $userId){
               country
               is_save
+              post_ids
+              post_id
             }
             language {
               code

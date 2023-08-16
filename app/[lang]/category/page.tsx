@@ -5,20 +5,25 @@ import { Icons, PostCard, Select, Pagination } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/types'
 import ArrowBlackDown from '@/imgs/arrow_black_down.png'
+import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default async function Category({
   params: { lang },
   searchParams,
 }: {
   params: { lang: ValidLocale }
-  searchParams
+  searchParams?: { name?: string }
 }) {
   const { t: ct } = await getTranslation(lang, 'common')
   const { t } = await getTranslation(lang, 'category-page')
+      
   const categoryName = searchParams?.name || 'all'
 
-  const postData = getContentsByCategory(categoryName)
+  const postData = getContentsByCategory(categoryName, 231936698)
   const [posts] = await Promise.all([postData])
+
+  console.log(posts[0])
 
   return (
     <>
@@ -140,7 +145,6 @@ export default async function Category({
         <Pagination />
 
       </section>
-      {/* //grid */}
     </>
   )
 }
