@@ -355,10 +355,10 @@ export default async function Home({
           </div>
           {/* //iob latest report grid */}
 
-          <a href="#" className="report-cta-mobile">
+          <Link href={{ pathname: `/report` }} className="report-cta-mobile">
             <Icons type="arrowBlack" />
-            <p>See all</p>
-          </a>
+            <p>{t('see-all')}</p>
+          </Link>
 
         </div>
       </section>
