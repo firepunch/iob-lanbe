@@ -24,9 +24,31 @@ export interface IPost {
   title: string
   date: string
   country: string
+  content: string
   featuredImage?: IFeaturedImage
   tags: ITags
   lanbeContent: ILanbeContent
+  categories: {
+    edges: {
+      node: {
+        id: string
+        name: string
+        parentId: string
+      }
+    }[]
+  }
+  author: {
+    node: {
+      name: string
+      roles: {
+        edges: {
+          node: {
+            id: string
+          }
+        }
+      }
+    }
+  }
 }
 
 export interface IReport extends IPost {

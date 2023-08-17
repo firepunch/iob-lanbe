@@ -13,8 +13,19 @@ query postBySlug($postSlug: ID!) {
         node {
           id
           name
+          parentId
         }
       }
+    }
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+      }
+    }
+    lanbeContent {
+      country
+      is_save
     }
     postCountry {
       lanbeCountry

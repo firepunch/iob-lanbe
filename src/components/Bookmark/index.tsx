@@ -5,11 +5,9 @@ import SavedImg from '@/imgs/save_white_fill.png'
 import SaveBlackImg from '@/imgs/save_black.png'
 
 export default function Bookmark({
-  contentId,
   isSaved = false,
   onToggle,
 }: {
-  contentId: number
   isSaved: boolean
   onToggle: () => void
 }) {
