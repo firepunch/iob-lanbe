@@ -7,8 +7,9 @@ import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import { useEffect } from 'react'
 import { createWatchList, removeWatchList } from '@/api_wp'
+
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
 import DataTrackingIcon from '@/imgs/datatracking.jpg'
@@ -18,7 +19,6 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
-import { useEffect } from 'react'
 
 // export async function generateMetadata({ params: { lang } }) {
 
