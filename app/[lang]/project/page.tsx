@@ -29,26 +29,13 @@ export default function Search({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     try {
-      // console.log(e.target.value)
-      const formData = new FormData()
-      // const { id, value } = e.target
-      // formData.set(id, value)
-      // setFormData(formData)
-      // formData.append('firstname', 'yu')
-      // formData.append('lastname', 'da')
-      // formData.append('org', 'iob')
-      // formData.append('jobtitle', 'job')
-      // formData.append('email', 'ex@gmail.com')
-      // formData.append('contact', '010-1111-1111')
-      // formData.append('message', 'hello')
-      console.log(e.target)
-
+      // const formData = new FormData()
+      const formData = new FormData(e.currentTarget)
       const { code } = await ProjectInquiry(formData)
       setErrorCode(code)
     } catch (error) {
-      console.error('이메일 폼 전송 에러:', error)
+      console.error('error: ', error)
     }
   }
 
@@ -352,11 +339,11 @@ export default function Search({
       {/* //main */}
         
       {/* project inquiry */}
-      {/* <ProjectForm
+      <ProjectForm
         t={t} 
         errorCode={errorCode}
         onSubmit={handleSubmit} 
-      /> */}
+      />
     </>
   )
 }

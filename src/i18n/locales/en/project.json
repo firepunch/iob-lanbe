@@ -78,6 +78,22 @@
   "business": "Business",
   "development": "Development",
   "sales": "Sales",
-  "engineering": "S/W Engineering"
+  "engineering": "S/W Engineering",
 
+
+  "project": "PROJECT",
+  "inquiry": "INQUIRY",
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "organization": "Organization",
+  "organization-placeholder": "Please enter your organization.",
+  "job-title": "Job Title",
+  "job-placeholder": "Please enter your job title.",
+  "email": "Email",
+  "email-placeholder": "Please enter your email.",
+  "contact": "Contact No.",
+  "contact-placeholder": "Please enter your contact number.",
+  "message": "Message",
+  "message-placehodler": "Please provide a brief overview of your project and the support you need from us.",
+  "send": "Send"
 }
