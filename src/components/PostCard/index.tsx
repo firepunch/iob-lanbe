@@ -1,61 +1,71 @@
-import Image from 'next/image'
+'use client'
 
-import SaveImg from '@/imgs/save.png'
+import { IPost } from '@/types/store'
+import { dateFormat } from '@/utils/lib'
+import Image from 'next/image'
+import Link from 'next/link'
+import Bookmark from '../Bookmark'
 import LocationBlackImg from '@/imgs/locationicon_black.png'
 
-interface PostCardProps {
-  thumbnail?: {sourceUrl:string; altText:string};
-  title?: string;
-  description?: string;
-  onClick?: () => void;
-  onSave?: () => void;
+interface PostCardProps extends IPost {
+  onToggleBookmark: () => void;
 }
 
 export const PostCard = ({
-  thumbnail,
+  featuredImage,
+  tags,
+  databaseId,
+  slug,
   title = '',
-  description = '',
-  onClick,
-  onSave,
-  ...props
+  date = '',
+  lanbeContent: { is_save, country },
+  onToggleBookmark,
 }: PostCardProps) => {
   return (
-    <>
-      <div className="indiv-content i-c-1">
+    <Link href={`/${encodeURIComponent(slug)}`}>
+      <div className="indiv-content">
         <div className="thumbnail">
-          <div className="save">
-            <Image src={SaveImg} alt="Save" />
-          </div>
+          {featuredImage && (
+            <Image 
+              src={featuredImage.node.sourceUrl} 
+              alt={featuredImage.node.altText}
+              sizes="100vw"
+              fill={true}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          )}
+          <Bookmark 
+            contentId={databaseId} 
+            isSaved={is_save} 
+            onToggle={onToggleBookmark}
+          />
         </div>
 
         <div className="location-date">
           <div className="country">
             <Image src={LocationBlackImg} alt="Location icon" />
-            <p>COUNTRY</p>
+            <p>{country?.toUpperCase()}</p>
           </div>
 
-          <p className="date">23.07.25</p>
+          <p className="date">
+            {dateFormat(date)}
+          </p>
         </div>
 
-        <a href="#" className="indiv-content-title">
-          Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-        </a>
+        <p className="indiv-content-title">
+          {title}
+        </p>
 
-        <div className="tags">
-          <div className="indiv-tag">Tag</div>
-          <div className="indiv-tag">Long Tag</div>
-        </div>
+        {tags?.nodes && (
+          <div className="tags">
+            {tags.nodes.map(item => (
+              <div key={item.id} className="indiv-tag">
+                {item.name}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
-      <div>
-        {thumbnail ? 
-          <img src={thumbnail.sourceUrl} alt={thumbnail.altText} /> :
-          <img src="https://via.placeholder.com/200" alt="thumbnail" />
-        }
-        <p>{title}</p>
-        <p>{description}</p>
-      </div>
-
-    </>
+    </Link>
   )
 }

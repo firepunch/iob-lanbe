@@ -9,6 +9,7 @@
 @import "components/tags";
 @import "components/allcontentlist";
 @import "components/pagination";
+@import "components/cookiepopup";
 
 @import "layout/navigation";
 @import "layout/footer";
@@ -16,6 +17,7 @@
 
 // page별 scss
 @import "pages/home";
+@import "pages/about";
 
 @import "pages/allcontents";
 @import "pages/contentarticle";
@@ -34,3 +36,15 @@
 @import "pages/welcome";
 
 @import "pages/project_beforesignin";
+
+@import "pages/search";
+@import "pages/search_results";
+@import "pages/search_noresults";
+
+@import "pages/cookiepolicy";
+@import "pages/cookiepreferences";
+@import "pages/privacypolicy";
+@import "pages/termsandconditions";
+
+@import "pages/payment_report";
+@import "pages/payment_complete";

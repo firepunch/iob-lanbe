@@ -1,9 +1,8 @@
-import { PostCard } from '@/components'
 import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import { getContents } from '@/api_gql'
 import Link from 'next/link'
-import { Icons } from '@/components'
+import { Icons, PostCard } from '@/components'
 import Image from 'next/image'
 
 import MarketIcon from '@/imgs/marketanalysis.jpg'

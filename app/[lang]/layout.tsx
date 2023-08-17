@@ -1,13 +1,18 @@
-import { Footer, Header } from '@/components'
-import { getTranslation } from '@/i18n/index'
-import { ValidLocale, languages } from '@/i18n/settings'
 import { sendEmailForm } from '@/api_wp'
-import { useState } from 'react'
-import { EmailForm } from '@/components'
+import { Footer, Header, SimpleHeader } from '@/components'
+import { getTranslation } from '@/i18n'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale, languages } from '@/i18n/settings'
+import { headers } from 'next/headers'
 
 export function generateStaticParams() {
   return languages.map((lang) => ({ lang }))
 }
+
+const SIMPLE_HEADER_MAP = [
+  'sign-in',
+  'sign-up',
+]
 
 export default async function LocaleLayout({
   children,
@@ -16,6 +21,8 @@ export default async function LocaleLayout({
   children: React.ReactNode,
   params: { lang: ValidLocale }
 }) {
+  const headersList = headers()
+  const fullUrl = headersList.get('referer') || ''
   const { t: ct } = await getTranslation(lang, 'category-page')
   const { t } = await getTranslation(lang, 'layout')
   // const [errorCode, setErrorCode] = useState()
@@ -36,7 +43,10 @@ export default async function LocaleLayout({
     <html lang={lang}>
       <head />
       <body>
-        <Header lang={lang} ct={ct} t={t} />
+        {SIMPLE_HEADER_MAP.find(item=> fullUrl.includes(item)) ?
+          <SimpleHeader lang={lang} /> :
+          <Header lang={lang} ct={ct} t={t} /> 
+        }
         <main>
           {children}
         </main>

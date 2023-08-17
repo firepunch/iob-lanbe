@@ -14,7 +14,7 @@
 
     #signup-inputs-wrap {
         .signup-inputs-row {
-            form,
+            .field,
             .sortby-country,
             .sortby-function {
                 @include flex-column;
@@ -26,7 +26,7 @@
                     margin-left: 1rem;
                 }
 
-                input[type=text],
+                input,
                 select {
                     height: 3rem;
                     border: .075rem solid $black;
@@ -36,7 +36,7 @@
                 }
             }
 
-            #pw-form {
+            .pw-field {
                 p {
                     width: 90%;
                     margin-left: 1rem;
@@ -57,7 +57,7 @@
             align-items: baseline;
             margin: .35rem 0;
 
-            p {
+            label {
                 font-size: .65rem;
                 margin: 0;
                 margin-left: .5rem;
@@ -86,7 +86,7 @@
                 display: flex;
                 justify-content: space-around;
     
-                form,
+                .field,
                 .sortby-country,
                 .sortby-function {
                     width: 48%;

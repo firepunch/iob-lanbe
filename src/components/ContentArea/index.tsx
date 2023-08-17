@@ -2,7 +2,7 @@
 
 import cls from 'classnames'
 import { useState } from 'react'
-import ContentOptions from '../ContentOptions'
+import ContentOptions from '../PostOptions'
 import styles from './index.module.scss'
 
 interface ContentAreaProps {

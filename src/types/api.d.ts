@@ -10,14 +10,9 @@ export interface IFetchWatchList {
   type: 'post' | 'report'
 }
 
-export interface ICreateWatchList {
-  user_id: number
+export interface IBodyWatchList {
   content_id: number
   type: 'post' | 'report'
-}
-
-export interface IRemoveWatchList {
-  id: number
 }
 
 export interface IFetchNotes {

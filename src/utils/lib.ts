@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 export const objectToGetParams = (object: {
     [key: string]: string | number | undefined | null;
   }) => {
@@ -18,18 +20,18 @@ export const generateRandomString = () => (
 )
 
 export const AUTH_TOKEN = 'IOB_TOKENS'
-export const setStorageData = (key: string, data: string | object, isSession = false) => {
+export const setStorageData = (key: string, data: string | object, isRemember = false) => {
   if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
 
-  isSession ?
+  isRemember ?
     sessionStorage.setItem(key, JSON.stringify(data)) :
     localStorage.setItem(key, JSON.stringify(data))
 }
 
-export const getStorageData = (key: string, isSession = false) => {
+export const getStorageData = (key: string, isRemember = false) => {
   if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
 
-  const item = isSession ?
+  const item = isRemember ?
     sessionStorage.getItem(key) :
     localStorage.getItem(key)
 
@@ -43,4 +45,11 @@ function remove_data(key) {
     return
   }
   localStorage.removeItem(key)
+}
+
+export const dateFormat = (rcvDate: string) => format(new Date(rcvDate), 'yy.MM.dd')
+
+export const dateEnFormat = (rcvDate?: string) => {
+  // format(new Date(rcvDate), 'MMM dd, yyyy')
+  return rcvDate
 }

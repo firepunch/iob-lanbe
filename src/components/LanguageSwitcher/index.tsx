@@ -6,7 +6,13 @@ import { usePathname } from 'next/navigation'
 import LanguageImg from '@/imgs/lang_black.png'
 import Image from 'next/image'
 
-export default function LanguageSwitcher({ lang }: { lang: ValidLocale }) {
+export default function LanguageSwitcher({ 
+  lang, 
+  isSimple = false,
+}: {
+   lang: ValidLocale 
+  isSimple?: boolean
+}) {
   const pathName = usePathname()
   const otherLocale = lang === 'ko' ? 'en' : 'ko'
   const redirectedPathName = (locale: string) => {
@@ -19,7 +25,7 @@ export default function LanguageSwitcher({ lang }: { lang: ValidLocale }) {
   return (
     <Link href={redirectedPathName(otherLocale)}>
       <Image src={LanguageImg} alt="Change Language" />
-      {lang.toUpperCase()}
+      {!isSimple && lang.toUpperCase()}
     </Link>
   )
 }

@@ -47,7 +47,8 @@ header {
 
     #firstpage-img {
         background: url("/imgs/homepage_main.jpg");
-        height: 95vh;
+        // height: 95vh;
+        height: 45rem;
         position: relative;
         @include background(60%);
 
@@ -334,11 +335,12 @@ aside {
         }
 
         #firstpage-img {
+            height: 35rem;
             
             .intro-slogan {
-                font-size: $base-font-size;
+                font-size: 1.25rem;
                 text-align: left;
-                top: 40%;
+                top: 11.5rem;
                 left: 2rem;
                 transform: translate(0);
             }
@@ -346,14 +348,14 @@ aside {
             .intro-text {
                 width: 40%;
                 text-align: left;
-                top: 45.5%;
+                top: 14rem;
                 left: 2rem;
                 transform: translate(0);
             }
 
             .firstpage-cta {
                 width: 30%;
-                top: 35%;
+                top: 10rem;
                 right: 1rem;
             }
         }
@@ -432,6 +434,7 @@ aside {
 
     aside {
         display: block;
+        margin-top: 3rem;
         width: 15%;
         height: 100%;
         position: sticky;
@@ -470,7 +473,7 @@ aside {
     }
 
     #iob-content {
-        margin-top: -7.5rem;
+        margin-top: -12.5rem;
 
         #section-wrap {
             .iob-latest-content {
@@ -504,13 +507,18 @@ aside {
                         height: 3.5rem;
                         margin: 0;
                     }
+
+                    p {
+                        font-size: .6rem;
+                        margin-top: .5rem;
+                    }
                 }
             }
         }
 
         .data-tracking {
             width: 95%;
-            margin: auto;
+            margin: 2.5rem auto;
 
             .dt-line {
                 height: 1.5rem;
@@ -520,6 +528,11 @@ aside {
                 img {
                     width: 3.5rem;
                     height: 3.5rem;
+                    margin: .25rem auto;
+                }
+
+                p {
+                    font-size: .6rem;
                 }
             }
         }
@@ -527,6 +540,7 @@ aside {
 }
 
 @media (min-width: 992px) {
+
     .fp-main {
         width: 82.5%;
         margin-left: 14%;
@@ -610,13 +624,14 @@ aside {
 @media (min-width: 1200px) {
     #firstpage {
         #firstpage-img {
+
             .intro-slogan {
-                top: 37.5%;
-                font-size: 1.25rem;
+                font-size: $h1-font-size;
             }
             
             .intro-text {
-                width: 30%;
+                top: 15rem;
+                width: 40%;
             }
         }
     }
@@ -645,13 +660,19 @@ aside {
 @media (min-width: 1400px) {
     #firstpage {
         #firstpage-img {
+            height: 45rem;
+
             .intro-slogan {
-                font-size: $h1-font-size;
+                top: 15rem;
             }
-            
+
             .intro-text {
-                top: 45%;
-                width: 30rem;
+                top: 19rem;
+                font-size: 1.05rem;
+            }
+
+            .firstpage-cta {
+                top: 14rem;
             }
         }
     }

@@ -41,7 +41,7 @@
     top: 80%;
     left: 80%;
 
-    button {
+    .inquire-button {
         width: 3.5rem;
         height: 3.5rem;
         @include flex-column;
@@ -51,6 +51,7 @@
         background-color: $orange;
             
         p {
+            font-size: $smaller-font-size;
             font-weight: $bold-font-weight;
             margin: .25rem;
             margin-top: .65rem;

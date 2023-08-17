@@ -1,0 +1,41 @@
+#search-result-text {
+    width: 100%;
+    height: 20rem;
+    margin-top: 3rem;
+    position: relative;
+
+    p {
+        @include absolute-center;
+        width: 60%;
+        text-align: center;
+        top: 45%;
+    }
+}
+
+#search-result-contents,
+#search-result-reports {
+    width: 85%;
+    margin: auto;
+
+    .sr-content-title,
+    .sr-report-title {
+        width: 100%;
+        border-bottom: .35rem solid $black;
+        margin-bottom: 3rem;
+
+        h3 {
+            margin: .35rem 0;
+            font-size: 1.25rem;
+            font-family: $secondary-font;
+        }
+    }
+
+    #search-result-contents-wrap,
+    #search-result-reports-wrap {
+        @include standard-grid;
+    }
+}
+
+#search-result-reports {
+    margin: 10rem auto;
+}

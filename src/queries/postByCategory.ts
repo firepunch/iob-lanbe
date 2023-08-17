@@ -1,29 +1,39 @@
-const CATEGORY_POSTS_QUERY = `
-  query GetCategoryPosts($categorySlug: ID!) {
-    category(id: $categorySlug, idType: SLUG) {
-      name
-      posts {
-        edges {
-          node {
-            id
-            title
-            slug
-            date
-            featuredImage {
-              node {
-                id
-                sourceUrl
-              }
+const POST_BY_CATEGORY_QUERY = `
+query postByCategory($categorySlug: ID!, $userId: Float) {
+  category(id: $categorySlug, idType: SLUG) {
+    posts {
+      edges {
+        node {
+          databaseId
+          id
+          title
+          slug
+          date
+          tags {
+            nodes {
+              id
+              name
             }
-            language {
-              code
-              locale
+          }
+          featuredImage {
+            node {
+              id
+              sourceUrl
             }
+          }
+          lanbeContent(user_id: $userId){
+            is_save
+            country
+          }
+          language {
+            code
+            locale
           }
         }
       }
     }
   }
+}
 `
 
-export default CATEGORY_POSTS_QUERY
+export default POST_BY_CATEGORY_QUERY
