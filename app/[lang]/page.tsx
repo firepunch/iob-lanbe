@@ -1,34 +1,71 @@
-import { getTranslation } from '@/i18n/index'
-import { ValidLocale } from '@/i18n/settings'
-import { getContents } from '@/api_gql'
-import Link from 'next/link'
-import { Icons, PostCard } from '@/components'
-import Image from 'next/image'
+'use client'
 
-import MarketIcon from '@/imgs/marketanalysis.jpg'
-import StrategyIcon from '@/imgs/strategy.jpg'
+import { getAllPosts, getAllProducts } from '@/api_gql'
+import { Icons, PostCard, ReportCard } from '@/components'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/i18n/settings'
+import useContentState from '@/stores/contentStore'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { createWatchList, removeWatchList } from '@/api_wp'
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
-import UiUxIcon from '@/imgs/uiux.jpg'
-import EcommerceIcon from '@/imgs/ecommerce.jpg'
-import SocialmediaIcon from '@/imgs/socialmedia.jpg'
-import DigitalIcon from '@/imgs/digitalmarketing.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
 import DataTrackingIcon from '@/imgs/datatracking.jpg'
+import DigitalIcon from '@/imgs/digitalmarketing.jpg'
+import EcommerceIcon from '@/imgs/ecommerce.jpg'
+import MarketIcon from '@/imgs/marketanalysis.jpg'
+import SocialmediaIcon from '@/imgs/socialmedia.jpg'
+import StrategyIcon from '@/imgs/strategy.jpg'
+import UiUxIcon from '@/imgs/uiux.jpg'
+import { useEffect } from 'react'
 
-export async function generateMetadata({ params: { lang } }) {
-  const { t } = await getTranslation(lang, 'second-page')
-  return { title: t('h1') }
-}
+// export async function generateMetadata({ params: { lang } }) {
 
-export default async function Home({
+export default function Home({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = await getTranslation(lang, 'second-page')
-  const contentsData = getContents(lang.toUpperCase())
+  const { t } = useTranslation(lang, 'second-page')
+  const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
 
-  const [contents] = await Promise.all([contentsData])
+  useEffect(() => {
+    getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+      updatePosts(result)
+    })
+
+    getAllProducts(lang, 231936698).then(result => (
+      updateReports(result)
+    ))
+  }, [])
+
+  const handleToggleBookmark = async ({ isSaved, databaseId, type }) => {
+    try {
+      if (isSaved) {
+        await removeWatchList({
+          content_id: databaseId,
+          type,
+        })
+      } else {
+        await createWatchList({
+          content_id: databaseId,
+          type,
+        })
+      }
+
+      if (type === 'post') {
+        const result = await getAllPosts(lang.toUpperCase(), 231936698)
+        updatePosts(result)
+      } else if (type === 'report') {
+        const result = await getAllProducts(lang, 231936698)
+        updateReports(result)
+      }
+    } catch (err) {
+      console.log(err)
+      alert('저장 실패')
+    }
+  }
 
   return (
     <>
@@ -115,7 +152,7 @@ export default async function Home({
           <div className="iob-content-info">
             <p className="description">We provide meaningful and comprehensive content that matters and inspires.</p>
 
-            <Link href={{ pathname: `/content` }} className="cta-web">
+            <Link href={{ pathname: `/category` }} className="cta-web">
               <Icons type="arrowBlack" />
               <p>{t('see-all')}</p>
             </Link>
@@ -129,136 +166,19 @@ export default async function Home({
           <div className="iob-latest-content">
 
             {/* individual thumbnails */}
-
-            {/* 1 */}
-            <div className="indiv-content i-c-1">
-              <a href="contentarticle.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />
-                  </div>
-                </div>
-              </a>
-
-              <div className="location-date">
-                <div className="country">
-                  <Icons type="location" />
-                  <p>COUNTRY</p>
-                </div>
-
-                <p className="date">23.07.25</p>
-              </div>
-
-              <a href="contentarticle.html" className="indiv-content-title">
-                Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-              </a>
-
-              <div className="tags">
-                <div className="indiv-tag">Tag</div>
-                <div className="indiv-tag">Long Tag</div>
-                <div className="indiv-tag">Long Long Tag</div>
-                <div className="indiv-tag">Tag</div>
-                <div className="plus">+</div>
-              </div>
-            </div>
-
-            {/* 2 */}
-            <div className="indiv-content i-c-2">
-              <a href="allcontents.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />
-                  </div>
-                </div>
-              </a>
-
-              <div className="location-date">
-                <div className="country">
-                  <Icons type="location" />
-                  <p>COUNTRY</p>
-                </div>
-
-                <p className="date">23.07.25</p>
-              </div>
-
-              <a href="contentarticle.html" className="indiv-content-title">
-                Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-              </a>
-
-              <div className="tags">
-                <div className="indiv-tag">Tag</div>
-                <div className="indiv-tag">Long Tag</div>
-                <div className="indiv-tag">Long Long Tag</div>
-                <div className="indiv-tag">Tag</div>
-                <div className="plus">+</div>
-              </div>
-            </div>
-
-            {/* 3 */}
-            <div className="indiv-content i-c-3">
-              <a href="contentarticle.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />                    
-                  </div>
-                </div>
-              </a>
-
-              <div className="location-date">
-                <div className="country">
-                  <Icons type="location" />
-                  <p>COUNTRY</p>
-                </div>
-
-                <p className="date">23.07.25</p>
-              </div>
-
-              <a href="contentarticle.html" className="indiv-content-title">
-                Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-              </a>
-
-              <div className="tags">
-                <div className="indiv-tag">Tag</div>
-                <div className="indiv-tag">Long Tag</div>
-                <div className="indiv-tag">Long Long Tag</div>
-                <div className="indiv-tag">Tag</div>
-                <div className="plus">+</div>
-              </div>
-            </div>
-
-            {/* 4 */}
-            <div className="indiv-content i-c-4">
-              <a href="contentarticle.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />                    
-                  </div>
-                </div>
-              </a>
-
-              <div className="location-date">
-                <div className="country">
-                  <Icons type="location" />
-                  <p>COUNTRY</p>
-                </div>
-
-                <p className="date">23.07.25</p>
-              </div>
-
-              <a href="contentarticle.html" className="indiv-content-title">
-                Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-              </a>
-
-              <div className="tags">
-                <div className="indiv-tag">Tag</div>
-                <div className="indiv-tag">Long Tag</div>
-                <div className="indiv-tag">Long Long Tag</div>
-                <div className="indiv-tag">Tag</div>
-                <div className="plus">+</div>
-              </div>
-            </div>
-            {/* //individual thumbnails */}
-
+            {posts?.map(({ node }) => (
+              <PostCard
+                key={node.id}
+                onToggleBookmark={() => (
+                  handleToggleBookmark({
+                    type: 'post',
+                    isSaved: node.lanbeContent.is_save,
+                    databaseId: node.databaseId,
+                  })
+                )}
+                {...node}
+              />
+            ))}
           </div>
           {/* //iob latest content grid */}
 
@@ -279,7 +199,7 @@ export default async function Home({
 
           <div className="iob-report-info">
             <p className="description">{t('report-description')}</p>
-            <Link href={{ pathname: `/content` }} className="cta-web">
+            <Link href={{ pathname: `/report` }} className="cta-web">
               <Icons type="arrowBlack" />
               <p>{t('see-all')}</p>
             </Link>
@@ -293,62 +213,19 @@ export default async function Home({
           <div className="iob-latest-report">
 
             {/* individual thumbnails */}
-            {/* 1 */}
-            <div className="indiv-report i-r-1">
-              <a href="report_beforesignin.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />                    
-                  </div>
-
-                  {/* thumbnail image */}
-                </div>
-              </a>
-
-              <a href="report_beforesignin.html" className="indiv-report-title">Report Title Sample No.1</a>
-
-              <p className="report-description">
-                Lorem ipsum dolor sit amet consectetur. Eros auctor nisl viverra enim. Imperdiet eget amet sodales lobortis. Pellentesque vulputate ultricies tincidunt diam eu purus lacus leo ut. Mollis mauris egestas phasellus sed ac. Egestas ullamcorper mattis facilisis gravida consequat quis magna. Risus id tti.
-              </p>
-            </div>
-
-            {/* 2 */}
-            <div className="indiv-report i-r-2">
-              <a href="report_beforesignin.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />                    
-                  </div>
-
-                  {/* thumbnail image */}
-                </div>
-              </a>
-
-              <a href="report_beforesignin.html" className="indiv-report-title">Report Title Sample No.1</a>
-
-              <p className="report-description">
-                Lorem ipsum dolor sit amet consectetur. Eros auctor nisl viverra enim. Imperdiet eget amet sodales lobortis. Pellentesque vulputate ultricies tincidunt diam eu purus lacus leo ut. Mollis mauris egestas phasellus sed ac. Egestas ullamcorper mattis facilisis gravida consequat quis magna. Risus id tti.
-              </p>
-            </div>
-
-            {/* 3 */}
-            <div className="indiv-report i-r-3">
-              <a href="report_beforesignin.html">
-                <div className="thumbnail">
-                  <div className="save">
-                    <Icons type="save" />                    
-                  </div>
-
-                  {/* thumbnail image */}
-                </div>
-              </a>
-
-              <a href="report_beforesignin.html" className="indiv-report-title">Report Title Sample No.1</a>
-
-              <p className="report-description">
-                Lorem ipsum dolor sit amet consectetur. Eros auctor nisl viverra enim. Imperdiet eget amet sodales lobortis. Pellentesque vulputate ultricies tincidunt diam eu purus lacus leo ut. Mollis mauris egestas phasellus sed ac. Egestas ullamcorper mattis facilisis gravida consequat quis magna. Risus id tti.
-              </p>
-            </div>
+            {reports?.map(({ node }) => (
+              <ReportCard
+                key={node.id}
+                onToggleBookmark={() => (
+                  handleToggleBookmark({
+                    type: 'report',
+                    isSaved: node.lanbeContent.is_save,
+                    databaseId: node.databaseId,
+                  })
+                )}
+                {...node}
+              />
+            ))}
             {/* //individual thumbnails */}
 
           </div>
@@ -456,16 +333,6 @@ export default async function Home({
           <p>{t('see-details')}</p>
         </Link>
       </section>
-      {/* {contents?.map(({ node }) => (
-        <Link
-          key={node.id}
-          href={`/${encodeURIComponent(node.slug)}`}>
-          <PostCard
-            thumbnail_url={node.featuredImage?.node.sourceUrl}
-            {...node}
-          />
-        </Link>
-      ))} */}
     </>
   )
 }
