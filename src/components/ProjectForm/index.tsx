@@ -18,23 +18,48 @@ export default function ProjectForm ({
 }: ProjectFormProps) {
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="id">first-name</label>
-      <input type="name" id="first-name" /><br></br>
-      <label htmlFor="id">last-name</label>
-      <input type="name" id="last-name" /><br></br>
-      <label htmlFor="id">organization</label>
-      <input type="name" id="organization" /><br></br>
-      <label htmlFor="id">job-title</label>
-      <input type="name" id="job-title" /><br></br>
-      <label htmlFor="id">email</label>
-      <input type="email" id="user-email" /><br></br>
-      <label htmlFor="id">tel</label>
-      <input type="tel" id="contact-no" /><br></br>
-      <label htmlFor="id">message</label>
-      <input type="textarea" id="message" /><br></br>
-      {errorCode && <p>{t(errorCode)}</p>}
-      <button type="submit">submit</button>
-    </form>
+    <section id="project-inquiry-form">
+      <h2>{t('project')}<br/>{t('inquiry')}</h2>
+
+      <form onSubmit={onSubmit}>
+        <div id="pi-form-wrap">
+          {/* row1 */}
+          <div className="pi-inputs-row">
+            <label htmlFor="firstname">{t('first-name')}</label>
+            <input type="text" id="firstname" name="firstname" />
+
+            <label htmlFor="lastname">{t('last-name')}</label>
+            <input type="text" id="lastname" name="lastname" />
+          </div>
+
+          {/* row2 */}
+          <div className="pi-inputs-row">
+            <label htmlFor="org">{t('organization')}</label>
+            <input type="text" id="org" name="org" placeholder={t('organization-placeholder')} />
+
+            <label htmlFor="jobtitle">{t('job-title')}</label>
+            <input type="text" id="jobtitle" name="jobtitle" placeholder={t('job-placeholder')} />
+          </div>
+
+          {/* row3 */}
+          <div className="pi-inputs-row">
+            <label htmlFor="email">{t('email')}</label>
+            <input type="email" id="email" name="email" placeholder={t('email-placeholder')} />
+            <label htmlFor="contact">{t('contact')}</label>
+            <input type="phone" id="contact" name="contact" placeholder={t('contact-placeholder')} />
+          </div>
+
+          {/* row4: message */}
+          <div className="message-us">
+            <label htmlFor="message">{t('message')}</label>
+            <input type="text-area" id="message" name="message"
+              placeholder={t('message-placeholder')} />
+          </div>
+
+          {/* send button */}
+          <button type="submit">{t('send')}</button>
+        </div>
+      </form>
+    </section>
   )
 }
