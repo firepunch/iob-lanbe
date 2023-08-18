@@ -94,17 +94,17 @@ export default function Home({
             {t('intro-text')}
           </p>
           <div className="firstpage-cta">
-            <Link href={{ pathname: `/content` }} className="fp-cta" >
+            <Link href={{ pathname: `category` }} className="fp-cta" >
               <Icons type="arrowWhite" />
               <p>{t('iob-content')}</p>
             </Link>
 
-            <Link href={{ pathname: `/report` }} className="fp-cta">
+            <Link href={{ pathname: `report` }} className="fp-cta">
               <Icons type="arrowWhite" />
               <p>{t('iob-report')}</p>
             </Link>
 
-            <Link href={{ pathname: `/project` }} className="fp-cta">
+            <Link href={{ pathname: `project` }} className="fp-cta">
               <Icons type="arrowWhite" />
               <p>{t('iob-project')}</p>
             </Link>
