@@ -18,6 +18,7 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
+import ProjectMainImg from '@/imgs/project_main.jpg'
 
 export default function Search({
   params: { lang },
@@ -43,6 +44,7 @@ export default function Search({
     <>
       {/* section 1: first page */}
       <section id="project-firstpage">
+        <Image src={ProjectMainImg} sizes="100vw" alt="Building" />
         <h2>{t('firstpage')}</h2>
         <p>{t('iob-project')}</p>
         {/* background image */}
