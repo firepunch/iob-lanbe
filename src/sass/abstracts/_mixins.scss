@@ -39,6 +39,8 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: $position;
+    object-fit: cover;
+    object-position: $position;
 }
 
 // position absolute center

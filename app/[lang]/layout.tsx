@@ -5,9 +5,9 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale, languages } from '@/i18n/settings'
 import { headers } from 'next/headers'
 
-export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }))
-}
+// export function generateStaticParams() {
+//   return languages.map((lang) => ({ lang }))
+// }
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
