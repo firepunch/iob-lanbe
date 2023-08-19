@@ -6,7 +6,7 @@ import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { dateEnFormat } from '@/utils/lib'
+import { dateEnFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -18,7 +18,6 @@ export default function Category({
 }) {
   const { post, recommend, updatePost, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
-  const authorRole = post?.author?.node?.roles?.edges?.node.id
 
   useEffect(() => {
     getContentBySlug(content_slug, 231936698).then(result => (
@@ -58,12 +57,17 @@ export default function Category({
     })?.node.name
   )
 
+  if (!post) {
+    return 'loading'
+  }
+
+
   return (
     <>
       <section id="content-title-page">
         <div id="top-title">
           <div className="content-tags">
-            {post?.categories?.edges?.map(({ node }) => node.parentId && (
+            {post.categories?.edges?.map(({ node }) => node.parentId && (
               <div className="ct" key={node.id}>
                 <p>{getParentCategory(node.parentId)}</p>
                 <p>{node.name}</p>
@@ -71,11 +75,11 @@ export default function Category({
             ))}
           </div>
 
-          <h2>{post?.title}</h2>
+          <h2>{post.title}</h2>
 
           <div className="content-location">
             <Icons type="location" />
-            <p>{post?.lanbeContent?.country?.toUpperCase()}</p>
+            <p>{post.lanbeContent.country?.toUpperCase()}</p>
           </div>
         </div>
 
@@ -94,14 +98,14 @@ export default function Category({
       <section id="main-content">
 
         <PostOptions
-          isSaved={post?.lanbeContent.is_save}
+          isSaved={post.lanbeContent.is_save}
           onToggleBookmark={handleToggleBookmark} 
           onToggleFontSize={()=> {}} 
         />
 
         {/* content details: title, author, tags, date, etc. */}
         <div id="content-details">
-          {post?.tags?.nodes && (
+          {post.tags?.nodes && (
             <div className="tags">
               {post.tags.nodes.map(item => (
                 <div key={item.id} className="indiv-tag">
@@ -126,15 +130,13 @@ export default function Category({
           </div>
 
           <div className="author-date">
-            <p>By {post?.author?.node?.name} {authorRole && `| ${authorRole}`}</p>
+            <p>By {getAuthorInfo(post.author)}</p>
             <p>{dateEnFormat(post?.date)}</p>
           </div>
         </div>
         {/* content details: title, author, tags, date, etc. */}
 
-        {post?.content && (
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        )}
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </section>
 
       {/* idea notes wrap */}

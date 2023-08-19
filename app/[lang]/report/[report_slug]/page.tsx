@@ -9,9 +9,9 @@ import useContentState from '@/stores/contentStore'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import { dateFormat, getAuthorInfo } from '@/utils/lib'
 
 import ShareImg from '@/imgs/share.png'
-import { dateFormat } from '@/utils/lib'
 
 export default function Report({
   params: { lang, report_slug },
@@ -73,13 +73,15 @@ export default function Report({
 
           <h2>{report.name}</h2>
 
-          <div className="tags">
-            {report.productTags?.nodes?.map(item => (
-              <div key={item.id} className="indiv-tag">
-                <p>{item.name}</p>
-              </div>
-            ))}
-          </div>
+          {report.productTags?.nodes && (
+            <div className="tags">
+              {report.productTags.nodes.map(item => (
+                <div key={item.id} className="indiv-tag">
+                  <p>{item.name}</p>
+                </div>
+              ))}       
+            </div>
+          )}
 
           <div className="report-details">
             <ul>
@@ -91,33 +93,25 @@ export default function Report({
             </ul>
 
             <ul>
-              <li>
-                {report.author.node.name} {report.author.node.roles && `| ${report.author.node.roles}`}
-              </li>
-              <li>
-                {dateFormat(report.date, true)}
-              </li>
+              <li>{getAuthorInfo(report.author)}</li>
+              <li>{dateFormat(report.date, true)}</li>
               <li>
                 {report.productTags.nodes?.map(
                   item => item.name
                 ).join(', ')}
               </li>
               <li>
-                {
-                  report.attributes.edges.find(item => 
-                    item.node.name === 'Pages'
-                  )?.node.options[0]
-                }
+                {report.attributes.edges.find(item => 
+                  item.node.name === 'Pages'
+                )?.node.options[0]}
               </li>
-              <li>
-                {report.price}
-              </li>
+              <li>{report.price}</li>
             </ul>
           </div>
         </div>
       </section>
 
-      {report?.content}
+      <div dangerouslySetInnerHTML={{ __html: report.description }} />
 
       {/* section 3: report price and cta */}
       <section id="report-price-cta">

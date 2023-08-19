@@ -54,3 +54,13 @@ export const dateFormat = (rcvDate: string, showFullYear?: boolean) => (
 export const dateEnFormat = (rcvDate?: string) => (
   rcvDate ? format(new Date(rcvDate), 'MMM dd, yyyy') : ''
 )
+
+export const getAuthorInfo = (author) => {
+  if (!author) return ''
+
+  const name = author.node.name
+  const roles = author.node.roles
+  if (!roles) return name
+  
+  return `${name} | ${roles.edges?.node.id}`
+}
