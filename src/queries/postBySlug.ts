@@ -1,5 +1,5 @@
 const POST_BY_SLUG_QUERY = `
-query postBySlug($postSlug: ID!) {
+query postBySlug($postSlug: ID!, $userId: Float) {
   post(id: $postSlug, idType: SLUG) {
     id
     databaseId
@@ -23,7 +23,7 @@ query postBySlug($postSlug: ID!) {
         altText
       }
     }
-    lanbeContent {
+    lanbeContent(user_id: $userId) {
       country
       is_save
     }

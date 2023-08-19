@@ -50,6 +50,6 @@ function remove_data(key) {
 export const dateFormat = (rcvDate: string) => format(new Date(rcvDate), 'yy.MM.dd')
 
 export const dateEnFormat = (rcvDate?: string) => {
-  // format(new Date(rcvDate), 'MMM dd, yyyy')
-  return rcvDate
+  return rcvDate ? format(new Date(rcvDate), 'MMM dd, yyyy') : ''
+  // return rcvDate
 }

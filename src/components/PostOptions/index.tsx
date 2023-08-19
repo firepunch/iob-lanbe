@@ -12,11 +12,15 @@ import ScrollTopImg from '@/imgs/scrolltop.png'
 import ShareImg from '@/imgs/share.png'
 
 interface ContentOptionsProps {
-  onChangeFont: () => void
+  isSaved?: boolean
+  onToggleBookmark: ({ isSaved, databaseId }) => void
+  onToggleFontSize: () => void
 }
 
 export default function PostOptions ({
-  onChangeFont,
+  isSaved = false,
+  onToggleBookmark,
+  onToggleFontSize,
 }: ContentOptionsProps) {
   const shareLink = 'https://www.naver.com/'  // || window.location.toString()
 
@@ -35,26 +39,26 @@ export default function PostOptions ({
             </Link>
           </button>
     
-          <button type="button" >
-            <Bookmark contentId={123} isSaved={false} onToggle={() => {}} />
+          <button type="button">
+            <Bookmark isSaved={isSaved} onToggle={onToggleBookmark} />
           </button>
     
           <button type="button" className="share" onClick={handleOpenShare}>
             <Image src={ShareImg} alt="Share" />
           </button>
     
-          <button type="button" className="font-size" onClick={onChangeFont}>
+          <button type="button" className="font-size" onClick={onToggleFontSize}>
             <p>Aa</p>
           </button>
         </div>
       </div>
       
-      <div className={cls(styles.shareWrapper, { [styles.open]: isOpen })}>
+      {/* <div className={cls(styles.shareWrapper, { [styles.open]: isOpen })}>
         <button onClick={handleCopy}>URL</button>
         <a href={`mailto:${objectToGetParams({ subject: 'title', body: shareLink })}`}>Gmail</a>
         <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
         <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}>Teams</a>
-      </div>
+      </div> */}
     </>
   )
 }

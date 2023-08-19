@@ -35,7 +35,6 @@ export const PostCard = ({
             />
           )}
           <Bookmark 
-            contentId={databaseId} 
             isSaved={is_save} 
             onToggle={onToggleBookmark}
           />

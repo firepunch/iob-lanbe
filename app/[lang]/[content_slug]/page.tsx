@@ -1,18 +1,15 @@
 'use client'
 
-import { ContentArea,PostOptions } from '@/components'
-import { getTranslation } from '@/i18n/index'
-import { ValidLocale } from '@/i18n/settings'
-import { getContents, getContentBySlug } from '@/api_gql'
-import Link from 'next/link'
-import Image from 'next/image'
-import useContentState from '@/stores/contentStore'
+import { getContentBySlug, getContents } from '@/api_gql'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
-
-import LocationImg from '@/imgs/locationicon_black.png'
-import { useEffect } from 'react'
-import Bookmark from '@/components/Bookmark'
+import { ValidLocale } from '@/i18n/settings'
+import useContentState from '@/stores/contentStore'
 import { dateEnFormat } from '@/utils/lib'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect } from 'react'
 
 export default function Category({
   params: { lang, content_slug },
@@ -21,16 +18,39 @@ export default function Category({
 }) {
   const { post, recommend, updatePost, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
+  const authorRole = post?.author?.node?.roles?.edges?.node.id
 
   useEffect(() => {
-    getContents(lang.toUpperCase()).then(result => (
+    getContentBySlug(content_slug, 231936698).then(result => (
       updatePost(result)
     ))
 
-    getContentBySlug(content_slug).then(result => (
+    getContents(lang.toUpperCase()).then(result => (
       updateRecommend(result)
     ))
   }, [])
+
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+    try {
+      if (isSaved) {
+        await removeWatchList({
+          content_id: databaseId,
+          type: 'report',
+        })
+      } else {
+        await createWatchList({
+          content_id: databaseId,
+          type: 'report',
+        })
+      }
+
+      const result = await getContentBySlug(content_slug, 231936698)
+      updatePost(result)
+    } catch (err) {
+      console.log(err)
+      alert('저장 실패')
+    }
+  }
 
   const getParentCategory = (parentId: string) => (
     post?.categories?.edges.find(({ node }) => {
@@ -54,24 +74,30 @@ export default function Category({
           <h2>{post?.title}</h2>
 
           <div className="content-location">
-            <Image src={LocationImg} alt="Location" />
-            <p>{post?.lanbeContent?.country}</p>
+            <Icons type="location" />
+            <p>{post?.lanbeContent?.country?.toUpperCase()}</p>
           </div>
         </div>
 
         {post?.featuredImage && (
-          <div id="content-thumbnail-img">
-            <Image 
-              src={post.featuredImage?.node.sourceUrl} 
-              alt={post.featuredImage?.node.altText} 
-            />
-          </div>
+          <Image 
+            id="content-thumbnail-img"
+            src={post.featuredImage?.node.sourceUrl} 
+            alt={post.featuredImage?.node.altText} 
+            width={0}
+            height={0}
+            sizes="100vw"
+          />
         )}
       </section>
 
       <section id="main-content">
 
-        <PostOptions onChangeFont={()=> {}} />
+        <PostOptions
+          isSaved={post?.lanbeContent.is_save}
+          onToggleBookmark={handleToggleBookmark} 
+          onToggleFontSize={()=> {}} 
+        />
 
         {/* content details: title, author, tags, date, etc. */}
         <div id="content-details">
@@ -88,13 +114,19 @@ export default function Category({
           <div className="title-save">
             <h3>{post?.title}</h3>
             <Bookmark 
-              isSaved={post?.lanbeContent?.is_save || false}
-              onToggle={() => {}}
+              isBlack
+              isSaved={post?.lanbeContent?.is_save}
+              onToggle={() => (
+                handleToggleBookmark({
+                  isSaved: post?.lanbeContent.is_save,
+                  databaseId: post?.databaseId,
+                })
+              )}
             />
           </div>
 
           <div className="author-date">
-            <p>By {post?.author?.node?.name} | {post?.author?.node?.roles?.edges?.node.id}</p>
+            <p>By {post?.author?.node?.name} {authorRole && `| ${authorRole}`}</p>
             <p>{dateEnFormat(post?.date)}</p>
           </div>
         </div>
@@ -107,140 +139,47 @@ export default function Category({
 
       {/* idea notes wrap */}
       <section id="idea-notes">
-        <h5>GOT AN IDEA?</h5>
-
+        <h5>{t('idea_h5')}</h5>
         <div className="idea-note-wrap">
-
-          {/* idea note design */}
-          <div className="idea-note-1">
-            <input type="text" id="ideanote" name="ideanote" placeholder="Write down your ideas here."/>
-            <button>Save</button>
-          </div>
+          <IdeaNote />
 
           <div className="add-idea-note">
             {/* add new idea design image will be put here as background */}
           </div>
-          {/* idea note design */}
         </div>
       </section>
-      {/* idea notes wrap */}
 
       {/* recommended content */}
       <section id="recommended-content">
         <div className="recommended-title">
-          <h5>RECOMMENDED</h5>
+          <h5>{t('recommend_h2')}</h5>
 
-          <a href="allcontents.html" className="recommended-web-cta">
-            <img src="./imgs/arrow_black.png" alt="Arrow"/>
-            <p>See all</p>
-          </a>
+          <Link href={`/category`} className="recommended-web-cta">
+            <Icons type="arrowBlack" />
+            <p>{t('see_all')}</p>
+          </Link>
         </div>
 
-        {/* content wrap */}
         <div className="recommended-content-wrap">
-                
-          {/* 1 */}
-          <div className="indiv-content i-c-1">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-            </div>
-          </div>
-
-          {/* 2 */}
-          <div className="indiv-content i-c-2">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-              <div className="indiv-tag">Long Long Tag</div>
-            </div>
-          </div>
-
-          {/* 3 */}
-          <div className="indiv-content i-c-3">
-            <div className="thumbnail">
-              <div className="save">
-                <img src="./imgs/save.png" alt="Save"/>
-              </div>
-            </div>
-
-            <div className="location-date">
-              <div className="country">
-                <img src="./imgs/locationicon_black.png" alt="Location icon"/>
-                <p>COUNTRY</p>
-              </div>
-
-              <p className="date">23.07.25</p>
-            </div>
-
-            <a href="#" className="indiv-content-title">
-                        Title sample: Product Placement Strategy Revived a 35 year-old Shoe Brand
-            </a>
-
-            <div className="tags">
-              <div className="indiv-tag">Tag</div>
-              <div className="indiv-tag">Long Tag</div>
-            </div>
-          </div>
-
+          {recommend?.map(({ node }) => (
+            <PostCard 
+              {...node}
+              key={node.id}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbeContent.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
+            />
+          ))}
         </div>
-        {/* content wrap */}
 
-        <a href="allcontents.html" className="recommended-mobile-cta">
-          <img src="./imgs/arrow_black.png" alt="Arrow"/>
-          <p>See all</p>
-        </a>
-
-      </section>
-      {/* recommended content */}
-
-      <p>{t('login_wall')}</p>
-
-      <h2>Recommended</h2>     
-      {/* {recommend?.map(({ node }) => (
-        <Link 
-          key={node.id} 
-          href={`/${encodeURIComponent(node.slug)}`}>
+        <Link href={`/category`} className="recommended-mobile-cta">
+          <Icons type="arrowBlack" />
+          <p>{t('see_all')}</p>
         </Link>
-      ))} */}
+      </section>
     </>
   )
 }

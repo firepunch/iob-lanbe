@@ -3,14 +3,23 @@ import Image from 'next/image'
 import SaveImg from '@/imgs/save.png'
 import SavedImg from '@/imgs/save_white_fill.png'
 import SaveBlackImg from '@/imgs/save_black.png'
+import SavedBlackImg from '@/imgs/save_white_fill.png'
 
 export default function Bookmark({
+  isBlack = false,
   isSaved = false,
   onToggle,
 }: {
-  isSaved: boolean
+  isBlack?: boolean
+  isSaved?: boolean
   onToggle: () => void
 }) {
+  const imgSrc = isBlack ? (
+    isSaved ? SavedBlackImg : SaveBlackImg
+  ) : (
+    isSaved ? SavedImg : SaveImg
+  )
+
   return (
     <div 
       className="save"
@@ -19,7 +28,7 @@ export default function Bookmark({
         onToggle()
       }}
     >
-      <Image src={isSaved ? SavedImg : SaveImg} alt="Save" />
+      <Image src={imgSrc} alt="Save" />
     </div>
   )
 }

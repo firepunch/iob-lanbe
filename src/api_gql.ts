@@ -80,9 +80,9 @@ export async function getContents(language) {
   return data.posts.edges
 }
 
-export async function getContentBySlug(postSlug) {
+export async function getContentBySlug(postSlug, userId) {
   const data = await fetchAPI(POST_BY_SLUG_QUERY, {
-    variables: { postSlug },
+    variables: { postSlug, userId },
   })
 
   return data.post
