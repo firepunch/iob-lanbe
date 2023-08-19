@@ -64,9 +64,9 @@ export async function createOrderNew(input) {
   return data.createOrder
 }
 
-export async function getProductBySlug(productSlug) {
+export async function getProductBySlug(productSlug, userId) {
   const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
-    variables: { productSlug },
+    variables: { productSlug, userId },
   })
 
   return data.product

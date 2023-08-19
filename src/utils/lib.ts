@@ -47,9 +47,10 @@ function remove_data(key) {
   localStorage.removeItem(key)
 }
 
-export const dateFormat = (rcvDate: string) => format(new Date(rcvDate), 'yy.MM.dd')
+export const dateFormat = (rcvDate: string, showFullYear?: boolean) => (
+  format(new Date(rcvDate), showFullYear ? 'yyyy.MM.dd' : 'yy.MM.dd')
+)
 
-export const dateEnFormat = (rcvDate?: string) => {
-  return rcvDate ? format(new Date(rcvDate), 'MMM dd, yyyy') : ''
-  // return rcvDate
-}
+export const dateEnFormat = (rcvDate?: string) => (
+  rcvDate ? format(new Date(rcvDate), 'MMM dd, yyyy') : ''
+)

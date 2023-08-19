@@ -17,11 +17,10 @@ export const ReportCard = ({
   onToggleBookmark,
 }: ReportCardProps) => {
   return (
-    <Link href={`/${encodeURIComponent(slug)}`}>
+    <Link href={`/report/${encodeURIComponent(slug)}`}>
       <div className="indiv-report i-r-1">
         <div className="thumbnail">
           <Bookmark 
-            contentId={databaseId} 
             isSaved={is_save} 
             onToggle={onToggleBookmark}
           />

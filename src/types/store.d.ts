@@ -53,5 +53,30 @@ export interface IPost {
 
 export interface IReport extends IPost {
   name: string
+  price: string
+  dateGmt: string
+  description: string
   shortDescription: string
+  productTags: {
+    nodes: {
+      id: string
+      name: string
+    }[]
+  }
+  author: {
+    node: {
+      id: string
+      name: string
+      roles?: string
+    }
+  }
+  attributes: {
+    edges: {
+      node: {
+        id: string
+        name: string
+        options: number[]
+      }
+    }[]
+  }
 }

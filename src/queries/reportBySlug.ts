@@ -1,30 +1,55 @@
 const REPORT_BY_SLUG_QUERY = `
-query productBySlug($productSlug: ID!) {
+query productBySlug($productSlug: ID!, $userId: Float) {
   product(id: $productSlug, idType: SLUG) {
+    databaseId
+    name
+    slug
+    date
+    dateGmt
+    author {
+      node {
+        id
+        name
+        roles {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
     attributes {
+      edges {
+        node {
+          id
+          name
+          options
+          
+        }
+      }
+    }
+    lanbeContent(user_id: $userId, type: "report") {
+      country
+      is_save
+    }
+    featuredImage {
+      node {
+        altText
+        sourceUrl
+      }
+    }
+    productTags {
       nodes {
         id
         name
       }
     }
-    content(format: RAW)
-    databaseId
-    name
-    productId
-    title(format: RAW)
-    totalSales
-    ... on VariableProduct {
-      id
-      name
-      attributes {
-        edges {
-          node {
-            id
-          }
-        }
-      }
-      content(format: RAW)
-      description(format: RAW)
+    description(format: RENDERED)
+    shortDescription(format: RAW)
+    type
+    ... on SimpleProduct {
+      price
     }
   }
 }

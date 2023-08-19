@@ -21,7 +21,7 @@ query postByCategory($categorySlug: ID!, $userId: Float) {
               sourceUrl
             }
           }
-          lanbeContent(user_id: $userId){
+          lanbeContent(user_id: $userId) {
             is_save
             country
           }
