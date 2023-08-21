@@ -1,15 +1,15 @@
 'use client'
+
 import { useState } from 'react'
+import Icons from '@/components/Icons'
 
 interface emailFormProps {
-  t: any;
   errorCode?: string;
   onSubmit: (email) => void;
   children?: React.ReactNode;
 }
 
 export default function EmailForm({
-  t,
   errorCode,
   onSubmit,
   children,
@@ -17,18 +17,22 @@ export default function EmailForm({
 }: emailFormProps) {
   const [email, setEmail] = useState('')
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    onSubmit(email)
-  }
+  // const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
+  //   onSubmit(email)
+  // }
 
   return (
     <>
-      <form  data-name="email" onSubmit={handleFormSubmit}>
-        <p>email:</p>
-        <input type="email" id="email" name="email" onChange={(e) => setEmail(e.target.value)}/>
-        <button type="submit">전송</button>
-      </form>
+      <div className="footer-signup">
+        <p>Sign up to<br/> receive our newsletter.</p>
+        <form  data-name="email" onSubmit={onSubmit}>
+          <input type="text" placeholder="Email" id="email"/>
+          <button type="submit">
+            <Icons type="arrowBlack" />
+          </button>
+        </form>
+      </div>
     </>
   )
 }
