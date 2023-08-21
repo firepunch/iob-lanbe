@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
-import { Select, ReportCard, Pagination } from '@/components'
 import { getAllProducts } from '@/api_gql'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import { Pagination, ReportCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import Link from 'next/link'
 import useContentState from '@/stores/contentStore'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { useEffect } from 'react'
 
 // export async function generateMetadata({ params: { lang } }) {
 
@@ -53,7 +52,7 @@ export default function Reports({
     <>
       <section id="all-report-title">
         <div id="report-title-description">
-          <h2>{t('report')}</h2>
+          <h2>{t('report_h2')}</h2>
           <p>{t('report_intro')}</p>
         </div>
 
@@ -85,8 +84,6 @@ export default function Reports({
 
         <Pagination />
       </section>
-      {/* //grid */}
-      
     </>
   )
 }
