@@ -91,7 +91,7 @@ export default function Search({
                 <div className="pd-wrap">
                   <div className="solution">
                     <Image src={MarketIcon} alt="Market Analysis" />
-                    <p>{t('market')}<br/> {t('analysis')}</p>
+                    <p>{t('market-analysis')}<br/> {t('analysis')}</p>
                   </div>
 
                   <div className="solution">
@@ -163,7 +163,7 @@ export default function Search({
     
             {/* market analysis */}
             <div className="service">
-              <h5>{t('market')}<br/>{t('analysis')}</h5>
+              <h5>{t('market-analysis')}<br/>{t('analysis')}</h5>
     
               <ul>
                 <li>{t('market-1')}</li>
@@ -304,12 +304,12 @@ export default function Search({
     
               <div className="network">
                 <p>00+</p>
-                <p>{t('marketing')}</p>
+                <p>{t('network-marketing')}</p>
               </div>
     
               <div className="network">
                 <p>00+</p>
-                <p>{t('design')}</p>
+                <p>{t('network-design')}</p>
               </div>
     
               <div className="network">
