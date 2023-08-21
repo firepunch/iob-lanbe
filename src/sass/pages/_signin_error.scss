@@ -1,0 +1,27 @@
+.wrong-email-pw-wrap {
+    form {
+        label {
+            color: rgb(255, 0, 0);
+            font-weight: $bold-font-weight;
+        }
+
+        // input[type=text] border:red 적용 안 됨;
+        // #wrong-email,
+        // #wrong-password {
+        //     border: red;
+        //     position: relative;
+        // }
+
+        ::placeholder {
+            color: rgb(255, 0, 0);
+        }
+
+        img {
+            margin-top: .1rem;
+            width: .75rem;
+            height: .75rem;
+
+            position: absolute;
+        }
+    }
+}

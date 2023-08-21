@@ -10,6 +10,7 @@
 @import "components/allcontentlist";
 @import "components/pagination";
 @import "components/cookiepopup";
+@import "components/ideanotes";
 
 @import "layout/navigation";
 @import "layout/footer";
@@ -32,6 +33,7 @@
 @import "pages/report_beforesignin";
 
 @import "pages/signin";
+@import "pages/signin_error";
 @import "pages/signup";
 @import "pages/welcome";
 
@@ -48,5 +50,8 @@
 
 @import "pages/payment_report";
 @import "pages/payment_complete";
+@import "pages/payment_modal";
+
+@import "pages/mobile_menu";
 
 @import "./wordpress";

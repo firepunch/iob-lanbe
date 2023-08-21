@@ -45,15 +45,12 @@ header {
         }
     }
 
-    .firstpage-intro {
-      position: relative;
-
-      .firstpage-img {
-          background: url("/imgs/homepage_main.jpg");
-          // height: 95vh;
-          height: 45rem;
-          @include background(60%);
-        }
+    #firstpage-img {
+        background: url("/imgs/homepage_main.jpg");
+        // height: 95vh;
+        height: 45rem;
+        position: relative;
+        @include background(60%);
 
         .intro-slogan {
             width: 80%;
@@ -337,10 +334,8 @@ aside {
             }
         }
 
-        .firstpage-intro {
-            .firstpage-img {
-              height: 35rem;
-            }
+        #firstpage-img {
+            height: 35rem;
             
             .intro-slogan {
                 font-size: 1.25rem;
@@ -628,7 +623,7 @@ aside {
 
 @media (min-width: 1200px) {
     #firstpage {
-        .firstpage-intro {
+        #firstpage-img {
 
             .intro-slogan {
                 font-size: $h1-font-size;
@@ -664,10 +659,8 @@ aside {
 
 @media (min-width: 1400px) {
     #firstpage {
-        .firstpage-intro {
-          .firstpage-img {
-              height: 45rem;
-            }
+        #firstpage-img {
+            height: 45rem;
 
             .intro-slogan {
                 top: 15rem;
