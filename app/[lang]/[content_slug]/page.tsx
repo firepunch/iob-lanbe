@@ -9,7 +9,9 @@ import useContentState from '@/stores/contentStore'
 import { dateEnFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import cls from 'classnames'
+import styles from 'src/components/PostOptions/index.module.scss'
 
 export default function Category({
   params: { lang, content_slug },
@@ -18,6 +20,7 @@ export default function Category({
 }) {
   const { post, recommend, updatePost, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
+  const [isZoomed, setIsZoomed] = useState(false)
 
   useEffect(() => {
     getContentBySlug(content_slug, 231936698).then(result => (
@@ -49,6 +52,10 @@ export default function Category({
       console.log(err)
       alert('저장 실패')
     }
+  }
+  
+  const handleFontSize = () => {
+    setIsZoomed(prevZoomed => !prevZoomed)
   }
 
   const getParentCategory = (parentId: string) => (
@@ -100,7 +107,7 @@ export default function Category({
         <PostOptions
           isSaved={post.lanbeContent.is_save}
           onToggleBookmark={handleToggleBookmark} 
-          onToggleFontSize={()=> {}} 
+          handleFontSize={handleFontSize} 
         />
 
         {/* content details: title, author, tags, date, etc. */}
@@ -136,7 +143,7 @@ export default function Category({
         </div>
         {/* content details: title, author, tags, date, etc. */}
 
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div dangerouslySetInnerHTML={{ __html: post.content }} className={cls(styles.content, { [styles.large]: isZoomed })}/>
       </section>
 
       {/* idea notes wrap */}
