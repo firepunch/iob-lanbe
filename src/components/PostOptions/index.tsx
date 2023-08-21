@@ -14,13 +14,13 @@ import ShareImg from '@/imgs/share.png'
 interface ContentOptionsProps {
   isSaved?: boolean
   onToggleBookmark: ({ isSaved, databaseId }) => void
-  onToggleFontSize: () => void
+  handleFontSize?: any
 }
 
 export default function PostOptions ({
   isSaved = false,
   onToggleBookmark,
-  onToggleFontSize,
+  handleFontSize,
 }: ContentOptionsProps) {
   const shareLink = 'https://www.naver.com/'  // || window.location.toString()
 
@@ -47,7 +47,7 @@ export default function PostOptions ({
             <Image src={ShareImg} alt="Share" />
           </button>
     
-          <button type="button" className="font-size" onClick={onToggleFontSize}>
+          <button type="button" className="font-size" onClick={handleFontSize}>
             <p>Aa</p>
           </button>
         </div>
