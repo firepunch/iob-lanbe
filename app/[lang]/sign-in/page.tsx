@@ -9,7 +9,8 @@ import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import ImageSlideImg from '@/imgs/paper_logo_white.png'
+import paperLogoImg from '@/imgs/paper_logo_white.png'
+import mainImg from '@/imgs/signin_main.jpg'
 
 type ILoginForm = {
   username?: { value: string }
@@ -108,12 +109,14 @@ export default function SignIn({
         </div>
       </div>
 
-      <div id="signin-img">
+      <div id="signin-wrapper">
+        <Image src={mainImg} alt="Login Background" className="signin-img" />
+        
         <div className="mobile-signin-title">
           <h2>{t('sign_in_h2')}</h2>
         </div>
 
-        <Image src={ImageSlideImg} alt="I.O.B logo" />
+        <Image src={paperLogoImg} alt="I.O.B logo" className="signin-logo" />
       </div>
     </section>
   )
