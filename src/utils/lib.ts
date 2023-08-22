@@ -14,7 +14,6 @@ export const isEmpty = (obj) => (
   Object.keys(obj).length == 0
 )
 
-
 export const generateRandomString = () => (
   Math.floor(Math.random() * Date.now()).toString(36)
 )
@@ -39,6 +38,7 @@ type Tokens = {
 interface IGetStorageData {
   (key: string): [undefined, undefined] | [Tokens, boolean]
 }
+
 export const getStorageData:IGetStorageData = (key: string) => {
   if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) {
     return [undefined, undefined]
@@ -76,4 +76,11 @@ export const getAuthorInfo = (author) => {
   if (!roles) return name
   
   return `${name} | ${roles.edges?.node.id}`
+}
+
+export const isValidToken = () => {
+  const [userData] = getStorageData(AUTH_TOKEN)
+  const isValid = userData?.authToken && userData?.user?.databaseId
+
+  return isValid
 }
