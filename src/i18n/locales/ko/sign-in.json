@@ -1,5 +1,15 @@
 {
-  "sign_in": "로그인",
-  "id": "아이디",
-  "invalid_user": "아이디 없음"
+  "sign_in_h2": "회원가입",
+  "email": "Email",
+  "email_placeholder": "Please enter your email.",
+  "password": "Password",
+  "password_placeholder": "Please enter your password.",
+  "remember": "Remember me",
+  "forgot": "Forgot your email or password?",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "no_account": "Don't have an account?",
+
+  "email_required": "Email is required",
+  "password_required": "Email is required"
 }

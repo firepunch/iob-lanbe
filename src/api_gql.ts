@@ -13,15 +13,15 @@ const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
 async function fetchAPI (query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
-  const tokens = getStorageData(AUTH_TOKEN)
+  const [tokens, isRemember] = getStorageData(AUTH_TOKEN)
 
   // if (tokens?.authToken && !query?.includes('LoginUser') && !query?.includes('GetUser')) {
   //   headers['Authorization'] = `Bearer ${tokens.authToken}`
   // }
 
-  // if (tokens?.sessionToken) {
-  //   headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
-  // }
+  if (tokens?.sessionToken) {
+    headers['woocommerce-session'] = `Session ${tokens.sessionToken}`
+  }
 
   const res = await fetch(`${API_URL}/graphql`, {
     headers,
@@ -33,10 +33,13 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
   })
 
   if (!tokens?.sessionToken) {
-    setStorageData(AUTH_TOKEN, {
-      ...tokens,
-      sessionToken: res.headers.get('woocommerce-session'),
-    })
+    setStorageData(
+      AUTH_TOKEN, 
+      {
+        ...tokens,
+        sessionToken: res.headers.get('woocommerce-session'),
+      },
+      isRemember)
   }
 
   const json = await res.json()

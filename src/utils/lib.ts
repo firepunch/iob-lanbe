@@ -28,14 +28,29 @@ export const setStorageData = (key: string, data: string | object, isRemember = 
     localStorage.setItem(key, JSON.stringify(data))
 }
 
-export const getStorageData = (key: string, isRemember = false) => {
-  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+type Tokens = {
+  authToken?: string
+  user?: {
+    databaseId: number
+  }
+  sessionToken?: string
+}
 
-  const item = sessionStorage.getItem(key) || localStorage.getItem(key)
+interface IGetStorageData {
+  (key: string): [undefined, undefined] | [Tokens, boolean]
+}
+export const getStorageData:IGetStorageData = (key: string) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) {
+    return [undefined, undefined]
+  }
 
-  if (!item || item === 'undefined') return
+  const rememberData = sessionStorage.getItem(key)
+  const localData = localStorage.getItem(key)
+  const item = rememberData || localData
 
-  return JSON.parse(item)
+  if (!item || item === 'undefined') return [undefined, undefined]
+
+  return [JSON.parse(item), Boolean(rememberData)]
 }
 
 function remove_data(key) {
