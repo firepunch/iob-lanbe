@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
-import mainImg from '@/imgs/signin_main.jpg'
 
 type ILoginForm = {
   username?: { value: string }
@@ -55,7 +54,7 @@ export default function SignIn({
   
       setStorageData(AUTH_TOKEN, userData, isRemember)
 
-      push(`/${lang}`)
+      router.push(`/${lang}`)
     } catch (err) {
       console.error('login error', err)
     }
@@ -115,9 +114,7 @@ export default function SignIn({
         </div>
       </div>
 
-      <div id="signin-wrapper">
-        <Image src={mainImg} alt="Login Background" className="signin-img" />
-        
+      <div id="signin-img">
         <div className="mobile-signin-title">
           <h2>{t('sign_in_h2')}</h2>
         </div>
