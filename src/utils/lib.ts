@@ -31,9 +31,7 @@ export const setStorageData = (key: string, data: string | object, isRemember = 
 export const getStorageData = (key: string, isRemember = false) => {
   if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
 
-  const item = isRemember ?
-    sessionStorage.getItem(key) :
-    localStorage.getItem(key)
+  const item = sessionStorage.getItem(key) || localStorage.getItem(key)
 
   if (!item || item === 'undefined') return
 

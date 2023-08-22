@@ -46,12 +46,9 @@ export default function SignIn({
         return
       }
 
-      const tokens = await loginUser({ username, password })
+      const userData = await loginUser({ username, password })
   
-      // username: 'test 2user',
-      // password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
-
-      setStorageData(AUTH_TOKEN, tokens, isRemember)
+      setStorageData(AUTH_TOKEN, userData, isRemember)
 
       push(`/${lang}`)
     } catch (err) {
@@ -68,9 +65,11 @@ export default function SignIn({
           <div className="field">
             <label htmlFor="username">{t('email')}</label>
             <input 
+              required
               type="email"
               id="username"
               name="username"
+              defaultValue="email@email.com"
               placeholder={errorMessages.username || t('email_placeholder')} 
             />
           </div>
@@ -78,9 +77,11 @@ export default function SignIn({
           <div className="field">
             <label htmlFor="password">{t('password')}</label>
             <input 
+              required
               type="password"
               id="password"
               name="password"
+              defaultValue="zhJyk$N2p0PbBr74S8Ig@)Wu"
               placeholder={errorMessages.password || t('password_placeholder')} 
             />
           </div>

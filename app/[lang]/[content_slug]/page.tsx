@@ -10,8 +10,7 @@ import { dateEnFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import cls from 'classnames'
-import styles from 'src/components/PostOptions/index.module.scss'
+import NoteAddImg from '@/imgs/ideanote_add.png'
 
 export default function Category({
   params: { lang, content_slug },
@@ -153,6 +152,7 @@ export default function Category({
           <IdeaNote />
 
           <div className="add-idea-note">
+            <Image src={NoteAddImg} alt="Add Image" />
             {/* add new idea design image will be put here as background */}
           </div>
         </div>
