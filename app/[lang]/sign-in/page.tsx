@@ -5,9 +5,9 @@ import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ValidLocale } from '@/types'
-import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
+import { AUTH_TOKEN, setStorageData, generateRandomString, isValidToken } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
 import mainImg from '@/imgs/signin_main.jpg'
@@ -23,9 +23,14 @@ export default function SignIn({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { push } = useRouter()
+  const router = useRouter()
   const { t } = useTranslation(lang, 'sign-in')
   const [errorMessages, setErrorMessages] = useState<{username?: string; password?: string}>({})
+
+  useEffect(() => {
+    const isValid = isValidToken()
+    if (isValid) router.back()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()

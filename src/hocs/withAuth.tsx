@@ -5,11 +5,11 @@ import { isValidToken } from '../utils/lib'
 const withAuth = (Component: NextComponentType) => {
   const Auth = props => {
     const isValid = isValidToken()
-    const router = useRouter()
+    const { replace } = useRouter()
 
     return isValid ? 
       <Component {...props} /> : 
-      router.replace('/sign-in')
+      replace('/sign-in')
   }
 
   return Auth
