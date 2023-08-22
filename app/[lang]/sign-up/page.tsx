@@ -1,23 +1,39 @@
 'use client'
 
-import { getTranslation } from '@/i18n'
-import { ValidLocale } from '@/types'
-import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
-import { useTranslation } from '@/i18n/client'
-import { Select } from '@/components'
 import { createUser } from '@/api_wp'
+import { Select } from '@/components'
+import withNoAuth from '@/hocs/withNoAuth'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/types'
+import { AUTH_TOKEN, generateRandomString, setStorageData } from '@/utils/lib'
 
-export default function SignUp({
+type ISignUpForm = {
+  firstName?: { value: string }
+  lastName?: { value: string }
+  organization?: { value: string }
+  jobTitle?: { value: string }
+  country?: { value: string }
+  userFunction?: { value: string }
+  email?: { value: string }
+  password?: { value: string }
+  newsletterChk?: { value: boolean }
+  marketingChk?: { value: boolean }
+  privacyChk?: { value: boolean }
+  termsChk?: { value: boolean }
+}
+
+const SignUp = ({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
-}) {
+}) => {
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
+    const target = e.currentTarget.elements as ISignUpForm
 
     try {
       const { clientMutationId, user } = await createUser({
@@ -27,11 +43,11 @@ export default function SignUp({
         password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
       })
 
-      setStorageData(AUTH_TOKEN, {
-        clientMutationId,
-        authToken: user.jwtAuthToken,
-        refreshToken: user.jwtRefreshToken,
-      })
+      // setStorageData(AUTH_TOKEN, {
+      //   clientMutationId,
+      //   authToken: user.jwtAuthToken,
+      //   refreshToken: user.jwtRefreshToken,
+      // })
     } catch (err) {
       console.error('login error', err)
     }
@@ -48,12 +64,12 @@ export default function SignUp({
             <div className="signup-inputs-row">
               <div className="field">
                 <label htmlFor="firstname">*{t('first_name')}</label>
-                <input type="text" id="firstname" name="firstname"/>
+                <input required type="text" id="firstname" name="firstName"/>
               </div>
 
               <div className="field">
                 <label htmlFor="lastname">*{t('last_name')}</label>
-                <input type="text" id="lastname" name="lastname"/>
+                <input required type="text" id="lastname" name="lastName"/>
               </div>
             </div>
 
@@ -61,12 +77,12 @@ export default function SignUp({
             <div className="signup-inputs-row">
               <div className="field">
                 <label htmlFor="org">*{t('org')}</label>
-                <input type="text" id="org" name="org" placeholder={t('org_placeholder')} />
+                <input required type="text" id="org" name="organization" placeholder={t('org_placeholder')} />
               </div>
 
               <div className="field">
                 <label htmlFor="jobtitle">*{t('jobtitle')}</label>
-                <input type="text" id="jobtitle" name="jobtitle" placeholder={t('jobtitle_placeholder')} />
+                <input required type="text" id="jobtitle" name="jobTitle" placeholder={t('jobtitle_placeholder')} />
               </div>
             </div>
 
@@ -75,6 +91,7 @@ export default function SignUp({
               <div className="sortby-country">
                 <label htmlFor="country">*{t('country')}</label>
                 <Select 
+                  isRequired
                   name="country" 
                   id="country"
                   defaultOption={{
@@ -88,7 +105,8 @@ export default function SignUp({
               <div className="sortby-function">
                 <label htmlFor="function">*{t('function')}</label>
                 <Select 
-                  name="function" 
+                  isRequired
+                  name="userFunction" 
                   id="function"
                   defaultOption={{
                     value: 'Default',
@@ -103,12 +121,12 @@ export default function SignUp({
             <div className="signup-inputs-row">
               <div className="field">
                 <label htmlFor="username">*{t('email')}</label>
-                <input type="email" id="username" name="username" placeholder={t('email_placeholder')} />
+                <input required type="email" id="username" name="email" placeholder={t('email_placeholder')} />
               </div>
 
               <div className="field pw-field">
                 <label htmlFor="password">*{t('password')}</label>
-                <input type="password" id="password" name="password" placeholder={t('password_placeholder')} />
+                <input required type="password" id="password" name="password" placeholder={t('password_placeholder')} />
                 <p>{t('password_rule')}</p>
               </div>
             </div>
@@ -116,22 +134,22 @@ export default function SignUp({
 
           <div id="signup-checkboxes">
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletter" />
+              <input type="checkbox" id="newsletter" name="newsletterChk" />
               <label htmlFor="newsletter">{t('newsletter')}</label>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketing" />
+              <input type="checkbox" id="marketing" name="marketingChk" />
               <label htmlFor="marketing">{t('marketing')}</label>
             </div>
 
             <div className="required-checkbox">
-              <input type="checkbox" id="privacy" name="privacy" defaultChecked />
+              <input required type="checkbox" id="privacy" name="privacyChk" defaultChecked />
               <label htmlFor="privacy">{t('privacy')}</label>
             </div>
 
             <div className="required-checkbox">
-              <input type="checkbox" id="terms" name="terms" defaultChecked />
+              <input required type="checkbox" id="terms" name="termsChk" defaultChecked />
               <label htmlFor="terms">{t('terms')}</label>
             </div>
           </div>
@@ -147,3 +165,5 @@ export default function SignUp({
     </>
   )
 }
+
+export default withNoAuth(SignUp)

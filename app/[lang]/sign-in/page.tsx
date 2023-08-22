@@ -8,6 +8,7 @@ import { ValidLocale } from '@/types'
 import { AUTH_TOKEN, setStorageData, generateRandomString, isValidToken } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import withNoAuth from '@/hocs/withNoAuth'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
 
@@ -17,19 +18,14 @@ type ILoginForm = {
   rmb_me?: { value: boolean }
 }
 
-export default function SignIn({
+const SignIn = ({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
-}) {
+}) => {
   const router = useRouter()
   const { t } = useTranslation(lang, 'sign-in')
   const [errorMessages, setErrorMessages] = useState<{username?: string; password?: string}>({})
-
-  useEffect(() => {
-    const isValid = isValidToken()
-    if (isValid) router.back()
-  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -124,3 +120,5 @@ export default function SignIn({
     </section>
   )
 }
+
+export default withNoAuth(SignIn)
