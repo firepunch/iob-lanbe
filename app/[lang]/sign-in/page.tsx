@@ -9,7 +9,8 @@ import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import ImageSlideImg from '@/imgs/paper_logo_white.png'
+import paperLogoImg from '@/imgs/paper_logo_white.png'
+import mainImg from '@/imgs/signin_main.jpg'
 
 type ILoginForm = {
   username?: { value: string }
@@ -45,12 +46,9 @@ export default function SignIn({
         return
       }
 
-      const tokens = await loginUser({ username, password })
+      const userData = await loginUser({ username, password })
   
-      // username: 'test 2user',
-      // password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
-
-      setStorageData(AUTH_TOKEN, tokens, isRemember)
+      setStorageData(AUTH_TOKEN, userData, isRemember)
 
       push(`/${lang}`)
     } catch (err) {
@@ -67,9 +65,11 @@ export default function SignIn({
           <div className="field">
             <label htmlFor="username">{t('email')}</label>
             <input 
+              required
               type="email"
               id="username"
               name="username"
+              defaultValue="email@email.com"
               placeholder={errorMessages.username || t('email_placeholder')} 
             />
           </div>
@@ -77,9 +77,11 @@ export default function SignIn({
           <div className="field">
             <label htmlFor="password">{t('password')}</label>
             <input 
+              required
               type="password"
               id="password"
               name="password"
+              defaultValue="zhJyk$N2p0PbBr74S8Ig@)Wu"
               placeholder={errorMessages.password || t('password_placeholder')} 
             />
           </div>
@@ -108,12 +110,14 @@ export default function SignIn({
         </div>
       </div>
 
-      <div id="signin-img">
+      <div id="signin-wrapper">
+        <Image src={mainImg} alt="Login Background" className="signin-img" />
+        
         <div className="mobile-signin-title">
           <h2>{t('sign_in_h2')}</h2>
         </div>
 
-        <Image src={ImageSlideImg} alt="I.O.B logo" />
+        <Image src={paperLogoImg} alt="I.O.B logo" className="signin-logo" />
       </div>
     </section>
   )

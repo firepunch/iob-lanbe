@@ -1,8 +1,7 @@
 import { sendEmailForm } from '@/api_wp'
 import { Footer, Header, SimpleHeader } from '@/components'
 import { getTranslation } from '@/i18n'
-import { useTranslation } from '@/i18n/client'
-import { ValidLocale, languages } from '@/i18n/settings'
+import { ValidLocale } from '@/i18n/settings'
 import { headers } from 'next/headers'
 
 // export function generateStaticParams() {
@@ -51,11 +50,6 @@ export default async function LocaleLayout({
           {children}
         </main>
         <Footer lang={lang} t={t} />
-        {/* <EmailForm 
-          t={t}
-          errorCode={errorCode}
-          onSubmit={handleSubmit} 
-        /> */}
       </body>
     </html>
   )

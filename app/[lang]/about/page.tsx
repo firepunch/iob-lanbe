@@ -12,13 +12,26 @@ import junhaIcon from '@/imgs/junhanim.jpg'
 import stayAheadIcon from '@/imgs/stay-ahead.png'
 import realOutcomesIcon from '@/imgs/real-outcomes.png'
 import growthIcon from '@/imgs/sustain-growth.png'
+import aboutMainImg from '@/imgs/about_main.jpg'
+import paperImg from '@/imgs/paper.png'
+import contentCtaImg from '@/imgs/about_content_cta.jpg'
+import reportCtaImg from '@/imgs/about_report_cta.jpg'
+import projectCtaImg from '@/imgs/about_project_cta.jpg'
+
+const CTA_IMG_MAP = {
+  content: contentCtaImg,
+  report: reportCtaImg,
+  project: projectCtaImg,
+}
 
 export default async function About({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = await getTranslation(lang, 'second-page')
+  const { t } = await getTranslation(lang, 'about')
+  const approaches = t('approaches', { returnObjects: true }) as { title: string; desc: string }[]
+  const ctas = t('ctas', { returnObjects: true }) as { type: string; title: string; link: string }[]
 
   return (
     <div id="allwhite-nav">
@@ -26,6 +39,7 @@ export default async function About({
 
         {/* section 1: about first page */}
         <section id="about-firstpage">
+          <Image src={aboutMainImg} alt="About Main" />
           <p>
             We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.
           </p>
@@ -186,49 +200,17 @@ export default async function About({
         {/* section 5: our approach */}
         <section id="our-approach">
           <div id="our-approach-wrap">
-            <h3>OUR APPROACH</h3>
-
+            <h3>{t('approach_h3')}</h3>
             <div id="approach-papers">
               <div className="approach-papers-left">
-                <div className="approach1">
-                  <p>
-                 WE INTERPRET BUSINESS TRENDS FROM A MARKET ENTRY PERSPECTIVE.
-                  </p>
-                  <p>
-                  We aim to discover the significance of various business cases for companies venturing into the market.
-                  </p>
-                </div>
-
-                <div className="approach1">
-                  <p>
-                  WE INTEGRATE GLOBAL TRENDS.
-                  </p>
-                  <p>
-                  By merging insights from the Southeast Asian market with global trends, we create innovative strategies and implementation plans.
-                  </p>
-                </div>
+                {approaches?.map((item, idx) => (
+                  <div key={`approaches-${idx}`} className="approach1">
+                    <Image src={paperImg} alt="Paper" />
+                    <p>{item.title}</p>
+                    <p>{item.desc}</p>
+                  </div>
+                ))}
               </div>
-
-              <div className="approach-papers-right">
-                <div className="approach1">
-                  <p>
-                 WE CURATE RESOURCESFUL INSIGHTS.
-                  </p>
-                  <p>
-                 We curate and provide valuable insights, collecting and delivering information that can directly contribute to business strategies and execution.
-                  </p>
-                </div>
-
-                <div className="approach1">
-                  <p>
-                  WE BUILD THE RIGHT TEAM FOR YOU.
-                  </p>
-                  <p>
-                  With I.O.B’s in-house experts, as well as external specialists and agencies, we create teams tailored to meet the specific challenges of each company and carry out tasks effectively.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
         </section>
@@ -239,32 +221,16 @@ export default async function About({
 
       {/* about page ctas */}
       <section id="about-ctas">
-        <div className="ab-cta">
-          <p className="ab-cta-title">{t('iob-content')}</p>
-          <Link href={{ pathname: `/content` }}>
-            <Icons type="arrowWhite" />
-            <p>{t('see-all')}</p>
-          </Link>
-        </div>
-
-        <div className="ab-cta">
-          <p className="ab-cta-title">{t('iob-report')}</p>
-
-          <Link href={{ pathname: `/report` }}>
-            <Icons type="arrowWhite" />
-            <p>{t('see-all')}</p>
-          </Link>
-        </div>
-
-        <div className="ab-cta">
-          <p className="ab-cta-title">{t('iob-project')}</p>
-
-          <Link href={{ pathname: `/project` }}>
-            <Icons type="arrowWhite" />
-            <p>{t('see-details')}</p>
-          </Link>
-        </div>
-
+        {ctas?.map((item, idx) => (
+          <div key={`ctas-${idx}`} className="ab-cta">
+            <Image src={CTA_IMG_MAP[item.type]} alt="CTA Image" />
+            <p className="ab-cta-title">{item.title}</p>
+            <Link href={item.link}>
+              <Icons type="arrowWhite" />
+              <p>{t('see-all')}</p>
+            </Link>
+          </div>
+        ))}
       </section>
       {/* //about page ctas */}
     </div>

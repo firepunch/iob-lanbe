@@ -12,6 +12,8 @@ import IdeasIcon from '@/imgs/ideas_icon.png'
 import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
+import protectedPage from '@/utils/protected-page'
+import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 
 const TAB_MAP = {
   content: 'content',
@@ -28,6 +30,8 @@ export default  function Layout({
   params: { lang: ValidLocale },
   children: React.ReactNode
 }) {
+  protectedPage()
+
   const { t } = useTranslation(lang, 'my-page')
   const segment = useSelectedLayoutSegment()
 

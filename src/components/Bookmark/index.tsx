@@ -1,9 +1,9 @@
 import Image from 'next/image'
 
 import SaveImg from '@/imgs/save.png'
-import SavedImg from '@/imgs/save_white_fill.png'
+import SavedImg from '@/imgs/saved.png'
 import SaveBlackImg from '@/imgs/save_black.png'
-import SavedBlackImg from '@/imgs/save_white_fill.png'
+import SavedBlackImg from '@/imgs/saved_black.png'
 
 export default function Bookmark({
   isBlack = false,

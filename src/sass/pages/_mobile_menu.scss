@@ -1,0 +1,72 @@
+#mobile-menu {
+    width: 90%;
+    margin: 6rem auto;
+
+    #mm-about-us,
+    #mm-content,
+    #mm-report,
+    #mm-project,
+    #mm-search,
+    #mm-signin {
+        width: 100%;
+        border-bottom: .35rem solid $black;
+        margin: 1rem 0;
+
+        a {
+            @include flex-spacebetween;
+            
+            h2,
+            img {
+                margin: .35rem 0;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    #mm-content {
+        border-bottom: none;
+
+        .mm-content-top {
+            border-bottom: .35rem solid $black;
+
+            // 아래 'other-content-pages' 내려와있을때 화살표 방향
+            img {
+                transform: rotate(180deg);
+            }
+        }
+
+        .other-content-pages {
+            @include other-contents-pages;
+            border-bottom: none;
+            width: 90%;
+
+            ul {
+                width: 10rem;
+
+                li a {
+                    justify-content: start;
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    #mm-search {
+        margin-top: 5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    #mobile-menu {
+        width: 60%;
+    }
+}
+
+@media (min-width: 992px) {
+    #mobile-menu {
+        display: none;
+    }
+}
