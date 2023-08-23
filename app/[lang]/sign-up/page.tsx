@@ -33,18 +33,17 @@ const SignUp = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    const target = e.currentTarget.elements as ISignUpForm
+
+    const formData = new FormData(e.currentTarget)
+    const formProps = Object.fromEntries(formData)
 
     try {
-      const { clientMutationId, user } = await createUser({
-        clientMutationId: generateRandomString(),
-        username: 'test 2user',
-        email: 'email@email.com',
-        password: 'zhJyk$N2p0PbBr74S8Ig@)Wu',
+      const user = await createUser({
+        ...formProps,
+        username: 'em@e.com'.split('@')[0],
       })
 
       // setStorageData(AUTH_TOKEN, {
-      //   clientMutationId,
       //   authToken: user.jwtAuthToken,
       //   refreshToken: user.jwtRefreshToken,
       // })

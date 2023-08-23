@@ -59,7 +59,7 @@ async function fetchAPI({
   return json.data
 }
 
-export async function createUser(data: ICreateUser) {
+export async function createUser(data: any) { // ICreateUser) {
   const res = await fetchAPI({
     prefixPath: 'customAPI',
     path: '/users',
