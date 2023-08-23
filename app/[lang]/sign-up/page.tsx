@@ -1,10 +1,12 @@
 'use client'
 
+import { loginUser } from '@/api_gql'
 import { createUser } from '@/api_wp'
 import { Select } from '@/components'
 import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
+import { useRouter } from 'next/navigation'
 import { AUTH_TOKEN, generateRandomString, setStorageData } from '@/utils/lib'
 
 type ISignUpForm = {
@@ -27,6 +29,7 @@ const SignUp = ({
 }: {
   params: { lang: ValidLocale; },
 }) => {
+  const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
 
@@ -38,15 +41,18 @@ const SignUp = ({
     const formProps = Object.fromEntries(formData)
 
     try {
-      const user = await createUser({
+      await createUser({
         ...formProps,
-        username: 'em@e.com'.split('@')[0],
+        username: formProps.email,
+      })
+      const loginData = await loginUser({
+        username: formProps.email as string,
+        password: formProps.password as string,
       })
 
-      // setStorageData(AUTH_TOKEN, {
-      //   authToken: user.jwtAuthToken,
-      //   refreshToken: user.jwtRefreshToken,
-      // })
+      setStorageData(AUTH_TOKEN, loginData)
+
+      replace('/')
     } catch (err) {
       console.error('login error', err)
     }
