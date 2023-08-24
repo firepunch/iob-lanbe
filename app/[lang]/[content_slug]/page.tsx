@@ -68,7 +68,7 @@ export default function Category({
 
 
   return (
-    <>
+    <div className="iob-single-content">
       <section id="content-title-page">
         <div id="top-title">
           <div className="content-tags">
@@ -188,6 +188,6 @@ export default function Category({
           <p>{t('see_all')}</p>
         </Link>
       </section>
-    </>
+    </div>
   )
 }

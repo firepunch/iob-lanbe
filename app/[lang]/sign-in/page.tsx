@@ -1,15 +1,15 @@
 'use client'
 
 import { loginUser } from '@/api_gql'
-import { useTranslation } from '@/i18n/client'
-import Link from 'next/link'
-import Image from 'next/image'
-import { TStringObj, ValidLocale } from '@/types'
-import { AUTH_TOKEN, setStorageData, generateRandomString, isValidToken } from '@/utils/lib'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { InputField } from '@/components'
 import withNoAuth from '@/hocs/withNoAuth'
-import { Field } from '@/components'
+import { useTranslation } from '@/i18n/client'
+import { TStringObj, ValidLocale } from '@/types'
+import { AUTH_TOKEN, setStorageData } from '@/utils/lib'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
 
@@ -63,21 +63,23 @@ const SignIn = ({
         <h2>{t('sign_in_h2')}</h2>
 
         <form className="email-pw-wrap" onSubmit={handleSubmit}>
-          <Field 
+          <InputField 
             isRequired
             type="email"
             name="username"
             label={t('email')}
             placeholder={t('email_placeholder')}
+            defaultValue="email@email.com"
             errorMessage={errorMessages?.username}
           />
 
-          <Field 
+          <InputField 
             isRequired
             type="password"
             name="password"
             label={t('password')}
             placeholder={t('password_placeholder')}
+            defaultValue="!Nb^B6GEAfe60*Pq!ah8x923"
             errorMessage={errorMessages?.password}
           />
 
