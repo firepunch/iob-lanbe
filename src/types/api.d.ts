@@ -11,8 +11,9 @@ export interface IFetchWatchList {
 }
 
 export interface IBodyWatchList {
-  content_id: number
   type: 'post' | 'report'
+  content_id: number
+  user_id: number
 }
 
 export interface IFetchNotes {

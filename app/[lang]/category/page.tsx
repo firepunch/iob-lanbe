@@ -6,10 +6,10 @@ import { Icons, Pagination, PostCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
-import { sort2variables } from '@/utils/lib'
+import { getUserId, sort2variables } from '@/utils/lib'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Category({
   params: { lang },
@@ -33,66 +33,52 @@ export default function Category({
 
   const categoryName = searchParams.get('name') || 'all'
   const translatedCategoryName = categoryTranslationKeys[categoryName]
-
+  const [fetchParams, setFetchParams] = useState({
+    categorySlug: categoryName, 
+    language: lang.toUpperCase(), 
+    userId: getUserId(),
+    first: 10,
+    ...sort2variables('newest'),
+  })
+  
   useEffect(() => {
     if (categoryName === 'all') {
-      getAllPosts({ 
-        language: lang.toUpperCase(), 
-        userId: 231936698,
-        field: 'DATE',
-        order: 'DESC',
-        first: 10,
-      }).then(result => {
+      getAllPosts(fetchParams).then(result => {
         updatePosts(result)
       })
     } else {
-      getContentsByCategory({ 
-        categorySlug: categoryName, 
-        userId: 231936698,
-        field: 'DATE',
-        order: 'DESC',
-        first: 10,
-      }).then(result => {
+      getContentsByCategory(fetchParams).then(result => {
         updatePosts(result)
       })
     }
-  }, [categoryName, updatePosts])
+  }, [categoryName, fetchParams, updatePosts])
 
   const handleSorter = async (sorter) => {
-    try {
-      const result = await getContentsByCategory({ 
-        categorySlug: categoryName, 
-        userId: 231936698,
-        first: 10,
-        ...sort2variables(sorter),
-      })
-      updatePosts(result)
-    } catch (err) {
-      console.log(err)
-    }
+    setFetchParams(prev => ({
+      ...prev,
+      ...sort2variables(sorter),
+    }))
   }
   
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
       if (isSaved) {
         await removeWatchList({
-          content_id: databaseId,
           type: 'post',
+          content_id: databaseId,
+          user_id: fetchParams.userId,
         })
       } else {
         await createWatchList({
-          content_id: databaseId,
           type: 'post',
+          content_id: databaseId,
+          user_id: fetchParams.userId,
         })
       }
 
-      const result = await getContentsByCategory({ 
-        categorySlug: categoryName, 
-        userId: 231936698,
-        orderby: { field: 'DATE', order: 'ASC' },
-        first: 10,
-      })
-      updatePosts(result)
+      setFetchParams(prev => ({
+        ...prev,
+      }))
     } catch (err) {
       console.log(err)
       alert('저장 실패')
