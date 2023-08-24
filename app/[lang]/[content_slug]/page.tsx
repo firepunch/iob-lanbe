@@ -142,7 +142,7 @@ export default function Category({
         {/* content details: title, author, tags, date, etc. */}
 
         {/* className={cls(styles.content, { [styles.large]: isZoomed })} */}
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div className="content-article" dangerouslySetInnerHTML={{ __html: post.content }} />
       </section>
 
       {/* idea notes wrap */}

@@ -63,7 +63,7 @@
 
     #content-thumbnail-img {
         width: 100%;
-        height: 40rem;
+        // height: 40rem;
         background-image: url("/imgs/content_image_sample1.jpg");
         @include background(50%);
     }
@@ -151,6 +151,72 @@
 
     }
 
+    // 추가 wp 수정
+    .content-article {
+        width: 75%;
+        margin-left: 1.5rem;
+
+        figure.size-large {
+
+            img {
+                width: 100vw;
+            }
+        }
+
+        figure.wp-block-gallery {
+            width: 100%;
+            margin-left: 0;
+            // display: flex;
+
+            figure.wp-block-image {
+                margin: 0;
+
+                img {
+                    width: 75vw;
+                }
+
+                figcaption.wp-element-caption {
+                    margin: 1rem 0;
+                }
+            }
+        }
+
+        ul {
+            li {
+                list-style: disc;
+                margin: .75rem 0;
+            }
+        }
+
+        figure.wp-block-image {
+            img {
+                margin: 1rem 0;
+            }
+        }
+
+        blockquote {
+            margin-left: 0;
+            width: 70vw;
+            padding-bottom: 1rem;
+            border-top: .35rem solid $black;
+            border-bottom: .35rem solid $black;
+            position: relative;
+
+            cite {
+                font-size: $smaller-font-size;
+                position: absolute;
+                right: 0;
+                bottom: .5rem;
+            }
+        }
+
+        p {
+            mark {
+                background-color: $lime;
+            }
+        }
+    }
+
     // intro text and why it matters
     #intro-whyitmatters {
         width: 75%;
@@ -175,20 +241,33 @@
     // second main image
     #second-main-image {
         width: 100%;
+    }
 
-        figure {
-            margin: 0;
-            @include flex-column;
-            align-items: center;
+    #second-main-image figure,
+    figure.full-image {
+        margin: 0;
+        @include flex-column;
+        align-items: center;
 
-            img {
-                width: 100%;
-                margin: 1rem 0;
-            }
+        img {
+            width: 100%;
+            margin: 1rem 0;
+        }
 
-            figcaption {
-                font-size: $smaller-font-size;
-            }
+        figcaption {
+            font-size: $smaller-font-size;
+        }
+    }
+
+    figure.full-image img {
+        width: 100vw;
+    }
+
+    .size-full {
+        margin: 0;
+        
+        img {
+          width: 100%;
         }
     }
 
@@ -532,6 +611,7 @@
 @media (min-width: 768px) {
     #main-content {
         #content-details,
+        .content-article,
         #intro-whyitmatters,
         #main-body-1,
         #main-body-2,
@@ -539,6 +619,9 @@
             width: 55%;
         }
 
+        .content-article {
+          margin: auto;
+        }
         #content-fixed-icons {
             top: 35%;
         }
@@ -680,9 +763,9 @@
             }
         }
 
-        #content-thumbnail-img {
-            height: 45rem;
-        }
+        // #content-thumbnail-img {
+        //     height: 45rem;
+        // }
     }
 
     #main-content {
