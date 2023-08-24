@@ -1,0 +1,15 @@
+{
+    "recommended": "Recommended Keywords",
+    "keywords-row-1": [
+        { "text": "Indonesia", "link": "search_noresults.html" },
+        { "text": "Vietnam", "link": "search_results.html" },
+        { "text": "Thailand", "link": "#" },
+        { "text": "Malaysia", "link": "#" }
+      ],
+      "keywords-row-2": [
+        { "text": "Digitalization", "link": "#" },
+        { "text": "E-Commerce", "link": "#" },
+        { "text": "Social Media", "link": "#" },
+        { "text": "Culture", "link": "#" }
+      ]
+}

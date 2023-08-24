@@ -1,0 +1,15 @@
+{
+    "recommended": "추천 키워드",
+    "keywords-row-1": [
+        { "text": "인도네시아", "link": "search_noresults.html" },
+        { "text": "베트남", "link": "search_results.html" },
+        { "text": "태국", "link": "#" },
+        { "text": "말레이시아", "link": "#" }
+      ],
+      "keywords-row-2": [
+        { "text": "디지털화", "link": "#" },
+        { "text": "이커머스", "link": "#" },
+        { "text": "소셜 미디어", "link": "#" },
+        { "text": "문화", "link": "#" }
+      ]
+}
