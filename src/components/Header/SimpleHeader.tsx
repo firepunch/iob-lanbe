@@ -1,11 +1,11 @@
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
-import LanguageSwitcher from '../LanguageSwitcher'
+import LanguageSwitcher from './LanguageSwitcher'
 
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 
-export default function Header({
+export default function SimpleHeader({
   lang,
 }: {
   lang: ValidLocale

@@ -9,8 +9,9 @@ import LocationIcon from '@/imgs/locationicon_black.png'
 
 export default function Icons({
   type,
+  ...props
 }: {
-  type: 'arrowBlack' | 'arrowBlackDown' |'arrowWhite' | 'save' | 'location'
+  type: 'arrowBlack' | 'arrowBlackDown' | 'arrowWhite' | 'save' | 'location',
 }) {
   const IMAGE_MAP = {
     arrowBlack: ArrowBlack,
@@ -21,6 +22,6 @@ export default function Icons({
   }
 
   return (
-    <Image src={IMAGE_MAP[type]} alt={type} />
+    <Image src={IMAGE_MAP[type]} alt={type} {...props} />
   )
 }

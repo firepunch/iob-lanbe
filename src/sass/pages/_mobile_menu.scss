@@ -1,6 +1,11 @@
 #mobile-menu {
-    width: 90%;
-    margin: 6rem auto;
+    width: auto;
+    margin: 3rem auto;
+    position: absolute;
+    top: 0;
+    left: rem(17);
+    right: rem(17);
+    background: #fff;
 
     #mm-about-us,
     #mm-content,
@@ -12,8 +17,9 @@
         border-bottom: .35rem solid $black;
         margin: 1rem 0;
 
-        a {
+        a, .menu-categ {
             @include flex-spacebetween;
+            cursor: pointer;
             
             h2,
             img {
@@ -33,7 +39,7 @@
             border-bottom: .35rem solid $black;
 
             // 아래 'other-content-pages' 내려와있을때 화살표 방향
-            img {
+            &.down img {
                 transform: rotate(180deg);
             }
         }

@@ -2,13 +2,12 @@ import { ValidLocale } from '@/i18n/settings'
 import { TI18N } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import LanguageSwitcher from '../LanguageSwitcher'
+import LanguageSwitcher from './LanguageSwitcher'
+import HamburgerMenu from './HamburgerMenu'
 
-import LanguageImg from '@/imgs/lang_white.png'
-import SearchImg from '@/imgs/search_black.png'
-import ArrowWhiteImg from '@/imgs/arrow_white.png'
 import ArrowBlackImg from '@/imgs/arrow_black.png'
-import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
+import ArrowWhiteImg from '@/imgs/arrow_white.png'
+import SearchImg from '@/imgs/search_black.png'
 
 export default function Header({
   ct,
@@ -19,8 +18,6 @@ export default function Header({
   t: TI18N
   lang: ValidLocale
 }) {
-  const handleToggle = () => {}
-
   return (
     <header>
       {/* mobile version change language */}
@@ -35,7 +32,9 @@ export default function Header({
       <nav className="center-nav">
         <ul>
           <li>
-            <Link href={`/${lang}/about`}>{t('about')}</Link>
+            <Link href={`/${lang}/about`}>
+              {t('about')}
+            </Link>
           </li>
 
           <li className="content" tabIndex={0}>
@@ -138,9 +137,7 @@ export default function Header({
       {/* //web version nav */}
 
       {/* mobile version hamburger menu */}
-      <a href="#" className="hamburger-mobile">
-        <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
-      </a>
+      <HamburgerMenu />
       {/* //mobile version hamburger menu */}
     </header>
   )
