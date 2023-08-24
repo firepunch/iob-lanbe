@@ -5,6 +5,7 @@ interface SelectProps {
   defaultOption?: { value: string; label: string; }
   options: { value: string; label: string; }[]
   errorMessage?: string
+  onChange?: (value: string) => void
 }
 
 export const Select = ({
@@ -14,13 +15,13 @@ export const Select = ({
   defaultOption,
   options = [],
   errorMessage,
-  ...props
+  onChange,
 }: SelectProps) => (
   <select
     required={isRequired}
     name={name}
     id={id}
-    {...props}
+    {...onChange && { onChange: (e) => onChange(e.target.value)  }}
   >
     {errorMessage && (
       <option value="Error">

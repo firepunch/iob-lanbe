@@ -1,16 +1,15 @@
 'use client'
 
-import { useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useTranslation } from '@/i18n/client'
 import { getAllPosts, getContentsByCategory } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Icons, Pagination, PostCard, Select } from '@/components'
+import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
-import ArrowBlackDown from '@/imgs/arrow_black_down.png'
+import { sort2variables } from '@/utils/lib'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Category({
   params: { lang },
@@ -37,15 +36,41 @@ export default function Category({
 
   useEffect(() => {
     if (categoryName === 'all') {
-      getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+      getAllPosts({ 
+        language: lang.toUpperCase(), 
+        userId: 231936698,
+        field: 'DATE',
+        order: 'DESC',
+        first: 10,
+      }).then(result => {
         updatePosts(result)
       })
     } else {
-      getContentsByCategory(categoryName, 231936698).then(result => {
+      getContentsByCategory({ 
+        categorySlug: categoryName, 
+        userId: 231936698,
+        field: 'DATE',
+        order: 'DESC',
+        first: 10,
+      }).then(result => {
         updatePosts(result)
       })
     }
   }, [categoryName, updatePosts])
+
+  const handleSorter = async (sorter) => {
+    try {
+      const result = await getContentsByCategory({ 
+        categorySlug: categoryName, 
+        userId: 231936698,
+        first: 10,
+        ...sort2variables(sorter),
+      })
+      updatePosts(result)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -61,7 +86,12 @@ export default function Category({
         })
       }
 
-      const result = await getContentsByCategory(categoryName, 231936698)
+      const result = await getContentsByCategory({ 
+        categorySlug: categoryName, 
+        userId: 231936698,
+        orderby: { field: 'DATE', order: 'ASC' },
+        first: 10,
+      })
       updatePosts(result)
     } catch (err) {
       console.log(err)
@@ -79,7 +109,7 @@ export default function Category({
               <h2>{t(categoryName).toUpperCase()}</h2>
             </div>
 
-            <Image src={ArrowBlackDown} alt="Arrow" />
+            <Icons type="arrowBlackDown" />
           </div>
 
           <div className="other-content-pages">
@@ -167,7 +197,8 @@ export default function Category({
               <Select
                 name="sortby" 
                 id="sortby"
-                options={ct('sort_options', { returnObjects: true }) }
+                options={ct('sort_options', { returnObjects: true })}
+                onChange={handleSorter}
               />
             </div>
           </div>
