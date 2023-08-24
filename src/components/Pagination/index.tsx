@@ -3,6 +3,7 @@ import { IPageInfo } from '@/types/store'
 
 interface PaginationProps {
   pageInfo?: IPageInfo
+  size: number
   first?: number
   last?: number
   onClickPrev: () => void
@@ -11,11 +12,17 @@ interface PaginationProps {
 
 export default function Pagination({
   pageInfo,
+  size,
   first,
   last,
   onClickPrev,
   onClickNext,
 }: PaginationProps) {
+  const pageStartNumber = pageInfo?.hasPreviousPage ? 
+    (pageInfo?.total || 0) :
+    1
+  // console.log(first, last, size)
+
   return (
     <div id="pagination">
       <button type="button" className="pagination-on-mobile" onClick={onClickNext}>
@@ -25,16 +32,20 @@ export default function Pagination({
       <span className="pagination-on-web">
         <span 
           className={`prev ${pageInfo?.hasPreviousPage && 'has-more'}`}
-          onClick={onClickPrev}
+          {...pageInfo?.hasPreviousPage && { onClick: onClickPrev }}
         >
           Previous
         </span>
-        <div className="page">
-          <p>{first}-{last} out of {pageInfo?.total}</p>
-        </div>
+        {pageInfo?.initTotal && (
+          <div className="page">
+            <p>
+              {pageStartNumber}-{pageStartNumber + size - 1} out of {pageInfo.initTotal}
+            </p>
+          </div>
+        )}
         <span 
           className={`next ${pageInfo?.hasNextPage && 'has-more'}`}
-          onClick={onClickNext}
+          {...pageInfo?.hasNextPage && { onClick: onClickNext }}
         >
           Next
         </span>

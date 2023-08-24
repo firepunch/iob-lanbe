@@ -52,7 +52,8 @@ export interface IPost {
 }
 
 export interface IPageInfo {
-  total: number
+  initTotal?: number
+  total?: number
   hasNextPage?: boolean
   hasPreviousPage?: boolean
   startCursor?: string

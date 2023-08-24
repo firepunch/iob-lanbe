@@ -28,7 +28,7 @@ export const PostCard = ({
           {featuredImage && (
             <Image 
               src={featuredImage.node.sourceUrl} 
-              alt={featuredImage.node.altText}
+              alt={featuredImage.node.altText || 'PostCard Image'}
               sizes="100vw"
               fill={true}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

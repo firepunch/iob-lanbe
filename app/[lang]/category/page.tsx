@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+const GRID_CARD_NUMBER = 2
 const categoryTranslationKeys = {
   market: 'market_research',
   corporate: 'market_research',
@@ -35,14 +36,28 @@ export default function Category({
     categorySlug: categoryName, 
     language: lang.toUpperCase(), 
     userId: getUserId(),
-    first: 1,
+    first: GRID_CARD_NUMBER,
     ...sort2variables('newest'),
   })
   
   useEffect(() => {
     if (categoryName === 'all') {
       getAllPosts(fetchParams).then(result => {
-        updatePosts(result)
+        updatePosts({
+          edges: result.edges,
+          pageInfo: {
+            ...result.pageInfo,
+            initTotal: posts.pageInfo.initTotal || result.pageInfo.total,
+          },
+        })
+
+        console.log({
+          ...result,
+          pageInfo: {
+            ...result.pageInfo,
+            ...!posts.pageInfo.initTotal && { initTotal: result.pageInfo.total },
+          },
+        })
       })
     } else {
       getContentsByCategory(fetchParams).then(result => {
@@ -207,24 +222,25 @@ export default function Category({
 
         <Pagination
           pageInfo={posts?.pageInfo}
+          size={GRID_CARD_NUMBER}
           first={fetchParams?.first}
           last={fetchParams?.last}
           onClickPrev={() => {
             setFetchParams(prev => ({
               ...prev,
-              first: null, 
-              last: 1, 
+              last: GRID_CARD_NUMBER, 
               before: posts?.pageInfo.startCursor, 
+              first: null, 
               after: null, 
             }))
           }}
           onClickNext={() => {
             setFetchParams(prev => ({
               ...prev,
-              first: null, 
+              after: posts?.pageInfo?.endCursor,
+              first: GRID_CARD_NUMBER, 
               last: null, 
               before: null, 
-              after: posts?.pageInfo?.endCursor,
             }))
           }}
         />

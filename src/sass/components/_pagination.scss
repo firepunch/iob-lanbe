@@ -6,11 +6,11 @@
 
     .prev,
     .next {
-        cursor: pointer;
         margin: 0 .75rem;
     }
 
     .has-more {
+        cursor: pointer;
         text-decoration: underline;
     }
 
