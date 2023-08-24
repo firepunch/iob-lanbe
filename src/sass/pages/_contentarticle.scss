@@ -175,20 +175,33 @@
     // second main image
     #second-main-image {
         width: 100%;
+    }
 
-        figure {
-            margin: 0;
-            @include flex-column;
-            align-items: center;
+    #second-main-image figure,
+    figure.full-image {
+        margin: 0;
+        @include flex-column;
+        align-items: center;
 
-            img {
-                width: 100%;
-                margin: 1rem 0;
-            }
+        img {
+            width: 100%;
+            margin: 1rem 0;
+        }
 
-            figcaption {
-                font-size: $smaller-font-size;
-            }
+        figcaption {
+            font-size: $smaller-font-size;
+        }
+    }
+
+    figure.full-image img {
+        width: 100vw;
+    }
+
+    .size-full {
+        margin: 0;
+        
+        img {
+          width: 100%;
         }
     }
 
@@ -532,6 +545,7 @@
 @media (min-width: 768px) {
     #main-content {
         #content-details,
+        .content-article,
         #intro-whyitmatters,
         #main-body-1,
         #main-body-2,
@@ -539,6 +553,9 @@
             width: 55%;
         }
 
+        .content-article {
+          margin: auto;
+        }
         #content-fixed-icons {
             top: 35%;
         }
