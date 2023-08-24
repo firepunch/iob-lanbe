@@ -100,3 +100,7 @@ export const sort2variables = (type: string) => {
 
   return map[type] || map.newest
 }
+
+export const toComma = (value: string|number) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}

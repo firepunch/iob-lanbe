@@ -1,18 +1,21 @@
 'use client'
 
 import { TI18N } from '@/types'
-import { IPaymentHistory, IStripeCard } from '@/types/api'
+import { IStripeCard } from '@/types/api'
 import { detachCardIntent, fetchCardsIntent, fetchHistoryIntent } from '@/utils/stripe-intent'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Pagination from '../Pagination'
-import Image from 'next/image'
-
-import CardSampleImg from '@/imgs/card_sample.png'
-import TrashWhiteIcon from '@/imgs/trash_white.png'
-import addIcon from '@/imgs/add.png'
-import closeBlackIcon from '@/imgs/close_black.png'
 import useUserState from '@/stores/userStore'
+import { toComma } from '@/utils/lib'
+
+import addIcon from '@/imgs/add.png'
+import CardSampleImg from '@/imgs/card_sample.png'
+import closeBlackIcon from '@/imgs/close_black.png'
+import TrashWhiteIcon from '@/imgs/trash_white.png'
+
+const GRID_HISTORY_NUMBER = 5
 
 export default function Payment({
   t, 
@@ -35,7 +38,8 @@ export default function Payment({
   const handleDetach = async (cardId: string) => {
     try {
       await detachCardIntent(cardId)
-      alert('삭제 성공')
+      const result = await fetchCardsIntent()
+      updateCards(result?.data)
     } catch (err) {
       console.log(err)
       alert('삭제 실패')
@@ -49,7 +53,7 @@ export default function Payment({
       <section id="default-content">
     
         <div id="default-title" className="dt-no-buttons">
-          <h2>{t('payment_en').toUpperCase()}</h2>
+          <h2>{t('payment_h2')}</h2>
         </div>
     
         <div id="payment-info-wrap">
@@ -138,15 +142,22 @@ export default function Payment({
                     </div>
 
                     <div className="phd-right">
-                      <p>{item.currency === 'krw' ? '₩' : '$'}{item.amount}</p>
+                      <p>
+                        {item.currency === 'krw' ? '₩' : '$'}
+                        {item.currency === 'krw' ? toComma(item.amount) : item.amount}
+                      </p>
                     </div>
                   </div>
                 ))}
-                {cardHistory.has_more && <button>Load more</button>}
+                {cardHistory.has_more && <button>{t('load_more')}</button>}
               </>      
             )}
            
-            <Pagination />
+            <Pagination 
+              size={GRID_HISTORY_NUMBER}
+              onClickPrev={() => {}}
+              onClickNext={() => {}}
+            />
           </div>
         </div>
       </section>

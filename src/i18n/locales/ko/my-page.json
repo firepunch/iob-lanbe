@@ -3,7 +3,7 @@
   "report": "Report",
   "ideas": "Ideas",
   "payment": "결제 정보",
-  "payment_en": "Payment",
+  "payment_h2": "PAYMENT",
   "settings": "설정",
   "settings_en": "Settings",
 
@@ -28,6 +28,7 @@
   "cards": "등록된 카드",
   "add_card": "카드 추가하기",
   "payment_history": "결제 내역",
+  "load_more": "Load more",
 
   "personal_info": "회원 정보",
   "account_info": "로그인 정보",

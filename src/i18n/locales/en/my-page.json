@@ -3,6 +3,7 @@
   "report": "Report",
   "ideas": "Ideas",
   "payment": "Payment",
+  "payment_h2": "PAYMENT",
   "settings": "Settings",
 
   "hi": "Hi, ",
@@ -26,6 +27,7 @@
   "cards": "Your cards",
   "add_card": "Add new card",
   "payment_history": "Payment history",
+  "load_more": "Load more",
 
   "personal_info": "Personal Information",
   "account_info": "Account Information",
