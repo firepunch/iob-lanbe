@@ -19,5 +19,7 @@
   "newsletter": "I would like to subscribe to I.O.B’s newsletter. (Optional)",
   "marketing": "I would like to receive marketing emails and offers. (Optional)",
   "privacy": "I have read and understood the privacy policy. (Required)",
-  "terms": "I agree to the terms and conditions. (Required)"
+  "terms": "I agree to the terms and conditions. (Required)",
+  
+  "password_rule_error": "Your password does not meet the requirements."
 }

@@ -5,9 +5,10 @@ import { createUser } from '@/api_wp'
 import { Select } from '@/components'
 import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
-import { ValidLocale } from '@/types'
+import { TStringObj, ValidLocale } from '@/types'
 import { useRouter } from 'next/navigation'
 import { AUTH_TOKEN, generateRandomString, setStorageData } from '@/utils/lib'
+import { useState } from 'react'
 
 type ISignUpForm = {
   firstName?: { value: string }
@@ -32,6 +33,7 @@ const SignUp = ({
   const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
+  const [errorMessages, setErrorMessages] = useState<TStringObj>()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -39,6 +41,17 @@ const SignUp = ({
 
     const formData = new FormData(e.currentTarget)
     const formProps = Object.fromEntries(formData)
+
+    const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
+    const pwFound = (formProps?.password as string)?.match(regex)
+
+    if (!pwFound) {
+      setErrorMessages({
+        password: t('password_rule_error'),
+      })
+      
+      return
+    }
 
     try {
       await createUser({
@@ -129,9 +142,16 @@ const SignUp = ({
                 <input required type="email" id="username" name="email" placeholder={t('email_placeholder')} />
               </div>
 
-              <div className="field pw-field">
+              <div className={`${errorMessages?.password && 'error-field'} field pw-field`}>
                 <label htmlFor="password">*{t('password')}</label>
-                <input required type="password" id="password" name="password" placeholder={t('password_placeholder')} />
+                <input 
+                  required 
+                  type={errorMessages?.password ? 'text' : 'password'}
+                  id="password" 
+                  name="password"
+                  placeholder={t('password_placeholder')}
+                  value={errorMessages?.password}
+                />
                 <p>{t('password_rule')}</p>
               </div>
             </div>
