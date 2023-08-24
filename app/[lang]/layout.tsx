@@ -38,7 +38,7 @@ export default async function LocaleLayout({
         <main>
           {children}
         </main>
-        <Footer lang={lang} t={t} />
+        {/* <Footer lang={lang} t={t} /> */}
       </body>
     </html>
   )

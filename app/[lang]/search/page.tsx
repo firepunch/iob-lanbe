@@ -1,27 +1,22 @@
 'use client'
 
-import { SearchRequestForm, SearchBar } from '@/components'
+import { SearchRequestForm } from '@/components'
 import { ValidLocale } from '@/i18n/settings'
 import { useTranslation } from '@/i18n/client'
 import { useState } from 'react'
-import { SearchRequest, searchContent } from '@/api_wp'
-import { getContentByDatabaseID } from '@/api_gql'
-import { ContentCard } from '@/components'
-import Link from 'next/link'
+import { SearchRequest } from '@/api_wp'
 
-export default  function Search({
+export default function Search({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
   const { t } = useTranslation(lang, 'search')
   const [errorCode, setErrorCode] = useState()
-  const contents = {}
-  // const [contents, setContentsCode] = useState()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
+
     try {
       const formData = new FormData()
       // const { id, value } = e.target
@@ -40,49 +35,46 @@ export default  function Search({
     }
   }
 
-  const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const searchText = 'vietnam'
-    // window.location.href = `?search=${searchText}`
-    try {
-      const res = await searchContent({
-        search: searchText,
-      })
-      setErrorCode(res)
-      res.map(async ({ id }) => {
-        const contentData = await getContentByDatabaseID(id)
-        const [content] = await Promise.all([contentData])
-    
-        contents[id] = content
-      })
-    } catch (error) {
-      console.error('submit error:', error)
-    }
-  }
-  {contents && Object.keys(contents).map((id) => {
-    const post = contents[id]
-    return (
-      <Link key={post.id} href={`/${encodeURIComponent(post.slug)}`}>
-        <ContentCard
-          thumbnail_url={post.featuredImage?.node.sourceUrl}
-          {...post}
-        />
-      </Link>
-    )
-  })}
-
   return (
     <>
-      <SearchBar
-        t={t} 
-        errorCode={errorCode}
-        onSubmit={handleSearchSubmit} 
-      />
-      <SearchRequestForm
-        t={t} 
-        errorCode={errorCode}
-        onSubmit={handleSubmit} 
-      />idont know
+    <section id="search">
+    <button type="button"><img src="./imgs/close.png" alt="Close"></button>
+
+    <div id="input-recommendations">
+        <form action="#" name="search-bar">
+            <input type="text" id="search-bar" name="search-bar" placeholder="Search">
+            <button type="button">
+                <img src="./imgs/search_thin.png" alt="Search">
+            </button>
+        </form>
+
+        <div class="recommendations">
+            <h3>Recommended Keywords</h3>
+
+            <div class="keywords-wrap">
+                <div class="keywords-row">
+                    <!-- no result page linked as example -->
+                    <a href="search_noresults.html" class="keyword"><p>Indonesia</p></a>
+                    <a href="search_results.html" class="keyword"><p>Vietnam</p></a>
+                    <a href="#" class="keyword"><p>Thailand</p></a>
+                    <a href="#" class="keyword"><p>Malaysia</p></a>
+                </div>
+                <div class="keywords-row">
+                    <a href="#" class="keyword"><p>Digitalization</p></a>
+                    <a href="#" class="keyword"><p>E-Commerce</p></a>
+                    <a href="#" class="keyword"><p>Social Media</p></a>
+                    <a href="#" class="keyword"><p>Culture</p></a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+    <SearchRequestForm
+      t={t} 
+      errorCode={errorCode}
+      onSubmit={handleSubmit} 
+    />
     </>
   )
 }
