@@ -18,12 +18,12 @@ export default function Ideas({
 
 
       <div id="default-text">
-        <p className="none-saved-text">You don’t have any idea notes yet.</p>
-        <p className="explore-text">You can write up to 4 notes per content; check out our contents and write down your ideas at the end!</p>
+        <p className="none-saved-text">{t('ideas_none')}</p>
+        <p className="explore-text">{t('ideas_explore')}</p>
 
         <Link href="/category">
           <Icons type="arrowBlack" />
-          <p>See all</p>
+          <p>{t('see-all')}</p>
         </Link>
       </div>
     </>

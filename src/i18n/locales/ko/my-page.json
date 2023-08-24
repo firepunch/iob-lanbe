@@ -2,12 +2,60 @@
   "content": "Content",
   "report": "Report",
   "ideas": "Ideas",
-  "payment": "Payment",
-  "settings": "Settings",
+  "payment": "결제 정보",
+  "payment_en": "Payment",
+  "settings": "설정",
+  "settings_en": "Settings",
 
-  "hi": "Hi, ",
+  "hi": "안녕하세요, ",
   "member_since": "Member since ",
 
-  "country": "Country",
-  "category": "Category"
+  "country": "국가",
+  "category": "카테고리",
+
+  "saved": "저장됨",
+  "purchased": "구매함",
+
+  "content_none": "아직 저장되었거나 읽은 콘텐츠가 없어요.",
+  "content_explore": "지금 바로 다양한 콘텐츠를 찾아보세요.",
+
+  "report_none": "아직 저장되었거나 구매한 리포트가 없어요.",
+  "report_explore": "지금 바로 다양한 리포트를 찾아보세요.",
+
+  "ideas_none": "아직 아이디어 노트가 없어요.",
+  "ideas_explore": "콘텐츠마다 4개의 아이디어를 남길 수 있어요. 콘텐츠를 읽고 아이디어를 기록해보세요.",
+
+  "cards": "등록된 카드",
+  "add_card": "카드 추가하기",
+  "payment_history": "결제 내역",
+
+  "personal_info": "회원 정보",
+  "account_info": "로그인 정보",
+  "email-notify": "이메일 알림 설정",
+  "save": "변경사항 저장",
+
+  "see-all": "보러가기",
+
+  "first_name": "이름",
+  "last_name": "성",
+  "org": "회사명",
+  "org_placeholder": "회사명을 입력해주세요.",
+  "jobtitle": "직함",
+  "jobtitle_placeholder": "직함을 입력해주세요.",
+  "country_placeholder": "국가를 선택해주세요.",
+  "function": "업무 영역",
+  "function_placeholder": "업무 영역을 선택해주세요.",
+  "email": "이메일",
+  "new_email": "새로운 이메일",
+  "email_placeholder": "이메일을 입력해주세요.",
+  "password": "비밀번호",
+  "new_password": "새로운 비밀번호",
+  "password_placeholder": "비밀번호를 입력해주세요.",
+  "password_rule": "1개 이상의 숫자, 1개 이상의 특수문자를 포함하여 8-12자로 입력해주세요.",
+  "newsletter": "뉴스레터 구독",
+  "marketing": "광고성 정보 수신 동의",
+  
+  "password_rule_error": "비밀번호가 일치하지 않습니다.",
+  "function_required": "업무 영역을 선택해주세요.",
+  "country_required": "국가를 선택해주세요."
 }
