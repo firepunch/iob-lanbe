@@ -2,7 +2,7 @@
 
 import { getAllPosts, getContentsByCategory } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { Icons, Pagination, CategoryFilter, PostCard, Select } from '@/components'
+import { CategoryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'

@@ -19,6 +19,7 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
+import { getUserId } from '@/utils/lib'
 
 // export async function generateMetadata({ params: { lang } }) {
 
@@ -29,13 +30,18 @@ export default function Home({
 }) {
   const { t } = useTranslation(lang, 'home')
   const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
+  const userId = getUserId()
 
   useEffect(() => {
-    getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+    getAllPosts({
+      language:lang.toUpperCase(), 
+      userId,
+      first: 4,
+    }).then(result => {
       updatePosts(result)
     })
 
-    getAllProducts(lang, 231936698).then(result => (
+    getAllProducts(lang, userId).then(result => (
       updateReports(result)
     ))
   }, [])
@@ -44,21 +50,27 @@ export default function Home({
     try {
       if (isSaved) {
         await removeWatchList({
+          type: 'post',
           content_id: databaseId,
-          type,
+          user_id: userId,
         })
       } else {
         await createWatchList({
+          type: 'post',
           content_id: databaseId,
-          type,
+          user_id: userId,
         })
       }
 
       if (type === 'post') {
-        const result = await getAllPosts(lang.toUpperCase(), 231936698)
+        const result = await getAllPosts({
+          language:lang.toUpperCase(), 
+          userId,
+          first: 4,
+        })
         updatePosts(result)
       } else if (type === 'report') {
-        const result = await getAllProducts(lang, 231936698)
+        const result = await getAllProducts(lang, userId)
         updateReports(result)
       }
     } catch (err) {
@@ -166,7 +178,7 @@ export default function Home({
           <div className="iob-latest-content">
 
             {/* individual thumbnails */}
-            {posts?.map(({ node }) => (
+            {posts?.edges?.map(({ node }) => (
               <PostCard
                 key={node.id}
                 onToggleBookmark={() => (
