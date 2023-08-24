@@ -2,7 +2,7 @@ const POSTS_QUERY = `
 query AllPosts(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
-  $first: Int = 1, 
+  $first: Int = 10, 
   $last: Int,
   $before: String, 
   $after: String,
@@ -17,6 +17,7 @@ query AllPosts(
     last: $last
   ) {
     pageInfo {
+      total
       hasNextPage
       hasPreviousPage
       startCursor

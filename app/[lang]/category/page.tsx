@@ -35,6 +35,7 @@ export default function Category({
     categorySlug: categoryName, 
     language: lang.toUpperCase(), 
     userId: getUserId(),
+    first: 1,
     ...sort2variables('newest'),
   })
   
@@ -204,7 +205,29 @@ export default function Category({
           ))}
         </div>
 
-        <Pagination />
+        <Pagination
+          pageInfo={posts?.pageInfo}
+          first={fetchParams?.first}
+          last={fetchParams?.last}
+          onClickPrev={() => {
+            setFetchParams(prev => ({
+              ...prev,
+              first: null, 
+              last: 1, 
+              before: posts?.pageInfo.startCursor, 
+              after: null, 
+            }))
+          }}
+          onClickNext={() => {
+            setFetchParams(prev => ({
+              ...prev,
+              first: null, 
+              last: null, 
+              before: null, 
+              after: posts?.pageInfo?.endCursor,
+            }))
+          }}
+        />
 
       </section>
     </>
