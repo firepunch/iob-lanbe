@@ -1,8 +1,8 @@
 'use client'
  
-import ArrowBlackIcon from '@/imgs/arrow_black.png'
 import { TI18N } from '@/types'
-import Image from 'next/image'
+import Link from 'next/link'
+import Icons from '../Icons'
 
 export default function Content({
   t,
@@ -32,10 +32,10 @@ export default function Content({
         <p className="none-saved-text">You haven't saved or read anything yet.</p>
         <p className="explore-text">Check out our contents page and explore now!</p>
 
-        <a href="allcontents.html">
-          <Image src={ArrowBlackIcon} alt="Arrow"/>
+        <Link href="/category">
+          <Icons type="arrowBlack" />
           <p>See all</p>
-        </a>
+        </Link>
       </div>
     </>
   )
