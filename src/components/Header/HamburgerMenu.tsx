@@ -5,8 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import Icons from '../Icons'
-
 import { useTranslation } from '@/i18n/client'
+
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'

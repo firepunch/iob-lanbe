@@ -21,5 +21,7 @@
   "privacy": "I have read and understood the privacy policy. (Required)",
   "terms": "I agree to the terms and conditions. (Required)",
   
-  "password_rule_error": "Your password does not meet the requirements."
+  "password_rule_error": "Your password does not meet the requirements.",
+  "function_required": "Function is required",
+  "country_required": "Country is required"
 }

@@ -4,7 +4,7 @@ interface SelectProps {
   id: string
   defaultOption?: { value: string; label: string; }
   options: { value: string; label: string; }[]
-  onChange?: () => void
+  errorMessage?: string
 }
 
 export const Select = ({
@@ -13,6 +13,7 @@ export const Select = ({
   id,
   defaultOption,
   options = [],
+  errorMessage,
   ...props
 }: SelectProps) => (
   <select
@@ -21,6 +22,11 @@ export const Select = ({
     id={id}
     {...props}
   >
+    {errorMessage && (
+      <option value="Error">
+        {errorMessage}
+      </option>
+    )}
     {defaultOption && (
       <option value={defaultOption.value}>
         {defaultOption.label}

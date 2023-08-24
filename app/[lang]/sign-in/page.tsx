@@ -4,11 +4,12 @@ import { loginUser } from '@/api_gql'
 import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ValidLocale } from '@/types'
+import { TStringObj, ValidLocale } from '@/types'
 import { AUTH_TOKEN, setStorageData, generateRandomString, isValidToken } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import withNoAuth from '@/hocs/withNoAuth'
+import { Field } from '@/components'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
 
@@ -25,7 +26,7 @@ const SignIn = ({
 }) => {
   const router = useRouter()
   const { t } = useTranslation(lang, 'sign-in')
-  const [errorMessages, setErrorMessages] = useState<{username?: string; password?: string}>({})
+  const [errorMessages, setErrorMessages] = useState<TStringObj>()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,7 +41,7 @@ const SignIn = ({
       if (!username || !password) {
         setErrorMessages({
           ...!username && { username: t('email_required') },
-          ...!password && { password: t('password_requried') },
+          ...!password && { password: t('password_required') },
         })
         
         return
@@ -62,29 +63,23 @@ const SignIn = ({
         <h2>{t('sign_in_h2')}</h2>
 
         <form className="email-pw-wrap" onSubmit={handleSubmit}>
-          <div className="field">
-            <label htmlFor="username">{t('email')}</label>
-            <input 
-              required
-              type="email"
-              id="username"
-              name="username"
-              defaultValue="email@email.com"
-              placeholder={errorMessages.username || t('email_placeholder')} 
-            />
-          </div>
+          <Field 
+            isRequired
+            type="email"
+            name="username"
+            label={t('email')}
+            placeholder={t('email_placeholder')}
+            errorMessage={errorMessages?.username}
+          />
 
-          <div className="field">
-            <label htmlFor="password">{t('password')}</label>
-            <input 
-              required
-              type="password"
-              id="password"
-              name="password"
-              defaultValue="zhJyk$N2p0PbBr74S8Ig@)Wu"
-              placeholder={errorMessages.password || t('password_placeholder')} 
-            />
-          </div>
+          <Field 
+            isRequired
+            type="password"
+            name="password"
+            label={t('password')}
+            placeholder={t('password_placeholder')}
+            errorMessage={errorMessages?.password}
+          />
 
           <div className="rmb-forgot">
             <div className="rmb-checkbox">
