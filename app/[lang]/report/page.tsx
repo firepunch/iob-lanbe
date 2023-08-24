@@ -10,6 +10,7 @@ import { getUserId } from '@/utils/lib'
 import { useEffect } from 'react'
 
 // export async function generateMetadata({ params: { lang } }) {
+const GRID_CARD_NUMBER = 6
 
 export default function Reports({
   params: { lang },
@@ -86,7 +87,11 @@ export default function Reports({
           ))}
         </div>
 
-        <Pagination />
+        <Pagination 
+          size={GRID_CARD_NUMBER}
+          onClickPrev={() => {}}
+          onClickNext={() => {}}
+        />
       </section>
     </>
   )

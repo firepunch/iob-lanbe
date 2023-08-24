@@ -56,6 +56,9 @@ export interface IStripeCard {
     exp_year: number
     exp_month: number
   }
+  billing_details: {
+    email: string
+  }
 }
 
 export interface ISearchBar{

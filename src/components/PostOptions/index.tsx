@@ -13,7 +13,7 @@ import ShareImg from '@/imgs/share.png'
 
 interface ContentOptionsProps {
   isSaved?: boolean
-  onToggleBookmark: ({ isSaved, databaseId }) => void
+  onToggleBookmark: () => void
   handleFontSize?: any
 }
 

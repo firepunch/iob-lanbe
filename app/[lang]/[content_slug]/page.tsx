@@ -107,8 +107,13 @@ export default function Category({
 
         <PostOptions
           isSaved={post.lanbeContent.is_save}
-          onToggleBookmark={handleToggleBookmark} 
           handleFontSize={handleFontSize} 
+          onToggleBookmark={() => (
+            handleToggleBookmark({
+              isSaved: post?.lanbeContent.is_save,
+              databaseId: post?.databaseId,
+            })
+          )}
         />
 
         {/* content details: title, author, tags, date, etc. */}
