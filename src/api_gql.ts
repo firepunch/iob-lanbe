@@ -112,7 +112,7 @@ export async function getAllPosts(variables) {
     variables,
   })
 
-  return data.posts.edges
+  return data.posts
 }
 
 export async function getContentsByCategory(variables) {

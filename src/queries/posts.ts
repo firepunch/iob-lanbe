@@ -1,9 +1,27 @@
 const POSTS_QUERY = `
-query posts($language: LanguageCodeFilterEnum!, $userId: Float, $first: Int = 10, $field: PostObjectsConnectionOrderbyEnum = DATE, $order: OrderEnum = DESC) {
+query AllPosts(
+  $language: LanguageCodeFilterEnum!, 
+  $userId: Float = 0, 
+  $first: Int = 1, 
+  $last: Int,
+  $before: String, 
+  $after: String,
+  $field: PostObjectsConnectionOrderbyEnum = DATE,
+  $order: OrderEnum = DESC
+) {
   posts(
     where: {language: $language, orderby: {field: $field, order: $order}}
     first: $first
+    after: $after
+    before: $before
+    last: $last
   ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
     edges {
       node {
         databaseId

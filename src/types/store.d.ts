@@ -51,6 +51,16 @@ export interface IPost {
   }
 }
 
+export interface IPosts {
+  edges: { node: IPost }[]
+  pageInfo: {
+    hasNextPage?: boolean
+    hasPreviousPage?: boolean
+    startCursor?: string
+    endCursor?: string
+  }
+}
+
 export interface IReport extends IPost {
   name: string
   price: string

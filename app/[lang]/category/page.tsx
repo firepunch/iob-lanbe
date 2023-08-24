@@ -11,33 +11,30 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+const categoryTranslationKeys = {
+  market: 'market_research',
+  corporate: 'market_research',
+  consumer: 'market_research',
+  marketing: 'market_entry',
+  partnership: 'market_entry',
+  channel: 'market_entry',
+  payment: 'market_entry',
+}
+  
 export default function Category({
   params: { lang },
 }: {
   params: { lang: ValidLocale }
 }) {
   const searchParams = useSearchParams()
+  const categoryName = searchParams.get('name') || 'all'
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
-
-  const categoryTranslationKeys = {
-    market: 'market_research',
-    corporate: 'market_research',
-    consumer: 'market_research',
-    marketing: 'market_entry',
-    partnership: 'market_entry',
-    channel: 'market_entry',
-    payment: 'market_entry',
-  }
-
-  const categoryName = searchParams.get('name') || 'all'
-  const translatedCategoryName = categoryTranslationKeys[categoryName]
   const [fetchParams, setFetchParams] = useState({
     categorySlug: categoryName, 
     language: lang.toUpperCase(), 
     userId: getUserId(),
-    first: 10,
     ...sort2variables('newest'),
   })
   
@@ -91,7 +88,7 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t(translatedCategoryName)}</p>
+              <p>{t(categoryTranslationKeys[categoryName])}</p>
               <h2>{t(categoryName).toUpperCase()}</h2>
             </div>
 
@@ -193,7 +190,7 @@ export default function Category({
 
       <section id="contents-grid">
         <div id="all-contents-wrap">
-          {posts?.map(({ node }) => (
+          {posts?.edges?.map(({ node }) => (
             <PostCard
               key={node.id}
               onToggleBookmark={() => (
