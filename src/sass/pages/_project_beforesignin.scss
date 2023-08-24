@@ -9,7 +9,7 @@
 #project-firstpage {
     width: 100%;
     height: 100vh;
-    background: url(/imgs/project_main.jpg);
+    background: url(~/public/imgs/project_main.jpg);
     @include background(50%);
     position: relative;
 
@@ -264,6 +264,7 @@
                     font-size: 3rem;
                     margin: 1rem 0;
                     font-family: $secondary-font;
+                    // color: $navy;
                 }
             }
 
@@ -305,6 +306,8 @@
                         font-family: $secondary-font;
                         font-size: 3rem;
                         margin-bottom: 1.75rem;
+                        color: $orange;
+
                     }
                     
                     p:nth-child(2) {

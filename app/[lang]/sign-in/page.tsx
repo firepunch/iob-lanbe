@@ -5,12 +5,12 @@ import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ValidLocale } from '@/types'
-import { AUTH_TOKEN, setStorageData, generateRandomString } from '@/utils/lib'
+import { AUTH_TOKEN, setStorageData, generateRandomString, isValidToken } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import withNoAuth from '@/hocs/withNoAuth'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
-import mainImg from '@/imgs/signin_main.jpg'
 
 type ILoginForm = {
   username?: { value: string }
@@ -18,12 +18,12 @@ type ILoginForm = {
   rmb_me?: { value: boolean }
 }
 
-export default function SignIn({
+const SignIn = ({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
-}) {
-  const { push } = useRouter()
+}) => {
+  const router = useRouter()
   const { t } = useTranslation(lang, 'sign-in')
   const [errorMessages, setErrorMessages] = useState<{username?: string; password?: string}>({})
 
@@ -50,7 +50,7 @@ export default function SignIn({
   
       setStorageData(AUTH_TOKEN, userData, isRemember)
 
-      push(`/${lang}`)
+      router.push(`/${lang}`)
     } catch (err) {
       console.error('login error', err)
     }
@@ -110,9 +110,7 @@ export default function SignIn({
         </div>
       </div>
 
-      <div id="signin-wrapper">
-        <Image src={mainImg} alt="Login Background" className="signin-img" />
-        
+      <div id="signin-img">
         <div className="mobile-signin-title">
           <h2>{t('sign_in_h2')}</h2>
         </div>
@@ -122,3 +120,5 @@ export default function SignIn({
     </section>
   )
 }
+
+export default withNoAuth(SignIn)

@@ -8,21 +8,10 @@ import endToEndIcon from '@/imgs/endtoend.png'
 import insightIcon from '@/imgs/businessinsight.png'
 import ourstoryIcon from '@/imgs/ourstory-growth.png'
 import linkedInIcon from '@/imgs/linkedin.png'
-import junhaIcon from '@/imgs/junhanim.jpg'
+import junhaImg from '@/imgs/junhanim.jpg'
 import stayAheadIcon from '@/imgs/stay-ahead.png'
 import realOutcomesIcon from '@/imgs/real-outcomes.png'
 import growthIcon from '@/imgs/sustain-growth.png'
-import aboutMainImg from '@/imgs/about_main.jpg'
-import paperImg from '@/imgs/paper.png'
-import contentCtaImg from '@/imgs/about_content_cta.jpg'
-import reportCtaImg from '@/imgs/about_report_cta.jpg'
-import projectCtaImg from '@/imgs/about_project_cta.jpg'
-
-const CTA_IMG_MAP = {
-  content: contentCtaImg,
-  report: reportCtaImg,
-  project: projectCtaImg,
-}
 
 export default async function About({
   params: { lang },
@@ -41,7 +30,6 @@ export default async function About({
 
         {/* section 1: about first page */}
         <section id="about-firstpage">
-          <Image src={aboutMainImg} alt="About Main" />
           <p>
             {t('main')}
           </p>
@@ -115,7 +103,7 @@ export default async function About({
                 </ul>
               </div>
               <div className="ceo-detail-right">
-                <Image src={junhaIcon} alt="Junha Son" />
+                <Image src={junhaImg} alt="Junha Son" sizes="100vw" />
               </div>
               {/* //ceo detail and image */}
             </div>
@@ -170,7 +158,6 @@ export default async function About({
               <div className="approach-papers-left">
                 {approaches?.map((item, idx) => (
                   <div key={`approaches-${idx}`} className="approach1">
-                    <Image src={paperImg} alt="Paper" />
                     <p>{item.title}</p>
                     <p>{item.desc}</p>
                   </div>
@@ -188,7 +175,6 @@ export default async function About({
       <section id="about-ctas">
         {ctas?.map((item, idx) => (
           <div key={`ctas-${idx}`} className="ab-cta">
-            <Image src={CTA_IMG_MAP[item.type]} alt="CTA Image" />
             <p className="ab-cta-title">{item.title}</p>
             <Link href={item.link}>
               <Icons type="arrowWhite" />

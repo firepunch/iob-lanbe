@@ -1,6 +1,7 @@
 'use client'
 
 import { MyPageContent, MyPageIdeas, MyPagePayment, MyPageReport, MyPageSettings } from '@/components'
+import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
 import Image from 'next/image'
@@ -12,8 +13,6 @@ import IdeasIcon from '@/imgs/ideas_icon.png'
 import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
-import protectedPage from '@/utils/protected-page'
-import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 
 const TAB_MAP = {
   content: 'content',
@@ -23,15 +22,11 @@ const TAB_MAP = {
   settings: 'settings',
 }
 
-export default  function Layout({
+const Layout = ({
   params: { lang },
-  children,
 }: {
   params: { lang: ValidLocale },
-  children: React.ReactNode
-}) {
-  protectedPage()
-
+}) => {
   const { t } = useTranslation(lang, 'my-page')
   const segment = useSelectedLayoutSegment()
 
@@ -80,3 +75,5 @@ export default  function Layout({
     </div>
   )
 }
+
+export default withAuth(Layout)

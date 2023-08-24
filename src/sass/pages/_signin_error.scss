@@ -25,3 +25,28 @@
         }
     }
 }
+
+.field.error-field {
+    label {
+        color: rgb(255, 0, 0);
+        font-weight: $bold-font-weight;
+    }
+
+    input {
+        color: rgb(255, 0, 0);
+        border-color: rgb(255, 0, 0);
+        position: relative;
+
+        &::after {
+            content: '';
+            display: block;
+            background-image: url(~/public/imgs/error.png);
+            margin-top: .1rem;
+            width: .75rem;
+            height: .75rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}

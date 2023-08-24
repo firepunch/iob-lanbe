@@ -10,7 +10,6 @@ import { dateEnFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import NoteAddImg from '@/imgs/ideanote_add.png'
 
 export default function Category({
   params: { lang, content_slug },
@@ -142,7 +141,8 @@ export default function Category({
         </div>
         {/* content details: title, author, tags, date, etc. */}
 
-        <div dangerouslySetInnerHTML={{ __html: post.content }} className={cls(styles.content, { [styles.large]: isZoomed })}/>
+        {/* className={cls(styles.content, { [styles.large]: isZoomed })} */}
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </section>
 
       {/* idea notes wrap */}
@@ -152,7 +152,6 @@ export default function Category({
           <IdeaNote />
 
           <div className="add-idea-note">
-            <Image src={NoteAddImg} alt="Add Image" />
             {/* add new idea design image will be put here as background */}
           </div>
         </div>

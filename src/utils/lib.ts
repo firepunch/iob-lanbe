@@ -14,7 +14,6 @@ export const isEmpty = (obj) => (
   Object.keys(obj).length == 0
 )
 
-
 export const generateRandomString = () => (
   Math.floor(Math.random() * Date.now()).toString(36)
 )
@@ -28,14 +27,30 @@ export const setStorageData = (key: string, data: string | object, isRemember = 
     localStorage.setItem(key, JSON.stringify(data))
 }
 
-export const getStorageData = (key: string, isRemember = false) => {
-  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+type Tokens = {
+  authToken?: string
+  user?: {
+    databaseId: number
+  }
+  sessionToken?: string
+}
 
-  const item = sessionStorage.getItem(key) || localStorage.getItem(key)
+interface IGetStorageData {
+  (key: string): [undefined, undefined] | [Tokens, boolean]
+}
 
-  if (!item || item === 'undefined') return
+export const getStorageData:IGetStorageData = (key: string) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) {
+    return [undefined, undefined]
+  }
 
-  return JSON.parse(item)
+  const rememberData = sessionStorage.getItem(key)
+  const localData = localStorage.getItem(key)
+  const item = rememberData || localData
+
+  if (!item || item === 'undefined') return [undefined, undefined]
+
+  return [JSON.parse(item), Boolean(rememberData)]
 }
 
 function remove_data(key) {
@@ -61,4 +76,11 @@ export const getAuthorInfo = (author) => {
   if (!roles) return name
   
   return `${name} | ${roles.edges?.node.id}`
+}
+
+export const isValidToken = () => {
+  const [userData] = getStorageData(AUTH_TOKEN)
+  const isValid = userData?.authToken && userData?.user?.databaseId
+
+  return isValid
 }

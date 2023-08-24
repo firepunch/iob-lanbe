@@ -1,12 +1,12 @@
 // Font families
 @font-face {
     font-family: 'inter';
-    src: url(/fonts/inter_variableFont.ttf);
+    src: url(~/public/fonts/inter_variableFont.ttf);
 }
 
 @font-face {
     font-family: 'quantico';
-    src: url(/fonts/quantico_bold.ttf);
+    src: url(~/public/fonts/quantico_bold.ttf);
 }
 
 $primary-font: 'inter';

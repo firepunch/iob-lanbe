@@ -1,4 +1,5 @@
 interface SelectProps {
+  isRequired?: boolean
   name: string
   id: string
   defaultOption?: { value: string; label: string; }
@@ -7,6 +8,7 @@ interface SelectProps {
 }
 
 export const Select = ({
+  isRequired = false,
   name,
   id,
   defaultOption,
@@ -14,6 +16,7 @@ export const Select = ({
   ...props
 }: SelectProps) => (
   <select
+    required={isRequired}
     name={name}
     id={id}
     {...props}

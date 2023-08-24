@@ -19,7 +19,6 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
-import HomeBg from '@/imgs/homepage_main.jpg'
 
 // export async function generateMetadata({ params: { lang } }) {
 
@@ -86,8 +85,7 @@ export default function Home({
           </p>
         </div>
 
-        <div className="firstpage-intro">
-          <Image src={HomeBg} alt="Homepage Background" className="firstpage-img"/>
+        <div id="firstpage-img">
           <p className="intro-slogan">{t('intro-slogan')}</p>
 
           <p className="intro-text">

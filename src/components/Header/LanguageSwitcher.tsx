@@ -1,10 +1,11 @@
 'use client'
 
 import { ValidLocale } from '@/types'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
 import LanguageImg from '@/imgs/lang_black.png'
-import Image from 'next/image'
 
 export default function LanguageSwitcher({ 
   lang, 
