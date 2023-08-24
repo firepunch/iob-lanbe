@@ -26,5 +26,49 @@
     "type": "project",
     "title": "I.O.B PROJECT",
     "link": "/project"
-  }]
+  }],
+  "main": "We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.",
+  "about-us": "ABOUT US",
+  "intro-1": "We collaborate with companies that are newly entering the Southeast Asian market, expanding their businesses to new countries within Southeast Asia or devising new growth strategies within the region.",
+  "intro-2": "Leveraging our expertise in Southeast Asia, we assemble teams tailored to the specific goals and challenges of each company to execute projects effectively.",
+  "how": "HOW?",
+  "answer1-title": "End-to-End<br/>Digital Solutions",
+  "answer1-desc": "We establish and implement digital strategies for all stages, including market research, strategy formulation, branding, design, development, and marketing.",
+  "answer2-title": "Business<br/>Insight",
+  "answer2-desc": "We offer curated business content and reports by deriving insights from the social, economic, and cultural backgrounds and trends in Southeast Asia.",
+  "our-story": "OUR STORY",
+  "our-story-slogan": "Your partner for<br/> <span>Sustainable Business Growth</span><br/> in Southeast Asia.",
+  "our-story-intro-1": "We have initiated collaborations with numerous experts from various fields to understand business trends based on different environments across Southeast Asia.",
+  "our-story-intro-2": "I.O.B works alongside experts from different fields, including strategies, business development, sales, marketing, design, and development, across multiple Southeast Asian countries.",
+  "our-story-intro-3": "We collaborate on content production, form teams tailored to the goals and challenges of our clients, and undertake diverse tasks together.",
+  "name": "Junha Son",
+  "position": "Founder",
+  "background": "Ex-Google & Startup<br/>Yonsei School of Business",
+  "ceo-more-details": [{
+    "desc": "Sales Strategies for the Global Market"
+  }, { 
+    "desc": "Partnership Development in APAC Markets" 
+  },{
+    "desc": "K-POP Marketing for the Global Market"
+  },{
+    "desc": "Consumer Goods Export to APAC Markets"
+  },{
+    "desc": "Web-based B2B Product Management"
+  }],
+  "ceo-quote": [
+    "For businesses to achieve growth, I believe that it is essential to understand the macro-level context supporting that growth. Southeast Asia has been garnering global attention due to its rapid economic growth. With its large population base, various factors such as the spread of digital technology, increasing purchasing power, and infrastructure expansion are driving growth in the region.",
+    "Many companies have already entered the Southeast Asian market in search of diverse business opportunities. Information and language barriers have largely diminished, and numerous agencies are assisting with market entry. However, achieving successful establishment and growth in the market remains a challenge; developing and implementing strategies and organizations that are tailored to the specific region remains a challenging task for companies.",
+    "To address these issues, I.O.B. has started focusing on the Southeast Asian market, aiming to help companies solve their challenges with specialized expertise. In the pursuit of expertise and insights, we concentrate on understanding how Southeast Asian culture and environment have influenced various business cases. Simultaneously, to build teams optimized for the diverse business objectives of companies, we are expanding our network of Southeast Asian experts."
+  ],
+  "our-goals": "OUR GOALS",
+  "staying-ahead-title": "Staying<br/>Ahead",
+  "staying-ahead-desc-1": "We present and implement strategies that enable our clients to become leaders in the Southeast Asian market.",
+  "staying-ahead-desc-2": "In areas such as planning, branding, design, marketing, and more, we aim to create success cases that will propel our clients ahead of the market.",
+  "real-outcomes-title": "Real Business<br/>Outcomes",
+  "real-outcomes-desc-1": "We aim to contribute to the creation of tangible business outcomes, such as attracting customers and achieving sales targets.",
+  "real-outcomes-desc-2": "In particular, we assist our clients in accomplishing their business objectives in the Southeast Asian market through digital channels.",
+  "sustainable-growth-title": "Sustainable<br/>Growth",
+  "sustainable-growth-desc-1": "We focus on utilizing advanced data to achieve and sustain long-term business growth.",
+  "sustainable-growth-desc-2": "We establish a sophisticated customer data tracking and analysis environment, providing data-driven insights to lay the foundation for long-term business growth."
+
 }
