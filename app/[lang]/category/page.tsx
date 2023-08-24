@@ -12,6 +12,12 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const GRID_CARD_NUMBER = 2
+const initPagination = {
+  last: null, 
+  before: null, 
+  first: GRID_CARD_NUMBER, 
+  after: null, 
+}
 const categoryTranslationKeys = {
   market: 'market_research',
   corporate: 'market_research',
@@ -36,7 +42,7 @@ export default function Category({
     categorySlug: categoryName, 
     language: lang.toUpperCase(), 
     userId: getUserId(),
-    first: GRID_CARD_NUMBER,
+    ...initPagination,
     ...sort2variables('newest'),
   })
   
@@ -50,14 +56,6 @@ export default function Category({
             initTotal: posts.pageInfo.initTotal || result.pageInfo.total,
           },
         })
-
-        console.log({
-          ...result,
-          pageInfo: {
-            ...result.pageInfo,
-            ...!posts.pageInfo.initTotal && { initTotal: result.pageInfo.total },
-          },
-        })
       })
     } else {
       getContentsByCategory(fetchParams).then(result => {
@@ -69,6 +67,7 @@ export default function Category({
   const handleSorter = async (sorter) => {
     setFetchParams(prev => ({
       ...prev,
+      ...initPagination,
       ...sort2variables(sorter),
     }))
   }

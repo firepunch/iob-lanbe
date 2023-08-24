@@ -21,7 +21,6 @@ export default function Pagination({
   const pageStartNumber = pageInfo?.hasPreviousPage ? 
     (pageInfo?.total || 0) :
     1
-  // console.log(first, last, size)
 
   return (
     <div id="pagination">
