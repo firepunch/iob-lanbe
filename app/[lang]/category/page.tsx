@@ -2,7 +2,7 @@
 
 import { getAllPosts, getContentsByCategory } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { Icons, Pagination, PostCard, Select } from '@/components'
+import { Icons, Pagination, CategoryFilter, PostCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
@@ -38,6 +38,7 @@ export default function Category({
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
+  const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
     categorySlug: categoryName, 
     language: lang.toUpperCase(), 
@@ -183,9 +184,14 @@ export default function Category({
               <button type="button" className="all-button">
                 {ct('all')}
               </button>
-              <button type="button" className="country-button">
+              <button
+                type="button" 
+                className="country-button" 
+                onClick={() => setIsOpenFilter(!isOpenFilter)}
+              >
                 {ct('country')}
               </button>
+              {isOpenFilter && <CategoryFilter t={t} />}
             </div>
 
             <div className="sort">

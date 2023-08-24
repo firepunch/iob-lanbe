@@ -16,5 +16,7 @@
   "channel_desc": "We deliver insights on online and offline retail channels specific to each country.",
   "payment": "Payment",
   "payment_desc": "We introduce emerging payment methods and trends on a country-by-country basis.",
-  "see_all": "See all"
+  "see_all": "See all",
+  "selected": "selected",
+  "clear_all": "Clear all"
 }
