@@ -1,11 +1,12 @@
 'use client'
 
+import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
+import { isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icons from '../Icons'
-import { useTranslation } from '@/i18n/client'
 
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
@@ -20,6 +21,11 @@ export default function MobileMenu({
   const { t } = useTranslation(lang, 'layout')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+  const [isValid, setIsValid] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsValid(isValidToken())
+  }, [])
 
   const handleCloseMenu = () => setIsMenuOpen(false)
 
@@ -96,11 +102,17 @@ export default function MobileMenu({
           </div>
 
           {/* signin */}
-          <div id="mm-signin">
-            <Link href="/sign-in" onClick={handleCloseMenu}>
-              <h2>Sign in</h2>
-              <Image src={userIcon} alt="User icon" />
-            </Link>
+          <div id="mm-signin" onClick={handleCloseMenu}> 
+            {isValid ? (
+              <Link href="/my-page/content">
+                <h2>{t('my_page')}</h2>
+              </Link>
+            ) : (
+              <Link href="/sign-in">
+                <h2>{t('sign_in')}</h2>
+                <Image src={userIcon} alt="User icon" />
+              </Link>
+            )}
           </div>
         </section>
       )}
