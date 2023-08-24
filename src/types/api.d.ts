@@ -73,5 +73,5 @@ export interface IStripePaymentIntents {
 
 export interface IPaymentHistory {
   data: IStripePaymentIntents[]
-  hasMore: boolean
+  has_more: boolean
 }

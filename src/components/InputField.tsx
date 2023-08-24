@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { Select } from './Select'
 
 interface IInputField {
-  isRequired?:boolean
+  readOnly?: boolean
+  isRequired?: boolean
   type?: 'text' | 'email' | 'password'
   name: string
   label: string
@@ -17,6 +18,7 @@ interface IInputField {
 }
 
 export default function InputField({
+  readOnly = false,
   isRequired = false,
   type = 'text',
   name,
@@ -40,6 +42,7 @@ export default function InputField({
         {isRequired && '*'}{label}
       </label>
       <input 
+        readOnly={readOnly}
         required={isRequired}
         type={errorMessage ? 'text' : type}
         id={name}
