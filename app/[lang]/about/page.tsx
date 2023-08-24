@@ -21,6 +21,8 @@ export default async function About({
   const { t } = await getTranslation(lang, 'about')
   const approaches = t('approaches', { returnObjects: true }) as { title: string; desc: string }[]
   const ctas = t('ctas', { returnObjects: true }) as { type: string; title: string; link: string }[]
+  const ceo_details = t('ceo-more-details', { returnObjects: true })  as { desc: string }[]
+  const ceo_quote = t('ceo-quote', { returnObjects: true }) as []
 
   return (
     <div id="allwhite-nav">
@@ -28,10 +30,8 @@ export default async function About({
 
         {/* section 1: about first page */}
         <section id="about-firstpage">
-          <p>
-            We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.
-          </p>
-          <h2>ABOUT US</h2>
+          <p>{t('main')}</p>
+          <h2>{t('about-us')}</h2>
         </section>
         {/* //section 1: about first page */}
 
@@ -39,32 +39,23 @@ export default async function About({
         <section id="about-how">
           <div id="about-how-wrap">
             <div className="about-how-intro">
-              <p>
-                We collaborate with companies that are newly entering the Southeast Asian market, expanding their businesses to new countries within Southeast Asia or devising new growth strategies within the region.
-              </p>
-                    
-              <p>
-                Leveraging our expertise in Southeast Asia, we assemble teams tailored to the specific goals and challenges of each company to execute projects effectively.
-              </p>
+              <p>{t('intro-1')}</p>
+              <p>{t('intro-2')}</p>
             </div>
             <div className="about-how-title">
-              <h3>HOW?</h3>
+              <h3>{t('how')}</h3>
             </div>
             <div className="about-how-answers">
               {/* line */}
               <div className="ah-answer ah-answer1">
                 <Image src={endToEndIcon} alt="Digital Solutions" />
-                <h5>End-to-End<br/>Digital Solutions</h5>
-                <p>
-                We establish and implement digital strategies for all stages, including market research, strategy formulation, branding, design, development, and marketing.
-                </p>
+                <h5>{t('answer1-title')}</h5>
+                <p>{t('answer1-desc')}</p>
               </div>
               <div className="ah-answer ah-answer2">
                 <Image src={insightIcon} alt="Business Insights" />
-                <h5>Business<br/>Insight</h5>
-                <p>
-                We offer curated business content and reports by deriving insights from the social, economic, and cultural backgrounds and trends in Southeast Asia.
-                </p>
+                <h5>{t('answer2-title')}</h5>
+                <p>{t('answer2-desc')}</p>
               </div>
             </div>
           </div>
@@ -74,49 +65,41 @@ export default async function About({
         {/* section 3: our story */}
         <section id="our-story">
           <div id="our-story-wrap">
-            <h3>OUR STORY</h3>
+            <h3>{t('our-story')}</h3>
             <div className="our-story-slogan">
               <p>
-                Your partner for<br/> <span>Sustainable Business Growth</span><br/> in Southeast Asia.
+                <p>{t('our-story-slogan')}</p>
               </p>
               <Image src={ourstoryIcon} alt="Growth" />
             </div>
             <div className="our-story-intro">
-              <p>
-                We have initiated collaborations with numerous experts from various fields to understand business trends based on different environments across Southeast Asia.
-              </p>
-              <p>
-                I.O.B works alongside experts from different fields, including strategies, business development, sales, marketing, design, and development, across multiple Southeast Asian countries.
-              </p>
-              <p>
-                We collaborate on content production, form teams tailored to the goals and challenges of our clients, and undertake diverse tasks together.
-              </p>
+              <p>{t('our-story-intro-1')}</p>
+              <p>{t('our-story-intro-2')}</p>
+              <p>{t('our-story-intro-3')}</p>
             </div>
             {/* CEO */}
             <div id="our-story-ceo">
               {/* ceo detail and image */}
               <div className="ceo-detail-left">
                 <div className="name-position">
-                  <p>Junha Son</p>
-                  <p>Founder</p>
+                  <p>{t('name')}</p>
+                  <p>{t('position')}</p>
                 </div>
                 <div className="bg-li">
                   <div className="bg">
-                    <p>Ex-Google & Startup</p>
-                    <p>Yonsei School of Business</p>
+                    <div className="bg">
+                      {t('background')}
+                    </div>
                   </div>
-                  
+          
                   <Link href={{ pathname: `/` }}>
                     <Image src={linkedInIcon} alt="LinkedIn" />
                   </Link>
-
                 </div>
                 <ul className="ceo-more-details">
-                  <li>Sales Strategies for the Global Market</li>
-                  <li>Partnership Development in APAC Markets</li>
-                  <li>K-POP Marketing for the Global Market</li>
-                  <li>Consumer Goods Export to APAC Markets</li>
-                  <li>Web-based B2B Product Management</li>
+                  {ceo_details?.map((item, idx) => (
+                    <li key={idx}>{item.desc}</li>
+                  ))}
                 </ul>
               </div>
               <div className="ceo-detail-right">
@@ -127,15 +110,9 @@ export default async function About({
             {/* //CEO */}
             {/* ceo quote */}
             <div className="ceo-quote">
-              <p>
-                “For businesses to achieve growth, I believe that it is essential to understand the macro-level context supporting that growth. Southeast Asia has been garnering global attention due to its rapid economic growth. With its large population base, various factors such as the spread of digital technology, increasing purchasing power, and infrastructure expansion are driving growth in the region.
-              </p>
-              <p>
-                Many companies have already entered the Southeast Asian market in search of diverse business opportunities. Information and language barriers have largely diminished, and numerous agencies are assisting with market entry. However, achieving successful establishment and growth in the market remains a challenge; developing and implementing strategies and organizations that are tailored to the specific region remains a challenging task for companies.
-              </p>
-              <p>
-                To address these issues, I.O.B. has started focusing on the Southeast Asian market, aiming to help companies solve their challenges with specialized expertise. In the pursuit of expertise and insights, we concentrate on understanding how Southeast Asian culture and environment have influenced various business cases. Simultaneously, to build teams optimized for the diverse business objectives of companies, we are expanding our network of Southeast Asian experts.”
-              </p>
+              {ceo_quote?.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
             {/* //ceo quote */}
           </div>
@@ -145,40 +122,28 @@ export default async function About({
         {/* section 4: our goals */}
         <section id="our-goals">
           <div id="our-goals-wrap">
-            <h3>OUR GOALS</h3>
+            <h3>{t('our-goals')}</h3>
 
             <div className="three-goals">
               <div className="goal goal1">
                 <Image src={stayAheadIcon} alt="Staying Ahead" />
-                <h5>Staying<br/>Ahead</h5>
-                <p>
-                We present and implement strategies that enable our clients to become leaders in the Southeast Asian market.
-                </p>
-                <p>
-                In areas such as planning, branding, design, marketing, and more, we aim to create success cases that will propel our clients ahead of the market.
-                </p>
+                <h5>{t('staying-ahead-title')}</h5>
+                <p>{t('staying-ahead-desc-1')}</p>
+                <p>{t('staying-ahead-desc-2')}</p>
               </div>
 
               <div className="goal goal2">
                 <Image src={realOutcomesIcon} alt="Real Business Outcomes" />
-                <h5>Real Business<br/>Outcomes</h5>
-                <p>
-                We aim to contribute to the creation of tangible business outcomes, such as attracting customers and achieving sales targets.
-                </p>
-                <p>
-                In particular, we assist our clients in accomplishing their business objectives in the Southeast Asian market through digital channels.
-                </p>
+                <h5>{t('real-outcomes-title')}</h5>
+                <p>{t('real-outcomes-desc-1')}</p>
+                <p>{t('real-outcomes-desc-2')}</p>
               </div>
 
               <div className="goal goal3">
                 <Image src={growthIcon} alt="Sustainable Growth" />
-                <h5>Sustainable<br/>Growth</h5>
-                <p>
-                We focus on utilizing advanced data to achieve and sustain long-term business growth.
-                </p>
-                <p>
-                We establish a sophisticated customer data tracking and analysis environment, providing data-driven insights to lay the foundation for long-term business growth.
-                </p>
+                <h5>{t('sustainable-growth-title')}</h5>
+                <p>{t('sustainable-growth-desc-1')}</p>
+                <p>{t('sustainable-growth-desc-2')}</p>
               </div>
             </div>
           </div>
@@ -202,9 +167,7 @@ export default async function About({
           </div>
         </section>
         {/* //section 5: our approach */}
-
       </main>
-      {/* //main */}
 
       {/* about page ctas */}
       <section id="about-ctas">
