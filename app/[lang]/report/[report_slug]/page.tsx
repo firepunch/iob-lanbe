@@ -9,7 +9,7 @@ import useContentState from '@/stores/contentStore'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
-import { dateFormat, getAuthorInfo } from '@/utils/lib'
+import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
 
 import ShareImg from '@/imgs/share.png'
 
@@ -20,10 +20,10 @@ export default function Report({
 }) {
   const { report, updateReport } = useContentState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
-  const isLogin = false
+  const userId = getUserId()
 
   useEffect(() => {
-    getProductBySlug(report_slug, 231936698).then(result => {
+    getProductBySlug(report_slug, userId).then(result => {
       updateReport(result)
     })
   }, [])
@@ -32,17 +32,19 @@ export default function Report({
     try {
       if (isSaved) {
         await removeWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       } else {
         await createWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       }
 
-      const result = await getProductBySlug(report_slug, 231936698)
+      const result = await getProductBySlug(report_slug, userId)
       updateReport(result)
     } catch (err) {
       console.log(err)
@@ -126,7 +128,7 @@ export default function Report({
           </div>
 
           <div className="report-cta">
-            {isLogin ? (
+            {isValidToken() ? (
               <>
                 <p>{t('pay_now_cta')}</p>
                 <Link href={`/${lang}/checkout`}>

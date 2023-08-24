@@ -6,7 +6,7 @@ import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { dateEnFormat, getAuthorInfo } from '@/utils/lib'
+import { dateEnFormat, getAuthorInfo, getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -19,9 +19,10 @@ export default function Category({
   const { post, recommend, updatePost, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
+  const userId = getUserId()
 
   useEffect(() => {
-    getContentBySlug(content_slug, 231936698).then(result => (
+    getContentBySlug(content_slug, userId).then(result => (
       updatePost(result)
     ))
 
@@ -34,17 +35,19 @@ export default function Category({
     try {
       if (isSaved) {
         await removeWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       } else {
         await createWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       }
 
-      const result = await getContentBySlug(content_slug, 231936698)
+      const result = await getContentBySlug(content_slug, userId)
       updatePost(result)
     } catch (err) {
       console.log(err)
@@ -57,9 +60,9 @@ export default function Category({
   }
 
   const getParentCategory = (parentId: string) => (
-    post?.categories?.edges.find(({ node }) => {
-      return parentId === node.id
-    })?.node.name
+    post?.categories?.edges.find(({ node }) => (
+      parentId === node.id
+    ))?.node.name
   )
 
   if (!post) {

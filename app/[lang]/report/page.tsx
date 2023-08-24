@@ -6,6 +6,7 @@ import { Pagination, ReportCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
+import { getUserId } from '@/utils/lib'
 import { useEffect } from 'react'
 
 // export async function generateMetadata({ params: { lang } }) {
@@ -18,9 +19,10 @@ export default function Reports({
   const { reports, updateReports } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'report')
+  const userId = getUserId()
 
   useEffect(() => {
-    getAllProducts(lang, 231936698).then(result => (
+    getAllProducts(lang, userId).then(result => (
       updateReports(result)
     ))
   }, [])
@@ -30,17 +32,19 @@ export default function Reports({
     try {
       if (isSaved) {
         await removeWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       } else {
         await createWatchList({
-          content_id: databaseId,
           type: 'report',
+          content_id: databaseId,
+          user_id: userId,
         })
       }
 
-      const result = await getAllProducts(lang, 231936698)
+      const result = await getAllProducts(lang, userId)
       updateReports(result)
     } catch (err) {
       console.log(err)
