@@ -55,7 +55,7 @@ export default function Report({
   }
 
   return (
-    <>
+    <div className="iob-single-report">
       <section id="report-firstpage">
         <div id="report-firstpage-left">
           <div className="save-share">
@@ -144,6 +144,6 @@ export default function Report({
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
