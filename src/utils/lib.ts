@@ -84,3 +84,19 @@ export const isValidToken = () => {
 
   return Boolean(isValid)
 }
+
+export const getUserId = () => {
+  const [userData] = getStorageData(AUTH_TOKEN)
+
+  return userData?.user?.databaseId || 0
+}
+
+export const sort2variables = (type: string) => {
+  const map = {
+    newest: { field: 'DATE', order: 'DESC' },
+    oldest: { field: 'DATE', order: 'ASC' },
+    most_viewed: { field: 'DATE', order: 'DESC' },
+  }
+
+  return map[type] || map.newest
+}

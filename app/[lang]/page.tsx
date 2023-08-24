@@ -27,7 +27,7 @@ export default function Home({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = useTranslation(lang, 'second-page')
+  const { t } = useTranslation(lang, 'home')
   const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function Home({
           <h2>{t('iob-content')}</h2>
 
           <div className="iob-content-info">
-            <p className="description">We provide meaningful and comprehensive content that matters and inspires.</p>
+            <p className="description">{t('content-desc')}</p>
 
             <Link href={{ pathname: `/category` }} className="cta-web">
               <Icons type="arrowBlack" />
@@ -198,7 +198,7 @@ export default function Home({
           <h2>{t('iob-report')}</h2>
 
           <div className="iob-report-info">
-            <p className="description">{t('report-description')}</p>
+            <p className="description">{t('report-desc')}</p>
             <Link href={{ pathname: `/report` }} className="cta-web">
               <Icons type="arrowBlack" />
               <p>{t('see-all')}</p>
@@ -248,7 +248,7 @@ export default function Home({
 
           <div className="iob-project-info">
             <p className="description">
-              {t('project-description')}
+              {t('project-desc')}
             </p>
 
             <Link href={{ pathname: `/project` }} className="cta-web-proj">
@@ -263,58 +263,61 @@ export default function Home({
 
             {/* market entry side */}
             <div className="market-entry">
-              <div className="pd-title"><p>Market<br /> Entry</p></div>
+              <div className="pd-title">
+                <p>{t('market')}<br/> {t('entry')}</p>
+              </div>
 
               <div className="pd-wrap">
                 <div className="solution">
                   <Image src={MarketIcon} alt="Market Analysis" />
-                  <p>Market<br /> Analysis</p>
+                  <p>{t('market')}<br/> {t('analysis')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={StrategyIcon}  alt="Strategy" />
-                  <p>Strategy</p>
+                  <p>{t('strategy')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={BrandDesignIcon}  alt="Brand Design" />
-                  <p>Brand<br /> Design</p>
+                  <p>{t('brand')}<br/> {t('design')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={UiUxIcon} alt="UI/UX Design & Web/App Development" />
-                  <p>UI/UX Design &<br /> Web/App Development</p>
+                  <p>{t('uiux')}<br/> {t('wepapp')}</p>
                 </div>
               </div>
             </div>
 
             {/* digital marketing side */}
             <div className="digital-marketing">
-              <div className="pd-title"><p>Digital Marketing<br /> & Operations</p></div>
+              <div className="pd-title">
+                <p>{t('digital-marketing')}<br/> {t('operations')}</p>
+              </div>
 
               <div className="pd-wrap">
                 <div className="solution">
                   <Image src={EcommerceIcon} alt="E-commerce" />
-                  <p>E-Commerce</p>
+                  <p>{t('e-commerce')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={SocialmediaIcon} alt="Social Media" />
-                  <p>Social<br /> Media</p>
+                  <p>{t('social')}<br/> {t('media')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={DigitalIcon} alt="Digital Marketing" />
-                  <p>Digital<br /> Marketing</p>
+                  <p>{t('digital')}<br/> {t('marketing')}</p>
                 </div>
 
                 <div className="solution">
                   <Image src={CrmIcon} alt="CRM" />
-                  <p>CRM</p>
+                  <p>{t('crm')}</p>
                 </div>
               </div>
             </div>
-
           </div>
 
           {/* data tracking */}
@@ -323,9 +326,10 @@ export default function Home({
 
             <div className="solution">
               <Image src={DataTrackingIcon} alt="Data Tracking & Analysis" />
-              <p>Data Tracking & Analysis</p>
+              <p>{t('data-tracking')}{t('andAnalysis')}</p>
             </div>
           </div>
+
         </div>
 
         <Link href={{ pathname: `/project` }} className="project-cta-mobile">

@@ -1,57 +1,82 @@
 'use client'
 
-import { useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useTranslation } from '@/i18n/client'
 import { getAllPosts, getContentsByCategory } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Icons, Pagination, PostCard, Select } from '@/components'
+import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
-import ArrowBlackDown from '@/imgs/arrow_black_down.png'
+import { getUserId, sort2variables } from '@/utils/lib'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
+const categoryTranslationKeys = {
+  market: 'market_research',
+  corporate: 'market_research',
+  consumer: 'market_research',
+  marketing: 'market_entry',
+  partnership: 'market_entry',
+  channel: 'market_entry',
+  payment: 'market_entry',
+}
+  
 export default function Category({
   params: { lang },
 }: {
   params: { lang: ValidLocale }
 }) {
   const searchParams = useSearchParams()
+  const categoryName = searchParams.get('name') || 'all'
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
-
-  const categoryName = searchParams.get('name') || 'all'
-
+  const [fetchParams, setFetchParams] = useState({
+    categorySlug: categoryName, 
+    language: lang.toUpperCase(), 
+    userId: getUserId(),
+    first: 1,
+    ...sort2variables('newest'),
+  })
+  
   useEffect(() => {
     if (categoryName === 'all') {
-      getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+      getAllPosts(fetchParams).then(result => {
         updatePosts(result)
       })
     } else {
-      getContentsByCategory(categoryName, 231936698).then(result => {
+      getContentsByCategory(fetchParams).then(result => {
         updatePosts(result)
       })
     }
-  }, [categoryName, updatePosts])
+  }, [categoryName, fetchParams, updatePosts])
+
+  const handleSorter = async (sorter) => {
+    setFetchParams(prev => ({
+      ...prev,
+      ...sort2variables(sorter),
+    }))
+  }
   
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
       if (isSaved) {
         await removeWatchList({
-          content_id: databaseId,
           type: 'post',
+          content_id: databaseId,
+          user_id: fetchParams.userId,
         })
       } else {
         await createWatchList({
-          content_id: databaseId,
           type: 'post',
+          content_id: databaseId,
+          user_id: fetchParams.userId,
         })
       }
 
-      const result = await getContentsByCategory(categoryName, 231936698)
-      updatePosts(result)
+      setFetchParams(prev => ({
+        ...prev,
+      }))
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -64,11 +89,11 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t('market_research')}</p>
+              <p>{t(categoryTranslationKeys[categoryName])}</p>
               <h2>{t(categoryName).toUpperCase()}</h2>
             </div>
 
-            <Image src={ArrowBlackDown} alt="Arrow" />
+            <Icons type="arrowBlackDown" />
           </div>
 
           <div className="other-content-pages">
@@ -156,7 +181,8 @@ export default function Category({
               <Select
                 name="sortby" 
                 id="sortby"
-                options={ct('sort_options', { returnObjects: true }) }
+                options={ct('sort_options', { returnObjects: true })}
+                onChange={handleSorter}
               />
             </div>
           </div>
@@ -165,7 +191,7 @@ export default function Category({
 
       <section id="contents-grid">
         <div id="all-contents-wrap">
-          {posts?.map(({ node }) => (
+          {posts?.edges?.map(({ node }) => (
             <PostCard
               key={node.id}
               onToggleBookmark={() => (
@@ -179,7 +205,29 @@ export default function Category({
           ))}
         </div>
 
-        <Pagination />
+        <Pagination
+          pageInfo={posts?.pageInfo}
+          first={fetchParams?.first}
+          last={fetchParams?.last}
+          onClickPrev={() => {
+            setFetchParams(prev => ({
+              ...prev,
+              first: null, 
+              last: 1, 
+              before: posts?.pageInfo.startCursor, 
+              after: null, 
+            }))
+          }}
+          onClickNext={() => {
+            setFetchParams(prev => ({
+              ...prev,
+              first: null, 
+              last: null, 
+              before: null, 
+              after: posts?.pageInfo?.endCursor,
+            }))
+          }}
+        />
 
       </section>
     </>

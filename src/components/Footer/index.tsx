@@ -41,10 +41,10 @@ export default function Footer({
 
       <div id="footer-right">
         <div className="footer-pages">
-          <EmailForm  
+          {/* <EmailForm  
             errorCode={'errorCode'}
             onSubmit={handleSubmit} 
-          />
+          /> */}
           <ul>
             <li>
               <Link href={`/${lang}/content`}>

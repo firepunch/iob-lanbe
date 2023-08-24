@@ -1,33 +1,55 @@
 const POSTS_QUERY = `
-query posts($language: LanguageCodeFilterEnum!, $userId: Float) {
-  posts(where: {language: $language}) {
+query AllPosts(
+  $language: LanguageCodeFilterEnum!, 
+  $userId: Float = 0, 
+  $first: Int = 10, 
+  $last: Int,
+  $before: String, 
+  $after: String,
+  $field: PostObjectsConnectionOrderbyEnum = DATE,
+  $order: OrderEnum = DESC
+) {
+  posts(
+    where: {language: $language, orderby: {field: $field, order: $order}}
+    first: $first
+    after: $after
+    before: $before
+    last: $last
+  ) {
+    pageInfo {
+      total
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
     edges {
       node {
         databaseId
-          id
-          title
-          slug
-          date
-          tags {
-            nodes {
-              id
-              name
-            }
+        id
+        title
+        slug
+        date
+        tags {
+          nodes {
+            id
+            name
           }
-          featuredImage {
-            node {
-              id
-              sourceUrl
-            }
+        }
+        featuredImage {
+          node {
+            id
+            sourceUrl
           }
-          lanbeContent(user_id: $userId) {
-            is_save
-            country
-          }
-          language {
-            code
-            locale
-          }
+        }
+        lanbeContent(user_id: $userId) {
+          is_save
+          country
+        }
+        language {
+          code
+          locale
+        }
       }
     }
   }

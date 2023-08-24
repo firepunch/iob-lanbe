@@ -21,20 +21,20 @@ export default function Report({
           </div>
 
           <div className="saved-read">
-            <button>Saved (0)</button>
-            <button>Purchased (0)</button>
+            <button>{t('saved')}(0)</button>
+            <button>{t('purchased')} (0)</button>
           </div>
         </div>
       </div>
 
 
       <div id="default-text">
-        <p className="none-saved-text">You haven't saved or purchased anything yet.</p>
-        <p className="explore-text">Check out our reports page and explore now!</p>
+        <p className="none-saved-text">{t('report_none')}</p>
+        <p className="explore-text">{t('report_explore')}</p>
 
         <Link href="/report">
           <Icons type="arrowBlack" />
-          <p>See all</p>
+          <p>{t('see-all')}</p>
         </Link>
       </div>
     </>

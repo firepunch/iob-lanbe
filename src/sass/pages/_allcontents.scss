@@ -76,22 +76,34 @@
         @include standard-grid;
         padding-left: 1.5%;
     }
+}
 
-    #pagination {
-        margin-top: 3rem;
-        margin-bottom: 10rem;
+// Common Pagination
+#pagination {
+    margin-top: 3rem;
+    margin-bottom: 10rem;
 
-        .pagination-on-mobile {
-            @include mobile-button-style($black);
-            background-color: $black;
-            color: $white;
+    .pagination-on-mobile {
+        @include mobile-button-style($black);
+        background-color: $black;
+        color: $white;
+    }
+
+    .pagination-on-web {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+       .pagination-on-mobile {
+            display: none;
         }
 
         .pagination-on-web {
-            display: none;
+            @include pagination;
         }
     }
 }
+
 
 @media (min-width: 768px) {
     #all-content-title {
@@ -113,19 +125,6 @@
                 position: absolute;
                 top: 5rem;
                 right: 0;
-            }
-        }
-    }
-
-    #contents-grid {
-
-        #pagination {
-            .pagination-on-mobile {
-                display: none;
-            }
-
-            .pagination-on-web {
-                @include pagination;
             }
         }
     }

@@ -1,13 +1,13 @@
-import { IPost, IReport } from '@/types/store'
+import { IPost, IPosts, IReport } from '@/types/store'
 import { create } from 'zustand'
 
 interface ContentState {
-  posts: { node: IPost }[],
+  posts: IPosts,
   recommend: { node: IPost }[],
   post?: IPost,
   report?: IReport,
   reports: { node: IReport }[],
-  updatePosts: (posts: { node: IPost }[]) => void
+  updatePosts: (posts: IPosts) => void
   updateRecommend: (posts: { node: IPost }[]) => void
   updatePost: (post: IPost) => void
   updateReport: (report: IReport) => void
@@ -15,7 +15,7 @@ interface ContentState {
 }
 
 const useContentState = create<ContentState>((set) => ({
-  posts: [],
+  posts: { edges: [], pageInfo: {} },
   recommend: [],
   post: undefined,
   report: undefined,
