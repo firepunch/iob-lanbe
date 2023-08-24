@@ -82,5 +82,5 @@ export const isValidToken = () => {
   const [userData] = getStorageData(AUTH_TOKEN)
   const isValid = userData?.authToken && userData?.user?.databaseId
 
-  return isValid
+  return Boolean(isValid)
 }
