@@ -45,7 +45,7 @@ export interface ISearchRequest{
   'last-name': string,
   'user-email': string,
   'message': string
-
+}
 
 export interface IStripeCard {
   id: string
@@ -55,6 +55,10 @@ export interface IStripeCard {
     exp_year: number
     exp_month: number
   }
+}
+
+export interface ISearchBar{
+  search: string
   billing_details: {
     email: string
     name: string

@@ -9,6 +9,7 @@ export default function Content({
 }: {
   t: TI18N
 }) {
+  
   return (
     <>
       <div id="default-title">
@@ -21,20 +22,20 @@ export default function Content({
           </div>
 
           <div className="saved-read">
-            <button>Saved (0)</button>
-            <button>Read (0)</button>
+            <button>{t('saved')}(0)</button>
+            <button>{t('purchased')} (0)</button>
           </div>
         </div>
       </div>
 
 
       <div id="default-text">
-        <p className="none-saved-text">You haven't saved or read anything yet.</p>
-        <p className="explore-text">Check out our contents page and explore now!</p>
+        <p className="none-saved-text">{t('content_none')}</p>
+        <p className="explore-text">{t('content_explore')}</p>
 
         <Link href="/category">
           <Icons type="arrowBlack" />
-          <p>See all</p>
+          <p>{t('see-all')}</p>
         </Link>
       </div>
     </>

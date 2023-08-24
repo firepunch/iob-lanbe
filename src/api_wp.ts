@@ -12,9 +12,10 @@ import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
-  wpAPI: '',
-  customAPI: '/custom-api/v1',
-  formAPI: '/contact-form-7/v1/contact-forms',
+  wpAPI: '/wp-json',
+  customAPI: '/wp-json/custom-api/v1',
+  formAPI: '/wp-json/contact-form-7/v1/contact-forms',
+  searchAPI: '/index.php/wp-json/wp',
 }
 
 async function fetchAPI({
@@ -24,7 +25,7 @@ async function fetchAPI({
   data = {},
 }: {
   method: 'GET' | 'POST' | 'DELETE',
-  prefixPath: 'wpAPI' | 'customAPI' | 'formAPI'
+  prefixPath: 'wpAPI' | 'customAPI' | 'formAPI' | 'searchAPI'
   path: string,
   data: object | FormData,
 }) {
@@ -40,7 +41,7 @@ async function fetchAPI({
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(`${API_URL}/wp-json${API_MAP[prefixPath]}${path}`, {
+  const res = await fetch(`${API_URL}${API_MAP[prefixPath]}${path}`, {
     ...!isEmpty(headers) && { headers },
     method,
     body: prefixPath === 'formAPI' ?
@@ -49,14 +50,13 @@ async function fetchAPI({
         ...data,
       }) as any,
   })
-
+  
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
     throw new Error('Failed to fetch API')
   }
-
-  return json.data
+  return method === 'GET' ? json : json.data
 }
 
 export async function createUser(data: any) { // ICreateUser) {
@@ -80,7 +80,19 @@ export async function sendEmailForm(data) {
   return res
 }
 
-export async function SearchRequest(data) {
+export async function searchBar(data) {
+  const res = await fetchAPI({
+    prefixPath: 'searchAPI',
+    path: `search?search=${data.search}`,
+    method: 'GET',
+    data,
+  })
+  console.log('res', res)
+
+  return res
+}
+
+export async function searchRequest(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
     path: '/3143/feedback',

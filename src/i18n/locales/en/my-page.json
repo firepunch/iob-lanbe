@@ -11,6 +11,29 @@
   "country": "Country",
   "category": "Category",
 
+  "saved": "Saved",
+  "purchased": "Purchased",
+
+  "content_none": "You haven't saved or read anything yet.",
+  "content_explore": "Check out our contents page and explore now!",
+
+  "report_none": "You haven't saved or purchased anything yet.",
+  "report_explore": "Check out our reports page and explore now!",
+
+  "ideas_none": "You don’t have any idea notes yet.",
+  "ideas_explore": "You can write up to 4 notes per content; check out our contents and write down your ideas at the end!",
+
+  "cards": "Your cards",
+  "add_card": "Add new card",
+  "payment_history": "Payment history",
+
+  "personal_info": "Personal Information",
+  "account_info": "Account Information",
+  "email-notify": "Email notifications",
+  "save": "Save",
+
+  "see-all": "See all",
+
   "first_name": "First Name",
   "last_name": "Last Name",
   "org": "Organization",
@@ -29,8 +52,6 @@
   "password_rule": "Must be 8-12 characters long and contain at least one number and one symbol.",
   "newsletter": "I would like to subscribe to I.O.B’s newsletter. (Optional)",
   "marketing": "I would like to receive marketing emails and offers. (Optional)",
-  "privacy": "I have read and understood the privacy policy. (Required)",
-  "terms": "I agree to the terms and conditions. (Required)",
   
   "password_rule_error": "Your password does not meet the requirements.",
   "function_required": "Function is required",

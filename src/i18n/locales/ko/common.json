@@ -8,5 +8,7 @@
   }, {
     "label": "조회순",
     "value": "most_viewed"
-  }]
+  }],
+  "all": "All",
+  "country": "국가 선택"
 }

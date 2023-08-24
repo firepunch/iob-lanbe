@@ -1,15 +1,15 @@
 {
-  "sign_in_h2": "회원가입",
-  "email": "Email",
-  "email_placeholder": "Please enter your email.",
-  "password": "Password",
-  "password_placeholder": "Please enter your password.",
-  "remember": "Remember me",
-  "forgot": "Forgot your email or password?",
-  "sign_in": "Sign in",
-  "sign_up": "Sign up",
-  "no_account": "Don't have an account?",
+  "sign_in_h2": "SIGN IN",
+  "email": "이메일",
+  "email_placeholder": "이메일 주소를 입력해주세요.",
+  "password": "비밀번호",
+  "password_placeholder": "비밀번호를 입력해주세요.",
+  "remember": "로그인 정보 저장하기",
+  "forgot": "이메일 또는 비밀번호를 잊으셨나요?",
+  "sign_in": "로그인",
+  "sign_up": "회원가입",
+  "no_account": "회원가입을 안하셨나요",
 
-  "email_required": "Email is required",
-  "password_required": "Email is required"
+  "email_required": "이메일 주소가 정확하지 않습니다.",
+  "password_required": "비밀번호가 정확하지 않습니다."
 }

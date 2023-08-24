@@ -49,13 +49,13 @@ export default function Payment({
       <section id="default-content">
     
         <div id="default-title" className="dt-no-buttons">
-          <h2>{t('payment').toUpperCase()}</h2>
+          <h2>{t('payment_en').toUpperCase()}</h2>
         </div>
     
         <div id="payment-info-wrap">
 
           <div className="card-info-wrap">
-            <h3>Your cards</h3>
+            <h3>{t('cards')}</h3>
 
             <div className="cards">
               {cards?.map((item) => (
@@ -77,7 +77,7 @@ export default function Payment({
               <div className="add-new-card">
                 <Link href={{ pathname: '/payment' }}>
                   <Image src={addIcon} alt="Add" />
-                  <p>Add new card</p>
+                  <p>{t('add_card')}</p>
                 </Link>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function Payment({
           </div>
 
           <div id="payment-history">
-            <h3>Payment history</h3>
+            <h3>{t('payment_history')}</h3>
 
             {cardHistory?.data?.length && (
               <>

@@ -1,4 +1,27 @@
 {
+  "sign_up_h2": "SIGN UP",
   "sign_up": "회원가입",
-  "first_name": "이름"
+  "first_name": "이름",
+  "last_name": "성",
+  "org": "회사명",
+  "org_placeholder": "회사명을 입력해주세요.",
+  "jobtitle": "직함",
+  "jobtitle_placeholder": "직함을 입력해주세요.",
+  "country": "국가",
+  "country_placeholder": "국가를 선택해주세요.",
+  "function": "업무 영역",
+  "function_placeholder": "업무 영역을 선택해주세요.",
+  "email": "이메일",
+  "email_placeholder": "이메일을 입력해주세요.",
+  "password": "비밀번호",
+  "password_placeholder": "비밀번호를 입력해주세요.",
+  "password_rule": "1개 이상의 숫자, 1개 이상의 특수문자를 포함하여 8-12자로 입력해주세요.",
+  "newsletter": "뉴스레터 구독 (Optional)",
+  "marketing": "광고성 정보 수신 동의 (Optional)",
+  "privacy": "개인정보처리방침 동의 (Required)",
+  "terms": "이용약관 동의 (Required)",
+  
+  "password_rule_error": "비밀번호 입력 조건이 맞지 않습니다.",
+  "function_required": "업무 영역을 선택해주세요.",
+  "country_required": "국가를 선택해주세요."
 }

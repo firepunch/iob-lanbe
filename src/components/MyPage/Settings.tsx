@@ -21,13 +21,13 @@ export default function Settings({
     <section id="default-content">
     
       <div id="default-title" className="dt-no-buttons">
-        <h2>SETTINGS</h2>
+        <h2>{t('settings_en').toUpperCase()}</h2>
       </div>
     
       <form onSubmit={handleSubmit}>
         <div id="settings-wrap">
           <div className="personal-info">
-            <h3>Personal Information</h3>
+            <h3>{t('personal_info')}</h3>
 
             <div className="personal-info-inputs-wrap">
               {/* row1 */}
@@ -104,7 +104,7 @@ export default function Settings({
           </div>
 
           <div id="account-info">
-            <h3>Account Information</h3>
+            <h3>{t('account_info')}</h3>
 
             <div className="account-info-inputs-wrap">
 
@@ -169,25 +169,25 @@ export default function Settings({
           </div>
 
           <div id="email-notif">
-            <h3>Email notifications</h3>
+            <h3>{t('email-notify')}</h3>
 
             <div className="newsletter-checkbox">
               <input type="checkbox" id="newsletter" name="newsletter" defaultChecked />
               <p>
-                                I would like to subscribe to I.O.B’s newsletter.
+                {t('newsletter')}
               </p>
             </div>
 
             <div className="marketing-checkbox">
               <input type="checkbox" id="marketing" name="marketing" defaultChecked />
               <p>
-                                I would like to receive marketing emails and offers.
+                {t('marketing')}  
               </p>
             </div>
           </div>
 
           <div className="save-button">
-            <button type="submit">Save</button>
+            <button type="submit">{t('save')}</button>
           </div>
                     
         </div>
