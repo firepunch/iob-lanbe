@@ -27,6 +27,7 @@ const Layout = ({
 }: {
   params: { lang: ValidLocale },
 }) => {
+  const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
   const segment = useSelectedLayoutSegment()
 
@@ -70,7 +71,7 @@ const Layout = ({
         {segment === TAB_MAP.report && <MyPageReport t={t} />}
         {segment === TAB_MAP.ideas && <MyPageIdeas t={t} />}
         {segment === TAB_MAP.payment && <MyPagePayment t={t} />}
-        {segment === TAB_MAP.settings && <MyPageSettings t={t} />}
+        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} />}
       </section>
     </div>
   )
