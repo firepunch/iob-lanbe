@@ -1,15 +1,11 @@
 {
-    "recommended": "Recommended Keywords",
-    "keywords-row-1": [
-        { "text": "Indonesia", "link": "search_noresults.html" },
-        { "text": "Vietnam", "link": "search_results.html" },
-        { "text": "Thailand", "link": "#" },
-        { "text": "Malaysia", "link": "#" }
-      ],
-      "keywords-row-2": [
-        { "text": "Digitalization", "link": "#" },
-        { "text": "E-Commerce", "link": "#" },
-        { "text": "Social Media", "link": "#" },
-        { "text": "Culture", "link": "#" }
-      ]
+  "recommended": "Recommended Keywords",
+  "indonesia": "Indonesia",
+  "vietnam": "Vietnam",
+  "thailand": "Thailand", 
+  "malaysia": "Malaysia", 
+  "digitalization": "Digitalization", 
+  "ecommerce": "E-Commerce", 
+  "social-media": "Social Media", 
+  "culture": "Culture"
 }

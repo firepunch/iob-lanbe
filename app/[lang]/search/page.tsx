@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { searchRequest, searchBar } from '@/api_wp'
 import { getContentByDatabaseID } from '@/api_gql'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import closeIcon from '@/imgs/close.png'
 
@@ -92,16 +93,32 @@ export default function Search({
             <div className="keywords-wrap">
               <div className="keywords-row">
                 {/* no result page linked as example */}
-                <a href="search_noresults.html" className="keyword"><p>Indonesia</p></a>
-                <a href="search_results.html" className="keyword"><p>Vietnam</p></a>
-                <a href="#" className="keyword"><p>Thailand</p></a>
-                <a href="#" className="keyword"><p>Malaysia</p></a>
+                <Link href={`/${lang}/search/search?=indonesia`} className="keyword">
+                  <p>{t('indonesia')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=vietnam`} className="keyword">
+                  <p>{t('vietnam')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=thailand`} className="keyword">
+                  <p>{t('thailand')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=malaysia`} className="keyword">
+                  <p>{t('malaysia')}</p>
+                </Link>
               </div>
               <div className="keywords-row">
-                <a href="#" className="keyword"><p>Digitalization</p></a>
-                <a href="#" className="keyword"><p>E-Commerce</p></a>
-                <a href="#" className="keyword"><p>Social Media</p></a>
-                <a href="#" className="keyword"><p>Culture</p></a>
+                <Link href={`/${lang}/search/search?=digitalization`} className="keyword">
+                  <p>{t('digitalization')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=ecommerce`} className="keyword">
+                  <p>{t('ecommerce')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=social-media`} className="keyword">
+                  <p>{t('social-media')}</p>
+                </Link>
+                <Link href={`/${lang}/search/search?=culture`} className="keyword">
+                  <p>{t('culture')}</p>
+                </Link>
               </div>
             </div>
           </div>
