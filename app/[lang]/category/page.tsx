@@ -22,7 +22,18 @@ export default function Category({
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
 
+  const categoryTranslationKeys = {
+    market: 'market_research',
+    corporate: 'market_research',
+    consumer: 'market_research',
+    marketing: 'market_entry',
+    partnership: 'market_entry',
+    channel: 'market_entry',
+    payment: 'market_entry',
+  }
+
   const categoryName = searchParams.get('name') || 'all'
+  const translatedCategoryName = categoryTranslationKeys[categoryName]
 
   useEffect(() => {
     if (categoryName === 'all') {
@@ -64,7 +75,7 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t('market_research')}</p>
+              <p>{t(translatedCategoryName)}</p>
               <h2>{t(categoryName).toUpperCase()}</h2>
             </div>
 
