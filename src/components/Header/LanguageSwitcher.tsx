@@ -10,9 +10,11 @@ import LanguageImg from '@/imgs/lang_black.png'
 export default function LanguageSwitcher({ 
   lang, 
   isSimple = false,
+  className,
 }: {
    lang: ValidLocale 
   isSimple?: boolean
+  className?: string
 }) {
   const pathName = usePathname()
   const otherLocale = lang === 'ko' ? 'en' : 'ko'
@@ -24,7 +26,7 @@ export default function LanguageSwitcher({
   }
 
   return (
-    <Link href={redirectedPathName(otherLocale)}>
+    <Link href={redirectedPathName(otherLocale)} className={className}>
       <Image src={LanguageImg} alt="Change Language" />
       {!isSimple && lang.toUpperCase()}
     </Link>

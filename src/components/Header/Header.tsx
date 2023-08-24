@@ -1,7 +1,11 @@
+'use client'
+
+import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { TI18N } from '@/types'
+import { isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -10,18 +14,22 @@ import ArrowWhiteImg from '@/imgs/arrow_white.png'
 import SearchImg from '@/imgs/search_black.png'
 
 export default function Header({
-  ct,
-  t,
   lang,
 }: {
-  ct: TI18N
-  t: TI18N
   lang: ValidLocale
 }) {
+  const { t: ct } =  useTranslation(lang, 'category-page')
+  const { t } = useTranslation(lang, 'layout')
+  const [isValid, setIsValid] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsValid(isValidToken())
+  }, [])
+
   return (
     <header>
       {/* mobile version change language */}
-      <LanguageSwitcher isSimple lang={lang} />
+      <LanguageSwitcher isSimple lang={lang} className="language-mobile" />
       {/* //mobile version change language */}
 
       {/* web version nav */}
@@ -124,10 +132,16 @@ export default function Header({
             </Link>
           </li>
           <li>
-            <Link href={`/${lang}/sign-in`}>
-              <Image src={ArrowBlackImg} alt="Arrow" />
-              {t('sign_in')}
-            </Link>
+            {isValid ? (
+              <Link href={`/${lang}/my-page/content`}>
+                {t('my_page')}
+              </Link>
+            ) : (
+              <Link href={`/${lang}/sign-in`}>
+                <Image src={ArrowBlackImg} alt="Arrow" />
+                {t('sign_in')}
+              </Link>
+            )}
           </li>
           <li>
             <LanguageSwitcher lang={lang} />
