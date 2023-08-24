@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const GRID_CARD_NUMBER = 2
+const GRID_CARD_NUMBER = 9
 const initPagination = {
   last: null, 
   before: null, 

@@ -21,6 +21,9 @@ export default function Pagination({
   const pageStartNumber = pageInfo?.hasPreviousPage ? 
     (pageInfo?.total || 0) :
     1
+  const pageEndNumber = (pageInfo?.total || 0) < size ?
+    pageInfo?.total :
+    pageStartNumber + size - 1
 
   return (
     <div id="pagination">
@@ -38,7 +41,7 @@ export default function Pagination({
         {pageInfo?.initTotal && (
           <div className="page">
             <p>
-              {pageStartNumber}-{pageStartNumber + size - 1} out of {pageInfo.initTotal}
+              {pageStartNumber}-{pageEndNumber} out of {pageInfo.initTotal}
             </p>
           </div>
         )}
