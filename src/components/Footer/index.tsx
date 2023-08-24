@@ -1,21 +1,19 @@
 'use client'
 
-import Link from 'next/link'
-import { ValidLocale } from '@/i18n/settings'
-import { TI18N } from '@/types'
-import Image from 'next/image'
-import Icons from '@/components/Icons'
 import { sendEmailForm } from '@/api_wp'
-import { useState } from 'react'
 import { EmailForm } from '@/components'
+import Icons from '@/components/Icons'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/i18n/settings'
+import Link from 'next/link'
 
 export default function Footer({
-  t,
   lang, 
 }: {
-  t: TI18N
   lang: ValidLocale
 }) {  
+  const { t } = useTranslation(lang, 'layout')
+
   const handleSubmit = async (email: string) => {
     try {
       const formData = new FormData()

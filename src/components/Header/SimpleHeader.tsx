@@ -1,5 +1,4 @@
 import { ValidLocale } from '@/i18n/settings'
-import { TI18N } from '@/types'
 import Link from 'next/link'
 import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
