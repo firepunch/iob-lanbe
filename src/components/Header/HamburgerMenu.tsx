@@ -94,10 +94,10 @@ export default function MobileMenu({
 
           {/* signin */}
           <div id="mm-signin">
-            <a href="signin.html">
+            <Link href="/sign-in" onClick={handleCloseMenu}>
               <h2>Sign in</h2>
               <Image src={userIcon} alt="User icon" />
-            </a>
+            </Link>
           </div>
         </section>
       )}
