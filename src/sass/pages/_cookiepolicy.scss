@@ -1,0 +1,65 @@
+#cookie-title {
+    width: 85%;
+    margin: auto;
+    margin-top: 8.5rem;
+    border-bottom: .35rem solid $black;
+
+    @include flex-spacebetween;
+    align-items: center;
+
+    h2 {
+        width: 20%;
+        margin: .85rem 0;
+        // font-size: $base-font-size;
+        font-family: $secondary-font;
+    }
+
+    a {
+        @include see-all-button-small($black);
+        width: 10rem;
+        padding: 0 .5rem;
+
+        p {
+            font-size: .65rem;
+            font-weight: $bold-font-weight;
+        }
+    }
+
+    a:hover {
+        background-color: $black;
+        color: $white;
+
+        img {
+            filter: invert(100%);
+        }
+    }
+}
+
+#cookie-policies {
+    width: 85%;
+    margin: auto;
+    margin-top: 3rem;
+
+    p {
+        line-height: 1.5rem;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+@media (min-width: 992px) {
+    #cookie-title {
+        align-items: last baseline;
+
+        a {
+            margin-bottom: .5rem;
+        }
+    }
+
+    #cookie-policies {
+        width: 70%;
+        margin-top: 5rem;
+    }
+}

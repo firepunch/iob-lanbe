@@ -1,0 +1,62 @@
+// @function rem($px) {
+//     @return calc($px / 16);
+// }
+
+// flex to center
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// flex-column
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// flex: justify-content space-between
+@mixin flex-spacebetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// inverting color of icon images (arrows) when hovered over
+@mixin invert-img {
+    margin-right: 1rem;
+    filter: invert(100%)
+}
+
+// invert color and background of a component when hovered over
+@mixin invert-color($color, $bg) {
+    color: $color;
+    background-color: $bg;
+}
+
+// background image
+@mixin background($position) {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: $position;
+}
+
+// position absolute center
+@mixin absolute-center {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// icon image size
+@mixin icon-size {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: .25rem;
+}
+
+// changing background colors
+@mixin bg-color($color) {
+    background-color: $color;
+}

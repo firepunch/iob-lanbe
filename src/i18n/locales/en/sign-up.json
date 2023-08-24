@@ -1,4 +1,25 @@
 {
-  "sign_up": "Sign Up",
-  "first_name": "First Name"
+  "sign_up_h2": "SIGN UP",
+  "sign_up": "Sign up",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "org": "Organization",
+  "org_placeholder": "Please enter your organization.",
+  "jobtitle": "Job Title",
+  "jobtitle_placeholder": "Please enter your job title.",
+  "country": "Country",
+  "country_placeholder": "Please enter your country.",
+  "function": "Function",
+  "function_placeholder": "Please enter your job function.",
+  "email": "Email",
+  "email_placeholder": "Please enter your job email.",
+  "password": "Password",
+  "password_placeholder": "Please enter your job password.",
+  "password_rule": "Must be 8-12 characters long and contain at least one number and one symbol.",
+  "newsletter": "I would like to subscribe to I.O.B’s newsletter. (Optional)",
+  "marketing": "I would like to receive marketing emails and offers. (Optional)",
+  "privacy": "I have read and understood the privacy policy. (Required)",
+  "terms": "I agree to the terms and conditions. (Required)",
+  
+  "password_rule_error": "Your password does not meet the requirements."
 }

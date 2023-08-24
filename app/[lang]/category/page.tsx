@@ -1,58 +1,187 @@
-import { getTranslation } from '@/i18n/index'
-import { ValidLocale } from '@/i18n/settings'
-import Link from 'next/link'
-import { Button, ContentCard, PageHeading, Select } from 'src/components/index'
-import { getContents, getAllCategories, getContentsByCategory } from '@/api_gql'
+'use client'
 
-export default async function Category({
+import { useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useTranslation } from '@/i18n/client'
+import { getAllPosts, getContentsByCategory } from '@/api_gql'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import { Icons, Pagination, PostCard, Select } from '@/components'
+import useContentState from '@/stores/contentStore'
+import { ValidLocale } from '@/types'
+import ArrowBlackDown from '@/imgs/arrow_black_down.png'
+import { useSearchParams } from 'next/navigation'
+
+export default function Category({
   params: { lang },
 }: {
-  params: { lang: ValidLocale; },
+  params: { lang: ValidLocale }
 }) {
-  const { t: ct } = await getTranslation(lang, 'common')
-  const { t } = await getTranslation(lang, 'category-page')
-  
-  const urlSearchParams = new URLSearchParams('name=uncategorized') //new URLSearchParams('window.location.search')
-  const nameQueryParam = urlSearchParams.get('name') || 'all'
+  const searchParams = useSearchParams()
+  const { posts, updatePosts } = useContentState(state => state)
+  const { t: ct } = useTranslation(lang, 'common')
+  const { t } = useTranslation(lang, 'category-page')
 
-  const categoryData = getContentsByCategory(nameQueryParam)
-  const [category] = await Promise.all([categoryData])
+  const categoryName = searchParams.get('name') || 'all'
 
-  category?.map(async ({ node }) => {
-    if (node.name == nameQueryParam){
-      const categoryId = node.id
-      const ContentsByCategoryData = getContentsByCategory(categoryId)
-      const [contents] = await Promise.all([ContentsByCategoryData])
-      console.log(contents)
-      {contents.posts?.edges?.map(({ node }) => (
-        console.log(node.title)
-        // <Link 
-          
-        //   key={node.id} 
-        //   href={`/${encodeURIComponent(node.slug)}`}>
-        //   <ContentCard
-        //     thumbnail_url={node.featuredImage?.node.sourceUrl}
-        //     {...node}
-        //   />
-        // </Link>
-      ))}
+  useEffect(() => {
+    if (categoryName === 'all') {
+      getAllPosts(lang.toUpperCase(), 231936698).then(result => {
+        updatePosts(result)
+      })
+    } else {
+      getContentsByCategory(categoryName, 231936698).then(result => {
+        updatePosts(result)
+      })
     }
-  })
-
-  console.log(ct('sort_options', { returnObjects: true }))
+  }, [categoryName, updatePosts])
   
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+    try {
+      if (isSaved) {
+        await removeWatchList({
+          content_id: databaseId,
+          type: 'post',
+        })
+      } else {
+        await createWatchList({
+          content_id: databaseId,
+          type: 'post',
+        })
+      }
+
+      const result = await getContentsByCategory(categoryName, 231936698)
+      updatePosts(result)
+    } catch (err) {
+      console.log(err)
+      alert('저장 실패')
+    }
+  }
+
   return (
     <>
-      <PageHeading title={t(nameQueryParam)}/>
-      <span>Sort by:</span>
-      <Select
-        options={ct('sort_options', { returnObjects: true }) }
-      />
-      {/* {category?.posts?.edges?.map(async ({ node }) => {
-        console.log(node.title)
-        <p key={node.id}> {node.title}</p>
-      })} */}
-      <Button>Load more</Button>
+      <section id="subcateg-content-title">
+        <div id="title-top">
+          <div className="title-arrow">
+            <div className="title-categ-subcateg">
+              <p>{t('market_research')}</p>
+              <h2>{t(categoryName).toUpperCase()}</h2>
+            </div>
+
+            <Image src={ArrowBlackDown} alt="Arrow" />
+          </div>
+
+          <div className="other-content-pages">
+            <ul>
+              <li className="main-categ">
+                {t('market_research')}
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'market' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('market')}</p>
+                </Link>
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'corporate' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('corporate')}</p>
+                </Link>
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'consumer' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('consumer')}</p>
+                </Link>
+              </li>
+            </ul>
+
+            <ul>
+              <li className="main-categ">                
+                {t('market_entry')}
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'marketing' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('marketing')}</p>
+                </Link>
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'partnership' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('partnership')}</p>
+                </Link>
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'channel' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('channel')}</p>
+                </Link>
+              </li>
+              <li className="sub-categ">
+                <Link href={{ query: { name: 'payment' } }}>
+                  <Icons type="arrowBlack" />
+                  <p>{t('payment')}</p>
+                </Link>
+              </li>
+            </ul>
+
+            <Link href={{ pathname: '/category' }} className="see-all">
+              {t('see_all')}
+            </Link>
+          </div>
+
+          {categoryName !== 'all' && (
+            <div id="categ-description">
+              <p>
+                {t(`${categoryName}_desc`)}
+              </p>
+            </div>
+          )}
+
+          <div id="filters-sorting">
+            <div className="filters">
+              <button type="button" className="all-button">
+                {ct('all')}
+              </button>
+              <button type="button" className="country-button">
+                {ct('country')}
+              </button>
+            </div>
+
+            <div className="sort">
+              <label htmlFor="sortby">
+                {ct('sort_by')}
+              </label>
+              <Select
+                name="sortby" 
+                id="sortby"
+                options={ct('sort_options', { returnObjects: true }) }
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contents-grid">
+        <div id="all-contents-wrap">
+          {posts?.map(({ node }) => (
+            <PostCard
+              key={node.id}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbeContent.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
+              {...node}
+            />
+          ))}
+        </div>
+
+        <Pagination />
+
+      </section>
     </>
   )
 }

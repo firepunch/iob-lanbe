@@ -1,0 +1,704 @@
+// header transparent bg
+#transparent-nav-bg {
+    header {
+        background-color: #ffffff09;
+        backdrop-filter: blur(.15rem);
+    }
+}
+
+#project-firstpage {
+    width: 100%;
+    height: 100vh;
+    background: url(~/public/imgs/project_main.jpg);
+    @include background(50%);
+    position: relative;
+
+    h2 {
+        color: $white;
+        width: 65%;
+        text-align: center;
+        @include absolute-center;
+        top: 45%;
+    }
+
+    p {
+        color: $white;
+        font-family: $secondary-font;
+        width: 100%;
+        text-align: center;
+        @include absolute-center;
+        bottom: 0;
+    }
+}
+
+#project-inquire {
+    width: 3.5rem;
+    height: 3.5rem;
+    z-index: 10;
+
+    display: block;
+    position: sticky;
+    top: 80%;
+    left: 80%;
+
+    .inquire-button {
+        width: 3.5rem;
+        height: 3.5rem;
+        @include flex-column;
+        align-items: center;
+
+        border: none;
+        background-color: $orange;
+            
+        p {
+            font-size: $smaller-font-size;
+            font-weight: $bold-font-weight;
+            margin: .25rem;
+            margin-top: .65rem;
+        }
+
+        img {
+            width: 1rem;
+        }
+    }
+}
+
+#project-main-body {
+
+    #proj-intro,
+    #e2e-digital-solutions,
+    #our-services,
+    #assembling-team {
+        width: 80%;
+        margin: auto;
+        border-bottom: .35rem solid $black;
+        padding-bottom: 2rem;
+
+        h3 {
+            font-family: $secondary-font;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.5rem;
+        }
+    }
+
+    #proj-intro {
+        h3 {
+            font-family: $primary-font;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+    }
+
+    #e2e-digital-solutions {
+        padding-top: 2rem;
+
+        #project-diagram {
+            width: 100%;
+            height: 30rem;
+            margin-top: 3rem;
+
+            p {
+                line-height: .95rem;
+            }
+    
+            .pd-flex-wrap {
+                display: flex;
+                justify-content: space-between;
+    
+                .market-entry,
+                .digital-marketing {
+                    width: 50%;
+                }
+    
+                .pd-title {
+                    width: 92.5%;
+                    height: 3rem;
+                    margin: auto;
+                    margin-bottom: 2rem;
+    
+                    border: 1px solid $black;
+                    border-radius: .25rem;
+                    text-align: center;
+                    font-size: $smaller-font-size;
+                    font-weight: $bold-font-weight;
+    
+                    @include flex-center;
+                }
+    
+                .pd-wrap {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+    
+                    .solution {
+                        @include flex-column;
+                        align-items: center;
+                    }
+    
+                    img {
+                        width: 4rem;
+                        height: 4rem;
+                        margin: .5rem 0;
+                    }
+    
+                    p {
+                        font-size: .625rem;
+                        font-weight: $bold-font-weight;
+                        text-align: center;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .data-tracking {
+                width: 100%;
+                position: relative;
+        
+                .dt-line {
+                    width: 100%;
+                    height: 2.5rem;
+        
+                    border: 1px solid $black;
+                    border-top: 0;
+                    border-bottom-left-radius: 1rem;
+                    border-bottom-right-radius: 1rem;
+                }
+        
+                .solution {
+                    width: 4rem;
+                    height: 4rem;
+        
+                    @include absolute-center;
+                    top: 50%;
+        
+                    img {
+                        width: 4rem;
+                        height: 4rem;
+                        margin-top: 1.5rem;
+                        margin-bottom: .5rem;
+                    }
+        
+                    p {
+                        width: 4rem;
+                        font-size: .625rem;
+                        font-weight: $bold-font-weight;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+
+    #our-services {
+        padding-top: 2rem;
+
+        #our-services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+
+            .service {
+                @include flex-column;
+                justify-content: flex-end;
+
+                h5 {
+                    width: 92%;
+                    padding: .5rem 0;
+                    margin: 0 auto;
+                    border-bottom: .25rem solid $black;
+                }
+
+                ul {
+                    padding: 0;
+                    margin: 0 auto;
+                    width: 95%;
+
+                    li {
+                        font-size: .7rem;
+                        margin: .6rem 0;
+                        margin-left: .15rem;
+                    }
+
+                    li:first-child {
+                        margin-top: .85rem;
+                    }
+                }
+            }
+        }
+    }
+
+    #assembling-team {
+        padding-top: 2rem;
+        border-bottom: none;
+
+        .countries-verticals-partners {
+            @include flex-column;
+            align-items: center;
+            position: relative;
+            height: 28rem;
+
+            .countries,
+            .verticals,
+            .partners {
+                width: 9.5rem;
+                height: 9.5rem;
+                border: 1px solid $black;
+                border-radius: 100%;
+
+                @include flex-column;
+                justify-content: center;
+                align-items: center;
+                margin: 1.5rem 0;
+
+                position: absolute;
+
+                p {
+                    margin: 0;
+                    font-weight: $bold-font-weight;
+                }
+
+                p:nth-child(1) {
+                    font-size: 3rem;
+                    margin: 1rem 0;
+                    font-family: $secondary-font;
+                    // color: $navy;
+                }
+            }
+
+            .verticals {
+                top: 8rem;
+            }
+
+            .partners {
+                top: 16rem;
+            }
+        }
+
+        .iob-expert-network {
+            margin-bottom: 2rem;
+
+            h5 {
+                text-align: center;
+                font-size: $base-font-size;
+                padding: 2rem 0;
+            }
+
+            .network-grid {
+                margin-top: 2rem;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+                
+                .network {
+                    @include flex-column;
+                    align-items: center;
+
+                    p {
+                        margin: 0;
+                        line-height: 1rem;
+                        text-align: center;
+                    }
+
+                    p:nth-child(1) {
+                        font-family: $secondary-font;
+                        font-size: 3rem;
+                        margin-bottom: 1.75rem;
+                        color: $orange;
+
+                    }
+                    
+                    p:nth-child(2) {
+                        font-size: $smaller-font-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#project-inquiry-form {
+    width: 80%;
+    margin: auto;
+    padding-top: 2rem;
+
+    h2 {
+        width: 100%;
+        border-bottom: .35rem solid $black;
+        padding-bottom: 1rem;
+    }
+
+    #pi-form-wrap {
+        .pi-inputs-row {
+            form {
+                @include flex-column;
+                margin: 1rem 0;
+
+                label {
+                    font-size: $smaller-font-size;
+                    margin-bottom: .25rem;
+                    margin-left: 1rem;
+                }
+
+                input[type=text] {
+                    height: 3rem;
+                    border: .075rem solid $black;
+                    border-radius: 10rem;
+                    padding: 0 1rem;
+                    outline: none;
+                }
+            }
+        }
+
+        .message-us {
+            form {
+                @include flex-column;
+                margin: 1rem 0;
+                
+                label {
+                    font-size: $smaller-font-size;
+                    margin-bottom: .25rem;
+                    margin-left: 1rem;
+                }
+
+                input[type=text] {
+                    height: 10rem;
+                    border: .075rem solid $black;
+                    border-radius: 1.5rem;
+                    position: relative;
+                    outline: none;
+                }
+
+                input[type=text]::placeholder {
+                    width: 60%;
+                    overflow: visible;
+                    position: absolute;
+                    top: 2rem;
+                    left: 1.5rem;
+                }
+            }
+        }
+
+        button {
+            @include mobile-button-style($navy);
+            background-color: $navy;
+            color: $white;
+            margin: 2rem 0;
+        }
+    }
+}
+
+
+@media (min-width: 576px) {
+    #project-inquire {
+        left: 87%;
+    }
+
+    #project-main-body {
+
+        #proj-intro,
+        #e2e-digital-solutions,
+        #our-services,
+        #assembling-team {
+            width: 70%;
+        }
+
+        #our-services {
+            
+            #our-services-grid {
+                
+                .service {
+                    ul {
+                        li {
+                            font-size: $smaller-font-size;
+                        }
+                    }
+                }
+            }
+        }
+
+        #assembling-team {
+            padding-bottom: 0;
+
+            .countries-verticals-partners {
+                height: 15rem;
+
+                .countries {
+                    top: 1rem;
+                    left: 0;
+                }
+
+                .verticals {
+                    top: 1rem;
+                }
+
+                .partners {
+                    top: 1rem;
+                    right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    #project-inquire {
+        left: 90%;
+    }
+
+    #project-main-body {
+        #our-services {
+            #our-services-grid {
+                .service {
+                    h5 {
+                        width: 85%;
+                    }
+
+                    ul {
+                        width: 85%;
+                    }
+                }
+            }
+        }
+
+        #assembling-team {
+            .countries-verticals-partners {
+                .countries,
+                .verticals,
+                .partners {
+                    width: 10rem;
+                    height: 10rem;
+                }
+    
+                .countries {
+                    left: 3rem;
+                }
+
+                .partners {
+                    right: 3rem;
+                }
+            }
+
+            .iob-expert-network {
+                margin-bottom: 5rem;
+
+                .network-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+        }
+    }
+
+    #project-inquiry-form {
+        margin-bottom: 10rem;
+        
+        #pi-form-wrap { 
+            .pi-inputs-row {
+                display: flex;
+
+                form {
+                    width: 48%;
+                    margin: 1rem auto;
+                }
+            }
+
+            .message-us {
+                form {
+                    input[type=text] {
+                        height: 15rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #project-main-body {
+
+        #proj-intro,
+        #e2e-digital-solutions,
+        #our-services,
+        #assembling-team {
+            width: 55%;
+        }
+
+        #our-services {
+            #our-services-grid {
+                grid-template-columns: repeat(3, 1fr);
+
+                .service {
+                    ul {
+                        li {
+                            font-size: .75rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #project-inquiry-form {
+        width: 65%;
+
+        #pi-form-wrap {
+            button {
+                width: 45%;
+                margin: 2rem auto;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+
+    #project-main-body {
+        margin-top: 3rem;
+
+        #proj-intro,
+        #e2e-digital-solutions,
+        #our-services,
+        #assembling-team {
+            width: 60%;
+        }
+
+        #proj-intro {
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        #e2e-digital-solutions {
+            padding-bottom: 0;
+
+            #project-diagram {
+                .pd-flex-wrap {
+                    .pd-wrap {
+                        grid-template-columns: repeat(4, 1fr);
+
+                        p {
+                            font-size: .75rem;
+                        }
+                    }
+                }
+
+                .data-tracking {
+                    margin-top: 1.5rem;
+
+                    .solution {
+                        p {
+                            font-size: .75rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        #our-services {
+            padding-bottom: 5rem;
+
+            #our-services-grid {
+
+                .service {
+                    ul {
+                        li {
+                            font-size: .8rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        #assembling-team {
+            .countries-verticals-partners {
+                .countries,
+                .verticals,
+                .partners {
+                    width: 12rem;
+                    height: 12rem;
+                }
+
+                .countries {
+                    left: 6rem;
+                }
+
+                .partners {
+                    right: 6rem;
+                }
+            }
+
+            .iob-expert-network {
+                margin: 5rem 0;
+
+                h5 {
+                    font-size: 1.25rem;
+                }
+
+                .network-grid {
+                    .network {
+                        p:nth-child(2) {
+                            line-height: 1.15rem;
+                            font-size: $base-font-size;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+
+    #project-main-body {
+        #proj-intro,
+        #e2e-digital-solutions,
+        #our-services,
+        #assembling-team {
+            width: 45%;
+
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        #e2e-digital-solutions {
+            #project-diagram {
+                width: 130%;
+                margin-top: 5rem;
+                margin-left: -15%;
+            }
+        }
+
+        #our-services {
+            width: 50%;
+
+            #our-services-grid {
+                .service {
+                    ul {
+                        li {
+                            font-size: $base-font-size;
+                        }
+                    }
+                }
+            }
+        }
+
+        #assembling-team {
+            .countries-verticals-partners {
+                .countries {
+                    left: 4.5rem;
+                }
+
+                .partners {
+                    right: 4.5rem;
+                }
+            }
+        }
+    }
+
+    #project-inquiry-form {
+        width: 50%;
+    }
+}

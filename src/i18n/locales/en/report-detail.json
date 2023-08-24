@@ -1,0 +1,13 @@
+{
+  "writer": "Written by:",
+  "date": "Date:",
+  "category": "Category:",
+  "pages": "Pages:",
+  "price": "Price:",
+  "total": "Total",
+  
+  "sign_in": "Sign in",
+  "sign_in_cta": "Please sign in to complete the payment.",
+  "pay_now": "Pay now",
+  "pay_now_cta": "Pay now to download the report."
+}

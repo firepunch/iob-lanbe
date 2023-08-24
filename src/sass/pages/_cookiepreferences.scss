@@ -1,0 +1,91 @@
+#manage-cookie-title {
+    width: 85%;
+    margin: auto;
+    margin-top: 8.5rem;
+    border-bottom: .35rem solid $black;
+
+    h2 {
+        width: 80%;
+        margin: .85rem 0;
+        // font-size: 1.15rem;
+        font-family: $secondary-font;
+    }
+}
+
+#manage-cookies {
+    width: 85%;
+    margin: auto;
+    margin-top: 3rem;
+
+    p {
+        line-height: 1.5rem;
+    }
+
+    h3 {
+        font-size: $base-font-size;
+    }
+
+    #manage-cookie-option {
+        margin: 2rem 0;
+
+        .mco-wrap {
+            @include flex-spacebetween;
+
+            p {
+                line-height: 1rem;
+                font-size: .75rem;
+                font-weight: $bold-font-weight;
+                margin-right: .5rem;
+            }
+        }
+
+        .switch {
+            display: flex;
+            align-items: center;
+
+            form {
+                width: 4rem;
+                height: 2rem;
+                background-color: $orange;
+                border-radius: 3rem;
+
+                input[type=checkbox] {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    border-radius: 10rem;
+                    background-color: $black;
+                }
+
+                // input[type=checkbox]:focus {
+                //     display: none;
+                // }
+            }
+        }
+    }
+
+    button {
+        @include mobile-button-style($black);
+        background-color: $black;
+        color: $white;
+    }
+}
+
+@media (min-width: 768px) {
+    #manage-cookies {
+        button {
+            width: 45%;
+            margin: 5rem auto;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #manage-cookie-title {
+        margin-top: 9.5rem;
+    }
+
+    #manage-cookies {
+        width: 70%;
+        margin-top: 5rem;
+    }
+}

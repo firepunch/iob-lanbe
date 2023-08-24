@@ -1,0 +1,30 @@
+{
+  "approach_h3": "OUR APPROACH",
+  "approaches": [{
+    "title": "WE INTERPRET BUSINESS TRENDS FROM A MARKET ENTRY PERSPECTIVE.",
+    "desc": "We aim to discover the significance of various business cases for companies venturing into the market."
+  }, {
+    "title": "WE INTEGRATE GLOBAL TRENDS.",
+    "desc": "By merging insights from the Southeast Asian market with global trends, we create innovative strategies and implementation plans."
+  }, {
+    "title": "WE CURATE RESOURCESFUL INSIGHTS.",
+    "desc": "We curate and provide valuable insights, collecting and delivering information that can directly contribute to business strategies and execution."
+  }, {
+    "title": "WE BUILD THE RIGHT TEAM FOR YOU.",
+    "desc": "With I.O.B’s in-house experts, as well as external specialists and agencies, we create teams tailored to meet the specific challenges of each company and carry out tasks effectively."
+  }],
+  "see-all": "See all",
+  "ctas": [{
+    "type": "content",
+    "title": "I.O.B CONTENT",
+    "link": "/category"
+  }, {
+    "type": "report",
+    "title": "I.O.B REPORT",
+    "link": "/report"
+  }, {
+    "type": "project",
+    "title": "I.O.B PROJECT",
+    "link": "/project"
+  }]
+}

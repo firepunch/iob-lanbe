@@ -1,0 +1,256 @@
+// mobile first
+#only-logo-nav-design {
+    header {
+        h1 {
+            color: $white;
+        }
+
+        .language-mobile,
+        .hamburger-mobile {
+            img {
+                filter: invert(0);
+            }
+        }
+    }
+}
+
+
+#main-signin-wrap {
+    display: flex;
+    flex-direction: column-reverse;
+
+    #signin-info {
+        width: 100%;
+        margin-top: 1.85rem;
+        margin-bottom: 3rem;
+
+        @include flex-column;
+        align-items: center;
+
+        h2 {
+            display: none;
+        }
+
+        .email-pw-wrap {
+            width: 90%;
+            margin: auto;
+
+            form {
+                @include flex-column;
+                margin: 1rem 0;
+
+                label {
+                    font-size: $smaller-font-size;
+                    margin-bottom: .25rem;
+                    margin-left: 1rem;
+                }
+
+                input[type=text] {
+                    height: 3rem;
+                    border: .075rem solid $black;
+                    border-radius: 10rem;
+                    padding: 0 1rem;
+                    outline: none;
+                }
+            }
+        }
+
+        .rmb-forgot {
+            width: 90%;
+            @include flex-spacebetween;
+            font-size: .75rem;
+
+            .rmb-checkbox {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+        }
+
+        .signin-button {
+            @include mobile-button-style($black);
+            width: 90%;
+            background-color: $black;
+            color: $white;
+            margin-top: 2rem;
+        }
+
+        .noaccount-signup {
+            font-size: .75rem;
+
+            span {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    #signin-img {
+        width: 100%;
+        height: 25rem;
+        background: url(~/public/imgs/signin_main.jpg);
+        @include background(50%);
+
+        position: relative;
+
+        img {
+            display: none;
+        }
+
+        .mobile-signin-title {
+            width: 50%;
+            text-align: center;
+
+            @include titles;
+            color: $white;
+
+            position: absolute;
+            @include absolute-center;
+            top: 22rem;
+        }
+    }
+}
+
+
+@media (min-width: 768px) {
+    #main-signin-wrap {
+        #signin-info {
+            margin: 3rem 0;
+
+            .signin-button {
+                margin-top: 4rem;
+            }
+        }
+
+        #signin-img {
+            height: 30rem;
+
+            .mobile-signin-title {
+                top: 27rem;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    #only-logo-nav-design {
+        header {
+            background-color: transparent;
+
+            h1 {
+                color: $black;
+            }
+        }
+    }
+
+    #main-signin-wrap {
+        flex-direction: row;
+        align-items: center;
+
+        // hide scroll bar
+        ::-webkit-scrollbar {
+            width: .5rem;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        #signin-info {
+            height: 100vh;
+            overflow-y: scroll;
+            margin: 0;
+            position: relative;
+
+            h2 {
+                display: block;
+                @include titles;
+                font-size: $large-font-size;
+                margin: 0;
+
+                position: absolute;
+                top: 10rem;
+            }
+
+            .email-pw-wrap {
+                width: 75%;
+
+                position: absolute;
+                top: 13rem;
+            }
+
+            .rmb-forgot {
+                width: 75%;
+
+                position: absolute;
+                top: 24.5rem;
+            }
+
+            .signin-button {
+                width: 75%;
+
+                position: absolute;
+                top: 25rem;
+            }
+
+            .noaccount-signup {
+                position: absolute;
+                top: 33rem;
+                padding-bottom: 2rem;
+            }
+
+        }
+
+        #signin-img {
+            height: 100vh;
+
+            img {
+                display: block;
+                width: 5rem;
+                position: absolute;
+                @include absolute-center;
+                top: 50%;
+            }
+
+            .mobile-signin-title {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    #main-signin-wrap {
+        #signin-info {
+            height: 55vh;
+
+            h2 {
+                top: 0;
+            }
+
+            .email-pw-wrap {
+                top: 4rem;
+            }
+
+            .rmb-forgot {
+                top: 15rem;
+            }
+
+            .signin-button {
+                top: 15rem;
+            }
+
+            .noaccount-signup {
+                top: 23rem;
+                padding-bottom: 0;
+            }
+        }
+    }
+}

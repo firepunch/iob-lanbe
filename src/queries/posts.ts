@@ -1,25 +1,33 @@
 const POSTS_QUERY = `
-query posts($language: LanguageCodeFilterEnum!) {
+query posts($language: LanguageCodeFilterEnum!, $userId: Float) {
   posts(where: {language: $language}) {
     edges {
       node {
-        id
-        title
-        slug
-        date
-        postCountry {
-          lanbeCountry
-        }
-        featuredImage {
-          node {
-            id
-            sourceUrl
+        databaseId
+          id
+          title
+          slug
+          date
+          tags {
+            nodes {
+              id
+              name
+            }
           }
-        }
-        language {
-          code
-          locale
-        }
+          featuredImage {
+            node {
+              id
+              sourceUrl
+            }
+          }
+          lanbeContent(user_id: $userId) {
+            is_save
+            country
+          }
+          language {
+            code
+            locale
+          }
       }
     }
   }

@@ -6,7 +6,8 @@ export default async function Welcome({
   params: { lang: ValidLocale; },
 }) {
   return (
-    <>
-    </>
+    <section id="welcome-main">
+      <p>Welcome to I.O.B,<br /><span>Seoyoung!</span></p>
+    </section>
   )
 }
