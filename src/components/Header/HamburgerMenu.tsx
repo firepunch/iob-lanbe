@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import Icons from '../Icons'
 
+import { useTranslation } from '@/i18n/client'
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'
@@ -15,6 +16,8 @@ export default function MobileMenu({
 }: {
   lang: ValidLocale
 }) {
+  const { t: ct } = useTranslation(lang, 'category-page')
+  const { t } = useTranslation(lang, 'layout')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
 

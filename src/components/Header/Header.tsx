@@ -137,7 +137,7 @@ export default function Header({
       {/* //web version nav */}
 
       {/* mobile version hamburger menu */}
-      <HamburgerMenu />
+      <HamburgerMenu lang={lang} />
       {/* //mobile version hamburger menu */}
     </header>
   )

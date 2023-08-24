@@ -1,9 +1,8 @@
 import { ValidLocale } from '@/i18n/settings'
-import Image from 'next/image'
+import { TI18N } from '@/types'
 import Link from 'next/link'
+import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
-
-import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 
 export default function SimpleHeader({
   lang,
@@ -16,9 +15,7 @@ export default function SimpleHeader({
       <h1>
         <Link href="/">I.O.B</Link>
       </h1>
-      <a href="#" className="hamburger-mobile">
-        <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
-      </a>
+      <HamburgerMenu lang={lang} />
     </header>
   )
 }
