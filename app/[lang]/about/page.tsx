@@ -30,9 +30,7 @@ export default async function About({
 
         {/* section 1: about first page */}
         <section id="about-firstpage">
-          <p>
-            {t('main')}
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: t('main') }}/>
           <h2>{t('about-us')}</h2>
         </section>
         {/* //section 1: about first page */}
@@ -41,8 +39,8 @@ export default async function About({
         <section id="about-how">
           <div id="about-how-wrap">
             <div className="about-how-intro">
-              <p>{t('intro-1')}</p>
-              <p>{t('intro-2')}</p>
+              <p dangerouslySetInnerHTML={{ __html: t('intro-1') }}/>
+              <p dangerouslySetInnerHTML={{ __html: t('intro-2') }}/>
             </div>
             <div className="about-how-title">
               <h3>{t('how')}</h3>
