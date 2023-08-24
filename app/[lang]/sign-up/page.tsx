@@ -2,12 +2,12 @@
 
 import { loginUser } from '@/api_gql'
 import { createUser } from '@/api_wp'
-import { Select } from '@/components'
+import { InputField, SelectField } from '@/components'
 import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
+import { AUTH_TOKEN, setStorageData } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
-import { AUTH_TOKEN, generateRandomString, setStorageData } from '@/utils/lib'
 import { useState } from 'react'
 
 type ISignUpForm = {
@@ -39,17 +39,37 @@ const SignUp = ({
     e.preventDefault()
     e.stopPropagation()
 
+    let isValid = true
     const formData = new FormData(e.currentTarget)
-    const formProps = Object.fromEntries(formData)
-
+    const formProps = Object.fromEntries(formData) as TStringObj
     const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
     const pwFound = (formProps?.password as string)?.match(regex)
 
     if (!pwFound) {
-      setErrorMessages({
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
         password: t('password_rule_error'),
-      })
-      
+      }))
+    }
+
+    if (formProps?.userFunction === 'Default') {
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
+        userFunction: t('function_required'),
+      }))
+    }
+
+    if (formProps?.country === 'Default') {
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
+        country: t('country_required'),
+      }))
+    }
+
+    if (!isValid) {
       return
     }
 
@@ -80,80 +100,102 @@ const SignUp = ({
           <div id="signup-inputs-wrap">
             {/* row1 */}
             <div className="signup-inputs-row">
-              <div className="field">
-                <label htmlFor="firstname">*{t('first_name')}</label>
-                <input required type="text" id="firstname" name="firstName"/>
-              </div>
+              <InputField
+                isRequired
+                name="firstName"
+                label={t('first_name')}
+                errorMessage={errorMessages?.firstName}
+              />
 
-              <div className="field">
-                <label htmlFor="lastname">*{t('last_name')}</label>
-                <input required type="text" id="lastname" name="lastName"/>
-              </div>
+              <InputField
+                isRequired
+                name="lastName"
+                label={t('last_name')}
+                errorMessage={errorMessages?.lastName}
+              />
             </div>
 
             {/* row2 */}
             <div className="signup-inputs-row">
-              <div className="field">
-                <label htmlFor="org">*{t('org')}</label>
-                <input required type="text" id="org" name="organization" placeholder={t('org_placeholder')} />
-              </div>
+              <InputField
+                isRequired
+                name="organization"
+                label={t('org')}
+                placeholder={t('org_placeholder')}
+                errorMessage={errorMessages?.organization}
+              />
 
-              <div className="field">
-                <label htmlFor="jobtitle">*{t('jobtitle')}</label>
-                <input required type="text" id="jobtitle" name="jobTitle" placeholder={t('jobtitle_placeholder')} />
-              </div>
+              <InputField
+                isRequired
+                name="jobTitle"
+                label={t('jobtitle')}
+                placeholder={t('jobtitle_placeholder')}
+                errorMessage={errorMessages?.organization}
+              />
             </div>
 
             {/* row3 */}
             <div className="signup-inputs-row">
-              <div className="sortby-country">
-                <label htmlFor="country">*{t('country')}</label>
-                <Select 
-                  isRequired
-                  name="country" 
-                  id="country"
-                  defaultOption={{
-                    value: 'Default',
-                    label: t('country_placeholder'),
-                  }}
-                  options={ct('country_options', { returnObjects: true }) }
-                />
-              </div>
+              <SelectField 
+                isRequired
+                className="sortby-country"
+                name="country"
+                label={t('country')}
+                placeholder={t('country_placeholder')}
+                options={ct('country_options', { returnObjects: true })}
+                errorMessage={errorMessages?.country}
+                onResetError={() => (
+                  setErrorMessages(prev => ({
+                    ...prev,
+                    country: undefined,
+                  }))
+                )}
+              />
 
-              <div className="sortby-function">
-                <label htmlFor="function">*{t('function')}</label>
-                <Select 
-                  isRequired
-                  name="userFunction" 
-                  id="function"
-                  defaultOption={{
-                    value: 'Default',
-                    label: t('function_placeholder'),
-                  }}
-                  options={ct('function_options', { returnObjects: true }) }
-                />
-              </div>
+              <SelectField 
+                isRequired
+                className="sortby-function"
+                name="userFunction"
+                label={t('function')}
+                placeholder={t('function_placeholder')}
+                options={ct('function_options', { returnObjects: true }) }
+                errorMessage={errorMessages?.userFunction}
+                onResetError={() => (
+                  setErrorMessages(prev => ({
+                    ...prev,
+                    userFunction: undefined,
+                  }))
+                )}
+              />
             </div>
 
             {/* row4 */}
             <div className="signup-inputs-row">
-              <div className="field">
-                <label htmlFor="username">*{t('email')}</label>
-                <input required type="email" id="username" name="email" placeholder={t('email_placeholder')} />
-              </div>
+              <InputField
+                isRequired
+                type="email"
+                name="email"
+                label={t('email')}
+                placeholder={t('email_placeholder')}
+                errorMessage={errorMessages?.email}
+              />
 
-              <div className={`${errorMessages?.password && 'error-field'} field pw-field`}>
-                <label htmlFor="password">*{t('password')}</label>
-                <input 
-                  required 
-                  type={errorMessages?.password ? 'text' : 'password'}
-                  id="password" 
-                  name="password"
-                  placeholder={t('password_placeholder')}
-                  value={errorMessages?.password}
-                />
-                <p>{t('password_rule')}</p>
-              </div>
+              <InputField
+                isRequired
+                className="pw-field"
+                type="password"
+                name="password"
+                label={t('password')}
+                placeholder={t('password_placeholder')}
+                description={t('password_rule')}
+                errorMessage={errorMessages?.password}
+                onResetError={() => (
+                  setErrorMessages(prev => ({
+                    ...prev,
+                    password: undefined,
+                  }))
+                )}
+              />
             </div>
           </div>
 

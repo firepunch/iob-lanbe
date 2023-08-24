@@ -6,7 +6,6 @@ import ArrowWhite from '@/imgs/arrow_white.png'
 import SaveIcon from '@/imgs/save.png'
 import LocationIcon from '@/imgs/locationicon_black.png'
 
-
 export default function Icons({
   type,
   ...props

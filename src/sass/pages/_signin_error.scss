@@ -26,13 +26,13 @@
     }
 }
 
-.field.error-field {
+.error-field {
     label {
         color: rgb(255, 0, 0);
         font-weight: $bold-font-weight;
     }
 
-    input {
+    select, input {
         color: rgb(255, 0, 0);
         border-color: rgb(255, 0, 0);
         position: relative;
