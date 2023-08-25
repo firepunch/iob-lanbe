@@ -9,6 +9,8 @@ import { TStringObj, ValidLocale } from '@/types'
 import { AUTH_TOKEN, setStorageData } from '@/utils/lib'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
+import React from 'react'
 
 type ISignUpForm = {
   firstName?: { value: string }
@@ -34,6 +36,7 @@ const SignUp = ({
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
+  const recaptchaRef = React.useRef<any>()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -89,6 +92,15 @@ const SignUp = ({
     } catch (err) {
       console.error('login error', err)
     }
+
+    recaptchaRef.current.execute()
+  }
+
+  const onReCAPTCHAChange = (captchaCode) => {
+    if (!captchaCode) {
+      return
+    }
+    recaptchaRef.current.reset()
   }
 
   return (
@@ -222,6 +234,12 @@ const SignUp = ({
           </div>
 
           {/* recaptcha */}
+          <ReCAPTCHA
+	          ref={recaptchaRef}
+	          size="invisible"
+	          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            onChange={onReCAPTCHAChange}
+          />
           {/* //recaptcha */}
 
           <button type="submit" className="signup-button">
