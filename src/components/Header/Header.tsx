@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
+import Icons from '../Icons'
 
 import ArrowBlackImg from '@/imgs/arrow_black.png'
 import ArrowWhiteImg from '@/imgs/arrow_white.png'
@@ -54,7 +55,7 @@ export default function Header({
                 <p>{t('content_intro')}</p>
 
                 <Link href={`/${lang}/category`}>
-                  <Image src={ArrowWhiteImg} alt="Arrow" />
+                  <Icons type="arrowWhite" />
                   {t('content_see_all')}
                 </Link>
               </div>
@@ -64,19 +65,19 @@ export default function Header({
                   <li>{ct('market_research')}</li>
                   <li>
                     <Link href={`/${lang}/category/?name=market`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('market')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=corporate`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('corporate')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=consumer`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('consumer')}
                     </Link>
                   </li>
@@ -86,25 +87,25 @@ export default function Header({
                   <li>{ct('market_entry')}</li>
                   <li>
                     <Link href={`/${lang}/category/?name=marketing`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('marketing')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=partnership`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('partnership')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=channel`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('channel')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=payment`}>
-                      <Image src={ArrowWhiteImg} alt="Arrow" />
+                      <Icons type="arrowWhite" />
                       {ct('payment')}
                     </Link>
                   </li>
@@ -115,10 +116,14 @@ export default function Header({
           </li>
 
           <li>
-            <Link href={`/${lang}/report`}>{t('report')}</Link>
+            <Link href={`/${lang}/report`}>
+              {t('report')}
+            </Link>
           </li>
           <li>
-            <Link href={`/${lang}/project`}>{t('project')}</Link>
+            <Link href={`/${lang}/project`}>
+              {t('project')}
+            </Link>
           </li>
         </ul>
       </nav>

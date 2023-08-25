@@ -47,7 +47,7 @@ export default function Footer({
           /> */}
           <ul>
             <li>
-              <Link href={`/${lang}/content`}>
+              <Link href={`/${lang}/category`}>
                 <Icons type="arrowBlack" />
                 <p>{t('f_content')}</p>
               </Link>

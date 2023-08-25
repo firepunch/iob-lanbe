@@ -36,11 +36,11 @@ export default function MobileMenu({
       </a>
       
       {isMenuOpen && (
-        <section id="mobile-menu" className="show">
+        <section id="mobile-menu" className="show" onClick={handleCloseMenu}>
           {/* about us */}
           <div id="mm-about-us">
-            <Link href="/about" onClick={handleCloseMenu}>
-              <h2>About us</h2>
+            <Link href="/about">
+              <h2>{t('about')}</h2>
               <Icons type="arrowBlack" />
             </Link>
           </div>
@@ -49,56 +49,96 @@ export default function MobileMenu({
           <div id="mm-content">
             <div 
               className={`menu-categ mm-content-top ${isCategoryOpen && 'down'}`} 
-              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsCategoryOpen(!isCategoryOpen)
+              }}
             >
-              <h2>Content</h2>
+              <h2>{t('content')}</h2>
               <Icons type="arrowBlackDown" />
             </div>
 
             {isCategoryOpen && (
               <div className="other-content-pages">
                 <ul>
-                  <li className="main-categ">Market Research</li>
-                  <li className="sub-categ"><a href="contents_market.html"><Icons type="arrowBlack" /><p>Market</p></a></li>
-                  <li className="sub-categ"><a href="#"><Icons type="arrowBlack" /><p>Corporate</p></a></li>
-                  <li className="sub-categ"><a href="#"><Icons type="arrowBlack" /><p>Consumer</p></a></li>
+                  <li className="main-categ">{ct('market_research')}</li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=market`}>
+                      <Icons type="arrowBlack" />
+                      {ct('market')}
+                    </Link>
+                  </li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=corporate`}>
+                      <Icons type="arrowBlack" />
+                      {ct('corporate')}
+                    </Link>
+                  </li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=consumer`}>
+                      <Icons type="arrowBlack" />
+                      {ct('consumer')}
+                    </Link>
+                  </li>
                 </ul>
 
                 <ul>
-                  <li className="main-categ">Market Entry</li>
-                  <li className="sub-categ"><a href="contents_marketing.html"><Icons type="arrowBlack" /><p>Marketing</p></a></li>
-                  <li className="sub-categ"><a href="#"><Icons type="arrowBlack" /><p>Partnership</p></a></li>
-                  <li className="sub-categ"><a href="#"><Icons type="arrowBlack" /><p>Channel</p></a></li>
-                  <li className="sub-categ"><a href="#"><Icons type="arrowBlack" /><p>Payment</p></a></li>
+                  <li className="main-categ">{ct('market_entry')}</li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=marketing`}>
+                      <Icons type="arrowBlack" />
+                      {ct('marketing')}
+                    </Link>
+                  </li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=partnership`}>
+                      <Icons type="arrowBlack" />
+                      {ct('partnership')}
+                    </Link>
+                  </li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=channel`}>
+                      <Icons type="arrowBlack" />
+                      {ct('channel')}
+                    </Link>
+                  </li>
+                  <li className="sub-categ">
+                    <Link href={`/${lang}/category/?name=payment`}>
+                      <Icons type="arrowBlack" />
+                      {ct('payment')}
+                    </Link>
+                  </li>
                 </ul>
 
-                <a href="allcontents.html" className="see-all">See all</a>
+                <Link href={`/${lang}/category`} className="see-all">
+                  {t('content_see_all')}
+                </Link>
               </div>
             )}
           </div>
 
           {/* report */}
           <div id="mm-report">
-            <a href="allreports.html">
-              <h2>Report</h2>
+            <Link href={`/${lang}/report`}>
+              <h2>{t('report')}</h2>
               <Icons type="arrowBlack" />
-            </a>
+            </Link>
           </div>
 
           {/* project */}
           <div id="mm-project">
-            <a href="project_beforesignin.html">
-              <h2>Project</h2>
+            <Link href={`/${lang}/project`}>
+              <h2>{t('project')}</h2>
               <Icons type="arrowBlack" />
-            </a>
+            </Link>
           </div>
 
           {/* search */}
           <div id="mm-search">
-            <a href="search.html">
-              <h2>Search</h2>
+            <Link href={`/${lang}/search`}>
+              <h2>{t('search')}</h2>
               <Image src={SearchBlackIcon} alt="Search" />
-            </a>
+            </Link>
           </div>
 
           {/* signin */}

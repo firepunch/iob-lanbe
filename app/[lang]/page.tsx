@@ -194,7 +194,7 @@ export default function Home({
           </div>
           {/* //iob latest content grid */}
 
-          <Link href={{ pathname: `/content` }} className="content-cta-mobile">
+          <Link href={{ pathname: `/category` }} className="content-cta-mobile">
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>
