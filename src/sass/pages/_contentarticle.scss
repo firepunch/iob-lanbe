@@ -20,7 +20,7 @@
 
             .ct {
                 width: fit-content;
-                padding: .5rem;
+                padding: .5rem .85rem;
                 margin: 0 .25rem;
                 border: 1px solid $black;
                 border-radius: 10rem;
@@ -121,7 +121,7 @@
 
     // first 10% of text
     #content-details {
-        width: 75%;
+        width: 85%;
         margin-top: -10rem;
         margin-left: 1.5rem;
 
@@ -157,26 +157,39 @@
         margin-left: 1.5rem;
 
         figure.size-large {
+            width: 100vw;
+            margin-left: -1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
 
             img {
-                width: 100vw;
+                width: 100%;
+                // padding-left: 5vw;
             }
+
         }
 
         figure.wp-block-gallery {
-            width: 100%;
-            margin-left: 0;
-            // display: flex;
+            width: 100vw;
+            margin-left: -1.5rem;
+            display: flex;
 
             figure.wp-block-image {
                 margin: 0;
 
                 img {
-                    width: 75vw;
+                    width: 50vw;
                 }
 
                 figcaption.wp-element-caption {
-                    margin: 1rem 0;
+                    width: 100%;
+                    text-align: center;
+                    font-size: $smaller-font-size;
+                    margin-top: .75rem;
+                    margin-bottom: 2rem;
+                    margin-left: 50%;
+                    // margin-right: 50%;
+                    // transform: translateX(-50%);
                 }
             }
         }
@@ -188,25 +201,37 @@
             }
         }
 
-        figure.wp-block-image {
+        figure.wp-block-image.size-full {
             img {
-                margin: 1rem 0;
+                margin: 2.5rem 0;
             }
         }
 
-        blockquote {
+        .wp-block-heading {
+            margin: 0;
+            font-family: $secondary-font;
+            font-size: 1rem;
+        }
+
+        .wp-block-quote {
             margin-left: 0;
-            width: 70vw;
-            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            width: 80vw;
+            padding: 1rem;
             border-top: .35rem solid $black;
             border-bottom: .35rem solid $black;
             position: relative;
 
+            p {
+                width: 85%;
+                padding-bottom: 1rem;
+            }
+
             cite {
                 font-size: $smaller-font-size;
                 position: absolute;
-                right: 0;
-                bottom: .5rem;
+                right: 1rem;
+                bottom: 1rem;
             }
         }
 
@@ -580,6 +605,25 @@
                 margin-bottom: 3rem;
             }
         }
+
+        // wp
+        #content-details {
+            width: 80%;
+            margin-top: -10rem;
+            margin-left: 2rem;
+        }
+
+        .content-article {
+            margin-left: 2rem;
+
+            figure.size-large {
+                margin-left: -2rem;
+            }
+
+            figure.wp-block-gallery {
+                margin-left: -2rem;
+            }
+        }
     }
 
     #idea-notes {
@@ -611,14 +655,14 @@
 
 @media (min-width: 768px) {
     #main-content {
-        #content-details,
-        .content-article,
-        #intro-whyitmatters,
-        #main-body-1,
-        #main-body-2,
-        #main-body-3 {
-            width: 55%;
-        }
+        // #content-details,
+        // .content-article,
+        // #intro-whyitmatters,
+        // #main-body-1,
+        // #main-body-2,
+        // #main-body-3 {
+        //     width: 55%;
+        // }
 
         .content-article {
           margin: auto;
@@ -629,6 +673,8 @@
         }
 
         #content-details {
+            width: 55%;
+            margin: auto;
             margin-top: -8.5rem;
         }
 
@@ -661,6 +707,32 @@
 
             .iob-perspective {
                 margin: 4rem 0;
+            }
+        }
+
+        // wp 
+        .content-article {
+            width: 55%;
+            margin: auto;
+
+            figure.size-large {
+                margin-top: 3rem;
+                margin-left: -22.5vw;
+            }
+
+            figure.wp-block-gallery {
+                margin: 5rem 0;
+                margin-left: -41%;
+            }
+
+            figure.wp-block-image.size-full {
+                img {
+                    margin: 3rem 0;
+                }
+            }
+
+            .wp-block-quote {
+                width: 55vw;
             }
         }
     }
@@ -730,13 +802,13 @@
     }
 
     #main-content {
-        #content-details,
-        #intro-whyitmatters,
-        #main-body-1,
-        #main-body-2,
-        #main-body-3 {
-            width: 45%;
-        }
+        // #content-details,
+        // #intro-whyitmatters,
+        // #main-body-1,
+        // #main-body-2,
+        // #main-body-3 {
+        //     width: 45%;
+        // }
 
         #main-body-1 {
             figure {
@@ -771,12 +843,49 @@
     }
 
     #main-content {
-        #content-details,
-        #intro-whyitmatters,
-        #main-body-1,
-        #main-body-2,
-        #main-body-3 {
+        // #content-details,
+        // #intro-whyitmatters,
+        // #main-body-1,
+        // #main-body-2,
+        // #main-body-3 {
+        //     width: 35%;
+        // }
+
+        // wp
+        #content-details {
             width: 35%;
+        }
+
+        .content-article {
+            width: 35%;
+
+            figure.size-large {
+                width: 100vw;
+                margin: 5rem auto;
+                margin-left: -33.25vw;
+            }
+
+            figure.wp-block-gallery {
+                width: 65vw;
+                margin-left: -96.5%;
+
+                figure.wp-block-image {
+
+                    img {
+                        width: 30vw;
+                    }
+
+                    figcaption.wp-element-caption {
+                        margin-top: 1.5rem;
+                        margin-left: 3rem;
+                        text-align: left;
+                    }
+                }
+            }
+
+            .wp-block-quote {
+                width: 35vw;
+            }
         }
     }
 
