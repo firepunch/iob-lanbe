@@ -496,12 +496,13 @@
 
             position: relative;
 
-            #ideanote {
-                width: 100%;
+            .idea-note-input {
+                width: auto;
                 background-color: transparent;
                 border: none;
                 outline: none;
                 margin: 2rem;
+                resize: none;
             }
 
             button {
@@ -589,7 +590,7 @@
             .idea-note-1 {
                 margin-bottom: 0;
 
-                #ideanote {
+                .idea-note-input {
                     font-size: .75rem;
                     margin: 2rem 1rem;
                 }
@@ -622,6 +623,7 @@
         .content-article {
           margin: auto;
         }
+
         #content-fixed-icons {
             top: 35%;
         }

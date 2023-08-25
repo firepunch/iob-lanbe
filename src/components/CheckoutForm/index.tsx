@@ -156,8 +156,8 @@ export default function CheckoutForm ({
         options={{
           defaultValues: {
             billingDetails: {
-              email: 'foo@bar.com',
-              name: 'John Doe',
+              // email: 'foo@bar.com',
+              // name: 'John Doe',
               phone: '888-888-8888',
             },
           },

@@ -157,7 +157,7 @@ export default function Category({
       <section id="idea-notes">
         <h5>{t('idea_h5')}</h5>
         <div className="idea-note-wrap">
-          <IdeaNote />
+          <IdeaNote lang={lang} />
 
           <div className="add-idea-note">
             {/* add new idea design image will be put here as background */}
