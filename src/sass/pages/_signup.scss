@@ -71,6 +71,7 @@
         @include mobile-button-style($black);
         background-color: $black;
         color: $white;
+        margin-top: 2rem;
         margin-bottom: 3rem;
     }
 }
@@ -114,23 +115,32 @@
         margin-top: 5rem;
 
         #signup-inputs-wrap {
-            width: 85%;
+            width: 100%;
         }
 
         #signup-checkboxes {
-            width: 40%;
+            width: 60%;
+            margin: 2rem auto;
         }
 
         .signup-button {
-            width: 35%;
+            width: 50%;
+            margin: 2rem auto;
+            margin-bottom: 5rem;
         }
     }
 }
 
 @media (min-width: 1200px) {
     #signup-wrap {
+        #signup-inputs-wrap {
+            width: 140%;
+            margin-left: -20%;
+        }
+
         #signup-checkboxes {
-            width: 35%;
+            // width: 35%;
+            width: 70%;
 
 
             .newsletter-checkbox,
