@@ -10,7 +10,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
-
+import useUserState from '@/stores/userStore'
+import { useRouter } from 'next/navigation'
 import ShareImg from '@/imgs/share.png'
 
 export default function Report({
@@ -18,7 +19,9 @@ export default function Report({
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
+  const { push } = useRouter()
   const { report, updateReport } = useContentState(state => state)
+  const { updateOrder } = useUserState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
   const userId = getUserId()
 
@@ -50,6 +53,21 @@ export default function Report({
       console.log(err)
       alert('저장 실패')
     }
+  }
+
+  const handleOrder = () => {
+    if (!report) return
+
+    updateOrder({
+      userId,
+      report: {
+        id: report.id,
+        name: report.name,
+        price: report.price,
+      },
+    })
+
+    push(`/${lang}/checkout`)
   }
 
   if (!report) {
@@ -131,9 +149,9 @@ export default function Report({
             {isValidToken() ? (
               <>
                 <p>{t('pay_now_cta')}</p>
-                <Link href={`/${lang}/checkout`}>
+                <span className="cta-link" onClick={handleOrder}>
                   {t('pay_now')}
-                </Link>
+                </span>
               </>
             ) : (
               <>

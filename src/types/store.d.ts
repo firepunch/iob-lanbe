@@ -94,3 +94,12 @@ export interface IReport extends IPost {
     }[]
   }
 }
+
+export interface IOrder {
+  userId: number
+  report: {
+    id: number
+    name: string
+    price: string
+  }
+}

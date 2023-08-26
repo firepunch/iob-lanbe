@@ -110,10 +110,11 @@
                 margin: 0;
             }
             
-            a {
+            a, .cta-link {
                 @include mobile-button-style($black);
                 background-color: $black;
                 color: $white;
+                cursor: pointer;
             }
         }
     }
@@ -251,7 +252,7 @@
             margin-top: 12rem;
 
             .report-cta {
-                a {
+                a, .cta-link {
                     width: 80%;
                 }
             }
