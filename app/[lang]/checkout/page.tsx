@@ -1,7 +1,9 @@
 'use client'
 
 import { CheckoutForm } from '@/components'
+import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
+import useUserState from '@/stores/userStore'
 import { checkoutIntent, fetchCardsIntent } from '@/utils/stripe-intent'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
@@ -16,6 +18,8 @@ export default function Checkout({
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const { t } = useTranslation(lang, 'checkout')
+  const { order } = useUserState(state => state)
   const [clientSecret, setClientSecret] = useState()
   const [savedCards, setSavedCards] = useState([])
 
@@ -29,29 +33,29 @@ export default function Checkout({
     ))
   }, [])
   
+  if (!order) return 'loading'
+
   return (
     <>
       <section id="payment-page">
         <div id="payment-receipt">
           {/* receipt details */}
           <div className="receipt-details">
-            <p className="your-order">Your order:</p>
+            <p className="your-order">{t('your_order')}</p>
 
-            <p className="report-title">REPORT NO.1 ABOUT A SPECIFIC TOPIC</p>
+            <p className="report-title">{order.name}</p>
     
             <div className="total-price">
-              <p>Total</p>
-              <p>$15.00</p>
+              <p>{t('total')}</p>
+              <p>{order.price}</p>
             </div>
     
-            <p className="disclaimer1">
-                            NOTE: You can re-download the report without any time limit until you decide to withdraw your membership. There is no expiration date.
-            </p>
+            <p className="disclaimer1">{t('disclaimer')}</p>
           </div>
 
-          <p className="please-complete">Please provide the following information to complete your payment.</p>
+          <p className="please-complete">{t('please')}</p>
 
-          <a href="#" className="prev-page">Go back</a>
+          <a href="#" className="prev-page">{t('back')}</a>
         </div>
         {/* //receipt details */}
 
