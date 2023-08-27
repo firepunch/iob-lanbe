@@ -15,6 +15,8 @@ export type ITags = {
 export type ILanbeContent = {
   is_save: boolean
   country: string
+  purchased: boolean
+  purchasedFile: string
 }
 
 export interface IPost {
