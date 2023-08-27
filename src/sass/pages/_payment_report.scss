@@ -134,7 +134,7 @@
             font-size: .75rem;
         }
 
-        a {
+        button {
             @include mobile-button-style($black);
             background-color: $black;
             color: $white;
@@ -222,7 +222,7 @@
                     margin: .25rem auto;
                 }
 
-                a {
+                button {
                     width: 55%;
                     margin: 1rem auto;
                 }

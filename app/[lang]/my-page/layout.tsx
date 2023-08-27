@@ -13,6 +13,7 @@ import IdeasIcon from '@/imgs/ideas_icon.png'
 import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
+import { getUser } from '@/utils/lib'
 
 const TAB_MAP = {
   content: 'content',
@@ -30,6 +31,7 @@ const Layout = ({
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
   const segment = useSelectedLayoutSegment()
+  const { userId, email } = getUser()
 
   return (
     <div id="beige-bg-wrap">
@@ -69,7 +71,7 @@ const Layout = ({
       <section id="default-content">
         {segment === TAB_MAP.content && <MyPageContent t={t} />}
         {segment === TAB_MAP.report && <MyPageReport t={t} />}
-        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} />}
+        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={userId} />}
         {segment === TAB_MAP.payment && <MyPagePayment t={t} />}
         {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} />}
       </section>

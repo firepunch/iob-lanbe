@@ -27,9 +27,11 @@ export default function Pagination({
 
   return (
     <div id="pagination">
-      <button type="button" className="pagination-on-mobile" onClick={onClickNext}>
-        Load more
-      </button>
+      {pageInfo?.hasNextPage && (
+        <button type="button" className="pagination-on-mobile" onClick={onClickNext}>
+          Load more
+        </button>
+      )}
 
       <span className="pagination-on-web">
         <span 

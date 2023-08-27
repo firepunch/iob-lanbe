@@ -1,4 +1,4 @@
-#ideanotes-designs {
+.ideanotes-designs {
     width: 80%;
     margin: 100px auto;
 
@@ -6,10 +6,10 @@
     grid-template-columns: repeat(3, 1fr);
     row-gap: 2rem;
 
-    #ideanote-add,
-    #ideanote-before,
-    #ideanote-after,
-    #ideanote-saved {
+    .ideanote-add,
+    .ideanote-before,
+    .ideanote-after,
+    .ideanote-saved {
         width: 20rem;
         height: 20rem;
         position: relative;
@@ -26,9 +26,9 @@
 }
 
 // 작성 전
-#ideanote-before {
+.ideanote-before {
 
-    input[type="text"] {
+    textarea {
         position: absolute;
         z-index: 2;
         top: 2.5rem;
@@ -64,7 +64,7 @@
 }
 
 // 작성 후
-#ideanote-after {
+.ideanote-after {
 
     .user-note {
         position: absolute;
@@ -118,7 +118,7 @@
 }
 
 // 저장
-#ideanote-saved {
+.ideanote-saved {
 
     .note-saved {
 
@@ -139,43 +139,41 @@
 }
 
 // 삭제
-.ideanote-delete {
-    .delete-modal {
-        width: 14rem;
-        height: 7.5rem;
-        padding: .5rem 1rem;
-        background-color: $white;
-        border: 1px solid $black;
+.delete-modal {
+    width: 14rem;
+    height: 7.5rem;
+    padding: .5rem 1rem;
+    background-color: $white;
+    border: 1px solid $black;
 
-        border-top-left-radius: 1rem;
-        border-top-right-radius: 1rem;
-        border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 
-        position: absolute;
-        z-index: 3;
-        bottom: 4rem;
-        right: 2.5rem;
+    position: absolute;
+    z-index: 3;
+    bottom: 4rem;
+    right: 2.5rem;
 
-        p {
-            text-align: center;
-            font-size: $smaller-font-size;
+    p {
+        text-align: center;
+        font-size: $smaller-font-size;
+    }
+
+    .buttons-wrap {
+        @include flex-spacebetween;
+
+        button {
+            width: 49%;
+            height: 2rem;
+            border-radius: 1rem;
+            background-color: $white;
+            border: .075rem solid $black;
         }
 
-        .buttons-wrap {
-            @include flex-spacebetween;
-
-            button {
-                width: 49%;
-                height: 2rem;
-                border-radius: 1rem;
-                background-color: $white;
-                border: .075rem solid $black;
-            }
-
-            button:nth-child(2) {
-                color: $white;
-                background-color: $black;
-            }
+        button:nth-child(2) {
+            color: $white;
+            background-color: $black;
         }
     }
 }

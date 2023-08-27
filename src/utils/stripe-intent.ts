@@ -26,13 +26,12 @@ export const detachCardIntent = async (cardId: string) => (
   stripe.paymentMethods.detach(cardId)
 )
 
-export const checkoutIntent = async (itemId: string) => {
+export const checkoutIntent = async (data: { amount, currency, metadata: object }) => {
   try {
   // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-      customer: CUSTOMER_ID,
-      amount: 1088,
-      currency: 'krw',
+      // customer: CUSTOMER_ID,
+      ...data,
 
       payment_method_types: ['card'],
       // automatic_payment_methods: {
@@ -57,11 +56,6 @@ export const checkoutIntent = async (itemId: string) => {
   } catch (err) {
     // Error code will be authentication_required if authentication is needed
     console.log('Error code is: ', err.code)
-
-    if (err.code) {
-      const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(err.raw.payment_intent?.id)
-      console.log('PI retrieved: ', paymentIntentRetrieved?.id)
-    }
   }
 
   return {

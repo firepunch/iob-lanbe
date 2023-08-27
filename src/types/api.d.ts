@@ -27,6 +27,11 @@ export interface ICreateNote {
   content: string
 }
 
+export interface IUpdateNote {
+  note_id: number
+  content: string
+}
+
 export interface ILoginUser {
   username: string
   password: string

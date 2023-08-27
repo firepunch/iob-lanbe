@@ -15,6 +15,8 @@ export type ITags = {
 export type ILanbeContent = {
   is_save: boolean
   country: string
+  purchased: boolean
+  purchasedFile: string
 }
 
 export interface IPost {
@@ -92,5 +94,26 @@ export interface IReport extends IPost {
         options: number[]
       }
     }[]
+  }
+}
+
+export interface IReports {
+  edges: { node: IReport }[]
+  pageInfo: IPageInfo
+}
+
+export interface IOrder {
+  userId: number
+  reportId: number
+  name: string
+  price: string
+  amount: number
+  currency: string
+}
+
+export interface IDownload {
+  downloadId: string
+  download: {
+    file: string
   }
 }

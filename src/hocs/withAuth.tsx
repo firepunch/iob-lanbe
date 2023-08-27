@@ -7,7 +7,9 @@ const withAuth = (Component: NextComponentType) => {
     const isValid = isValidToken()
     const { replace } = useRouter()
 
-    return <Component {...props} />
+    return isValid ? 
+      <Component {...props} /> : 
+      replace('/sign-in')
   }
 
   return Auth

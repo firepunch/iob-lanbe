@@ -174,10 +174,11 @@
                 margin: 0;
             }
             
-            a {
+            a, .cta-link {
                 @include mobile-button-style($black);
                 background-color: $black;
                 color: $white;
+                cursor: pointer;
             }
         }
     }
@@ -458,6 +459,11 @@
                         margin-top: -.85vw;
                         margin-left: 2.75vw;
                     }
+              }
+
+              .report-cta {
+                a, .cta-link {
+                    width: 80%;
                 }
             }
         }

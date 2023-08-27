@@ -6,9 +6,6 @@
   }, {
     "label": "Oldest",
     "value": "oldest"
-  }, {
-    "label": "Most viewed",
-    "value": "most_viewed"
   }],
 
   "function_options": [

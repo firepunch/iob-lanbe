@@ -1,5 +1,5 @@
 import CATEGORIES_QUERY from '@/queries/categories'
-import { CHECKOUT_QUERY, ORDER_QUERY } from '@/queries/orders'
+import { CHECKOUT_QUERY, FETCH_ORDER_QUERY, ORDER_QUERY } from '@/queries/orders'
 import POST_BY_CATEGORY_QUERY from '@/queries/postByCategory'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY from '@/queries/posts'
@@ -17,7 +17,8 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
   const headers = { 'Content-Type': 'application/json' }
   const [tokens, isRemember] = getStorageData(AUTH_TOKEN)
 
-  // if (tokens?.authToken && !query?.includes('LoginUser') && !query?.includes('GetUser')) {
+  // const refreshQuery = query.match(/(LoginUser)|(GetUser)/gi)
+  // if (tokens?.authToken && !refreshQuery) {
   //   headers['Authorization'] = `Bearer ${tokens.authToken}`
   // }
 
@@ -47,33 +48,43 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
   const json = await res.json()
   if (json.errors) {
     console.error(json.errors)
+
+    // if (json.errors?.[0].debugMessage?.includes('Expired token')) {
+    // alert('Expired Token')
+    // window.location.replace('/sign-in')
+    //   return
+    // }
+
     throw new Error(`Failed to fetch API\n${json.errors?.[0]?.message}`)
   }
-
   return json.data
 }
 
-export async function createOrder(input) {
+export async function createCheckout(input) {
   const data = await fetchAPI(CHECKOUT_QUERY, {
     variables: { input },
   })
-
   return data.product
 }
 
-export async function createOrderNew(input) {
+export async function createOrder(input) {
   const data = await fetchAPI(ORDER_QUERY, {
     variables: { input },
   })
-
   return data.createOrder
 }
 
-export async function getProductBySlug(productSlug, userId) {
-  const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
-    variables: { productSlug, userId },
+export async function fetchOrder(id) {
+  const data = await fetchAPI(FETCH_ORDER_QUERY, {
+    variables: { id },
   })
+  return data.order
+}
 
+export async function getProductBySlug(variables) {
+  const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
+    variables,
+  })
   return data.product
 }
 
@@ -93,11 +104,11 @@ export async function getContentBySlug(postSlug, userId) {
   return data.post
 }
 
-export async function getAllProducts(language, userId) {
+export async function getAllProducts(variables) {
   const data = await fetchAPI(PRODUCTS_QUERY, {
-    variables: { language, userId },
+    variables,
   })
-  return data.products.edges
+  return data.products
 }
 
 export async function getAllCategories(language) {
@@ -111,7 +122,6 @@ export async function getAllPosts(variables) {
   const data = await fetchAPI(POSTS_QUERY, {
     variables,
   })
-
   return data.posts
 }
 
@@ -119,7 +129,6 @@ export async function getContentsByCategory(variables) {
   const data = await fetchAPI(POST_BY_CATEGORY_QUERY, {
     variables,
   })
-
   return data.category?.posts.edges
 }
 
@@ -150,49 +159,8 @@ export async function getContentByDatabaseID(databaseID) {
   })
   return data
 }
+
 // EXAMPLE
-export async function getAllPostsForHome(preview) {
-  const data = await fetchAPI(
-    `
-    query AllPosts {
-      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
-        edges {
-          node {
-            title
-            excerpt
-            slug
-            date
-            featuredImage {
-              node {
-                sourceUrl
-              }
-            }
-            author {
-              node {
-                name
-                firstName
-                lastName
-                avatar {
-                  url
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
-  )
-
-  return data?.posts
-}
-
 export async function getPostAndMorePosts(slug, preview, previewData) {
   const postPreview = preview && previewData?.post
   // The slug may be the id of an unpublished post

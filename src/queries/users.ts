@@ -11,6 +11,7 @@ mutation LoginUser($input: LoginInput!) {
   login(input: $input) {
     user {
       databaseId
+      email
     }
     clientMutationId
     authToken

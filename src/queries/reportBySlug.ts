@@ -1,5 +1,5 @@
 const REPORT_BY_SLUG_QUERY = `
-query productBySlug($productSlug: ID!, $userId: Float) {
+query productBySlug($productSlug: ID!, $userId: Float, $email: String) {
   product(id: $productSlug, idType: SLUG) {
     databaseId
     name
@@ -29,9 +29,11 @@ query productBySlug($productSlug: ID!, $userId: Float) {
         }
       }
     }
-    lanbeContent(user_id: $userId, type: "report") {
+    lanbeContent(user_id: $userId, email: $email, type: "report") {
       country
       is_save
+      purchased
+      purchasedFile
     }
     featuredImage {
       node {
@@ -49,7 +51,7 @@ query productBySlug($productSlug: ID!, $userId: Float) {
     shortDescription(format: RAW)
     type
     ... on SimpleProduct {
-      price
+      price(format: FORMATTED)
     }
   }
 }

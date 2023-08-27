@@ -34,14 +34,18 @@ export default function Home({
 
   useEffect(() => {
     getAllPosts({
-      language:lang.toUpperCase(), 
+      language: lang.toUpperCase(), 
       userId,
       first: 4,
     }).then(result => {
       updatePosts(result)
     })
 
-    getAllProducts(lang, userId).then(result => (
+    getAllProducts({
+      language: lang,
+      userId,
+      first: 3
+    }).then(result => (
       updateReports(result)
     ))
   }, [])
@@ -70,7 +74,11 @@ export default function Home({
         })
         updatePosts(result)
       } else if (type === 'report') {
-        const result = await getAllProducts(lang, userId)
+        const result = await getAllProducts({
+          language: lang,
+          userId,
+          first: 3
+        })
         updateReports(result)
       }
     } catch (err) {
@@ -225,7 +233,7 @@ export default function Home({
           <div className="iob-latest-report">
 
             {/* individual thumbnails */}
-            {reports?.map(({ node }) => (
+            {reports?.edges?.map(({ node }) => (
               <ReportCard
                 key={node.id}
                 onToggleBookmark={() => (

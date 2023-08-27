@@ -5,25 +5,32 @@ import { createWatchList, removeWatchList } from '@/api_wp'
 import { Bookmark } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
+import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
+import useUserState from '@/stores/userStore'
+import { dateFormat, getAuthorInfo, getUser, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
-
-import ShareImg from '@/imgs/share.png'
 
 export default function Report({
   params: { lang, report_slug },
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
+  const { push } = useRouter()
   const { report, updateReport } = useContentState(state => state)
+  const { updateOrder } = useUserState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
-  const userId = getUserId()
+  const { userId, email } = getUser()
 
   useEffect(() => {
-    getProductBySlug(report_slug, userId).then(result => {
+    getProductBySlug({
+      productSlug: report_slug, 
+      userId,
+      email,
+    }).then(result => {
       updateReport(result)
     })
   }, [])
@@ -44,12 +51,31 @@ export default function Report({
         })
       }
 
-      const result = await getProductBySlug(report_slug, userId)
+      const result = await getProductBySlug({
+        productSlug: report_slug, 
+        userId,
+        email,
+      })
       updateReport(result)
     } catch (err) {
       console.log(err)
       alert('저장 실패')
     }
+  }
+
+  const handleOrder = () => {
+    if (!report) return
+
+    updateOrder({
+      userId,
+      reportId: report.databaseId,
+      name: report.name,
+      price: report.price,
+      amount: Number(report.price.replace(/\$|\₩/gi, '')),
+      currency: 'usd',
+    })
+
+    push(`/${lang}/checkout`)
   }
 
   if (!report) {
@@ -129,12 +155,21 @@ export default function Report({
 
           <div className="report-cta">
             {isValidToken() ? (
-              <>
-                <p>{t('pay_now_cta')}</p>
-                <Link href={`/${lang}/checkout`}>
-                  {t('pay_now')}
-                </Link>
-              </>
+              report.lanbeContent.purchased ? (
+                <>
+                  <p>{t('download_cta')}</p>
+                  <Link href={report.lanbeContent.purchasedFile} className="cta-link" target="_blank">
+                    {t('download')}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p>{t('pay_now_cta')}</p>
+                  <span className="cta-link" onClick={handleOrder}>
+                    {t('pay_now')}
+                  </span>
+                </>
+              )
             ) : (
               <>
                 <p>{t('sign_in_cta')}</p>
