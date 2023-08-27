@@ -5,14 +5,14 @@ import { createWatchList, removeWatchList } from '@/api_wp'
 import { Bookmark } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
+import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
+import useUserState from '@/stores/userStore'
+import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
-import useUserState from '@/stores/userStore'
 import { useRouter } from 'next/navigation'
-import ShareImg from '@/imgs/share.png'
+import { useEffect } from 'react'
 
 export default function Report({
   params: { lang, report_slug },
@@ -60,11 +60,11 @@ export default function Report({
 
     updateOrder({
       userId,
-      report: {
-        id: report.id,
-        name: report.name,
-        price: report.price,
-      },
+      reportId: report.databaseId,
+      name: report.name,
+      price: report.price,
+      amount: Number(report.price.replace(/\$|\₩/gi, '')),
+      currency: 'usd',
     })
 
     push(`/${lang}/checkout`)

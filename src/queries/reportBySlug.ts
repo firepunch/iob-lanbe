@@ -49,7 +49,7 @@ query productBySlug($productSlug: ID!, $userId: Float) {
     shortDescription(format: RAW)
     type
     ... on SimpleProduct {
-      price
+      price(format: FORMATTED)
     }
   }
 }

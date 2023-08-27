@@ -53,7 +53,7 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
   return json.data
 }
 
-export async function createOrder(input) {
+export async function createCheckout(input) {
   const data = await fetchAPI(CHECKOUT_QUERY, {
     variables: { input },
   })
@@ -61,7 +61,7 @@ export async function createOrder(input) {
   return data.product
 }
 
-export async function createOrderNew(input) {
+export async function createOrder(input) {
   const data = await fetchAPI(ORDER_QUERY, {
     variables: { input },
   })

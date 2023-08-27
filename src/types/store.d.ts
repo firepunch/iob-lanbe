@@ -97,9 +97,23 @@ export interface IReport extends IPost {
 
 export interface IOrder {
   userId: number
-  report: {
-    id: number
+  reportId: number
+  name: string
+  price: string
+  amount: number
+  currency: string
+}
+
+export interface IDownload {
+  nodes: {
+    id: string
     name: string
-    price: string
-  }
+    url: string
+    product: {
+      id: string
+      link: string
+      name: string
+      price: string
+    }
+  }[]
 }

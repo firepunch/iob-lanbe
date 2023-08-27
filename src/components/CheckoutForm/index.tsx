@@ -1,24 +1,27 @@
 'use client'
 
-import { createOrderNew } from '@/api_gql'
-import { CardElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { createOrder } from '@/api_gql'
+import { CardElement, AddressElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Source } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Button from '../Button'
+import useUserState from '@/stores/userStore'
 
 interface CheckoutFormProps {
   savedCards: any[]
+  reportId: number
 }
 
 export default function CheckoutForm ({
   savedCards,
-  ...props
+  reportId,
 }: CheckoutFormProps) {
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
 
+  const { updateDownload } = useUserState(state => state)
   const [isProcessing, setIsProcessing] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string|undefined>()
 
@@ -57,63 +60,6 @@ export default function CheckoutForm ({
     }
   }
 
-  const handleStripeNew = async (e) => {
-    e.preventDefault()
-    setIsProcessing(true)
- 
-    if (!stripe || !elements) {
-      return
-    }
-
-    const { paymentIntent, error } = await stripe.confirmPayment({
-      elements,
-      redirect: 'if_required',
-      confirmParams: {
-        return_url: `${window.location.origin}/completion`,
-      },
-    })
-
-    if (error) {
-      setErrorMessage(error?.message)
-    } else if (paymentIntent?.status === 'succeeded') {
-      console.log(paymentIntent)
-
-      const input = {
-        'isPaid': true,
-        'lineItems': [{
-          'productId': 3123,
-          'quantity': 1,
-        }],
-        'paymentMethod': 'stripe',
-        'currency': 'KRW',
-        // 'customerId': 231936701,
-        'transactionId': paymentIntent.id,
-        'metaData': [{
-          'key': '_stripe_source_id',
-          'value': paymentIntent.id,
-        }],
-      }
-
-      try {
-        console.log('input', JSON.stringify(input))
-        const data = await createOrderNew(input)
-
-        console.log('SUCCESS')
-        console.log(data)
-
-        router.push(`/completion?order_id=${data.id}&id=${paymentIntent.id}`)
-        // Save downloadable Items to store
-
-      } catch (err) {
-        console.log('Error', err)
-      }
-    } else {
-      setErrorMessage('Unexpected state') 
-    }
-
-    setIsProcessing(false)
-  }
-
   const handleStripe = async (): Promise<Source> => {
     if (!stripe || !elements) {
       throw Error('stripe or elements undefined')
@@ -139,33 +85,120 @@ export default function CheckoutForm ({
     return source
   }
 
+  const handleStripeNew = async (e) => {
+    e.preventDefault()
+    setIsProcessing(true)
+ 
+    if (!stripe || !elements) {
+      return
+    }
+
+    // const cardElements = elements.getElement(CardElement)
+    // stripe.createSource(ibanElement, {
+    //   type: 'sepa_debit',
+    //   currency: 'eur',
+    //   owner: {
+    //     name: 'Jenny Rosen',
+    //   },
+    // })
+    // .then(function(result) {
+    //   // Handle result.error or result.source
+    // });
+
+    const { paymentIntent, error } = await stripe.confirmPayment({
+      elements,
+      redirect: 'if_required',
+      confirmParams: {
+        return_url: `${window.location.origin}/completion`,
+        payment_method_data: {
+          billing_details: {
+            address: {
+              postal_code: '',
+            },
+          },
+        },
+      },
+    })
+
+    if (error) {
+      setErrorMessage(error?.message)
+    } else if (paymentIntent?.status === 'succeeded') {
+      const input = {
+        'isPaid': true,
+        'lineItems': [{
+          'productId': reportId,
+          'quantity': 1,
+        }],
+        'paymentMethod': 'stripe',
+        'currency': paymentIntent.currency.toUpperCase(),
+        // 'customerId': 231936701,
+        'transactionId': paymentIntent.id,
+        'metaData': [{
+          'key': '_stripe_source_id',
+          'value': paymentIntent.id,
+        }],
+      }
+
+      try {
+        const result = await createOrder(input)
+        updateDownload(result.order.downloadableItems)
+
+        router.push(`/payment/completed?id=${result.orderId}`)
+      } catch (err) {
+        console.log('Error', err)
+      }
+    } else {
+      setErrorMessage('Unexpected state') 
+    }
+
+    setIsProcessing(false)
+  }
+
   return (
     <form onSubmit={handleStripeNew}>
-      <p>Use An Existing Payment Method</p>
-      <ul>
-        {savedCards?.map(item => (
-          <li key={item.id}>
-            <span >Select</span>
-            {item.id}
-          </li>
-        ))}
-      </ul>
+      {savedCards?.length ? (
+        <>
+          <p>Use An Existing Payment Method</p>
+          <ul>
+            {savedCards.map(item => (
+              <li key={item.id}>
+                <span >Select</span>
+                {item.id}
+              </li>
+            ))}
+          </ul>
 
-      <p>Or Enter a New Payment Method</p>
+          <p>Or Enter a New Payment Method</p>
+        </>
+      ) : null}
+     
+      <LinkAuthenticationElement id="link-authentication-element" />
+
       <PaymentElement
         options={{
           defaultValues: {
             billingDetails: {
-              // email: 'foo@bar.com',
-              // name: 'John Doe',
-              phone: '888-888-8888',
+              email: 'foo@bar.com',
+              name: 'Test Name',
+            },
+          },
+          fields: {
+            billingDetails: {
+              address: {
+                postalCode: 'never',
+              },
             },
           },
         }} 
-      /> 
-      <Button type="submit" disabled={isProcessing}>
-        {isProcessing ? 'Processing...' : 'Pay now'}
-      </Button>
+      />
+
+      <div className="pay-button">
+        <p>*Please note that due to the product features, refunds or payment cancellations are not possible.</p>
+        <p>*I hereby acknowledge and accept the payment terms.</p>
+        <button type="submit" disabled={isProcessing}>
+          {isProcessing ? 'Processing...' : 'Pay'}
+        </button>
+      </div>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   )

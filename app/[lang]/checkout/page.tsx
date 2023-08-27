@@ -20,17 +20,27 @@ export default function Checkout({
 }) {
   const { t } = useTranslation(lang, 'checkout')
   const { order } = useUserState(state => state)
-  const [clientSecret, setClientSecret] = useState()
+  const [clientSecret, setClientSecret] = useState<string>()
   const [savedCards, setSavedCards] = useState([])
 
   useEffect(() => {
-    fetchCardsIntent().then(result => (
-      setSavedCards(result?.data)
-    ))
+    // fetchCardsIntent().then(result => (
+    //   setSavedCards(result?.data)
+    // ))
 
-    checkoutIntent('report-1').then(({ clientSecret }) => (
-      setClientSecret(clientSecret)
-    ))
+    if (order) {
+      checkoutIntent({
+        amount: order.currency === 'usd' ? order.amount * 100 : order.amount,
+        currency: order.currency,
+        metadata: {
+          wcUserId: order.userId,
+          productId: order.reportId,
+          productName: order.name,
+        },
+      }).then(({ clientSecret }) => (
+        setClientSecret(clientSecret)
+      ))
+    }
   }, [])
   
   if (!order) return 'loading'
@@ -104,24 +114,19 @@ export default function Checkout({
             </select>
           </div>
 
-          <div className="pay-button">
-            <p>*Please note that due to the product features, refunds or payment cancellations are not possible.</p>
-            <p>*I hereby acknowledge and accept the payment terms.</p>
-            {/* <button type="button">Pay</button> */}
-            <a href="payment_modal.html">Pay</a>
-          </div>
+          {stripePromise && clientSecret && (
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <CheckoutForm 
+                savedCards={savedCards} 
+                reportId={order.reportId} 
+              />
+            </Elements> 
+          )}
+
         </div>
         {/* //add payment */}
 
       </section>
-
-      <p>Your order:</p>
-      
-      {stripePromise && clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm savedCards={savedCards}/>
-        </Elements> 
-      )}
     </>
   )
 }
