@@ -6,10 +6,10 @@
     grid-template-columns: repeat(3, 1fr);
     row-gap: 2rem;
 
-    #ideanote-add,
-    #ideanote-before,
-    #ideanote-after,
-    #ideanote-saved {
+    .ideanote-add,
+    .ideanote-before,
+    .ideanote-after,
+    .ideanote-saved {
         width: 20rem;
         height: 20rem;
         position: relative;
@@ -26,9 +26,9 @@
 }
 
 // 작성 전
-#ideanote-before {
+.ideanote-before {
 
-    input[type="text"] {
+    textarea {
         position: absolute;
         z-index: 2;
         top: 2.5rem;
@@ -64,7 +64,7 @@
 }
 
 // 작성 후
-#ideanote-after {
+.ideanote-after {
 
     .user-note {
         position: absolute;
@@ -118,7 +118,7 @@
 }
 
 // 저장
-#ideanote-saved {
+.ideanote-saved {
 
     .note-saved {
 
