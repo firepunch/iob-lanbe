@@ -97,6 +97,11 @@ export interface IReport extends IPost {
   }
 }
 
+export interface IReports {
+  edges: { node: IReport }[]
+  pageInfo: IPageInfo
+}
+
 export interface IOrder {
   userId: number
   reportId: number

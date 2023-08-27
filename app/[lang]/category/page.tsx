@@ -65,7 +65,7 @@ export default function Category({
     }
   }, [categoryName, fetchParams, updatePosts])
 
-  const handleSorter = async (sorter) => {
+  const handleSorter = (sorter) => {
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
@@ -173,9 +173,7 @@ export default function Category({
 
           {categoryName !== 'all' && (
             <div id="categ-description">
-              <p>
-                {t(`${categoryName}_desc`)}
-              </p>
+              <p>{t(`${categoryName}_desc`)}</p>
             </div>
           )}
 
