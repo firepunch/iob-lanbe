@@ -7,16 +7,9 @@ mutation Order($input: CreateOrderInput!) {
     order {
       downloadableItems {
         nodes {
-          id
-          name
-          url
-          product {
-            id
-            link
-            name
-            ... on SimpleProduct {
-              price
-            }
+          downloadId
+          download {
+            file
           }
         }
       }
@@ -24,6 +17,24 @@ mutation Order($input: CreateOrderInput!) {
   }
 }
 `
+
+export const FETCH_ORDER_QUERY = `
+query fetchOrder($id: ID) {
+  order(id: $id, idType: DATABASE_ID) {
+    id
+    orderNumber
+    downloadableItems {
+      nodes {
+        downloadId
+        download {
+          file
+        }
+      }
+    }
+  }
+}
+`
+
 export const CHECKOUT_QUERY = `
 mutation Checkout($input: CheckoutInput!) {
   checkout(input: $input) {

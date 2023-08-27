@@ -23,10 +23,10 @@
             border-bottom: .25rem solid $white;
         }
 
-        button {
+        .cta {
             @include see-all-button-small($white);
             width: 10rem;
-            color: $white;
+            // color: $white;
             background-color: transparent;
             font-weight: $bold-font-weight;
             margin: 1rem 0;

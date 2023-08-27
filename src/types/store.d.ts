@@ -105,15 +105,8 @@ export interface IOrder {
 }
 
 export interface IDownload {
-  nodes: {
-    id: string
-    name: string
-    url: string
-    product: {
-      id: string
-      link: string
-      name: string
-      price: string
-    }
-  }[]
+  downloadId: string
+  download: {
+    file: string
+  }
 }

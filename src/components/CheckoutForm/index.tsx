@@ -141,7 +141,7 @@ export default function CheckoutForm ({
 
       try {
         const result = await createOrder(input)
-        updateDownload(result.order.downloadableItems)
+        updateDownload(result.order.downloadableItems?.nodes?.[0])
 
         router.push(`/checkout/completed/${result.orderId}`)
       } catch (err) {

@@ -34,7 +34,7 @@ export default function Home({
 
   useEffect(() => {
     getAllPosts({
-      language:lang.toUpperCase(), 
+      language: lang.toUpperCase(), 
       userId,
       first: 4,
     }).then(result => {
