@@ -54,13 +54,13 @@ export default function Home({
     try {
       if (isSaved) {
         await removeWatchList({
-          type: 'post',
+          type,
           content_id: databaseId,
           user_id: userId,
         })
       } else {
         await createWatchList({
-          type: 'post',
+          type,
           content_id: databaseId,
           user_id: userId,
         })

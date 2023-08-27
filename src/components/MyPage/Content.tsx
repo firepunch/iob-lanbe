@@ -23,7 +23,6 @@ export default function Content({
 
           <div className="saved-read">
             <button>{t('saved')}(0)</button>
-            <button>{t('purchased')} (0)</button>
           </div>
         </div>
       </div>

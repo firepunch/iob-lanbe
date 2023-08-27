@@ -16,8 +16,6 @@ export default function Report({
 
         <div className="filters-wrap">
           <div className="country-category">
-            <button>{t('country')}</button>
-            <button>{t('category')}</button>
           </div>
 
           <div className="saved-read">
