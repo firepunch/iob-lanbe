@@ -109,7 +109,7 @@ export default function CheckoutForm ({
       elements,
       redirect: 'if_required',
       confirmParams: {
-        return_url: `${window.location.origin}/completion`,
+        return_url: `${window.location.origin}/completed`,
         payment_method_data: {
           billing_details: {
             address: {
@@ -143,7 +143,7 @@ export default function CheckoutForm ({
         const result = await createOrder(input)
         updateDownload(result.order.downloadableItems)
 
-        router.push(`/payment/completed?id=${result.orderId}`)
+        router.push(`/checkout/completed/${result.orderId}`)
       } catch (err) {
         console.log('Error', err)
       }
