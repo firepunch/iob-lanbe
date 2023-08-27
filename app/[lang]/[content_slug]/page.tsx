@@ -1,7 +1,7 @@
 'use client'
 
 import { getContentBySlug, getContents } from '@/api_gql'
-import { createWatchList, fetchNotes, removeWatchList } from '@/api_wp'
+import { createNote, createWatchList, fetchNotes, removeWatchList } from '@/api_wp'
 import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -9,6 +9,7 @@ import useContentState from '@/stores/contentStore'
 import { dateEnFormat, getAuthorInfo, getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
+import { report } from 'process'
 import { useEffect, useState } from 'react'
 
 export default function Category({
@@ -20,6 +21,7 @@ export default function Category({
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
   const userId = getUserId()
+  const contentId = post?.databaseId
 
   useEffect(() => {
     getContentBySlug(content_slug, userId).then(result => (
@@ -32,28 +34,30 @@ export default function Category({
   }, [])
 
   useEffect(() => {
-    if(post?.id) {
+    if(contentId) {
       fetchNotes({
         user_id: userId,
-        post_id: post.id
+        post_id: contentId
       }).then(result => {
         updateNotes(result)
       })
     }
   }, [post?.id])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+  const handleToggleBookmark = async ({ isSaved }) => {
+    if (!contentId) return
+
     try {
       if (isSaved) {
         await removeWatchList({
           type: 'report',
-          content_id: databaseId,
+          content_id: contentId,
           user_id: userId,
         })
       } else {
         await createWatchList({
           type: 'report',
-          content_id: databaseId,
+          content_id: contentId,
           user_id: userId,
         })
       }
@@ -70,6 +74,29 @@ export default function Category({
     setIsZoomed(prevZoomed => !prevZoomed)
   }
 
+  const handleCreateNote = async (content: string) => {
+    if(!contentId) return
+
+    try {
+      await createNote({
+          user_id: userId,
+          post_id: contentId,
+          content
+      })
+      const result = await fetchNotes({
+          user_id: userId,
+          post_id: contentId
+      })
+      updateNotes(result)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleUpdateNote = async (noteId: number, content: string) => {
+    console.log(noteId, content)
+  }
+
   const getParentCategory = (parentId: string) => (
     post?.categories?.edges.find(({ node }) => (
       parentId === node.id
@@ -79,7 +106,6 @@ export default function Category({
   if (!post) {
     return 'loading'
   }
-
 
   return (
     <div className="iob-single-content">
@@ -121,7 +147,6 @@ export default function Category({
           onToggleBookmark={() => (
             handleToggleBookmark({
               isSaved: post?.lanbeContent.is_save,
-              databaseId: post?.databaseId,
             })
           )}
         />
@@ -146,7 +171,6 @@ export default function Category({
               onToggle={() => (
                 handleToggleBookmark({
                   isSaved: post?.lanbeContent.is_save,
-                  databaseId: post?.databaseId,
                 })
               )}
             />
@@ -167,17 +191,17 @@ export default function Category({
       <section id="idea-notes">
         <h5>{t('idea_h5')}</h5>
         <div className="idea-note-wrap">
-          {notes?.map(item => {
-            console.log(item)
-
-            return (
-              <IdeaNote type="view" lang={lang} onSubmit={value => {
-                console.log(value)
-              }}/>
-            )
-          })}
+          {notes?.map(item => (
+            <IdeaNote
+              key={item.id}
+              type="view"
+              lang={lang}
+              onSubmit={value => handleUpdateNote(item.id, value)}
+              {...item}
+            />
+            ))}
           {notes?.length < 4 && (
-            <IdeaNote type="add" lang={lang} />
+            <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
           )}
         </div>
       </section>
@@ -201,7 +225,6 @@ export default function Category({
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
                 })
               )}
             />
