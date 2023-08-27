@@ -503,16 +503,6 @@
                 margin: 0;
                 resize: none;
             }
-
-            button {
-                position: absolute;
-                bottom: 2rem;
-                right: 2rem;
-
-                background-color: transparent;
-                border: none;
-                text-decoration: underline;
-            }
         }
     }
 }
@@ -582,11 +572,6 @@
 
                 .ideanote-input {
                     font-size: .75rem;
-                }
-
-                button {
-                    right: 1rem;
-                    bottom: 30%;
                 }
             }
         }

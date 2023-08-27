@@ -1,7 +1,7 @@
 'use client'
 
 import { getContentBySlug, getContents } from '@/api_gql'
-import { createNote, createWatchList, fetchNotes, removeWatchList } from '@/api_wp'
+import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateNote } from '@/api_wp'
 import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -94,7 +94,34 @@ export default function Category({
   }
 
   const handleUpdateNote = async (noteId: number, content: string) => {
-    console.log(noteId, content)
+    try {
+      await updateNote({
+          note_id: noteId,
+          content
+      })
+      const result = await fetchNotes({
+          user_id: userId,
+          post_id: contentId
+      })
+      updateNotes(result)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleDeleteNote = async (noteId: number) => {
+    try {
+      await deleteNote({ 
+        note_id: noteId
+      })
+      const result = await fetchNotes({
+          user_id: userId,
+          post_id: contentId
+      })
+      updateNotes(result)
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   const getParentCategory = (parentId: string) => (
@@ -197,6 +224,7 @@ export default function Category({
               type="view"
               lang={lang}
               onSubmit={value => handleUpdateNote(item.id, value)}
+              onDelete={() => handleDeleteNote(item.id)}
               {...item}
             />
             ))}

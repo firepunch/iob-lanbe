@@ -7,6 +7,7 @@ import {
   ILoginUser,
   IFetchWatchList,
   IBodyWatchList,
+  IUpdateNote,
 } from './types/api'
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
@@ -26,7 +27,7 @@ async function fetchAPI({
   data = {},
   queryParams = undefined
 }: {
-  method: 'GET' | 'POST' | 'DELETE',
+  method: 'GET' | 'POST' | 'DELETE' | 'PUT',
   prefixPath: 'wpAPI' | 'customAPI' | 'formAPI' | 'searchAPI'
   path: string,
   data?: object | FormData,
@@ -164,6 +165,26 @@ export async function createNote(data: ICreateNote) {
     path: '/notes',
     method: 'POST',
     data,
+  })
+  return res
+}
+
+export async function updateNote(data: IUpdateNote) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/notes/',
+    method: 'PUT',
+    data,
+  })
+  return res
+}
+
+export async function deleteNote(data: { note_id: number }) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/notes',
+    method: 'DELETE',
+    data
   })
   return res
 }
