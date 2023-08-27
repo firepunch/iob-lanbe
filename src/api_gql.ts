@@ -81,9 +81,9 @@ export async function fetchOrder(id) {
   return data.order
 }
 
-export async function getProductBySlug(productSlug, userId) {
+export async function getProductBySlug(variables) {
   const data = await fetchAPI(REPORT_BY_SLUG_QUERY, {
-    variables: { productSlug, userId },
+    variables,
   })
   return data.product
 }

@@ -8,7 +8,7 @@ import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
 import useUserState from '@/stores/userStore'
-import { dateFormat, getAuthorInfo, getUserId, isValidToken } from '@/utils/lib'
+import { dateFormat, getAuthorInfo, getUser, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,10 +23,14 @@ export default function Report({
   const { report, updateReport } = useContentState(state => state)
   const { updateOrder } = useUserState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
-  const userId = getUserId()
+  const { userId, email } = getUser()
 
   useEffect(() => {
-    getProductBySlug(report_slug, userId).then(result => {
+    getProductBySlug({
+      productSlug: report_slug, 
+      userId,
+      email,
+    }).then(result => {
       updateReport(result)
     })
   }, [])
@@ -47,7 +51,11 @@ export default function Report({
         })
       }
 
-      const result = await getProductBySlug(report_slug, userId)
+      const result = await getProductBySlug({
+        productSlug: report_slug, 
+        userId,
+        email,
+      })
       updateReport(result)
     } catch (err) {
       console.log(err)

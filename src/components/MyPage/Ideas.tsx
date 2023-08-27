@@ -16,7 +16,6 @@ export default function Ideas({
         <h2>{t('ideas').toUpperCase()}</h2>
       </div>
 
-
       <div id="default-text">
         <p className="none-saved-text">{t('ideas_none')}</p>
         <p className="explore-text">{t('ideas_explore')}</p>

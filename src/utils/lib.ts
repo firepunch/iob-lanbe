@@ -31,6 +31,7 @@ type Tokens = {
   authToken?: string
   user?: {
     databaseId: number
+    email: string
   }
   sessionToken?: string
 }
@@ -87,8 +88,16 @@ export const isValidToken = () => {
 
 export const getUserId = () => {
   const [userData] = getStorageData(AUTH_TOKEN)
-
   return userData?.user?.databaseId || 0
+}
+
+export const getUser = () => {
+  const [userData] = getStorageData(AUTH_TOKEN)
+  
+  return {
+    userId: userData?.user?.databaseId || 0,
+    email: userData?.user?.email || '',
+  }
 }
 
 export const sort2variables = (type: string) => {
