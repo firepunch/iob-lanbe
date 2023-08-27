@@ -157,7 +157,9 @@ export default function Category({
       <section id="idea-notes">
         <h5>{t('idea_h5')}</h5>
         <div className="idea-note-wrap">
-          <IdeaNote type="view" lang={lang} />
+          <IdeaNote type="view" lang={lang} onSubmit={value => {
+            console.log(value)
+          }}/>
           <IdeaNote type="add" lang={lang} />
         </div>
       </section>
