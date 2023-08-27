@@ -1,7 +1,7 @@
 'use client'
 
 import { getContentBySlug, getContents } from '@/api_gql'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, fetchNotes, removeWatchList } from '@/api_wp'
 import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -16,7 +16,7 @@ export default function Category({
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
-  const { post, recommend, updatePost, updateRecommend } = useContentState(state => state)
+  const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
   const userId = getUserId()
@@ -30,6 +30,17 @@ export default function Category({
       updateRecommend(result)
     ))
   }, [])
+
+  useEffect(() => {
+    if(post?.id) {
+      fetchNotes({
+        user_id: userId,
+        post_id: post.id
+      }).then(result => {
+        updateNotes(result)
+      })
+    }
+  }, [post?.id])
 
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -104,7 +115,6 @@ export default function Category({
       </section>
 
       <section id="main-content">
-
         <PostOptions
           isSaved={post.lanbeContent.is_save}
           handleFontSize={handleFontSize} 
@@ -157,10 +167,18 @@ export default function Category({
       <section id="idea-notes">
         <h5>{t('idea_h5')}</h5>
         <div className="idea-note-wrap">
-          <IdeaNote type="view" lang={lang} onSubmit={value => {
-            console.log(value)
-          }}/>
-          <IdeaNote type="add" lang={lang} />
+          {notes?.map(item => {
+            console.log(item)
+
+            return (
+              <IdeaNote type="view" lang={lang} onSubmit={value => {
+                console.log(value)
+              }}/>
+            )
+          })}
+          {notes?.length < 4 && (
+            <IdeaNote type="add" lang={lang} />
+          )}
         </div>
       </section>
 

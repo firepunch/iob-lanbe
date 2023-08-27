@@ -1,3 +1,4 @@
+import { TStringObj } from './types'
 import {
   ICreateNote,
   ICreateUser,
@@ -23,11 +24,13 @@ async function fetchAPI({
   prefixPath,
   path,
   data = {},
+  queryParams = undefined
 }: {
   method: 'GET' | 'POST' | 'DELETE',
   prefixPath: 'wpAPI' | 'customAPI' | 'formAPI' | 'searchAPI'
   path: string,
-  data: object | FormData,
+  data?: object | FormData,
+  queryParams?: object,
 }) {
   const headers = {}
   
@@ -40,15 +43,18 @@ async function fetchAPI({
       'Authorization'
     ] = `Basic ${process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
-
-  const res = await fetch(`${API_URL}${API_MAP[prefixPath]}${path}`, {
+  
+  const params = queryParams ? '?' + new URLSearchParams(queryParams as Record<string,string>) : ''
+  const res = await fetch(`${API_URL}${API_MAP[prefixPath]}${path}${params}`, {
     ...!isEmpty(headers) && { headers },
     method,
-    body: prefixPath === 'formAPI' ?
-      data :
-      JSON.stringify({
-        ...data,
-      }) as any,
+    ...method !== 'GET' && data && {
+      body: prefixPath === 'formAPI' ?
+        data :
+        JSON.stringify({
+          ...data,
+        }) as any,
+    }
   })
   
   const json = await res.json()
@@ -141,15 +147,15 @@ export async function removeWatchList(data: IBodyWatchList) {
   })
 }
 
-export async function fetchNotes(data: IFetchNotes) {
+export async function fetchNotes(queryParams: IFetchNotes) {
   const res = await fetchAPI({
     prefixPath: 'customAPI',
     path: '/notes',
     method: 'GET',
-    data,
+    queryParams,
   })
 
-  return res
+  return res?.data
 }
 
 export async function createNote(data: ICreateNote) {
