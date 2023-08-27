@@ -9,7 +9,6 @@ import useContentState from '@/stores/contentStore'
 import { dateEnFormat, getAuthorInfo, getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { report } from 'process'
 import { useEffect, useState } from 'react'
 
 export default function Category({
