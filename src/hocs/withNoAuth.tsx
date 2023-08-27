@@ -7,7 +7,9 @@ const withNoAuth = (Component: NextComponentType) => {
     const isValid = isValidToken()
     const { back } = useRouter()
 
-    return <Component {...props} />
+    return isValid ? 
+      back() :
+      <Component {...props} />
   }
 
   return Auth
