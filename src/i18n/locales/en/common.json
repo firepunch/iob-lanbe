@@ -8,6 +8,8 @@
     "value": "oldest"
   }],
 
+  "selected": "selected",
+  "clear_all": "Clear all",
   "country_filter_options": [{
     "label": "Southeast Asia",
     "value": "southeast asia"

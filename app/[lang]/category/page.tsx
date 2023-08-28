@@ -39,7 +39,8 @@ export default function Category({
   const { t } = useTranslation(lang, 'category-page')
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryName: searchParams.get('name') || '', 
+    categoryName: searchParams.get('name') || '',
+    countries: [],
     language: lang.toUpperCase(), 
     userId: getUserId(),
     ...initPagination,
@@ -47,7 +48,12 @@ export default function Category({
   })
   
   useEffect(() => {
-    getPosts(fetchParams).then(result => {
+    getPosts({
+      ...fetchParams,
+      ...fetchParams?.countries?.length && {
+        categoryName: fetchParams.categoryName === '' ? fetchParams.countries.join(',') : [fetchParams.categoryName, ...fetchParams.countries].join(','),
+      },
+    }).then(result => {
       updatePosts({
         edges: result.edges,
         pageInfo: {
@@ -74,11 +80,12 @@ export default function Category({
     }))
   }
   
-  const handleCountry = (categoryName) => {
-    setFetchParams(prev => ({
-      ...prev,
+  const handleCountry = (countries) => {
+    console.log(countries)
+    setFetchParams(prev => ({ 
+      ...prev, 
       ...initPagination,
-      categoryName,
+      countries,
     }))
   }
   
@@ -201,7 +208,13 @@ export default function Category({
               >
                 {ct('country')}
               </button>
-              {isOpenFilter && <CountryFilter t={ct} />}
+              {isOpenFilter && (
+                <CountryFilter 
+                  ct={ct} 
+                  value={fetchParams?.countries}
+                  onChange={handleCountry}
+                />
+              )}
             </div>
 
             <div className="sort">
