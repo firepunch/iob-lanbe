@@ -1,6 +1,5 @@
 'use client'
 
-import { searchRequest } from '@/api_wp'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import closeIcon from '@/imgs/close.png'
@@ -25,26 +24,6 @@ export default function SearchWall({
 
   const handleSearch = async () => {
     redirect(`${lang}/search/${keyword}`)
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    try {
-      const formData = new FormData()
-      // const { id, value } = e.target
-      // formData.set(id, value)
-      // setFormData(formData)
-      formData.append('first-name', 'yu')
-      formData.append('last-name', 'da')
-      formData.append('user-email', 'ex@gmail.com')
-      formData.append('message', 'hello')
-      console.log(e.target)
-
-      await searchRequest(formData)
-    } catch (error) {
-      console.error('이메일 폼 전송 에러:', error)
-    }
   }
 
   return (
