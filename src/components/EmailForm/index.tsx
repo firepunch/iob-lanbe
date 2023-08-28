@@ -1,33 +1,32 @@
 'use client'
 
-import { useState } from 'react'
+import { sendEmailForm } from '@/api_wp'
 import Icons from '@/components/Icons'
 
 interface emailFormProps {
-  errorCode?: string;
-  onSubmit: (email) => void;
-  children?: React.ReactNode;
 }
 
 export default function EmailForm({
-  errorCode,
-  onSubmit,
-  children,
-  ...props
 }: emailFormProps) {
-  const [email, setEmail] = useState('')
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
 
-  // const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-  //   onSubmit(email)
-  // }
+    try {
+      const formData = new FormData(e.currentTarget)
+      await sendEmailForm(formData)
+      alert('이메일 폼 전송에 성공했습니다!')
+    } catch (error) {
+      console.error('이메일 폼 전송 에러:', error)
+    }
+  }
 
   return (
     <>
       <div className="footer-signup">
         <p>Sign up to<br/> receive our newsletter.</p>
-        <form  data-name="email" onSubmit={onSubmit}>
-          <input type="text" placeholder="Email" id="email"/>
+        <form onSubmit={handleSubmit}>
+          <input type="text" placeholder="Email" name="user-email"/>
           <button type="submit">
             <Icons type="arrowBlack" />
           </button>

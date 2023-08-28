@@ -15,23 +15,6 @@ export default function Footer({
 }) {  
   const { t } = useTranslation(lang, 'layout')
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    const formData = new FormData(e.currentTarget)
-    const formProps = Object.fromEntries(formData) as TStringObj
-    console.log(formProps)
-
-    try {
-      const { code } = await sendEmailForm(formData)
-      // setErrorCode(code)
-      alert('이메일 폼 전송에 성공했습니다!')
-    } catch (error) {
-      console.error('이메일 폼 전송 에러:', error)
-    }
-  }
-
   return (
     <footer>
       <div id="footer-left">
@@ -49,14 +32,7 @@ export default function Footer({
         <div className="footer-pages">
 
           <div className="footer-signup">
-            <p>Sign up to<br/> receive our newsletter.</p>
-            <form onSubmit={handleFormSubmit}>
-              <input type="email" placeholder="Email" name="user-email"/>
-              <button type="submit">
-                <Icons type="arrowBlack" />
-              </button>
-            </form>
-        
+            <EmailForm />
           </div>
           <ul>
             <li>
