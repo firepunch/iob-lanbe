@@ -115,8 +115,10 @@ export const toComma = (value: string|number) => {
 }
 
 export const getCountry = (categories) => {
-  const countryNode = categories.edges?.find(({ node }) => {
-    return node.parent?.node.name === 'Country'
+  if (!categories) return ''
+  
+  const countryNode = categories?.edges?.find(({ node }) => {
+    return node?.parent?.node.name === 'Country'
   })
 
   return countryNode?.node?.name

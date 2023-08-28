@@ -18,8 +18,7 @@ export default function Settings({
   }
 
   return (
-    <section id="default-content">
-    
+    <>
       <div id="default-title" className="dt-no-buttons">
         <h2>{t('settings_en').toUpperCase()}</h2>
       </div>
@@ -192,7 +191,6 @@ export default function Settings({
                     
         </div>
       </form>
-    
-    </section>
+    </>
   )
 }
