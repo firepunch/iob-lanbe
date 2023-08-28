@@ -5,6 +5,7 @@ import { EmailForm } from '@/components'
 import Icons from '@/components/Icons'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
+import { TStringObj } from '@/types'
 import Link from 'next/link'
 
 export default function Footer({
@@ -14,10 +15,15 @@ export default function Footer({
 }) {  
   const { t } = useTranslation(lang, 'layout')
 
-  const handleSubmit = async (email: string) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const formData = new FormData(e.currentTarget)
+    const formProps = Object.fromEntries(formData) as TStringObj
+    console.log(formProps)
+
     try {
-      const formData = new FormData()
-      formData.append('user-email', 'ex@gmail.com')
       const { code } = await sendEmailForm(formData)
       // setErrorCode(code)
       alert('이메일 폼 전송에 성공했습니다!')
@@ -41,10 +47,17 @@ export default function Footer({
 
       <div id="footer-right">
         <div className="footer-pages">
-          {/* <EmailForm  
-            errorCode={'errorCode'}
-            onSubmit={handleSubmit} 
-          /> */}
+
+          <div className="footer-signup">
+            <p>Sign up to<br/> receive our newsletter.</p>
+            <form onSubmit={handleFormSubmit}>
+              <input type="email" placeholder="Email" name="user-email"/>
+              <button type="submit">
+                <Icons type="arrowBlack" />
+              </button>
+            </form>
+        
+          </div>
           <ul>
             <li>
               <Link href={`/${lang}/category`}>

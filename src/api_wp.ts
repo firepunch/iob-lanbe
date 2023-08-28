@@ -25,7 +25,7 @@ async function fetchAPI({
   prefixPath,
   path,
   data = {},
-  queryParams = undefined
+  queryParams = undefined,
 }: {
   method: 'GET' | 'POST' | 'DELETE' | 'PUT',
   prefixPath: 'wpAPI' | 'customAPI' | 'formAPI' | 'searchAPI'
@@ -37,6 +37,8 @@ async function fetchAPI({
   
   if (prefixPath !== 'formAPI') {
     headers['Content-Type'] = 'application/json'
+  } else {
+    headers['Referrer-Policy'] = 'no-referrer'
   }
 
   if (process.env.NEXT_PUBLIC_WORDPRESS_AUTH_REFRESH_TOKEN) {
@@ -55,7 +57,7 @@ async function fetchAPI({
         JSON.stringify({
           ...data,
         }) as any,
-    }
+    },
   })
   
   const json = await res.json()
@@ -184,7 +186,7 @@ export async function deleteNote(data: { note_id: number }) {
     prefixPath: 'customAPI',
     path: '/notes',
     method: 'DELETE',
-    data
+    data,
   })
   return res
 }
