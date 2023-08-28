@@ -109,6 +109,20 @@ query AllPosts(
           code
           locale
         }
+        categories {
+          edges {
+            node {
+              parent {
+                node {
+                  id
+                  name
+                }
+              }
+              id
+              name
+            }
+          }
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 'use client'
 
 import { IPost } from '@/types/store'
-import { dateFormat } from '@/utils/lib'
+import { dateFormat, getCountry } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import Bookmark from '../Bookmark'
@@ -17,9 +17,12 @@ export const PostCard = ({
   slug,
   title = '',
   date = '',
-  lanbeContent: { is_save, country },
+  lanbeContent: { is_save },
+  categories,
   onToggleBookmark,
 }: PostCardProps) => {
+  const country = getCountry(categories)
+
   return (
     <Link href={`/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">

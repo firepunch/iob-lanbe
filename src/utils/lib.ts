@@ -113,3 +113,11 @@ export const sort2variables = (type: string) => {
 export const toComma = (value: string|number) => {
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+
+export const getCountry = (categories) => {
+  const countryNode = categories.edges?.find(({ node }) => {
+    return node.parent?.node.name === 'Country'
+  })
+
+  return countryNode.node.name
+}

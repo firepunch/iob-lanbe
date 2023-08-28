@@ -37,7 +37,12 @@ export interface IPost {
       node: {
         id: string
         name: string
-        parentId: string
+        parent: {
+          node :{
+            id: string
+            name: string
+          }[]
+        }
       }
     }[]
   }

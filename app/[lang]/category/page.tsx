@@ -188,7 +188,10 @@ export default function Category({
 
           <div id="filters-sorting">
             <div className="filters">
-              <span className="all-button" onClick={() => handleCategory('')}>
+              <span 
+                className={`all-button ${fetchParams.categoryName === '' && 'black-button'}`} 
+                onClick={() => handleCategory('')}
+              >
                 {ct('all')}
               </span>
               <button
