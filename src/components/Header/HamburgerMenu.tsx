@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Icons from '../Icons'
+import SearchWall from '../SearchWall'
 
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
@@ -20,6 +21,7 @@ export default function MobileMenu({
   const { t: ct } = useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
   const [isValid, setIsValid] = useState<boolean>(false)
 
@@ -135,10 +137,13 @@ export default function MobileMenu({
 
           {/* search */}
           <div id="mm-search">
-            <Link href={`/${lang}/search`}>
+            <span 
+              className="search-link"
+              onClick={() => setOpenSearchWall(true)}
+            >
               <h2>{t('search')}</h2>
               <Image src={SearchBlackIcon} alt="Search" />
-            </Link>
+            </span>
           </div>
 
           {/* signin */}
@@ -155,6 +160,10 @@ export default function MobileMenu({
             )}
           </div>
         </section>
+      )}
+
+      {openSearchWall && (
+        <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
       )}
     </>
   )

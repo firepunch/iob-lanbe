@@ -6,13 +6,11 @@ import { isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import HamburgerMenu from './HamburgerMenu'
-import LanguageSwitcher from './LanguageSwitcher'
 import Icons from '../Icons'
 import SearchWall from '../SearchWall'
+import HamburgerMenu from './HamburgerMenu'
+import LanguageSwitcher from './LanguageSwitcher'
 
-import ArrowBlackImg from '@/imgs/arrow_black.png'
-import ArrowWhiteImg from '@/imgs/arrow_white.png'
 import SearchImg from '@/imgs/search_black.png'
 
 export default function Header({
@@ -145,7 +143,7 @@ export default function Header({
               </Link>
             ) : (
               <Link href={`/${lang}/sign-in`}>
-                <Image src={ArrowBlackImg} alt="Arrow" />
+                <Icons type="arrowBlack" />
                 {t('sign_in')}
               </Link>
             )}
