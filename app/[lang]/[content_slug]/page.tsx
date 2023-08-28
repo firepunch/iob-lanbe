@@ -33,10 +33,10 @@ export default function Category({
   }, [])
 
   useEffect(() => {
-    if(contentId) {
+    if (contentId) {
       fetchNotes({
         user_id: userId,
-        post_id: contentId
+        post_id: contentId,
       }).then(result => {
         updateNotes(result)
       })
@@ -74,17 +74,17 @@ export default function Category({
   }
 
   const handleCreateNote = async (content: string) => {
-    if(!contentId) return
+    if (!contentId) return
 
     try {
       await createNote({
-          user_id: userId,
-          post_id: contentId,
-          content
+        user_id: userId,
+        post_id: contentId,
+        content,
       })
       const result = await fetchNotes({
-          user_id: userId,
-          post_id: contentId
+        user_id: userId,
+        post_id: contentId,
       })
       updateNotes(result)
     } catch (err) {
@@ -95,12 +95,12 @@ export default function Category({
   const handleUpdateNote = async (noteId: number, content: string) => {
     try {
       await updateNote({
-          note_id: noteId,
-          content
+        note_id: noteId,
+        content,
       })
       const result = await fetchNotes({
-          user_id: userId,
-          post_id: contentId
+        user_id: userId,
+        post_id: contentId,
       })
       updateNotes(result)
     } catch (err) {
@@ -111,14 +111,14 @@ export default function Category({
   const handleDeleteNote = async (noteId: number) => {
     try {
       await deleteNote({ 
-        note_id: noteId
+        note_id: noteId,
       })
       const result = await fetchNotes({
-          user_id: userId,
-          post_id: contentId
+        user_id: userId,
+        post_id: contentId,
       })
       updateNotes(result)
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
   }
@@ -226,7 +226,7 @@ export default function Category({
               onDelete={() => handleDeleteNote(item.id)}
               {...item}
             />
-            ))}
+          ))}
           {notes?.length < 4 && (
             <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
           )}

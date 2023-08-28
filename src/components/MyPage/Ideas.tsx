@@ -12,7 +12,7 @@ import IdeaNote from '../IdeaNote'
 export default function Ideas({
   t,
   lang,
-  userId
+  userId,
 }: {
   t: TI18N
   lang: ValidLocale
@@ -28,14 +28,14 @@ export default function Ideas({
     })
   }, [])
 
-    const handleUpdateNote = async (noteId: number, content: string) => {
+  const handleUpdateNote = async (noteId: number, content: string) => {
     try {
       await updateNote({
-          note_id: noteId,
-          content
+        note_id: noteId,
+        content,
       })
       const result = await fetchNotes({
-          user_id: userId,
+        user_id: userId,
       })
       updateNotes(result)
     } catch (err) {
@@ -46,13 +46,13 @@ export default function Ideas({
   const handleDeleteNote = async (noteId: number) => {
     try {
       await deleteNote({ 
-        note_id: noteId
+        note_id: noteId,
       })
       const result = await fetchNotes({
-          user_id: userId,
+        user_id: userId,
       })
       updateNotes(result)
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
   }
@@ -66,7 +66,7 @@ export default function Ideas({
       {notes?.length ? (
         <section className="ideanotes-designs">
           {notes.map(item => (
-           <IdeaNote
+            <IdeaNote
               key={item.id}
               type="view"
               lang={lang}

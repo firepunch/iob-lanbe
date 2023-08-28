@@ -7,6 +7,7 @@ import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
 import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
+import POST_BY_SAVED from './queries/postBySaved'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 import { ILoginUser } from './types/api'
@@ -158,6 +159,13 @@ export async function getContentByDatabaseID(databaseID) {
     variables: { databaseID },
   })
   return data
+}
+
+export async function getPostBySaved(variables) {
+  const data = await fetchAPI(POST_BY_SAVED, {
+    variables,
+  })
+  return data.posts.edges
 }
 
 // EXAMPLE
