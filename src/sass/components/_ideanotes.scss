@@ -1,29 +1,100 @@
+// 콘텐츠에서 아이디어 노트 스타일링 같게
+@mixin ideanote {
+    width: 14.5rem;
+    height: 14.5rem;
+    margin: auto;
+    position: relative;
+
+    img {
+        position: absolute;
+    }
+
+    .note {
+        width: 14.5rem;
+        height: 14.5rem;
+    }
+}
+
 .ideanotes-designs {
     width: 80%;
     margin: 100px auto;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
 
-    .ideanote-add,
-    .ideanote-before,
-    .ideanote-after,
-    .ideanote-saved {
-        width: 20rem;
-        height: 20rem;
+    // .ideanote-add,
+    // .ideanote-before,
+    // .ideanote-after,
+    // .ideanote-saved {
+    //     width: 20rem;
+    //     height: 20rem;
+    //     position: relative;
+
+    //     img {
+    //         position: absolute;
+    //     }
+
+    //     .note {
+    //         width: 20rem;
+    //         height: 20rem;
+    //     }
+    // }
+
+    .ideanote {
+        width: 14.5rem;
+        height: 14.5rem;
+        margin: auto;
         position: relative;
-
+    
         img {
             position: absolute;
         }
-
+    
         .note {
-            width: 20rem;
-            height: 20rem;
+            width: 14.5rem;
+            height: 14.5rem;
         }
     }
 }
+
+@media (min-width: 576px) {
+    .ideanotes-designs {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .ideanotes-designs {
+        width: 80%;
+    }
+}
+
+@media (min-width: 992px) {
+    .ideanotes-designs {
+        margin: 3rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .ideanotes-designs {
+        width: 60%;
+
+        .ideanote {
+            width: 20rem;
+            height: 20rem;
+
+            .note {
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+    }
+}
+
+
 
 // 작성 전
 .ideanote-before {

@@ -495,7 +495,7 @@
 
 // idea notes wrap
 #idea-notes {
-    width: 80%;
+    width: 85%;
     margin: auto;
     margin-top: 5rem;
     padding-bottom: 2rem;
@@ -508,27 +508,36 @@
     }
 
     .idea-note-wrap {
+        display: grid;
+
+        // mobile first
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
 
         .ideanote {
-            width: 16rem;
-            height: 16rem;
-            margin: auto;
-            margin-bottom: 2rem;
-            position: relative;
-
-            .note-bg {
-              width: 100%;
-            }
-
-            .ideanote-input {
-                width: auto;
-                background-color: transparent;
-                border: none;
-                outline: none;
-                margin: 0;
-                resize: none;
-            }
+            @include ideanote;
         }
+
+        // .ideanote {
+        //     width: 16rem;
+        //     height: 16rem;
+        //     margin: auto;
+        //     margin-bottom: 2rem;
+        //     position: relative;
+
+        //     .note-bg {
+        //       width: 100%;
+        //     }
+
+        //     .ideanote-input {
+        //         width: auto;
+        //         background-color: transparent;
+        //         border: none;
+        //         outline: none;
+        //         margin: 0;
+        //         resize: none;
+        //     }
+        // }
     }
 }
 
@@ -608,16 +617,26 @@
     #idea-notes {
 
         .idea-note-wrap {
-            @include flex-center;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
 
-            .ideanote {
-                margin-bottom: 0;
-                margin: 0 .5rem;
+            // .ideanote {
+            //     width: 15rem;
 
-                .ideanote-input {
-                    font-size: .75rem;
-                }
-            }
+            //     .note {
+            //         width: 15rem;
+            //         height: 15rem;
+            //     }
+            // }
+
+            // .ideanote {
+            //     margin-bottom: 0;
+            //     margin: 0 .5rem;
+
+            //     .ideanote-input {
+            //         font-size: .75rem;
+            //     }
+            // }
         }
     }
 }
@@ -707,7 +726,11 @@
     }
 
     #idea-notes {
-        width: 55%;
+        width: 70%;
+
+        .idea-note-wrap {
+            row-gap: 2rem;
+        }
     }
 
     #recommended-content {
@@ -753,6 +776,7 @@
     }
 
     #idea-notes {
+        width: 50%;
         padding-bottom: 5rem;
     }
 }
@@ -860,16 +884,29 @@
     }
 
     #idea-notes {
-        width: 35%;
+        width: 50%;
         padding-bottom: 3.5rem;
 
         .idea-note-wrap {
+            width: 80%;
+            margin: auto;
             
-            .idea-note-1,
-            .add-idea-note {
-                width: 20rem;
-                height: 20rem;
+            .ideanote {
+                width: 17rem;
+                height: 17rem;
+                gap: 3rem;
+
+                .note {
+                    width: 17rem;
+                    height: 17rem;
+                }
             }
+
+            // .idea-note-1,
+            // .add-idea-note {
+            //     width: 20rem;
+            //     height: 20rem;
+            // }
         }
     }
 }
