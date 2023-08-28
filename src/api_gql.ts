@@ -2,7 +2,7 @@ import CATEGORIES_QUERY from '@/queries/categories'
 import { CHECKOUT_QUERY, FETCH_ORDER_QUERY, ORDER_QUERY } from '@/queries/orders'
 import POST_BY_CATEGORY_QUERY from '@/queries/postByCategory'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
-import POSTS_QUERY from '@/queries/posts'
+import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
 import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
@@ -119,6 +119,13 @@ export async function getAllCategories(language) {
     variables: { language },
   })
   return data.categories.edges
+}
+
+export async function getPosts(variables) {
+  const data = await fetchAPI(GET_POSTS_QUERY, {
+    variables,
+  })
+  return data.posts
 }
 
 export async function getAllPosts(variables) {

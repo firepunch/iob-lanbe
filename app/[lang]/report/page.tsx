@@ -40,7 +40,7 @@ export default function Reports({
         edges: result.edges,
         pageInfo: {
           ...result.pageInfo,
-          initTotal: reports.pageInfo.initTotal || result.pageInfo.total,
+          initTotal: reports.pageInfo?.initTotal || result.pageInfo.total,
         },        
       })
     ))

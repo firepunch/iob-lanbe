@@ -1,8 +1,8 @@
 'use client'
 
-import { getAllPosts, getContentsByCategory } from '@/api_gql'
+import { getAllPosts, getContentsByCategory, getPosts } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { CategoryFilter, Icons, Pagination, PostCard, Select } from '@/components'
+import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
@@ -34,13 +34,12 @@ export default function Category({
   params: { lang: ValidLocale }
 }) {
   const searchParams = useSearchParams()
-  const categoryName = searchParams.get('name') || 'all'
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categorySlug: categoryName, 
+    categoryName: searchParams.get('name') || '', 
     language: lang.toUpperCase(), 
     userId: getUserId(),
     ...initPagination,
@@ -48,28 +47,38 @@ export default function Category({
   })
   
   useEffect(() => {
-    if (categoryName === 'all') {
-      getAllPosts(fetchParams).then(result => {
-        updatePosts({
-          edges: result.edges,
-          pageInfo: {
-            ...result.pageInfo,
-            initTotal: posts.pageInfo.initTotal || result.pageInfo.total,
-          },
-        })
+    getPosts(fetchParams).then(result => {
+      updatePosts({
+        edges: result.edges,
+        pageInfo: {
+          ...result.pageInfo,
+          initTotal: posts.pageInfo?.initTotal || result.pageInfo.total,
+        },
       })
-    } else {
-      getContentsByCategory(fetchParams).then(result => {
-        updatePosts(result)
-      })
-    }
-  }, [categoryName, fetchParams, updatePosts])
+    })
+  }, [fetchParams, updatePosts])
 
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
       ...sort2variables(sorter),
+    }))
+  }
+
+  const handleCategory = (categoryName: string) => {
+    setFetchParams(prev => ({
+      ...prev,
+      ...initPagination,
+      categoryName,
+    }))
+  }
+  
+  const handleCountry = (categoryName) => {
+    setFetchParams(prev => ({
+      ...prev,
+      ...initPagination,
+      categoryName,
     }))
   }
   
@@ -104,8 +113,8 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t(categoryTranslationKeys[categoryName])}</p>
-              <h2>{t(categoryName).toUpperCase()}</h2>
+              <p>{t(categoryTranslationKeys[fetchParams.categoryName])}</p>
+              <h2>{t(`category_${fetchParams.categoryName}`).toUpperCase()}</h2>
             </div>
 
             <Icons type="arrowBlackDown" />
@@ -117,22 +126,22 @@ export default function Category({
                 {t('market_research')}
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'market' } }}>
+                <span onClick={() => handleCategory('market')}>
                   <Icons type="arrowBlack" />
                   <p>{t('market')}</p>
-                </Link>
+                </span>
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'corporate' } }}>
+                <span onClick={() => handleCategory('corporate')}>
                   <Icons type="arrowBlack" />
                   <p>{t('corporate')}</p>
-                </Link>
+                </span>
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'consumer' } }}>
+                <span onClick={() => handleCategory('consumer')}>
                   <Icons type="arrowBlack" />
                   <p>{t('consumer')}</p>
-                </Link>
+                </span>
               </li>
             </ul>
 
@@ -141,47 +150,47 @@ export default function Category({
                 {t('market_entry')}
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'marketing' } }}>
+                <span onClick={() => handleCategory('marketing')}>
                   <Icons type="arrowBlack" />
                   <p>{t('marketing')}</p>
-                </Link>
+                </span>
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'partnership' } }}>
+                <span onClick={() => handleCategory('partnership')}>
                   <Icons type="arrowBlack" />
                   <p>{t('partnership')}</p>
-                </Link>
+                </span>
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'channel' } }}>
+                <span onClick={() => handleCategory('channel')}>
                   <Icons type="arrowBlack" />
                   <p>{t('channel')}</p>
-                </Link>
+                </span>
               </li>
               <li className="sub-categ">
-                <Link href={{ query: { name: 'payment' } }}>
+                <span onClick={() => handleCategory('payment')}>
                   <Icons type="arrowBlack" />
                   <p>{t('payment')}</p>
-                </Link>
+                </span>
               </li>
             </ul>
 
-            <Link href={{ pathname: '/category' }} className="see-all">
+            <span className="see-all" onClick={() => handleCategory('')}>
               {t('see_all')}
-            </Link>
+            </span>
           </div>
 
-          {categoryName !== 'all' && (
+          {fetchParams.categoryName !== '' && (
             <div id="categ-description">
-              <p>{t(`${categoryName}_desc`)}</p>
+              <p>{t(`category_${fetchParams?.categoryName}_desc`)}</p>
             </div>
           )}
 
           <div id="filters-sorting">
             <div className="filters">
-              <button type="button" className="all-button">
+              <span className="all-button" onClick={() => handleCategory('')}>
                 {ct('all')}
-              </button>
+              </span>
               <button
                 type="button" 
                 className="country-button" 
@@ -189,7 +198,7 @@ export default function Category({
               >
                 {ct('country')}
               </button>
-              {isOpenFilter && <CategoryFilter t={t} />}
+              {isOpenFilter && <CountryFilter t={ct} />}
             </div>
 
             <div className="sort">

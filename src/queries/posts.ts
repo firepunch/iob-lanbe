@@ -56,4 +56,63 @@ query AllPosts(
 }
 `
 
+export const GET_POSTS_QUERY = `
+query AllPosts(
+  $language: LanguageCodeFilterEnum!, 
+  $userId: Float = 0, 
+  $first: Int = 10, 
+  $last: Int,
+  $before: String, 
+  $after: String,
+  $field: PostObjectsConnectionOrderbyEnum = DATE,
+  $order: OrderEnum = DESC,
+  $categoryName: String = ""
+) {
+  posts(
+    where: {language: $language, categoryName: $categoryName, orderby: {field: $field, order: $order}}
+    first: $first
+    after: $after
+    before: $before
+    last: $last
+  ) {
+    pageInfo {
+      total
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        databaseId
+        id
+        title
+        slug
+        date
+        tags {
+          nodes {
+            id
+            name
+          }
+        }
+        featuredImage {
+          node {
+            id
+            sourceUrl
+          }
+        }
+        lanbeContent(user_id: $userId) {
+          is_save
+          country
+        }
+        language {
+          code
+          locale
+        }
+      }
+    }
+  }
+}
+`
+
 export default POSTS_QUERY

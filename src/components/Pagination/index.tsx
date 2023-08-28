@@ -43,7 +43,8 @@ export default function Pagination({
         {pageInfo?.initTotal && (
           <div className="page">
             <p>
-              {pageStartNumber}-{pageEndNumber} out of {pageInfo.initTotal}
+              {pageEndNumber === 0 ? `${pageEndNumber} ` : `${pageStartNumber}-${pageEndNumber} `}
+               out of {pageInfo.initTotal}
             </p>
           </div>
         )}

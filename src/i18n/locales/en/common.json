@@ -8,6 +8,29 @@
     "value": "oldest"
   }],
 
+  "country_filter_options": [{
+    "label": "Southeast Asia",
+    "value": "southeast asia"
+  }, {
+    "label": "Indonesia",
+    "value": "indonesia"
+  }, {
+    "label": "Malaysia",
+    "value": "malaysia"
+  }, {
+    "label": "Philippines",
+    "value": "philippines"
+  }, {
+    "label": "Singapore",
+    "value": "singapore"
+  }, {
+    "label": "Thailand",
+    "value": "thailand"
+  }, {
+    "label": "Vietnam",
+    "value": "vietnam"
+  }],
+
   "function_options": [
     { "value": "Academia", "label": "Academia" },
     { "value": "Asset Management & Private Equity", "label": "Asset Management & Private Equity" },
