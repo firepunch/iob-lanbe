@@ -36,6 +36,7 @@
             @include flex-spacebetween;
     
             .filters {
+
                 .all-button,
                 .country-button {
                     width: fit-content;
@@ -44,6 +45,8 @@
                     border: 1px solid $black;
                     border-radius: 10rem;
                     background-color: transparent;
+
+                    margin-right: .5rem;
                 }
 
                 .all-button {

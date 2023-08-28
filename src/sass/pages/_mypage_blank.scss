@@ -109,8 +109,11 @@ main {
 
                 display: flex;
 
-                .country-category {
-                    margin-right: .25rem;
+                .country-category,
+                .saved-read {
+                    button {
+                        margin-right: .5rem;
+                    }
                 }
 
                 button {
