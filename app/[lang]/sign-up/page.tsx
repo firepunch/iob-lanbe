@@ -12,21 +12,6 @@ import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import React from 'react'
 
-type ISignUpForm = {
-  firstName?: { value: string }
-  lastName?: { value: string }
-  organization?: { value: string }
-  jobTitle?: { value: string }
-  country?: { value: string }
-  userFunction?: { value: string }
-  email?: { value: string }
-  password?: { value: string }
-  newsletterChk?: { value: boolean }
-  marketingChk?: { value: boolean }
-  privacyChk?: { value: boolean }
-  termsChk?: { value: boolean }
-}
-
 const SignUp = ({
   params: { lang },
 }: {

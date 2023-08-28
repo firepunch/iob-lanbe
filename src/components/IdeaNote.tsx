@@ -58,12 +58,12 @@ export default function IdeaNote ({
   const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const handleUpdateNote = () => {
-    if(!value) {
+    if (!value) {
       alert(translationJson[lang].content_required)
       return
     }
 
-    if(onSubmit) {
+    if (onSubmit) {
       setNoteType('added')
       onSubmit(value)
       setNoteType('view')
@@ -103,34 +103,34 @@ export default function IdeaNote ({
           {translationJson[lang].save}
         </button>
       </div>
-      ),
-      view: (
-        <div className="ideanote ideanote-after">
-          <Image src={LimeBg} className="note note-bg" alt="Idea note lime color" />
-          <p className="user-note">
-            {value}
-          </p>
-          <p className="ideanote-content-title">
-            {postTitle}
-          </p>
-          <p className="date">
-            {updatedAt && dateFormat(updatedAt, true)}
-          </p>
-          <Image src={EditIcon} className="edit" alt="Edit" onClick={() => setNoteType('edit')}/>
-          <Image src={DeleteIcon} className="delete" alt="Delete" onClick={() => setShowConfirmModal(true)} />
+    ),
+    view: (
+      <div className="ideanote ideanote-after">
+        <Image src={LimeBg} className="note note-bg" alt="Idea note lime color" />
+        <p className="user-note">
+          {value}
+        </p>
+        <p className="ideanote-content-title">
+          {postTitle}
+        </p>
+        <p className="date">
+          {updatedAt && dateFormat(updatedAt, true)}
+        </p>
+        <Image src={EditIcon} className="edit" alt="Edit" onClick={() => setNoteType('edit')}/>
+        <Image src={DeleteIcon} className="delete" alt="Delete" onClick={() => setShowConfirmModal(true)} />
 
-          {showConfirmModal && (
-            <div className="delete-modal">
-              <p>Are you sure you want to delete this note?</p>
+        {showConfirmModal && (
+          <div className="delete-modal">
+            <p>Are you sure you want to delete this note?</p>
               
-              <div className="buttons-wrap">
-                  <button type="button">Cancel</button>
-                  <button type="button">Delete</button>
-              </div>
+            <div className="buttons-wrap">
+              <button type="button">Cancel</button>
+              <button type="button">Delete</button>
             </div>
-          )}
-        </div>
-      )
+          </div>
+        )}
+      </div>
+    ),
   }
   
   return (
@@ -155,12 +155,12 @@ export default function IdeaNote ({
               <p>{translationJson[lang].delete_confirm}</p>
               
               <div className="buttons-wrap">
-                  <button type="button" onClick={() => setShowConfirmModal(false)}>
-                    {translationJson[lang].cancel}
-                  </button>
-                  <button type="button" onClick={onDelete}>
-                    {translationJson[lang].delete}
-                  </button>
+                <button type="button" onClick={() => setShowConfirmModal(false)}>
+                  {translationJson[lang].cancel}
+                </button>
+                <button type="button" onClick={onDelete}>
+                  {translationJson[lang].delete}
+                </button>
               </div>
             </div>
           )}

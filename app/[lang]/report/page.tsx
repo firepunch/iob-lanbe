@@ -37,11 +37,11 @@ export default function Reports({
   useEffect(() => {
     getAllProducts(fetchParams).then(result => (
       updateReports({
-          edges: result.edges,
-          pageInfo: {
-            ...result.pageInfo,
-            initTotal: reports.pageInfo.initTotal || result.pageInfo.total,
-          },        
+        edges: result.edges,
+        pageInfo: {
+          ...result.pageInfo,
+          initTotal: reports.pageInfo.initTotal || result.pageInfo.total,
+        },        
       })
     ))
   }, [fetchParams, updateReports])
@@ -117,7 +117,7 @@ export default function Reports({
         <Pagination 
           pageInfo={reports?.pageInfo}
           size={GRID_CARD_NUMBER}
-         first={fetchParams?.first}
+          first={fetchParams?.first}
           last={fetchParams?.last}
           onClickPrev={() => {
             setFetchParams(prev => ({

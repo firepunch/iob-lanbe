@@ -28,7 +28,7 @@ const useContentState = create<ContentState>((set) => ({
   updatePost: (post) => set({ post }),
   updateReport: (report) => set({ report }),
   updateReports: (reports) => set({ reports }),
-  updateNotes: (notes) => set({ notes })
+  updateNotes: (notes) => set({ notes }),
 }))
 
 export default useContentState

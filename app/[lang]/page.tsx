@@ -44,7 +44,7 @@ export default function Home({
     getAllProducts({
       language: lang,
       userId,
-      first: 3
+      first: 3,
     }).then(result => (
       updateReports(result)
     ))
@@ -77,7 +77,7 @@ export default function Home({
         const result = await getAllProducts({
           language: lang,
           userId,
-          first: 3
+          first: 3,
         })
         updateReports(result)
       }
