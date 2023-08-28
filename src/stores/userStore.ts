@@ -1,5 +1,5 @@
 import { IPaymentHistory, IStripeCard } from '@/types/api'
-import { IOrder, IDownload, IPost } from '@/types/store'
+import { IOrder, IDownload, IPost, IReport } from '@/types/store'
 import { create } from 'zustand'
 
 interface Tokens {
@@ -14,12 +14,14 @@ interface UserState extends Tokens {
   cards?: IStripeCard[]
   cardHistory: IPaymentHistory
   posts?: { node: IPost }[]
+  reports?: { node: IReport }[]
   updateTokens: (tokens: Tokens) => void
   updateOrder: (order: IOrder) => void
   updateDownload: (download: IDownload) => void
   updateCards: (cards: IStripeCard[]) => void
   updateCardHistory: (cardHistory: IPaymentHistory) => void
   updatePosts: (posts:{ node: IPost }[]) => void
+  updateReports: (products:{ node: IReport }[]) => void
 }
 
 const useUserState = create<UserState>((set) => ({
@@ -31,6 +33,7 @@ const useUserState = create<UserState>((set) => ({
   cards: undefined,
   cardHistory: { data: [], has_more: false },
   posts: undefined,
+  reports: undefined,
   updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
     authToken,
     refreshToken,
@@ -40,8 +43,8 @@ const useUserState = create<UserState>((set) => ({
   updateDownload: (download: IDownload) => set({ download }),
   updateCards: (cards: IStripeCard[]) => set({ cards }),
   updateCardHistory: (cardHistory: IPaymentHistory) => set({ cardHistory }),
-
   updatePosts: (posts) => set({ posts }),
+  updateReports: (reports) => set({ reports }),
 }))
 
 export default useUserState

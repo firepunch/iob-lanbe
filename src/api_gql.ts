@@ -11,6 +11,7 @@ import POST_BY_SAVED from './queries/postBySaved'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 import { ILoginUser } from './types/api'
+import PRODUCT_BY_SAVED from './queries/productBySaved'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -166,6 +167,13 @@ export async function getPostBySaved(variables) {
     variables,
   })
   return data.posts.edges
+}
+
+export async function getProductBySaved(variables) {
+  const data = await fetchAPI(PRODUCT_BY_SAVED, {
+    variables,
+  })
+  return data.products.edges
 }
 
 // EXAMPLE
