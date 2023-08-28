@@ -1,5 +1,6 @@
 'use client'
 
+import { Options } from '@/types'
 import { useEffect, useState } from 'react'
 
 export default function SelectField({
@@ -16,7 +17,7 @@ export default function SelectField({
   name: string
   label: string
   placeholder?: string
-  options: { value: string; label: string; }[]
+  options: Options
   className?: string
   errorMessage?: string
   onResetError?: () => void

@@ -1,11 +1,46 @@
 {
+  "results_for": " results for ",
+  "content": "CONTENT",
+  "report": "REPORT",
+  "recommend": "RECOMMEND",
+
+  "looking_for": "CAN'T FIND WHAT YOU'RE LOOKING FOR?",
+  "first_name": "First name",
+  "last_name": "Last name",
+  "email": "Email",
+  "email_placeholder": "Please enter your email.",
+  "message": "Message",
+  "message_placeholder": "How may we help you?",
+  "send": "Send",
+  
+  "try_again_1": "Please try a new ",
+  "try_again_2": "search",
+  "try_again_3": "check our recommended contents below, or send us a message!",
   "recommended": "Recommended Keywords",
-  "indonesia": "Indonesia",
-  "vietnam": "Vietnam",
-  "thailand": "Thailand", 
-  "malaysia": "Malaysia", 
-  "digitalization": "Digitalization", 
-  "ecommerce": "E-Commerce", 
-  "social-media": "Social Media", 
-  "culture": "Culture"
+  "keywords-row1": [{
+    "label": "Indonesia",
+    "value": "indonesia"
+  }, {
+    "label": "Vietnam",
+    "value": "vietnam"
+  }, {
+    "label": "Thailand",
+    "value": "thailand"
+  }, {
+    "label": "Malaysia",
+    "value": "malaysia"
+  }],
+  "keywords-row2": [{
+    "label": "Digitalization",
+    "value": "digitalization"
+  }, {
+    "label": "E-Commerce",
+    "value": "ecommerce"
+  }, {
+    "label": "Social Media",
+    "value": "social-media"
+  }, {
+    "label": "Culture",
+    "value": "culture"
+  }]
 }

@@ -1,184 +1,187 @@
-#search-noresult-text {
-    width: 100%;
-    height: 20rem;
-    margin-top: 3rem;
-    position: relative;
+.search-noresult-text {
+  width: 100%;
+  height: 20rem;
+  margin-top: 3rem;
+  position: relative;
 
-    p {
-        @include absolute-center;
-        width: 60%;
-        text-align: center;
+  p {
+    @include absolute-center;
+    width: 60%;
+    text-align: center;
+  }
+
+  p:nth-child(1) {
+    top: 25%;
+  }
+
+  p:nth-child(2) {
+    top: 50%;
+    font-size: $smaller-font-size;
+
+    a {
+      text-decoration: underline;
     }
-
-    p:nth-child(1) {
-        top: 25%
-    }
-
-    p:nth-child(2) {
-        top: 50%;
-        font-size: $smaller-font-size;
-
-        a {
-            text-decoration: underline;
-        }
-    }
+  }
 }
 
 #search-recommended-contents {
-    width: 85%;
-    margin: auto;
+  width: 85%;
+  margin: auto;
 
-    .sr-recommended-title {
-        width: 100%;
-        border-bottom: .35rem solid $black;
-        margin-bottom: 3rem;
+  .sr-recommended-title {
+    width: 100%;
+    border-bottom: 0.35rem solid $black;
+    margin-bottom: 3rem;
 
-        h3 {
-            margin: .35rem 0;
-            font-size: 1.25rem;
-            font-family: $secondary-font;
-        }
+    h3 {
+      margin: 0.35rem 0;
+      font-size: 1.25rem;
+      font-family: $secondary-font;
     }
+  }
 
-    #search-recommended-contents-wrap {
-        @include standard-grid;
-    }
+  #search-recommended-contents-wrap {
+    @include standard-grid;
+  }
 }
 
 #send-us-message {
-    width: 85%;
-    margin: 10rem auto;
+  width: 85%;
+  margin: 10rem auto;
 
-    .sum-title {
-        width: 100%;
-        border-bottom: .35rem solid $black;
-        margin-bottom: 3rem;
+  .sum-title {
+    width: 100%;
+    border-bottom: 0.35rem solid $black;
+    margin-bottom: 3rem;
 
-        h3 {
-            margin: .35rem 0;
-            font-size: 1.25rem;
-            font-family: $secondary-font;
+    h3 {
+      margin: 0.35rem 0;
+      font-size: 1.25rem;
+      font-family: $secondary-font;
+    }
+  }
+
+  #send-us-message-wrap {
+    .sum-row {
+      form,
+      .field {
+        @include flex-column;
+        margin: 1rem 0;
+
+        label {
+          font-size: $smaller-font-size;
+          margin-bottom: 0.25rem;
+          margin-left: 1rem;
         }
+
+        input {
+          height: 3rem;
+          border: 0.075rem solid $black;
+          border-radius: 10rem;
+          padding: 0 1rem;
+          outline: none;
+        }
+      }
     }
 
-    #send-us-message-wrap {
-        .sum-row {
-            form {
-                @include flex-column;
-                margin: 1rem 0;
+    .sum-message-us {
+      margin-top: 2rem;
 
-                label {
-                    font-size: $smaller-font-size;
-                    margin-bottom: .25rem;
-                    margin-left: 1rem;
-                }
+      form,
+      .field {
+        @include flex-column;
+        margin: 1rem 0;
 
-                input[type=text] {
-                    height: 3rem;
-                    border: .075rem solid $black;
-                    border-radius: 10rem;
-                    padding: 0 1rem;
-                    outline: none;
-                }
-            }
+        label {
+          font-size: $smaller-font-size;
+          margin-bottom: 0.25rem;
+          margin-left: 1rem;
         }
 
-        .sum-message-us {
-            margin-top: 2rem;
-
-            form {
-                @include flex-column;
-                margin: 1rem 0;
-                
-                label {
-                    font-size: $smaller-font-size;
-                    margin-bottom: .25rem;
-                    margin-left: 1rem;
-                }
-
-                input[type=text] {
-                    height: 10rem;
-                    border: .075rem solid $black;
-                    border-radius: 1.5rem;
-                    position: relative;
-                    outline: none;
-                }
-
-                input[type=text]::placeholder {
-                    width: 60%;
-                    overflow: visible;
-                    position: absolute;
-                    top: 1rem;
-                    left: 1.5rem;
-                }
-            }
+        input[type="text"] {
+          height: 10rem;
+          border: 0.075rem solid $black;
+          border-radius: 1.5rem;
+          position: relative;
+          outline: none;
         }
 
-        button {
-            @include mobile-button-style($navy);
-            background-color: $navy;
-            color: $white;
-            margin: 2rem 0;
+        input[type="text"]::placeholder {
+          width: 60%;
+          overflow: visible;
+          position: absolute;
+          top: 1rem;
+          left: 1.5rem;
         }
+      }
     }
+
+    button {
+      @include mobile-button-style($navy);
+      background-color: $navy;
+      color: $white;
+      margin: 2rem 0;
+    }
+  }
 }
 
 @media (min-width: 576px) {
-    #search-noresult-text {
-        p:nth-child(2) {
-            width: 45%;
-        }
+  .search-noresult-text {
+    p:nth-child(2) {
+      width: 45%;
     }
+  }
 
-    #send-us-message {
-        #send-us-message-wrap {
-            width: 85%;
-            margin: auto;
-        }
+  #send-us-message {
+    #send-us-message-wrap {
+      width: 85%;
+      margin: auto;
     }
+  }
 }
 
 @media (min-width: 768px) {
-    #send-us-message {
-        #send-us-message-wrap {
-            .sum-row:nth-child(1) {
-                display: flex;
+  #send-us-message {
+    #send-us-message-wrap {
+      .sum-row:nth-child(1) {
+        display: flex;
 
-                form {
-                    width: 48%;
-                    margin: 1rem auto;
-                }
-            }
+        form,
+        .field {
+          width: 48%;
+          margin: 1rem auto;
         }
+      }
     }
+  }
 }
 
 @media (min-width: 992px) {
-    #send-us-message {
+  #send-us-message {
+    #send-us-message-wrap {
+      width: 75%;
 
-        #send-us-message-wrap {
-            width: 75%;
-
-            .sum-message-us {
-                form {
-                    input[type=text] {
-                        height: 12.5rem;
-                    }
-                }
-            }
-
-            button {
-                width: 45%;
-                margin: 2rem auto;
-            }
+      .sum-message-us {
+        form,
+        .field {
+          input {
+            height: 12.5rem;
+          }
         }
+      }
+
+      button {
+        width: 45%;
+        margin: 2rem auto;
+      }
     }
+  }
 }
 
 @media (min-width: 1200px) {
-    #send-us-message {
-        #send-us-message-wrap {
-            width: 55%;
-        }
+  #send-us-message {
+    #send-us-message-wrap {
+      width: 55%;
     }
+  }
 }

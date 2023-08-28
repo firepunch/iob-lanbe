@@ -12,6 +12,7 @@ import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/user
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 import { ILoginUser } from './types/api'
 import PRODUCT_BY_SAVED from './queries/productBySaved'
+import SEARCH_QUERY from './queries/search'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -174,6 +175,16 @@ export async function getProductBySaved(variables) {
     variables,
   })
   return data.products.edges
+}
+
+export async function getSearchResults(variables) {
+  const data = await fetchAPI(SEARCH_QUERY, {
+    variables,
+  })
+  return {
+    posts: data.posts.edges,
+    products: data.products.edges,
+  }
 }
 
 // EXAMPLE

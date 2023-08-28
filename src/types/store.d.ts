@@ -1,3 +1,5 @@
+import { initReactI18next } from 'react-i18next'
+
 export type IFeaturedImage = {
   node: {
     sourceUrl: string
@@ -116,4 +118,9 @@ export interface IDownload {
   download: {
     file: string
   }
+}
+
+export interface ISearchResult {
+  posts: { node: IPost }[]
+  products: { node: IReport}[]
 }

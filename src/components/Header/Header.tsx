@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
 import Icons from '../Icons'
+import SearchWall from '../SearchWall'
 
 import ArrowBlackImg from '@/imgs/arrow_black.png'
 import ArrowWhiteImg from '@/imgs/arrow_white.png'
@@ -22,6 +23,7 @@ export default function Header({
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
   const [isValid, setIsValid] = useState<boolean>(false)
+  const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
 
   useEffect(() => {
     setIsValid(isValidToken())
@@ -131,10 +133,10 @@ export default function Header({
       <nav className="right-nav">
         <ul>
           <li>
-            <Link href={`/${lang}/search`}>
+            <span className="search-link" onClick={() => setOpenSearchWall(true)}>
               <Image src={SearchImg} alt="Search" />
               {t('search')}
-            </Link>
+            </span>
           </li>
           <li>
             {isValid ? (
@@ -158,6 +160,10 @@ export default function Header({
       {/* mobile version hamburger menu */}
       <HamburgerMenu lang={lang} />
       {/* //mobile version hamburger menu */}
+
+      {openSearchWall && (
+        <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
+      )}
     </header>
   )
 }

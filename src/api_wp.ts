@@ -17,7 +17,6 @@ const API_MAP = {
   wpAPI: '/wp-json',
   customAPI: '/wp-json/custom-api/v1',
   formAPI: '/wp-json/contact-form-7/v1/contact-forms',
-  searchAPI: '/index.php/wp-json/wp/v2/',
 }
 
 async function fetchAPI({
@@ -91,18 +90,7 @@ export async function sendEmailForm(data) {
   return res
 }
 
-export async function searchBar(data) {
-  const res = await fetchAPI({
-    prefixPath: 'searchAPI',
-    path: `search?search=${data.search}`,
-    method: 'GET',
-    data,
-  })
-
-  return res
-}
-
-export async function searchRequest(data) {
+export async function sendSearchRequestForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
     path: '/3143/feedback',

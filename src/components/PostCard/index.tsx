@@ -14,7 +14,6 @@ interface PostCardProps extends IPost {
 export const PostCard = ({
   featuredImage,
   tags,
-  databaseId,
   slug,
   title = '',
   date = '',

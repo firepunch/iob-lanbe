@@ -21,7 +21,6 @@ export default function Content({
   }
 }) {
   const { posts, updatePosts } = useUserState(state => state)
-  const userId = getUserId()
 
   useEffect(() => {
     getPostBySaved(params).then(result => (

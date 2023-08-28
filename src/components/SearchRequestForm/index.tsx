@@ -4,31 +4,51 @@ import { TI18N } from '@/types'
 
 interface SearchRequestProps {
   t: TI18N;
-  errorCode?: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  children?: React.ReactNode;
 }
 
 export default function SearchRequestForm ({
   t,
-  errorCode,
   onSubmit,
-  children,
-  ...props
 }: SearchRequestProps) {
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="id">first-name</label>
-      <input type="name" id="first-name" /><br></br>
-      <label htmlFor="id">last-name</label>
-      <input type="name" id="last-name" /><br></br>
-      <label htmlFor="id">email</label>
-      <input type="email" id="email" /><br></br>
-      <label htmlFor="id">message</label>
-      <input type="text" id="message" /><br></br>
-      {/* {errorCode && <p>{t(errorCode)}</p>} */}
-      <button type="submit">submit</button>
-    </form>
+    <>
+      <div className="sum-title">
+        <h3>{t('looking_for')}</h3>
+      </div>
+
+      <form onSubmit={onSubmit}>
+        <div id="send-us-message-wrap">
+          <div className="sum-row">
+            <div className="field">
+              <label htmlFor="firstname">{t('first_name')}</label>
+              <input type="text" id="firstname" name="first-name" />
+            </div>
+
+            <div className="field">
+              <label htmlFor="lastname">{t('last_name')}</label>
+              <input type="text" id="lastname" name="last-name" />
+            </div>
+          </div>
+
+          <div className="sum-row">
+            <div className="field">
+              <label htmlFor="email">{t('email')}</label>
+              <input type="email" id="email" name="user-email" placeholder={t('email_placeholder')} />
+            </div>
+          </div>
+
+          <div className="sum-message-us">
+            <div className="field">
+              <label htmlFor="message">{t('message')}</label>
+              <input type="text" id="message" name="message" placeholder={t('message_placeholder')} />
+            </div>
+          </div>
+
+          <button type="submit">{t('send')}</button>
+        </div>
+      </form>
+    </>
   )
 }
