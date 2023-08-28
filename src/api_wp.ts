@@ -17,7 +17,7 @@ const API_MAP = {
   wpAPI: '/wp-json',
   customAPI: '/wp-json/custom-api/v1',
   formAPI: '/wp-json/contact-form-7/v1/contact-forms',
-  searchAPI: '/index.php/wp-json/wp',
+  searchAPI: '/index.php/wp-json/wp/v2/',
 }
 
 async function fetchAPI({
@@ -98,7 +98,6 @@ export async function searchBar(data) {
     method: 'GET',
     data,
   })
-  console.log('res', res)
 
   return res
 }
