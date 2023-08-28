@@ -135,13 +135,6 @@ export async function getAllPosts(variables) {
   return data.posts
 }
 
-export async function getContentsByCategory(variables) {
-  const data = await fetchAPI(POST_BY_CATEGORY_QUERY, {
-    variables,
-  })
-  return data.category?.posts.edges
-}
-
 export async function createUser(input) {
   const data = await fetchAPI(REGISTER_QUERY, {
     variables: { input },

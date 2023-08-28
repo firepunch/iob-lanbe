@@ -3,18 +3,12 @@ query AllPosts(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
   $first: Int = 10, 
-  $last: Int,
-  $before: String, 
-  $after: String,
   $field: PostObjectsConnectionOrderbyEnum = DATE,
   $order: OrderEnum = DESC
 ) {
   posts(
     where: {language: $language, orderby: {field: $field, order: $order}}
     first: $first
-    after: $after
-    before: $before
-    last: $last
   ) {
     pageInfo {
       total
@@ -49,6 +43,21 @@ query AllPosts(
         language {
           code
           locale
+        }
+        categories {
+          edges {
+            node {
+              parentId
+              parent {
+                node {
+                  id
+                  name
+                }
+              }
+              id
+              name
+            }
+          }
         }
       }
     }
@@ -112,6 +121,7 @@ query AllPosts(
         categories {
           edges {
             node {
+              parentId
               parent {
                 node {
                   id

@@ -6,7 +6,7 @@ import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { dateEnFormat, getAuthorInfo, getUserId } from '@/utils/lib'
+import { dateEnFormat, getAuthorInfo, getCountry, getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -123,12 +123,6 @@ export default function Category({
     }
   }
 
-  const getParentCategory = (parentId: string) => (
-    post?.categories?.edges.find(({ node }) => (
-      parentId === node.id
-    ))?.node.name
-  )
-
   if (!post) {
     return 'loading'
   }
@@ -138,19 +132,21 @@ export default function Category({
       <section id="content-title-page">
         <div id="top-title">
           <div className="content-tags">
-            {post.categories?.edges?.map(({ node }) => node.parentId && (
-              <div className="ct" key={node.id}>
-                <p>{getParentCategory(node.parentId)}</p>
-                <p>{node.name}</p>
-              </div>
-            ))}
+            {post.categories?.edges?.map(({ node }) => (
+              node.parentId && node.parent.node.name !== 'Country' && (
+                <div className="ct" key={node.id}>
+                  <p>{node.parent.node.name}</p>
+                  <p>{node.name}</p>
+                </div>
+              ))
+            )}
           </div>
 
           <h2>{post.title}</h2>
 
           <div className="content-location">
             <Icons type="location" />
-            <p>{post.lanbeContent.country?.toUpperCase()}</p>
+            <p>{getCountry(post.categories)?.toUpperCase()}</p>
           </div>
         </div>
 

@@ -1,13 +1,12 @@
 'use client'
 
-import { getAllPosts, getContentsByCategory, getPosts } from '@/api_gql'
+import { getPosts } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
 import { getUserId, sort2variables } from '@/utils/lib'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -51,7 +50,9 @@ export default function Category({
     getPosts({
       ...fetchParams,
       ...fetchParams?.countries?.length && {
-        categoryName: fetchParams.categoryName === '' ? fetchParams.countries.join(',') : [fetchParams.categoryName, ...fetchParams.countries].join(','),
+        categoryName: fetchParams.categoryName === '' ? 
+          fetchParams.countries.join(',') : 
+          [fetchParams.categoryName, ...fetchParams.countries].join(','),
       },
     }).then(result => {
       updatePosts({

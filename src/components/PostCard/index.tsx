@@ -21,8 +21,6 @@ export const PostCard = ({
   categories,
   onToggleBookmark,
 }: PostCardProps) => {
-  const country = getCountry(categories)
-
   return (
     <Link href={`/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
@@ -45,7 +43,7 @@ export const PostCard = ({
         <div className="location-date">
           <div className="country">
             <Image src={LocationBlackImg} alt="Location icon" />
-            <p>{country?.toUpperCase()}</p>
+            <p>{getCountry(categories)?.toUpperCase()}</p>
           </div>
 
           <p className="date">

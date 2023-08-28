@@ -11,9 +11,15 @@ query postBySlug($postSlug: ID!, $userId: Float) {
     categories {
       edges {
         node {
+          parentId
+          parent {
+            node {
+              id
+              name
+            }
+          }
           id
           name
-          parentId
         }
       }
     }
