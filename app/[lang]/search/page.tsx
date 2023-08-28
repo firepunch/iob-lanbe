@@ -18,7 +18,6 @@ export default function Search({
 }) {
   const { t } = useTranslation(lang, 'search')
   const [errorCode, setErrorCode] = useState()
-  const contents = {}
 
   const handleSearchBar = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -28,29 +27,10 @@ export default function Search({
       const res = await searchBar({
         search: searchText,
       })
-      console.log('res', res)
-      setErrorCode(res)
-      // res.map(async ({ id }) => {
-      //   const contentData = await getContentByDatabaseID(id)
-      //   const [content] = await Promise.all([contentData])
-
-      //   contents[id] = content
-      // })
     } catch (error) {
       console.error('submit error:', error)
     }
   }
-  // {contents && Object.keys(contents).map((id) => {
-  //   const post = contents[id]
-  //   return (
-  //     <Link key={post.id} href={`/${encodeURIComponent(post.slug)}`}>
-  //       <ContentCard
-  //         thumbnail_url={post.featuredImage?.node.sourceUrl}
-  //         {...post}
-  //       />
-  //     </Link>
-  //   )
-  // })}
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
