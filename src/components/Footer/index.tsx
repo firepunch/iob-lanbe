@@ -1,11 +1,9 @@
 'use client'
 
-import { sendEmailForm } from '@/api_wp'
 import { EmailForm } from '@/components'
 import Icons from '@/components/Icons'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { TStringObj } from '@/types'
 import Link from 'next/link'
 
 export default function Footer({
@@ -29,11 +27,8 @@ export default function Footer({
       </div>
 
       <div id="footer-right">
+        <EmailForm />
         <div className="footer-pages">
-
-          <div className="footer-signup">
-            <EmailForm />
-          </div>
           <ul>
             <li>
               <Link href={`/${lang}/category`}>

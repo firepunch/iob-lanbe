@@ -119,5 +119,5 @@ export const getCountry = (categories) => {
     return node.parent?.node.name === 'Country'
   })
 
-  return countryNode.node.name
+  return countryNode?.node?.name
 }

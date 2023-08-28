@@ -1,19 +1,24 @@
 'use client'
 
 import { sendEmailForm } from '@/api_wp'
-import Icons from '@/components/Icons'
+import arrowBlackImg from '@/imgs/arrow_black.png'
+import Image from 'next/image'
+import { useState } from 'react'
 
 interface emailFormProps {
 }
 
 export default function EmailForm({
 }: emailFormProps) {
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const [value, setValue] = useState<string>()
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     e.stopPropagation()
 
     try {
-      const formData = new FormData(e.currentTarget)
+      const formData = new FormData()
+      formData.append('user-email', value as string)
       await sendEmailForm(formData)
       alert('이메일 폼 전송에 성공했습니다!')
     } catch (error) {
@@ -25,12 +30,13 @@ export default function EmailForm({
     <>
       <div className="footer-signup">
         <p>Sign up to<br/> receive our newsletter.</p>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Email" name="user-email"/>
-          <button type="submit">
-            <Icons type="arrowBlack" />
-          </button>
-        </form>
+        <input 
+          type="email" 
+          placeholder="Email"
+          value={value}
+          onChange={e => setValue(e.target.value)}
+        />
+        <Image src={arrowBlackImg} alt="Arrow" onClick={handleSubmit} />
       </div>
     </>
   )
