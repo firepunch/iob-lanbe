@@ -1,19 +1,11 @@
 'use client'
 
-import { TI18N } from '@/types'
-import { IStripeCard } from '@/types/api'
-import { detachCardIntent, fetchCardsIntent, fetchHistoryIntent } from '@/utils/stripe-intent'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import Pagination from '../Pagination'
 import useUserState from '@/stores/userStore'
+import { TI18N } from '@/types'
 import { toComma } from '@/utils/lib'
-
-import addIcon from '@/imgs/add.png'
-import CardSampleImg from '@/imgs/card_sample.png'
-import closeBlackIcon from '@/imgs/close_black.png'
-import TrashWhiteIcon from '@/imgs/trash_white.png'
+import { fetchHistoryIntent } from '@/utils/stripe-intent'
+import { useEffect } from 'react'
+import Pagination from '../Pagination'
 
 const GRID_HISTORY_NUMBER = 5
 
@@ -22,32 +14,14 @@ export default function Payment({
 }: {
   t: TI18N
 }) {
-  const { cards, cardHistory, updateCards, updateCardHistory } = useUserState(state => state)
-  const [selectedCard, setSelectedCard] = useState<IStripeCard>()
+  const { cardHistory, updateCardHistory } = useUserState(state => state)
 
   useEffect(() => {
-    fetchCardsIntent().then(result => (
-      updateCards(result?.data)
-    ))
-
     fetchHistoryIntent().then(result => (
       updateCardHistory(result)
     ))
   }, [])
 
-  const handleDetach = async (cardId: string) => {
-    try {
-      await detachCardIntent(cardId)
-      const result = await fetchCardsIntent()
-      updateCards(result?.data)
-    } catch (err) {
-      console.log(err)
-      alert('삭제 실패')
-    }
-  }
-
-  console.log(selectedCard)
-  
   return (
     <>
       <section id="default-content">
@@ -57,77 +31,6 @@ export default function Payment({
         </div>
     
         <div id="payment-info-wrap">
-
-          <div className="card-info-wrap">
-            <h3>{t('cards')}</h3>
-
-            <div className="cards">
-              {cards?.map((item) => (
-                <div key={item.id} className="added-card" onClick={() => setSelectedCard(item)}>
-                  <Image src={CardSampleImg} alt="Card sample" className="card-sample" />
-                  {item.card.brand}
-                  {item.card.last4}
-                  {item.card.exp_month}
-                  {item.card.exp_year}
-
-                  {cards.length === 2 && (
-                    <button onClick={() => handleDetach(item.id)}>  
-                      <Image src={TrashWhiteIcon} alt="Trash" />
-                    </button>
-                  )}
-                </div>
-              ))}
-      
-              <div className="add-new-card">
-                <Link href={{ pathname: '/payment' }}>
-                  <Image src={addIcon} alt="Add" />
-                  <p>{t('add_card')}</p>
-                </Link>
-              </div>
-            </div>
-
-            {/* 카드 누르면 나타나는 카드 정보. 인풋 레이아웃이지만 기능이 없다 */}
-            {selectedCard && (
-              <div className="card-info-details">
-                <button onClick={() => setSelectedCard(undefined)}>
-                  <Image src={closeBlackIcon} alt="Close" />
-                </button>
-
-                <div className="card-info-details-wrap">
-                  <form>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder={selectedCard.billing_details.email} readOnly />
-
-                    <div className="card-numbers">
-                      <label htmlFor="card-info">Card information</label>
-                      <input type="text" id="card-info" name="card-info" placeholder={`**** **** **** ${selectedCard.card.last4}`} readOnly />
-
-                      <div className="card-numbers-flex">
-                        <input 
-                          type="text"
-                          id="valid-date"
-                          name="valid-date"
-                          placeholder={
-                            `${String(selectedCard.card.exp_year)?.slice(-2)} ${
-                              String(selectedCard.card.exp_month)?.length === 1 ? 
-                                `0${selectedCard.card.exp_month}` : 
-                                String(selectedCard.card.exp_month)
-                            }`
-                          } readOnly />
-                        <input type="text" id="cvc" name="cvc" placeholder="123" readOnly />
-                      </div>
-                    </div>
-
-                    <label htmlFor="name-on-card">Name on card</label>
-                    <input type="text" id="name-on-card" name="name-on-card" placeholder="Seoyoung Lim" readOnly />
-
-                    <label htmlFor="card-country">Country or region</label>
-                    <input type="text" id="card-country" name="card-country" placeholder="South Korea" readOnly />
-                  </form>
-                </div>
-              </div>
-            )}
-          </div>
 
           <div id="payment-history">
             <h3>{t('payment_history')}</h3>
