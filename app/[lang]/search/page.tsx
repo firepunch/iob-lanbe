@@ -8,7 +8,7 @@ import { searchRequest, searchBar } from '@/api_wp'
 import { getContentByDatabaseID } from '@/api_gql'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import searchthinIcon from '@/imgs/search_thin.png'
 import closeIcon from '@/imgs/close.png'
 
 export default function Search({
@@ -30,12 +30,12 @@ export default function Search({
       })
       console.log('res', res)
       setErrorCode(res)
-      res.map(async ({ id }) => {
-        const contentData = await getContentByDatabaseID(id)
-        const [content] = await Promise.all([contentData])
+      // res.map(async ({ id }) => {
+      //   const contentData = await getContentByDatabaseID(id)
+      //   const [content] = await Promise.all([contentData])
 
-        contents[id] = content
-      })
+      //   contents[id] = content
+      // })
     } catch (error) {
       console.error('submit error:', error)
     }
@@ -81,11 +81,12 @@ export default function Search({
         </button>
 
         <div id="input-recommendations">
-          <SearchBarRequest 
-            t={t} 
-            errorCode={errorCode}
-            onSubmit={handleSearchBar}
-          />
+          <form name="search-bar" onSubmit={handleSearchBar}>
+            <input type="text" id="search-bar" name="search-bar" placeholder="Search" />
+            <button type="submit">
+              <Image src={searchthinIcon} alt="Search" />
+            </button>
+          </form>
 
           <div className="recommendations">
             <h3>{t('recommended')}</h3>
