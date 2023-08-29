@@ -115,7 +115,7 @@ export async function sendEmailForm(data) {
 export async function sendSearchRequestForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
-    path: '/3143/feedback',
+    path: '/3354/feedback',
     method: 'POST',
     data,
   })
