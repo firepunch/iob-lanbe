@@ -69,7 +69,7 @@ const Layout = ({
         {segment === TAB_MAP.content && <MyPageContent t={t} params={{ userId, language:lang?.toUpperCase() }}/>}
         {segment === TAB_MAP.report && <MyPageReport t={t} params={{ userId, language:lang?.toUpperCase() }} />}
         {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} />}
+        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} userId={userId} />}
       </section>
     </div>
   )

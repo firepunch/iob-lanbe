@@ -4,30 +4,78 @@ import { TI18N, TStringObj } from '@/types'
 import { useEffect, useState } from 'react'
 import InputField from '../InputField'
 import SelectField from '../SelectField'
-import { fetchUser } from '@/api_wp'
+import { fetchUser, updateUser, updateWPUser } from '@/api_wp'
 import useUserState from '@/stores/userStore'
 
 export default function Settings({
   t,
   ct,
+  userId,
 }: {
   t: TI18N
   ct: TI18N
+  userId: number
 }) {
-  const { user, userInfo, updateUser, updateUserInfo } = useUserState(state => state)
+  const { userInfo, updateUserInfo } = useUserState(state => state)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
-  const [formValue, setFormValue] = useState<TStringObj>()
 
   useEffect(() => {
-    if (user?.databaseId) {
-      fetchUser(user.databaseId).then(result => (
+    if (userId) {
+      fetchUser(userId).then(result => (
         updateUserInfo(result.data.user_data)
       ))
     }
   }, [])
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
 
+    let isValid = true
+    const formData = new FormData(e.currentTarget)
+    const formProps = Object.fromEntries(formData) as TStringObj
+    const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
+    const pwFound = (formProps?.password as string)?.match(regex)
+
+    if (!pwFound) {
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
+        password: t('password_rule_error'),
+      }))
+    }
+
+    if (formProps?.userFunction === 'Default') {
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
+        userFunction: t('function_required'),
+      }))
+    }
+
+    if (formProps?.country === 'Default') {
+      isValid = false
+      setErrorMessages(prev => ({
+        ...prev,
+        country: t('country_required'),
+      }))
+    }
+
+    if (!isValid) {
+      return
+    }
+
+    try {
+      await updateWPUser({
+        ...formProps,
+        user_id: userId,
+        username: formProps.email,
+      })
+      alert('수정 성공')
+    } catch (err) {
+      console.error(err)
+      alert('수정 실패')
+    }
   }
 
   return (
