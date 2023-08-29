@@ -66,6 +66,13 @@ export default function Category({
     })
   }, [fetchParams])
 
+  useEffect(() => {
+    setFetchParams(prev => ({
+      ...prev,
+      categoryName: searchParams.get('name') || '',
+    }))
+  }, [searchParams])
+
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
       ...prev,
