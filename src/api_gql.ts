@@ -46,12 +46,13 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
       isRemember)
   }
 
-  const json = await res.json()
-  if (json.errors) {
-    console.error(json.errors)
+  const json = await res?.json()
+
+  if (!json || json?.errors) {
+    console.error(json?.errors)
 
     if (query.includes('LoginUser')) {
-      return { login: { error: json.errors?.[0]?.message } }
+      return { login: { error: json?.errors?.[0]?.message } }
     }
 
     // if (json.errors?.[0].debugMessage?.includes('Expired token')) {

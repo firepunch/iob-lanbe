@@ -127,7 +127,7 @@ export default function Category({
 
             <Icons 
               type="arrowBlackDown" 
-              className={isOpenCategory && 'show'}
+              className={isOpenCategory ? 'show' : ''}
               onClick={() => setIsOpenCategory(!isOpenCategory)} 
             />
           </div>
