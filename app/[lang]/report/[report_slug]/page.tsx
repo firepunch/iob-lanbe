@@ -155,21 +155,12 @@ export default function Report({
 
           <div className="report-cta">
             {isValidToken() ? (
-              report.lanbeContent.purchased ? (
-                <>
-                  <p>{t('download_cta')}</p>
-                  <Link href={report.lanbeContent.purchasedFile} className="cta-link" target="_blank">
-                    {t('download')}
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <p>{t('pay_now_cta')}</p>
-                  <span className="cta-link" onClick={handleOrder}>
-                    {t('pay_now')}
-                  </span>
-                </>
-              )
+              <>
+                <p>{t('download_cta')}</p>
+                <Link href={report.lanbeContent.purchasedFile} className="cta-link" target="_blank">
+                  {t('download')}
+                </Link>
+              </>
             ) : (
               <>
                 <p>{t('sign_in_cta')}</p>
