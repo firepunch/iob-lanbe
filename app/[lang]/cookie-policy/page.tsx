@@ -16,10 +16,10 @@ export default async function CookiePolicy({
       <div id="cookie-title">
         <h2>{t('cookie-policy')}</h2>
 
-        <a href="cookiepreferences.html" className="manage-preferences-button">
+        <Link href={{ pathname: `/${lang}/my-page/settings` }} className="manage-preferences-button">
           <Icons type={'arrowBlack'} />
           <p>{t('manage-preferences')}</p>
-        </a>
+        </Link>
       </div>
       {/* //title */}
 
