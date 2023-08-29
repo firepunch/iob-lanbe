@@ -102,7 +102,7 @@ export default async function About({
                     </div>
                   </div>
           
-                  <Link href={{ pathname: `/` }}>
+                  <Link href="https://www.linkedin.com/company/ideasonboard/">
                     <Image src={linkedInIcon} alt="LinkedIn" />
                   </Link>
                 </div>
