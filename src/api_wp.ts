@@ -83,7 +83,7 @@ export async function createUser(data: any) { // ICreateUser) {
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
-    path: '/3116/feedback',
+    path: '/3338/feedback',
     method: 'POST',
     data,
   })
