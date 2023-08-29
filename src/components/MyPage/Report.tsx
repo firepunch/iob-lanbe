@@ -22,7 +22,7 @@ export default function Report({
 }) {
   const { reports, updateReports } = useUserState(state => state)
   const userId = getUserId()
-
+  const lang = params.language.toLowerCase()
 
   useEffect(() => {
     getProductBySaved(params).then(result => (
@@ -88,7 +88,7 @@ export default function Report({
           <p className="none-saved-text">{t('report_none')}</p>
           <p className="explore-text">{t('report_explore')}</p>
 
-          <Link href="/report">
+          <Link href={{ pathname: `/${lang}/report` }}>
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>
