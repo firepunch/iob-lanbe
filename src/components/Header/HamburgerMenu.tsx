@@ -12,6 +12,7 @@ import SearchWall from '../SearchWall'
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'
+import useUserState from '@/stores/userStore'
 
 export default function MobileMenu({
   lang,
@@ -20,14 +21,10 @@ export default function MobileMenu({
 }) {
   const { t: ct } = useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
+  const user = useUserState(state => state.user)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
-  const [isValid, setIsValid] = useState<boolean>(false)
-
-  useEffect(() => {
-    setIsValid(isValidToken())
-  }, [])
 
   const handleCloseMenu = () => setIsMenuOpen(false)
 
@@ -148,7 +145,7 @@ export default function MobileMenu({
 
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
-            {isValid ? (
+            {user ? (
               <Link href="/my-page/content">
                 <h2>{t('my_page')}</h2>
               </Link>

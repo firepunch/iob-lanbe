@@ -12,6 +12,7 @@ import HamburgerMenu from './HamburgerMenu'
 import LanguageSwitcher from './LanguageSwitcher'
 
 import SearchImg from '@/imgs/search_black.png'
+import useUserState from '@/stores/userStore'
 
 export default function Header({
   lang,
@@ -20,12 +21,8 @@ export default function Header({
 }) {
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const [isValid, setIsValid] = useState<boolean>(false)
+  const user = useUserState(state => state.user)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
-
-  useEffect(() => {
-    setIsValid(isValidToken())
-  }, [])
 
   return (
     <header>
@@ -137,7 +134,7 @@ export default function Header({
             </span>
           </li>
           <li>
-            {isValid ? (
+            {user ? (
               <Link href={`/${lang}/my-page/content`}>
                 {t('h_my_page')}
               </Link>

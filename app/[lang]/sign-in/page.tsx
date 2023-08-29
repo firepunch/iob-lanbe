@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import paperLogoImg from '@/imgs/paper_logo_white.png'
+import useUserState from '@/stores/userStore'
 
 type ILoginForm = {
   username?: { value: string }
@@ -26,11 +27,14 @@ const SignIn = ({
 }) => {
   const router = useRouter()
   const { t } = useTranslation(lang, 'sign-in')
+  const updateUser = useUserState(state => state.updateUser)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
+  const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
+    setIsProcessing(true)
     const target = e.currentTarget.elements as ILoginForm
 
     try {
@@ -61,12 +65,15 @@ const SignIn = ({
           })
         }
       } else {
+        updateUser(result?.user)
         setStorageData(AUTH_TOKEN, result, isRemember)
         router.push(`/${lang}`)
       }
     } catch (err) {
       console.error(err)
     }
+
+    setIsProcessing(false)
   }
 
   return (
@@ -114,7 +121,7 @@ const SignIn = ({
             <a href="#">{t('forgot')}</a>
           </div>
 
-          <button type="submit" className="signin-button">
+          <button type="submit" className="signin-button" disabled={isProcessing}>
             {t('sign_in')}
           </button>
         </form>

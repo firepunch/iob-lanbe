@@ -130,3 +130,10 @@ export interface ISearchResult {
   posts: { node: IPost }[]
   products: { node: IReport}[]
 }
+
+export interface IUser {
+  databaseId: number
+  name: string
+  email: string
+  registeredDate: string
+}

@@ -13,6 +13,7 @@ mutation LoginUser($input: LoginInput!) {
       databaseId
       email
       name
+      registeredDate
     }
     clientMutationId
     authToken

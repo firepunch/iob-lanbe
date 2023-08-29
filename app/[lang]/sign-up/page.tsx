@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import React from 'react'
+import useUserState from '@/stores/userStore'
 
 const SignUp = ({
   params: { lang },
@@ -20,6 +21,7 @@ const SignUp = ({
   const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
+  const updateUser = useUserState(state => state.user)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
   const recaptchaRef = React.useRef<any>()
 
@@ -71,6 +73,7 @@ const SignUp = ({
         password: formProps.password as string,
       })
 
+      updateUser(loginData?.user)
       setStorageData(AUTH_TOKEN, loginData)
 
       replace('/')
