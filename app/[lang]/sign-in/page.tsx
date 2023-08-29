@@ -47,13 +47,25 @@ const SignIn = ({
         return
       }
 
-      const userData = await loginUser({ username, password })
+      const result = await loginUser({ username, password })
   
-      setStorageData(AUTH_TOKEN, userData, isRemember)
-
-      router.push(`/${lang}`)
+      if ( result?.error ) {
+        if (result?.error === 'invalid_email') {
+          setErrorMessages({
+            username: t('email_incorrect'),
+            password: '',
+          })
+        } else if (result?.error === 'incorrect_password') {
+          setErrorMessages({
+            password: t('password_incorrect'),
+          })
+        }
+      } else {
+        setStorageData(AUTH_TOKEN, result, isRemember)
+        router.push(`/${lang}`)
+      }
     } catch (err) {
-      console.error('login error', err)
+      console.error(err)
     }
   }
 
@@ -69,8 +81,13 @@ const SignIn = ({
             name="username"
             label={t('email')}
             placeholder={t('email_placeholder')}
-            defaultValue="email@email.com"
             errorMessage={errorMessages?.username}
+            onResetError={() => (
+              setErrorMessages(prev => ({
+                ...prev,
+                username: undefined,
+              }))
+            )}
           />
 
           <InputField 
@@ -79,8 +96,13 @@ const SignIn = ({
             name="password"
             label={t('password')}
             placeholder={t('password_placeholder')}
-            defaultValue="!Nb^B6GEAfe60*Pq!ah8x923"
             errorMessage={errorMessages?.password}
+            onResetError={() => (
+              setErrorMessages(prev => ({
+                ...prev,
+                password: undefined,
+              }))
+            )}
           />
 
           <div className="rmb-forgot">

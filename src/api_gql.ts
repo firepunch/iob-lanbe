@@ -50,6 +50,10 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
   if (json.errors) {
     console.error(json.errors)
 
+    if (query.includes('LoginUser')) {
+      return { login: { error: json.errors?.[0]?.message } }
+    }
+
     // if (json.errors?.[0].debugMessage?.includes('Expired token')) {
     // alert('Expired Token')
     // window.location.replace('/sign-in')
