@@ -1,10 +1,10 @@
-import { Options } from '@/types'
+import { Option, Options } from '@/types'
 
 interface SelectProps {
   isRequired?: boolean
   name: string
   id: string
-  defaultOption?: Options
+  defaultOption?: Option
   options: Options
   errorMessage?: string
   onChange?: (value: string) => void
