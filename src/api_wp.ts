@@ -125,7 +125,7 @@ export async function sendSearchRequestForm(data) {
 export async function ProjectInquiry(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
-    path: '/3144/feedback',
+    path: '/3353/feedback',
     method: 'POST',
     data,
   })
