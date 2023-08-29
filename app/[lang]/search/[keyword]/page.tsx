@@ -80,7 +80,7 @@ export default function Search({
     <>
       <section className={`search-result-text ${Boolean(totalLength) ? '' : 'search-noresult-text'}`}>
         <p>
-          {totalLength}{t('results_for')}&apos;{keyword}&lsquo;
+          {totalLength}{t('results_for')}&apos;{decodeURIComponent(keyword)}&lsquo;
         </p>
 
         {!Boolean(totalLength) && (

@@ -28,6 +28,21 @@ query postBySaved($userId: Float = 0, $language: LanguageCodeFilterEnum = EN) {
           code
           locale
         }
+        categories {
+          edges {
+            node {
+              parentId
+              parent {
+                node {
+                  id
+                  name
+                }
+              }
+              id
+              name
+            }
+          }
+        }
       }
     }
   }

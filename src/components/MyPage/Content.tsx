@@ -64,7 +64,7 @@ export default function Content({
           </div>
 
           <div className="saved-read">
-            <button>{t('saved')} {posts?.length || 0}</button>
+            <button>{t('saved')} {`(${posts?.length || 0})`}</button>
           </div>
         </div>
       </div>

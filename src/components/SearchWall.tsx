@@ -22,30 +22,32 @@ export default function SearchWall({
   const keywords1 = t('keywords-row1', { returnObjects: true }) as Options
   const keywords2 = t('keywords-row2', { returnObjects: true }) as Options
 
-  const handleSearch = async () => {
-    redirect(`${lang}/search/${keyword}`)
+  const handleSearch = () => {
+    window.location.replace(`/${lang}/search/${keyword}`)
   }
 
   return (
     <>
       <section id="search">
         <button type="button">
-          <Image src={closeIcon} alt="Close" />
+          <Image src={closeIcon} alt="Close" onClick={onClose} />
         </button>
 
         <div id="input-recommendations">
-          <input 
-            type="text"
-            id="search-bar"
-            name="search-bar"
-            placeholder="Search" 
-            value={keyword}
-            onChange={e => setKeyword(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSearch()}
-          />
-          <button type="submit" onClick={handleSearch}>
-            <Image src={searchThinIcon} alt="Search" />
-          </button>
+          <div className="search-bar-wrap">
+            <input 
+              type="text"
+              id="search-bar"
+              name="search-bar"
+              placeholder="Search" 
+              value={keyword}
+              onChange={e => setKeyword(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
+            />
+            <button type="submit" onClick={handleSearch} className="search-button">
+              <Image src={searchThinIcon} alt="Search" />
+            </button>
+          </div>
 
           <div className="recommendations">
             <h3>{t('recommended')}</h3>

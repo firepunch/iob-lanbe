@@ -1,18 +1,16 @@
 import CATEGORIES_QUERY from '@/queries/categories'
 import { CHECKOUT_QUERY, FETCH_ORDER_QUERY, ORDER_QUERY } from '@/queries/orders'
-import POST_BY_CATEGORY_QUERY from '@/queries/postByCategory'
+import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
 import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
-import CATEGORY_POSTS_QUERY from '@/queries/postByCategory'
-import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
-import POST_BY_SAVED from './queries/postBySaved'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
-import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
-import { ILoginUser } from './types/api'
+import POST_BY_SAVED from './queries/postBySaved'
 import PRODUCT_BY_SAVED from './queries/productBySaved'
 import SEARCH_QUERY from './queries/search'
+import { ILoginUser } from './types/api'
+import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
