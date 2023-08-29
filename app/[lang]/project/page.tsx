@@ -62,7 +62,7 @@ export default function Search({
 
         {/* first intro text */}
         <div id="proj-intro">
-          <h3>{t('proj-intro-1')}</h3>
+          <h3>{t('proj-intro-1')}<br/>{t('proj-intro-1-1')}</h3>
           <p>{t('proj-intro-2')}</p>
           <p>{t('proj-intro-3')}</p>
         </div>

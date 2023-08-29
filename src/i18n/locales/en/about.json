@@ -32,7 +32,9 @@
 
   }],
 
-  "main": "We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.",
+  "main-1": "We provide end-to-end digital solutions",
+  "main-2": "and business insights optimized for the",
+  "main-3": "Southeast Asian Market.",
 
   "about-us": "ABOUT US",
 
@@ -52,7 +54,9 @@
 
   "our-story": "OUR STORY",
 
-  "our-story-slogan": "Your partner for Sustainable Business Growth in Southeast Asia.",
+  "our-story-slogan-1": "Your partner for ",
+  "our-story-slogan-2": "Sustainable Business Growth ",
+  "our-story-slogan-3": "in Southeast Asia.",
 
   "our-story-intro-1": "We have initiated collaborations with numerous experts from various fields to understand business trends based on different environments across Southeast Asia.",
 
@@ -64,7 +68,8 @@
 
   "position": "Founder",
 
-  "background": "Ex-Google & Startup  Yonsei School of Business",
+  "background-1": "Ex-Google & Startup",
+  "background-2": "Yonsei School of Business",
 
   "ceo-more-details": [{
 

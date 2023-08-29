@@ -4,12 +4,18 @@ import { sendEmailForm } from '@/api_wp'
 import arrowBlackImg from '@/imgs/arrow_black.png'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/i18n/settings'
 
 interface emailFormProps {
 }
 
 export default function EmailForm({
-}: emailFormProps) {
+  lang, 
+}: {
+  lang: ValidLocale,
+}, emailFormProps) {
+  const { t } = useTranslation(lang, 'layout')
   const [value, setValue] = useState<string>()
 
   const handleSubmit = async (e) => {
@@ -29,7 +35,7 @@ export default function EmailForm({
   return (
     <>
       <div className="footer-signup">
-        <p>Sign up to<br/> receive our newsletter.</p>
+        <p>{t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}</p>
         <input 
           type="email" 
           placeholder="Email"

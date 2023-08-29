@@ -42,12 +42,12 @@ export default function Header({
         <ul>
           <li>
             <Link href={`/${lang}/about`}>
-              {t('about')}
+              {t('h_about')}
             </Link>
           </li>
 
           <li className="content" tabIndex={0}>
-            <span>{t('content')}</span>
+            <span>{t('h_content')}</span>
 
             {/* hover */}
             <div className="submenu">
@@ -117,12 +117,12 @@ export default function Header({
 
           <li>
             <Link href={`/${lang}/report`}>
-              {t('report')}
+              {t('h_report')}
             </Link>
           </li>
           <li>
             <Link href={`/${lang}/project`}>
-              {t('project')}
+              {t('h_project')}
             </Link>
           </li>
         </ul>
@@ -133,18 +133,18 @@ export default function Header({
           <li>
             <span className="search-link" onClick={() => setOpenSearchWall(true)}>
               <Image src={SearchImg} alt="Search" />
-              {t('search')}
+              {t('h_search')}
             </span>
           </li>
           <li>
             {isValid ? (
               <Link href={`/${lang}/my-page/content`}>
-                {t('my_page')}
+                {t('h_my_page')}
               </Link>
             ) : (
               <Link href={`/${lang}/sign-in`}>
                 <Icons type="arrowBlack" />
-                {t('sign_in')}
+                {t('h_sign_in')}
               </Link>
             )}
           </li>

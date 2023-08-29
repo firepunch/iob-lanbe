@@ -56,10 +56,10 @@ const Layout = ({
               <p><span>I.O.B </span>{t(TAB_MAP.ideas)}</p>
             </Link>
            
-            <Link href={{ pathname: `/my-page/${TAB_MAP.payment}` }}>
+            {/* <Link href={{ pathname: `/my-page/${TAB_MAP.payment}` }}>
               <Image src={PaymentIcon} alt="Payment"/>
               <p>{t(TAB_MAP.payment)}</p>
-            </Link>
+            </Link> */}
 
             <Link href={{ pathname: `/my-page/${TAB_MAP.settings}` }}>
               <Image src={SettingsIcon} alt="Settings"/>

@@ -84,7 +84,7 @@ export default function Reports({
       <section id="all-report-title">
         <div id="report-title-description">
           <h2>{t('report_h2')}</h2>
-          <p>{t('report_intro')}</p>
+          <p>{t('report_intro-1')}<br/>{t('report_intro-2')}</p>
         </div>
 
         <div className="sort">

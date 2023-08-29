@@ -112,17 +112,17 @@ export default function Home({
             {t('intro-text')}
           </p>
           <div className="firstpage-cta">
-            <Link href={{ pathname: `category` }} className="fp-cta" >
+            <Link href={{ pathname: `/${lang}/category` }} className="fp-cta" >
               <Icons type="arrowWhite" />
               <p>{t('iob-content')}</p>
             </Link>
 
-            <Link href={{ pathname: `report` }} className="fp-cta">
+            <Link href={{ pathname: `/${lang}/report` }} className="fp-cta">
               <Icons type="arrowWhite" />
               <p>{t('iob-report')}</p>
             </Link>
 
-            <Link href={{ pathname: `project` }} className="fp-cta">
+            <Link href={{ pathname: `/${lang}/project` }} className="fp-cta">
               <Icons type="arrowWhite" />
               <p>{t('iob-project')}</p>
             </Link>
@@ -172,7 +172,7 @@ export default function Home({
           <div className="iob-content-info">
             <p className="description">{t('content-desc')}</p>
 
-            <Link href={{ pathname: `/category` }} className="cta-web">
+            <Link href={{ pathname: `/${lang}/category` }} className="cta-web">
               <Icons type="arrowBlack" />
               <p>{t('see-all')}</p>
             </Link>
@@ -202,7 +202,7 @@ export default function Home({
           </div>
           {/* //iob latest content grid */}
 
-          <Link href={{ pathname: `/category` }} className="content-cta-mobile">
+          <Link href={{ pathname: `/${lang}/category` }} className="content-cta-mobile">
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>
@@ -219,7 +219,7 @@ export default function Home({
 
           <div className="iob-report-info">
             <p className="description">{t('report-desc')}</p>
-            <Link href={{ pathname: `/report` }} className="cta-web">
+            <Link href={{ pathname: `/${lang}/report` }} className="cta-web">
               <Icons type="arrowBlack" />
               <p>{t('see-all')}</p>
             </Link>
@@ -251,7 +251,7 @@ export default function Home({
           </div>
           {/* //iob latest report grid */}
 
-          <Link href={{ pathname: `/report` }} className="report-cta-mobile">
+          <Link href={{ pathname: `/${lang}/report` }} className="report-cta-mobile">
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>
@@ -271,7 +271,7 @@ export default function Home({
               {t('project-desc')}
             </p>
 
-            <Link href={{ pathname: `/project` }} className="cta-web-proj">
+            <Link href={{ pathname: `/${lang}/project` }} className="cta-web-proj">
               <Icons type="arrowBlack" />
               <p>{t('see-details')}</p>
             </Link>

@@ -81,7 +81,7 @@ export default function Ideas({
           <p className="none-saved-text">{t('ideas_none')}</p>
           <p className="explore-text">{t('ideas_explore')}</p>
 
-          <Link href="/category">
+          <Link href={{ pathname: `/${lang}/category` }}>
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>

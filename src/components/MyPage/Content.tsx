@@ -9,6 +9,7 @@ import { getUserId } from '@/utils/lib'
 import useUserState from '@/stores/userStore'
 import { PostCard } from '../PostCard'
 import { createWatchList, removeWatchList } from '@/api_wp'
+import { languages } from '@/i18n/settings'
 
 export default function Content({
   t,
@@ -21,6 +22,7 @@ export default function Content({
   }
 }) {
   const { posts, updatePosts } = useUserState(state => state)
+  const lang = params.language.toLowerCase()
 
   useEffect(() => {
     getPostBySaved(params).then(result => (
@@ -87,7 +89,7 @@ export default function Content({
           <p className="none-saved-text">{t('content_none')}</p>
           <p className="explore-text">{t('content_explore')}</p>
 
-          <Link href="/category">
+          <Link href={{ pathname: `/${lang}/category` }}>
             <Icons type="arrowBlack" />
             <p>{t('see-all')}</p>
           </Link>

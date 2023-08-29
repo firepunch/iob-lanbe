@@ -1,5 +1,14 @@
 {
   "category_": "All Content",
+
+  "market": "Market",
+  "corporate": "Corporate",
+  "consumer": "Consumer",
+  "marketing": "Marketing",
+  "partnership": "Partnership",
+  "channel": "Channel",
+  "payment": "Payment",
+  
   "market_research": "Market Research",
   "market_entry": "Market Entry",
   "category_market": "Market",

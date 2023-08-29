@@ -1,5 +1,14 @@
 {
   "category_": "All Content",
+
+  "market": "시장 분석",
+  "corporate": "기업 사례",
+  "consumer": "소비자",
+  "marketing": "마케팅",
+  "partnership": "파트너십",
+  "channel": "채널",
+  "payment": "결제",
+
   "market_research": "시장 조사",
   "market_entry": "시장 진출",
   "category_market": "시장 분석",

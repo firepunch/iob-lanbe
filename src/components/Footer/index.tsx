@@ -19,15 +19,17 @@ export default function Footer({
         <a className="footer-logo">I.O.B </a>
 
         <div className="footer-info">
-          <a className="email">support@iob.team</a>
-          <p className="address">Nonhyeon-ro 149-gil 67-7<br/> Myeong-Eun Building 3F</p>
+          <p className="email">{t('f_company')}</p>
+          <p className="email">{t('f_email')}</p>
+          <p className="address">{t('f_address')}<br/>{t('f_building')}</p>
+          <p className="address">{t('f_ceo')}</p>
         </div>
 
         <p className="copyright">© IOB 2023</p>
       </div>
 
       <div id="footer-right">
-        <EmailForm />
+        <EmailForm lang={lang}/>
         <div className="footer-pages">
           <ul>
             <li>
