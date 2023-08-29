@@ -10,6 +10,7 @@ interface Tokens {
 
 interface UserState extends Tokens {
   user?: IUser
+  userInfo?: any
   order?: IOrder
   download?: IDownload
   cards?: IStripeCard[]
@@ -17,6 +18,7 @@ interface UserState extends Tokens {
   posts?: { node: IPost }[]
   reports?: { node: IReport }[]
   updateUser: (user: IUser) => void
+  updateUserInfo: (userInfo: any) => void
   updateTokens: (tokens: Tokens) => void
   updateOrder: (order: IOrder) => void
   updateDownload: (download: IDownload) => void
@@ -28,6 +30,7 @@ interface UserState extends Tokens {
 
 const useUserState = create<UserState>((set) => ({
   user: undefined,
+  userInfo: undefined,
   authToken: undefined,
   refreshToken: undefined,
   sessionToken: undefined,
@@ -38,6 +41,7 @@ const useUserState = create<UserState>((set) => ({
   posts: undefined,
   reports: undefined,
   updateUser: (user) => set({ user }),
+  updateUserInfo: (userInfo) => set({ userInfo }),
   updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
     authToken,
     refreshToken,

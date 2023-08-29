@@ -80,6 +80,17 @@ export async function createUser(data: any) { // ICreateUser) {
   return res
 }
 
+export async function fetchUser(userId: number) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/users',
+    method: 'GET',
+    queryParams: { user_id: userId },
+  })
+
+  return res
+}
+
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',

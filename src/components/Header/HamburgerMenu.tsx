@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { isValidToken } from '@/utils/lib'
+import { isValidUser } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -21,10 +21,15 @@ export default function MobileMenu({
 }) {
   const { t: ct } = useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const user = useUserState(state => state.user)
+  const { user, updateUser } = useUserState(state => state)
+  const { isValid, user: storageUser } = isValidUser()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+
+  useEffect(() => {
+    if (storageUser) updateUser(storageUser)
+  }, [])
 
   const handleCloseMenu = () => setIsMenuOpen(false)
 
@@ -145,7 +150,7 @@ export default function MobileMenu({
 
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
-            {user ? (
+            {isValid || user ? (
               <Link href="/my-page/content">
                 <h2>{t('my_page')}</h2>
               </Link>

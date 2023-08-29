@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { isValidToken } from '@/utils/lib'
+import { isValidUser } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -21,8 +21,13 @@ export default function Header({
 }) {
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const user = useUserState(state => state.user)
+  const { user, updateUser } = useUserState(state => state)
+  const { isValid, user: storageUser } = isValidUser()
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (storageUser) updateUser(storageUser)
+  }, [])
 
   return (
     <header>
@@ -134,7 +139,7 @@ export default function Header({
             </span>
           </li>
           <li>
-            {user ? (
+            {isValid || user ? (
               <Link href={`/${lang}/my-page/content`}>
                 {t('h_my_page')}
               </Link>

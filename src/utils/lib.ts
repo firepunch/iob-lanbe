@@ -1,3 +1,4 @@
+import { IUser } from '@/types/store'
 import { format } from 'date-fns'
 
 export const objectToGetParams = (object: {
@@ -84,6 +85,13 @@ export const isValidToken = () => {
   const isValid = userData?.authToken && userData?.user?.databaseId
 
   return Boolean(isValid)
+}
+
+export const isValidUser = () => {
+  const [userData] = getStorageData(AUTH_TOKEN)
+  const isValid = userData?.authToken && userData?.user?.databaseId
+
+  return { isValid: Boolean(isValid), user: userData?.user as IUser }
 }
 
 export const getUserId = () => {

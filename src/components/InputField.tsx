@@ -33,6 +33,10 @@ export default function InputField({
   const [inputVal, setInputVal] = useState<string | undefined>()
 
   useEffect(() => {
+    if (defaultValue) setInputVal(defaultValue)
+  }, [defaultValue])
+
+  useEffect(() => {
     if (errorMessage) setInputVal(errorMessage)
   }, [errorMessage])
 

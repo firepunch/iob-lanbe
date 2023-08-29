@@ -1,9 +1,11 @@
 'use client'
  
 import { TI18N, TStringObj } from '@/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputField from '../InputField'
 import SelectField from '../SelectField'
+import { fetchUser } from '@/api_wp'
+import useUserState from '@/stores/userStore'
 
 export default function Settings({
   t,
@@ -12,7 +14,18 @@ export default function Settings({
   t: TI18N
   ct: TI18N
 }) {
+  const { user, userInfo, updateUser, updateUserInfo } = useUserState(state => state)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
+  const [formValue, setFormValue] = useState<TStringObj>()
+
+  useEffect(() => {
+    if (user?.databaseId) {
+      fetchUser(user.databaseId).then(result => (
+        updateUserInfo(result.data.user_data)
+      ))
+    }
+  }, [])
+
   const handleSubmit = () => {
 
   }
@@ -35,6 +48,7 @@ export default function Settings({
                   isRequired
                   name="firstName"
                   label={t('first_name')}
+                  defaultValue={userInfo?.display_name.split(' ')[0]}
                   errorMessage={errorMessages?.firstName}
                 />
             
@@ -42,7 +56,8 @@ export default function Settings({
                   isRequired
                   name="lastName"
                   label={t('last_name')}
-                  errorMessage={errorMessages?.firstName}
+                  defaultValue={userInfo?.display_name.split(' ')[1]}
+                  errorMessage={errorMessages?.lastName}
                 />
               </div>
 
@@ -53,6 +68,7 @@ export default function Settings({
                   name="organization"
                   label={t('org')}
                   placeholder={t('org_placeholder')}
+                  defaultValue={userInfo?.organization}
                   errorMessage={errorMessages?.organization}
                 />
 
@@ -61,7 +77,8 @@ export default function Settings({
                   name="jobTitle"
                   label={t('jobtitle')}
                   placeholder={t('jobtitle_placeholder')}
-                  errorMessage={errorMessages?.organization}
+                  defaultValue={userInfo?.jobTitle}
+                  errorMessage={errorMessages?.jobTitle}
                 />
               </div>
 
@@ -74,6 +91,7 @@ export default function Settings({
                   label={t('country')}
                   placeholder={t('country_placeholder')}
                   options={ct('country_options', { returnObjects: true })}
+                  defaultValue={userInfo?.country}
                   errorMessage={errorMessages?.country}
                   onResetError={() => (
                     setErrorMessages(prev => ({
@@ -90,6 +108,7 @@ export default function Settings({
                   label={t('function')}
                   placeholder={t('function_placeholder')}
                   options={ct('function_options', { returnObjects: true }) }
+                  defaultValue={userInfo?.userFunction}
                   errorMessage={errorMessages?.userFunction}
                   onResetError={() => (
                     setErrorMessages(prev => ({
@@ -115,11 +134,11 @@ export default function Settings({
                   name="email"
                   label={t('email')}
                   placeholder={t('email_placeholder')}
+                  defaultValue={userInfo?.user_email}
                   errorMessage={errorMessages?.email}
                 />
                                 
                 <InputField
-                  isRequired
                   type="email"
                   name="newEmail"
                   label={t('new_email')}
@@ -147,7 +166,6 @@ export default function Settings({
                 />
 
                 <InputField
-                  isRequired
                   className="pw-field"
                   type="password"
                   name="newPassword"
@@ -171,14 +189,14 @@ export default function Settings({
             <h3>{t('email-notify')}</h3>
 
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletter" defaultChecked />
+              <input type="checkbox" id="newsletter" name="newsletter" defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} />
               <p>
                 {t('newsletter')}
               </p>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketing" defaultChecked />
+              <input type="checkbox" id="marketing" name="marketing" defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} />
               <p>
                 {t('marketing')}  
               </p>

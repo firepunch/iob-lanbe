@@ -8,6 +8,7 @@ export default function SelectField({
   name,
   label,
   placeholder,
+  defaultValue,
   options,
   className,
   errorMessage,
@@ -17,12 +18,17 @@ export default function SelectField({
   name: string
   label: string
   placeholder?: string
+  defaultValue?: string
   options: Options
   className?: string
   errorMessage?: string
   onResetError?: () => void
 }) {
   const [value, setValue] = useState<string | undefined>()
+
+  useEffect(() => {
+    if (defaultValue) setValue(defaultValue)
+  }, [defaultValue])
 
   useEffect(() => {
     if (errorMessage) setValue('Error')
