@@ -1,252 +1,271 @@
 // mobile first
 #only-logo-nav-design {
-    header {
-        h1 {
-            color: $white;
-        }
-
-        .language-mobile,
-        .hamburger-mobile {
-            img {
-                filter: invert(0);
-            }
-        }
+  header {
+    h1 {
+      color: $white;
     }
+
+    .language-mobile,
+    .hamburger-mobile {
+      img {
+        filter: invert(0);
+      }
+    }
+  }
 }
 
-
 #main-signin-wrap {
-    display: flex;
-    flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
 
-    #signin-info {
-        width: 100%;
-        margin-top: 1.85rem;
-        margin-bottom: 3rem;
+  #signin-info {
+    width: 100%;
+    margin-top: 1.85rem;
+    margin-bottom: 3rem;
 
+    @include flex-column;
+    align-items: center;
+
+    h2 {
+      display: none;
+    }
+
+    .email-pw-wrap {
+      width: 90%;
+      margin: auto;
+
+      form,
+      .field {
         @include flex-column;
+        margin: 1rem 0;
+
+        label {
+          font-size: $smaller-font-size;
+          margin-bottom: 0.25rem;
+          margin-left: 1rem;
+        }
+
+        input {
+          height: 3rem;
+          border: 0.075rem solid $black;
+          border-radius: 10rem;
+          padding: 0 1rem;
+          outline: none;
+        }
+      }
+    }
+
+    .rmb-forgot {
+      width: 100%;
+      @include flex-spacebetween;
+      font-size: 0.75rem;
+
+      .rmb-checkbox {
+        display: flex;
+        flex-direction: row-reverse;
         align-items: center;
+      }
 
-        h2 {
-            display: none;
-        }
+      .forgot-link {
+        text-decoration: underline;
+      }
+    }
 
-        .email-pw-wrap {
-            width: 90%;
-            margin: auto;
+    .signin-button {
+      @include mobile-button-style($black);
+      width: 100%;
+      background-color: $black;
+      color: $white;
+      margin-top: 2rem;
+    }
 
-            form, .field {
-                @include flex-column;
-                margin: 1rem 0;
+    .noaccount-signup {
+      font-size: 0.75rem;
 
-                label {
-                    font-size: $smaller-font-size;
-                    margin-bottom: .25rem;
-                    margin-left: 1rem;
-                }
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
 
-                input {
-                    height: 3rem;
-                    border: .075rem solid $black;
-                    border-radius: 10rem;
-                    padding: 0 1rem;
-                    outline: none;
-                }
-            }
-        }
+  #signin-img {
+    width: 100%;
+    height: 25rem;
+    background: url(~/public/imgs/signin_main.jpg);
+    @include background(50%);
 
-        .rmb-forgot {
-            width: 100%;
-            @include flex-spacebetween;
-            font-size: .75rem;
+    position: relative;
 
-            .rmb-checkbox {
-                display: flex;
-                flex-direction: row-reverse;
-                align-items: center;
-            }
+    img {
+      display: none;
+    }
 
-            a {
-                text-decoration: underline;
-            }
-        }
+    .mobile-signin-title {
+      width: 50%;
+      text-align: center;
 
-        .signin-button {
-            @include mobile-button-style($black);
-            width: 100%;
-            background-color: $black;
-            color: $white;
-            margin-top: 2rem;
-        }
+      @include titles;
+      color: $white;
 
-        .noaccount-signup {
-            font-size: .75rem;
+      position: absolute;
+      @include absolute-center;
+      top: 22rem;
+    }
+  }
+}
 
-            span {
-                text-decoration: underline;
-            }
-        }
+@media (min-width: 768px) {
+  #main-signin-wrap {
+    #signin-info {
+      margin: 3rem 0;
+
+      .signin-button {
+        margin-top: 4rem;
+      }
     }
 
     #signin-img {
-        width: 100%;
-        height: 25rem;
-        background: url(~/public/imgs/signin_main.jpg);
-        @include background(50%);
+      height: 30rem;
 
-        position: relative;
-
-        img {
-            display: none;
-        }
-
-        .mobile-signin-title {
-            width: 50%;
-            text-align: center;
-
-            @include titles;
-            color: $white;
-
-            position: absolute;
-            @include absolute-center;
-            top: 22rem;
-        }
+      .mobile-signin-title {
+        top: 27rem;
+      }
     }
-}
-
-
-@media (min-width: 768px) {
-    #main-signin-wrap {
-        #signin-info {
-            margin: 3rem 0;
-
-            .signin-button {
-                margin-top: 4rem;
-            }
-        }
-
-        #signin-img {
-            height: 30rem;
-
-            .mobile-signin-title {
-                top: 27rem;
-            }
-        }
-    }
+  }
 }
 
 @media (min-width: 992px) {
-    #only-logo-nav-design {
-        header {
-            background-color: transparent;
+  #only-logo-nav-design {
+    header {
+      background-color: transparent;
 
-            h1 {
-                color: $black;
-            }
-        }
+      h1 {
+        color: $black;
+      }
+    }
+  }
+
+  #main-signin-wrap {
+    flex-direction: row;
+    align-items: center;
+
+    // hide scroll bar
+    ::-webkit-scrollbar {
+      width: 0.5rem;
     }
 
-    #main-signin-wrap {
-        flex-direction: row;
-        align-items: center;
-
-        // hide scroll bar
-        ::-webkit-scrollbar {
-            width: .5rem;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: transparent;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-
-        #signin-info {
-            height: 100vh;
-            overflow-y: scroll;
-            margin: 0;
-            position: relative;
-
-            h2 {
-                display: block;
-                @include titles;
-                font-size: $large-font-size;
-                margin: 0;
-
-                position: absolute;
-                top: 10rem;
-            }
-
-            .email-pw-wrap {
-                width: 75%;
-
-                position: absolute;
-                top: 13rem;
-            }
-
-            .rmb-forgot {
-                position: absolute;
-                // top: 24.5rem;
-            }
-
-            .signin-button {
-                position: absolute;
-                // top: 25rem;
-            }
-
-            .noaccount-signup {
-                position: absolute;
-                top: 33rem;
-                padding-bottom: 2rem;
-            }
-
-        }
-
-        #signin-img {
-            height: 100vh;
-
-            img {
-                display: block;
-                width: 5rem;
-                position: absolute;
-                @include absolute-center;
-                top: 50%;
-            }
-
-            .mobile-signin-title {
-                display: none;
-            }
-        }
+    ::-webkit-scrollbar-thumb {
+      background-color: transparent;
     }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    #signin-info {
+      height: 100vh;
+      overflow-y: scroll;
+      margin: 0;
+      position: relative;
+
+      h2 {
+        display: block;
+        @include titles;
+        font-size: $large-font-size;
+        margin: 0;
+
+        position: absolute;
+        top: 10rem;
+      }
+
+      .email-pw-wrap {
+        width: 75%;
+
+        position: absolute;
+        top: 13rem;
+      }
+
+      .rmb-forgot {
+        position: absolute;
+        // top: 24.5rem;
+      }
+
+      .signin-button {
+        position: absolute;
+        // top: 25rem;
+      }
+
+      .noaccount-signup {
+        position: absolute;
+        top: 33rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    #signin-img {
+      height: 100vh;
+
+      img {
+        display: block;
+        width: 5rem;
+        position: absolute;
+        @include absolute-center;
+        top: 50%;
+      }
+
+      .mobile-signin-title {
+        display: none;
+      }
+    }
+  }
 }
 
 @media (min-width: 1400px) {
-    #main-signin-wrap {
-        #signin-info {
-            height: 55vh;
+  #main-signin-wrap {
+    #signin-info {
+      height: 55vh;
 
-            h2 {
-                top: 0;
-            }
+      h2 {
+        top: 0;
+      }
 
-            .email-pw-wrap {
-                top: 4rem;
-            }
+      .email-pw-wrap {
+        top: 4rem;
+      }
 
-            // .rmb-forgot {
-            //     top: 15rem;
-            // }
+      // .rmb-forgot {
+      //     top: 15rem;
+      // }
 
-            // .signin-button {
-            //     top: 15rem;
-            // }
+      // .signin-button {
+      //     top: 15rem;
+      // }
 
-            .noaccount-signup {
-                top: 23rem;
-                padding-bottom: 0;
-            }
-        }
+      .noaccount-signup {
+        top: 23rem;
+        padding-bottom: 0;
+      }
     }
+  }
+}
+
+#main-signin-wrap.password-wrap {
+  #signin-info {
+    margin-top: 8rem;
+
+    h2 {
+      display: block;
+    }
+  }
+
+  .info {
+    text-align: center;
+  }
+
+  .back_link {
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 3rem;
+  }
 }

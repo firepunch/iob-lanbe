@@ -21,7 +21,7 @@ const SignUp = ({
   const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
-  const updateUser = useUserState(state => state.user)
+  const updateUser = useUserState(state => state.updateUser)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
   const recaptchaRef = React.useRef<any>()
 
@@ -64,6 +64,8 @@ const SignUp = ({
     }
 
     try {
+      recaptchaRef.current.execute()
+
       await createUser({
         ...formProps,
         username: formProps.email,
@@ -80,8 +82,6 @@ const SignUp = ({
     } catch (err) {
       console.error('login error', err)
     }
-
-    recaptchaRef.current.execute()
   }
 
   const onReCAPTCHAChange = (captchaCode) => {

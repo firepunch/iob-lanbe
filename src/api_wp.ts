@@ -102,6 +102,17 @@ export async function fetchUser(userId: number) {
   return res
 }
 
+export async function sendPWLink(email: string) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/users/password',
+    method: 'POST',
+    data: { email },
+  })
+
+  return res
+}
+
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',

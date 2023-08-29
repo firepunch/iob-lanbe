@@ -118,7 +118,9 @@ const SignIn = ({
               <input type="checkbox" id="rmb_me" name="rmb_me"/>
             </div>
 
-            <a href="#">{t('forgot')}</a>
+            <Link href={`/${lang}/sign-in/password`} className="forgot-link">
+              {t('forgot')}
+            </Link>
           </div>
 
           <button type="submit" className="signin-button" disabled={isProcessing}>
