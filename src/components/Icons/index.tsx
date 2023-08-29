@@ -6,11 +6,15 @@ import ArrowWhite from '@/imgs/arrow_white.png'
 import SaveIcon from '@/imgs/save.png'
 import LocationIcon from '@/imgs/locationicon_black.png'
 
-export default function Icons({
+export default function Icons ({
   type,
+  className,
+  onClick,
   ...props
 }: {
   type: 'arrowBlack' | 'arrowBlackDown' | 'arrowWhite' | 'save' | 'location',
+  className?: string
+  onClick?: () => void
 }) {
   const IMAGE_MAP = {
     arrowBlack: ArrowBlack,
@@ -21,6 +25,12 @@ export default function Icons({
   }
 
   return (
-    <Image src={IMAGE_MAP[type]} alt={type} {...props} />
+    <Image 
+      src={IMAGE_MAP[type]} 
+      alt={type} 
+      className={className}
+      onClick={onClick} 
+      {...props} 
+    />
   )
 }

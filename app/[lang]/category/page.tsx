@@ -36,6 +36,7 @@ export default function Category({
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
+  const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
     categoryName: searchParams.get('name') || '',
@@ -63,7 +64,7 @@ export default function Category({
         },
       })
     })
-  }, [fetchParams, updatePosts])
+  }, [fetchParams])
 
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
@@ -82,7 +83,6 @@ export default function Category({
   }
   
   const handleCountry = (countries) => {
-    console.log(countries)
     setFetchParams(prev => ({ 
       ...prev, 
       ...initPagination,
@@ -125,10 +125,14 @@ export default function Category({
               <h2>{t(`category_${fetchParams.categoryName}`).toUpperCase()}</h2>
             </div>
 
-            <Icons type="arrowBlackDown" />
+            <Icons 
+              type="arrowBlackDown" 
+              className={isOpenCategory && 'show'}
+              onClick={() => setIsOpenCategory(!isOpenCategory)} 
+            />
           </div>
 
-          <div className="other-content-pages">
+          <div className={`other-content-pages ${isOpenCategory && 'show'}`}>
             <ul>
               <li className="main-categ">
                 {t('market_research')}
@@ -204,14 +208,14 @@ export default function Category({
               </span>
               <button
                 type="button" 
-                className="country-button" 
+                className={`country-button ${fetchParams.countries?.length && 'black-button'}`}
                 onClick={() => setIsOpenFilter(!isOpenFilter)}
               >
                 {ct('country')}
               </button>
               {isOpenFilter && (
                 <CountryFilter 
-                  ct={ct} 
+                  ct={ct}
                   value={fetchParams?.countries}
                   onChange={handleCountry}
                 />

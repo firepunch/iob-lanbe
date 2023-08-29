@@ -15,9 +15,6 @@ const DATABASEID_POSTS_QUERY = `
             }
           }
         }
-        postCountry {
-          lanbeCountry
-        }
         tags {
           edges {
             node {

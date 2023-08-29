@@ -33,9 +33,6 @@ query postBySlug($postSlug: ID!, $userId: Float) {
       country
       is_save
     }
-    postCountry {
-      lanbeCountry
-    }
     tags {
       edges {
         node {

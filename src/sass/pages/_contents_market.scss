@@ -30,7 +30,7 @@
       }
 
       // default로 화살표는 아래를 향함. 모바일에서 화살표 누르면 화살표 rotate과 함께 아래 다른 콘텐츠 카테고리 나타남
-      img:active {
+      img.show {
         transform: rotate(180deg);
       }
     }
@@ -40,6 +40,10 @@
 
       // 모바일에서 화살표 누르면 나타나는 부분
       display: none;
+
+      &.show {
+        display: block;
+      }
     }
 
     #categ-description {
