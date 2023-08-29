@@ -27,7 +27,10 @@
       "title": "I.O.B PROJECT",
       "link": "/project"
     }],
-    "main": "동남아 시장에 최적화된 End-to-End 디지털 솔루션과 비즈니스 인사이트를 제공합니다.",
+    "main-1": "동남아 시장에 최적화된",
+    "main-2": "End-to-End 디지털 솔루션과",
+    "main-3": "비즈니스 인사이트를 제공합니다.",
+
     "about-us": "ABOUT US",
     "intro-1": "새롭게 동남아 시장에 진출하는 기업 또는 동남아 내 새로운 국가로 사업을 확장하거나 새로운 성장 전략을 구상하고 있는 기업들과 협력합니다.",
     "intro-2": "동남아 시장에 대한 전문성을 기반으로, 기업의 목표와 환경에 맞는 팀을 구축하  프로젝트를 수행합니다.",
@@ -37,13 +40,16 @@
     "answer2-title": "비즈니스 인사이트",
     "answer2-desc": "동남아의 사회, 경제, 문화적 배경과 트렌드로부터 인사이트를 찾아 비즈니스 콘텐츠와 리포트를 제공합니다.",
     "our-story": "OUR STORY",
-    "our-story-slogan": "Your partner for Sustainable Business Growth in Southeast Asia.",
+    "our-story-slogan-1": "Your partner for ",
+    "our-story-slogan-2": "Sustainable Business Growth ",
+    "our-story-slogan-3": "in Southeast Asia.",
     "our-story-intro-1": "동남아 각 국가들의 서로 다른 환경을 바탕으로 비즈니스 트렌드를 이해하기 위해 많은 전문가들과 협력을 시작했습니다.",
     "our-story-intro-2": "동남아 여러 국가의 전략, 사업 개발, 영업, 마케팅, 디자인, 개발 등 다양한 영역의 전문가들이 I.O.B와 함께하고 있습니다.",
     "our-story-intro-3": "콘텐츠를 함께 제작하고, 고객사의 목표와 과제에 맞게 함께 팀을 구성하여 다양한 과제를 수행하고 있습니다.",
     "name": "손준하",
     "position": "Founder",
-    "background": "Ex-Google & Startup Yonsei School of Business",
+    "background-1": "Ex-Google & Startup",
+    "background-2": "Yonsei School of Business",
     "ceo-more-details": [{
       "desc": "글로벌 시장 세일즈 전략"
     }, { 

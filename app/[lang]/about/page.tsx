@@ -30,7 +30,7 @@ export default async function About({
 
         {/* section 1: about first page */}
         <section id="about-firstpage">
-          <p>{t('main')}</p>
+          <p>{t('main-1')}<br/>{t('main-2')}<br/>{t('main-3')}</p>
           <h2>{t('about-us')}</h2>
         </section>
         {/* //section 1: about first page */}
@@ -68,7 +68,12 @@ export default async function About({
             <h3>{t('our-story')}</h3>
             <div className="our-story-slogan">
               <p>
-                <p>{t('our-story-slogan')}</p>
+                {t('our-story-slogan-1')}
+                <br/> 
+                <span>
+                  {t('our-story-slogan-2')}
+                </span><br/> 
+                {t('our-story-slogan-3')}
               </p>
               <Image src={ourstoryIcon} alt="Growth" />
             </div>
@@ -88,7 +93,12 @@ export default async function About({
                 <div className="bg-li">
                   <div className="bg">
                     <div className="bg">
-                      {t('background')}
+                      <p>
+                        {t('background-1')}
+                      </p>
+                      <p>
+                        {t('background-2')}
+                      </p>
                     </div>
                   </div>
           
