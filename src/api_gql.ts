@@ -29,7 +29,6 @@ async function fetchAPI (query = '', { variables }: Record<string, object> = {})
 
   const res = await fetch(`${API_URL}/graphql`, {
     headers,
-    mode: 'no-cors',
     method: 'POST',
     body: JSON.stringify({
       query,
