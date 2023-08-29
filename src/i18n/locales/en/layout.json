@@ -1,4 +1,12 @@
 {
+  "h_about": "About us",
+  "h_content": "Content",
+  "h_report": "Report",
+  "h_project": "Project",
+  "h_search": "Search",
+  "h_sign_in": "Sign in",
+  "h_my_page": "My Page",
+  
   "about": "About us",
   "content": "Content",
   "report": "Report",
