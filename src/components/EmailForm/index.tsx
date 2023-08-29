@@ -24,7 +24,7 @@ export default function EmailForm({
 
     try {
       const formData = new FormData()
-      formData.append('user-email', value as string)
+      formData.append('email', value as string)
       await sendEmailForm(formData)
       alert('이메일 폼 전송에 성공했습니다!')
     } catch (error) {
@@ -34,16 +34,20 @@ export default function EmailForm({
 
   return (
     <>
-      <div className="footer-signup">
-        <p>{t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}</p>
-        <input 
-          type="email" 
-          placeholder="Email"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-        />
-        <Image src={arrowBlackImg} alt="Arrow" onClick={handleSubmit} />
-      </div>
+      <form>
+        <div className="footer-signup">
+          <p>{t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}</p>
+          <input 
+            id="email"
+            name="email"
+            type="email" 
+            placeholder="Email"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+          />
+          <Image src={arrowBlackImg} alt="Arrow" onClick={handleSubmit}/>
+        </div>
+      </form>
     </>
   )
 }
