@@ -1,6 +1,6 @@
 'use client'
  
-import { TI18N } from '@/types'
+import { TI18N, ValidLocale } from '@/types'
 import Link from 'next/link'
 import Icons from '../Icons'
 import { useEffect } from 'react'
@@ -12,17 +12,14 @@ import { createWatchList, removeWatchList } from '@/api_wp'
 
 export default function Report({
   t,
-  params,
+  lang,
+  userId,
 }: {
   t: TI18N,
-  params: {
-    userId: number,
-    language: string
-  }
+  lang: ValidLocale
+  userId: number
 }) {
   const { reports, updateReports } = useUserState(state => state)
-  const userId = getUserId()
-  const lang = params.language.toLowerCase()
 
   useEffect(() => {
     getProductBySaved(params).then(result => (
