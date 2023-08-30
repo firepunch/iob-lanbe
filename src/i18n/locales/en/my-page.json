@@ -49,6 +49,7 @@
   "email": "Email",
   "new_email": "New Email",
   "email_placeholder": "Please enter your job email.",
+  "new_email_placeholder": "Please enter your new email.",
   "password": "Password",
   "new_password": "New Password",
   "password_placeholder": "Please enter your job password.",
