@@ -65,14 +65,14 @@ export const GET_POSTS_QUERY = `
 query getPostsQuery(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
-  $first: Int = 10, 
+  $first: Int = 100, 
   $last: Int,
   $before: String, 
   $after: String,
   $field: PostObjectsConnectionOrderbyEnum = DATE,
   $order: OrderEnum = DESC,
   $categoryName: String = "",
-  $in: [ID] = ""
+  $in: [ID] = []
 ) {
   posts(
     where: {

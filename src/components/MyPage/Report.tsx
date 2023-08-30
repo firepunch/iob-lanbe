@@ -3,8 +3,8 @@
 import { TI18N, ValidLocale } from '@/types'
 import Link from 'next/link'
 import Icons from '../Icons'
-import { useEffect } from 'react'
-import { getProductBySaved } from '@/api_gql'
+import { useEffect, useState } from 'react'
+import { getAllReports, getProductBySaved } from '@/api_gql'
 import useUserState from '@/stores/userStore'
 import { getUserId } from '@/utils/lib'
 import { ReportCard } from '../ReportCard'
@@ -21,15 +21,32 @@ export default function Report({
   userId: number
 }) {
   const { bookmark, updateBookmarkReport } = useUserState(state => state)
+  const [fetchParams, setFetchParams] = useState({
+    language: lang.toUpperCase(),
+    userId,
+  })
 
   useEffect(() => {
     fetchWatchList({
-      user_id: userId,
       type: 'report',
-    }).then(result => (
-      updateBookmarkReport(result)
-    ))
+      user_id: userId,
+    }).then(result => {
+      if (result?.ids) {
+        setFetchParams(prev => ({
+          ...prev,
+          in: result.ids,
+        }))
+      } else {
+        updateBookmarkReport([])
+      }
+    })
   }, [])
+
+  useEffect(() => {
+    getAllReports(fetchParams).then(result => (
+      updateBookmarkReport(result?.edges)
+    ))
+  }, [fetchParams])
 
   const handleToggleBookmark = async (contentId: number) => {
     try {
@@ -40,10 +57,20 @@ export default function Report({
       })
 
       const result = await fetchWatchList({
-        user_id: userId,
         type: 'report',
+        user_id: userId,
       })
-      updateBookmarkReport(result)
+
+      if (result?.ids) {
+        setFetchParams(prev => ({
+          ...prev,
+          in: result.ids,
+        }))
+      } else {
+        setFetchParams(prev => ({
+          ...prev,
+        }))
+      }
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -60,22 +87,20 @@ export default function Report({
           </div>
 
           <div className="saved-read">
-            <button>{t('saved')} {`(${bookmark?.report?.length || 0})`}</button>
+            <button className="black-button">
+              {t('saved')} {`(${bookmark?.report?.length || 0})`}
+            </button>
           </div>
         </div>
       </div>
       
       {bookmark?.report?.length ? (
         <div id="saved-content">
-          {bookmark?.report?.map(node => (
+          {bookmark?.report?.map(({ node }) => (
             <ReportCard
-              {...node}
               key={node.id}
-              featuredImageUrl={node?.featured_image_url}
-              lanbeContent={{
-                is_save: true,
-              } as ILanbeContent}
               onToggleBookmark={() => handleToggleBookmark(node.id)}
+              {...node}
             />
           ))}
         </div>

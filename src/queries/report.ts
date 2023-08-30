@@ -2,13 +2,24 @@ export const REPORTS_QUERY = `
 query AllReports(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
-  $first: Int = 10, 
+  $first: Int = 100, 
+  $last: Int,
+  $before: String, 
+  $after: String,
   $field: PostObjectsConnectionOrderbyEnum = DATE,
-  $order: OrderEnum = DESC
+  $order: OrderEnum = DESC,
+  $in: [ID] = []
 ) {
-  reports(
-    where: {language: $language, orderby: {field: $field, order: $order}}
+  reports (
+    where: {
+      language: $language, 
+      orderby: {field: $field, order: $order},
+      in: $in
+    }
     first: $first
+    after: $after
+    before: $before
+    last: $last
   ) {
     pageInfo {
       total

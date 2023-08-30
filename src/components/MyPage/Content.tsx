@@ -1,17 +1,16 @@
 'use client'
  
+import { getPosts } from '@/api_gql'
 import { fetchWatchList, removeWatchList } from '@/api_wp'
+import { useTranslation } from '@/i18n/client'
 import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
-import { ILanbeContent } from '@/types/store'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import CategoryFilter from '../CategoryFilter'
+import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { getPosts } from '@/api_gql'
-import CountryFilter from '../CountryFilter'
-import { useTranslation } from '@/i18n/client'
-import CategoryFilter from '../CategoryFilter'
 
 export default function Content({
   t,
@@ -37,7 +36,7 @@ export default function Content({
     fetchWatchList({
       type: 'post',
       user_id: userId,
-    }).then((result) => {
+    }).then(result => {
       if (result?.ids) {
         setFetchParams(prev => ({
           ...prev,
@@ -67,20 +66,19 @@ export default function Content({
       })
 
       const result = await fetchWatchList({
-        user_id: userId,
         type: 'post',
+        user_id: userId,
       })
 
       if (result?.ids) {
-        getPosts({
-          language: lang.toUpperCase(),
-          userId,
+        setFetchParams(prev => ({
+          ...prev,
           in: result.ids,
-        }).then(posts => {
-          updateBookmarkPost(posts?.edges)
-        })
+        }))
       } else {
-        updateBookmarkPost([])
+        setFetchParams(prev => ({
+          ...prev,
+        }))
       }
     } catch (err) {
       console.log(err)
@@ -140,7 +138,9 @@ export default function Content({
           </div>
 
           <div className="saved-read">
-            <button className="black-button">{t('saved')} {`(${bookmark?.post?.length || 0})`}</button>
+            <button className="black-button">
+              {t('saved')} {`(${bookmark?.post?.length || 0})`}
+            </button>
           </div>
         </div>
       </div>
