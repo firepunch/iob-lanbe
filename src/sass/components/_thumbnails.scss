@@ -25,15 +25,16 @@
             
             img {
                 @include icon-size;
+                margin-top: -.15rem;
             }
         }
 
         .country::after {
             content: "";
             display: block;
-            width: 100%;
+            width: 80%;
             height: 1px;
-            margin: 0 .5rem;
+            margin: .5rem auto;
             background-color: $black;
         }
     }
@@ -41,6 +42,7 @@
     .indiv-content-title {
         font-size: $base-font-size;
         font-weight: $bold-font-weight;
+        margin: 0;
     }
 }
 

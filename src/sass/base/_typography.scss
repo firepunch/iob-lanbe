@@ -9,13 +9,14 @@
     src: url(~/public/fonts/quantico_bold.ttf);
 }
 
-@font-face {
-    font-family: 'suit';
-    src: url(~/public/fonts/SUIT-Variable.ttf);
-}
+// @font-face {
+//     font-family: 'suit';
+//     src: url(~/public/fonts/SUIT-Variable.ttf);
+// }
 
 $primary-font: 'inter';
 $secondary-font: 'quantico';
+// $korean-font: 'suit';
 
 // Font sizes
 $base-font-size: 1rem;
@@ -36,11 +37,24 @@ $bold-font-weight: 600;
 }
 
 
+.iob-en {
+    font-family: $primary-font;
+}
+
+.iob-ko {
+    // font-family: $korean-font;
+    line-height: 1.5rem;
+}
 
 #main-content {
     h2 {
         font-size: $large-font-size;
         // 2.25rem
+    }
+
+    strong {
+        font-size: 1.15rem;
+        margin: 2rem 0;
     }
 
     h3 {
@@ -49,5 +63,9 @@ $bold-font-weight: 600;
 
     h5 {
         font-size: 1.25rem;
+    }
+
+    mark {
+        background-color: $lime;
     }
 }
