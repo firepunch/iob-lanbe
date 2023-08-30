@@ -41,24 +41,14 @@ $bold-font-weight: 600;
     font-family: $primary-font;
 }
 
-// .iob-ko {
-//     // font-family: $korean-font;
-//     line-height: 1.5rem;
-// }
+.iob-ko {
+    #main-content {
+        line-height: 1.85rem;
+    }
+}
 
 #main-content {
     line-height: 1.5rem;
-
-    img {
-        width: 100%;
-        margin: auto;
-    }
-
-    figcaption {
-        text-align: center;
-        font-size: $smaller-font-size;
-        margin-top: .5rem;
-    }
     
     h2 {
         font-size: $large-font-size;

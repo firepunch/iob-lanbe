@@ -20,6 +20,13 @@ header {
     font-family: $primary-font;
     display: none;
   }
+
+  // 추가
+  .language-mobile {
+    img {
+      filter: invert(0);
+    }
+  }
 }
 
 @media (min-width: 992px) {
@@ -118,6 +125,7 @@ header {
 
               li:nth-child(1) {
                 padding: 1.5rem 0;
+                padding-bottom: 2rem;
               }
 
               li a {
@@ -158,6 +166,15 @@ header {
             // filter: invert(100%);
           }
         }
+
+        // 추가
+        li:nth-child(3) {
+          img {
+            margin-top: .1rem;
+            width: 1rem;
+            height: 1rem;
+          }
+        }
       }
     }
   }
@@ -165,7 +182,7 @@ header {
 
 @media (min-width: 1400px) {
   header {
-    .center-nv {
+    .center-nav {
       ul {
         .submenu-left {
           width: 15%;
