@@ -39,14 +39,14 @@ export default function Category({
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryName: `${searchParams.get('name')}-${lang}` || '',
+    categoryName: searchParams.get('name') ? `${searchParams.get('name')}-${lang}` : '',
     countries: [],
     language: lang.toUpperCase(), 
     userId: getUserId(),
     ...initPagination,
     ...sort2variables('newest'),
   })
-  
+
   useEffect(() => {
     getPosts({
       ...fetchParams,
@@ -69,7 +69,7 @@ export default function Category({
   useEffect(() => {
     setFetchParams(prev => ({
       ...prev,
-      categoryName: `${searchParams.get('name')}-${lang}` || '',
+      categoryName: searchParams.get('name') ? `${searchParams.get('name')}-${lang}` : '',
     }))
   }, [searchParams])
 
@@ -203,7 +203,7 @@ export default function Category({
 
           {fetchParams.categoryName !== '' && (
             <div id="categ-description">
-              <p>{t(`category_${fetchParams?.categoryName?.split('-')[0]}_desc`)}</p>
+              <p>{t(`category_desc_${fetchParams?.categoryName?.split('-')[0]}`)}</p>
             </div>
           )}
 

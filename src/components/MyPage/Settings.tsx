@@ -61,21 +61,19 @@ export default function Settings({
     }
 
     try {
-      const result = await updateWPUser({
+      await updateWPUser({
         ...formProps,
         user_id: userId,
         username: formProps.email,
       })
-      console.log(result)
       alert('수정 성공')
+      // TODO Update user
     } catch (err) {
       console.error(err)
       alert('수정 실패')
     }
   }
 
-  console.log(errorMessages)
-  
   return (
     <>
       <div id="default-title" className="dt-no-buttons">
