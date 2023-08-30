@@ -33,6 +33,9 @@ export interface IPost {
   featuredImage?: IFeaturedImage
   tags: ITags
   lanbeContent: ILanbeContent
+  translations: {
+    slug: string
+  }
   categories: {
     edges: {
       node: {

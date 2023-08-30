@@ -1,10 +1,12 @@
+import { TI18N, ValidLocale } from '@/types'
 import Image from 'next/image'
-import { Option, Options, TI18N, ValidLocale } from '@/types'
 
 import CategoryFilterBg from '@/imgs/category_filter_bg.png'
 import TrashIcon from '@/imgs/trash.png'
 
-export interface CountryOptions extends Option { 
+type CountryOptions = {
+  label: string
+  value: string
   slug: string 
 }[]
 

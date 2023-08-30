@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 
 import LangBlackImg from '@/imgs/lang_black.png'
 import LangWhiteImg from '@/imgs/lang_white.png'
+import useContentState from '@/stores/contentStore'
 
 const BLACK_ICONS = [
   'about',
@@ -22,6 +23,7 @@ export default function LanguageSwitcher({
   isSimple?: boolean
   className?: string
 }) {
+  const post = useContentState(state => state.post)
   const pathName = usePathname()
   const otherLocale = lang === 'ko' ? 'en' : 'ko'
   const redirectedPathName = (locale: string) => {

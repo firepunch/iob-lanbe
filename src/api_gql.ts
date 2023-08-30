@@ -12,7 +12,7 @@ import SEARCH_QUERY from './queries/search'
 import { ILoginUser } from './types/api'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
-const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+const API_URL = process.env.WORDPRESS_API_URL as string
 
 async function fetchAPI (query = '', { variables }: Record<string, object> = {}) {
   const headers = { 'Content-Type': 'application/json' }
