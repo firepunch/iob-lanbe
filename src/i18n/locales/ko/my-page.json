@@ -14,12 +14,11 @@
   "category": "카테고리",
 
   "saved": "저장됨",
-  "purchased": "다운로드",
 
   "content_none": "아직 저장되었거나 읽은 콘텐츠가 없어요.",
   "content_explore": "지금 바로 다양한 콘텐츠를 찾아보세요.",
 
-  "report_none": "아직 저장되었거나 다운로드한 리포트가 없어요.",
+  "report_none": "아직 저장된 리포트가 없어요.",
   "report_explore": "지금 바로 다양한 리포트를 찾아보세요.",
 
   "ideas_none": "아직 아이디어 노트가 없어요.",
@@ -48,6 +47,7 @@
   "function_placeholder": "업무 영역을 선택해주세요.",
   "email": "이메일",
   "new_email": "새로운 이메일",
+  "new_email_placeholder": "새로운 이메일을 입력해주세요.",
   "email_placeholder": "이메일을 입력해주세요.",
   "password": "비밀번호",
   "new_password": "새로운 비밀번호",

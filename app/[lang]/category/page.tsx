@@ -222,6 +222,7 @@ export default function Category({
               </button>
               {isOpenFilter && (
                 <CountryFilter 
+                  lang={lang}
                   ct={ct}
                   value={fetchParams?.countries}
                   onChange={handleCountry}

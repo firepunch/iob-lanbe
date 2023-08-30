@@ -1,11 +1,11 @@
 'use client'
  
+import { fetchUser, updateWPUser } from '@/api_wp'
+import useUserState from '@/stores/userStore'
 import { TI18N, TStringObj } from '@/types'
 import { useEffect, useState } from 'react'
 import InputField from '../InputField'
 import SelectField from '../SelectField'
-import { fetchUser, updateUser, updateWPUser } from '@/api_wp'
-import useUserState from '@/stores/userStore'
 
 export default function Settings({
   t,

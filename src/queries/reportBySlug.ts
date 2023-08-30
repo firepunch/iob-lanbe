@@ -32,8 +32,6 @@ query productBySlug($productSlug: ID!, $userId: Float, $email: String) {
     lanbeContent(user_id: $userId, email: $email, type: "report") {
       country
       is_save
-      purchased
-      purchasedFile
     }
     featuredImage {
       node {

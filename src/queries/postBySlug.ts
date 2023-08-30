@@ -8,6 +8,9 @@ query postBySlug($postSlug: ID!, $userId: Float) {
     date
     content
     excerpt(format: RAW)
+    translations {
+      slug
+    }
     categories {
       edges {
         node {
@@ -33,6 +36,7 @@ query postBySlug($postSlug: ID!, $userId: Float) {
       country
       is_save
       subTitle
+      purchasedFile
     }
     tags {
       edges {

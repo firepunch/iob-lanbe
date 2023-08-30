@@ -65,7 +65,6 @@ export default function Report({
 
           <div className="saved-read">
             <button>{t('saved')} {`(${reports?.length || 0})`}</button>
-            <button>{t('purchased')} (0)</button>
           </div>
         </div>
       </div>

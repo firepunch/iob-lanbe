@@ -18,8 +18,9 @@ export type ILanbeContent = {
   is_save: boolean
   country: string
   purchased: boolean
-  purchasedFile: string
+  downloadFile: string
   subTitle: string
+  pages: number
 }
 
 export interface IPost {
@@ -27,13 +28,32 @@ export interface IPost {
   databaseId: number
   slug: string
   title: string
+  excerpt: string
   date: string
   country: string
   content: string
   featuredImage?: IFeaturedImage
   tags: ITags
   lanbeContent: ILanbeContent
-  categories: {
+  translations: {
+    slug: string
+  }[]
+  categories: ICategory
+  author: {
+    node: {
+      name: string
+      roles: {
+        edges: {
+          node: {
+            id: string
+          }
+        }
+      }
+    }
+  }
+}
+
+export interface ICategory {
     edges: {
       node: {
         id: string
@@ -48,19 +68,6 @@ export interface IPost {
       }
     }[]
   }
-  author: {
-    node: {
-      name: string
-      roles: {
-        edges: {
-          node: {
-            id: string
-          }
-        }
-      }
-    }
-  }
-}
 
 export interface IPageInfo {
   initTotal?: number
@@ -80,9 +87,9 @@ export interface IReport extends IPost {
   name: string
   price: string
   dateGmt: string
-  description: string
-  shortDescription: string
-  productTags: {
+  excerpt: string
+  reportCategories: ICategory
+  reportTags: {
     nodes: {
       id: string
       name: string

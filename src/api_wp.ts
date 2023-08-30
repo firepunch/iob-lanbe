@@ -61,9 +61,13 @@ async function fetchAPI({
     },
   })
   
-  const json = await res.json()
+  const json = prefixPath === 'formAPI' ? 
+    await res :
+    await res.json()
+
   if (json.errors) {
-    console.error(json.errors)
+    console.log(json)
+    console.error(json?.errors)
     throw new Error('Failed to fetch API')
   }
   return method === 'GET' ? json : json.data

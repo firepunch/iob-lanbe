@@ -1,19 +1,27 @@
+import { TI18N, ValidLocale } from '@/types'
 import Image from 'next/image'
-import { Options, TI18N } from '@/types'
 
 import CategoryFilterBg from '@/imgs/category_filter_bg.png'
 import TrashIcon from '@/imgs/trash.png'
 
+type CountryOptions = {
+  label: string
+  value: string
+  slug: string 
+}[]
+
 export default function CountryFilter({
+  lang,
   ct,
   value = [],
   onChange,
 }: {
+  lang: ValidLocale,
   ct: TI18N,
   value: string[],
   onChange: (value: string[]) => void
 }) {
-  const countries = ct('country_filter_options', { returnObjects: true }) as Options
+  const countries = ct('country_filter_options', { returnObjects: true }) as CountryOptions
   const handleToggle = (isSelected: boolean, selected: string) => {
     if (isSelected) {
       const newValue = value.filter(item => item !== selected)
@@ -34,7 +42,7 @@ export default function CountryFilter({
             <button 
               key={item.value} 
               className={`${isSelected ? 'selected' : ''}`}
-              onClick={() => handleToggle(isSelected, item.label)}
+              onClick={() => handleToggle(isSelected, `${item.slug}-${lang}`)}
             >
               {item.value?.toUpperCase()}
             </button>

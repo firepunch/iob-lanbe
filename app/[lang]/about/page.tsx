@@ -102,7 +102,7 @@ export default async function About({
                     </div>
                   </div>
           
-                  <Link href="https://www.linkedin.com/company/ideasonboard/">
+                  <Link href="https://www.linkedin.com/in/junha-son-399550115">
                     <Image src={linkedInIcon} alt="LinkedIn" />
                   </Link>
                 </div>

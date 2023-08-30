@@ -7,10 +7,16 @@ import { usePathname } from 'next/navigation'
 
 import LangBlackImg from '@/imgs/lang_black.png'
 import LangWhiteImg from '@/imgs/lang_white.png'
+import useContentState from '@/stores/contentStore'
 
 const BLACK_ICONS = [
   'about',
   'project',
+]
+
+const CHANGE_URL = [
+  'contents',
+  'report',
 ]
 
 export default function LanguageSwitcher({ 
@@ -22,12 +28,24 @@ export default function LanguageSwitcher({
   isSimple?: boolean
   className?: string
 }) {
+  const post = useContentState(state => state.post)
   const pathName = usePathname()
   const otherLocale = lang === 'ko' ? 'en' : 'ko'
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
     const segments = pathName.split('/')
     segments[1] = locale
+
+    if (CHANGE_URL.find(item => pathName.includes(item))) {
+      let targetIdx = segments.length - 1
+      let origin = segments[segments.length - 1]
+      if (origin === '' ) {
+        targetIdx -= 1
+        origin = segments[targetIdx]
+      }
+      segments[targetIdx] = post?.translations?.[0]?.slug || origin
+    }
+
     return segments.join('/')
   }
 
