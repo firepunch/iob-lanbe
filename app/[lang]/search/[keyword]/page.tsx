@@ -66,7 +66,7 @@ export default function Search({
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
-
+    
     try {
       const formData = new FormData(e.currentTarget)
       await sendSearchRequestForm(formData)

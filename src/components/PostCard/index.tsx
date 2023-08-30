@@ -22,7 +22,7 @@ export const PostCard = ({
   onToggleBookmark,
 }: PostCardProps) => {
   return (
-    <Link href={`/${encodeURIComponent(slug)}`}>
+    <Link href={`/contents/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
         <div className="thumbnail">
           {featuredImage && (
