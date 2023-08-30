@@ -28,6 +28,7 @@ export interface IPost {
   databaseId: number
   slug: string
   title: string
+  excerpt: string
   date: string
   country: string
   content: string
