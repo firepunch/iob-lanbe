@@ -27,7 +27,10 @@ export default function CountryFilter({
       const newValue = value.filter(item => item !== selected)
       onChange(newValue)
     } else {
-      onChange([...value, selected])
+      const newValue = [...value, selected].filter((item, pos, self) => (
+        self.indexOf(item) === pos
+      ))
+      onChange(newValue)
     }
   }
   
@@ -37,7 +40,7 @@ export default function CountryFilter({
 
       <div className="button-wrap-1">
         {countries?.map(item => {
-          const isSelected = value.includes(item.label)
+          const isSelected = value.includes(`${item.slug}-${lang}`)
           return (
             <button 
               key={item.value} 
