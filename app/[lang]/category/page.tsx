@@ -39,7 +39,7 @@ export default function Category({
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryName: searchParams.get('name') || '',
+    categoryName: `${searchParams.get('name')}-${lang}` || '',
     countries: [],
     language: lang.toUpperCase(), 
     userId: getUserId(),
@@ -69,7 +69,7 @@ export default function Category({
   useEffect(() => {
     setFetchParams(prev => ({
       ...prev,
-      categoryName: searchParams.get('name') || '',
+      categoryName: `${searchParams.get('name')}-${lang}` || '',
     }))
   }, [searchParams])
 
@@ -85,7 +85,7 @@ export default function Category({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      categoryName,
+      categoryName: `${categoryName}-${lang}`,
     }))
   }
   
@@ -128,8 +128,8 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t(categoryTranslationKeys[fetchParams.categoryName])}</p>
-              <h2>{t(`category_${fetchParams.categoryName}`).toUpperCase()}</h2>
+              <p>{t(categoryTranslationKeys[fetchParams.categoryName?.split('-')[0]])}</p>
+              <h2>{t(`category_${fetchParams.categoryName?.split('-')[0]}`).toUpperCase()}</h2>
             </div>
 
             <Icons 
@@ -203,7 +203,7 @@ export default function Category({
 
           {fetchParams.categoryName !== '' && (
             <div id="categ-description">
-              <p>{t(`category_${fetchParams?.categoryName}_desc`)}</p>
+              <p>{t(`category_${fetchParams?.categoryName?.split('-')[0]}_desc`)}</p>
             </div>
           )}
 
