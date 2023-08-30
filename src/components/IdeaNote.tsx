@@ -7,7 +7,7 @@ import BeigeBg from '@/imgs/ideanote_beige.png'
 import LimeBg from '@/imgs/ideanote_lime.png'
 import CheckIcon from '@/imgs/done_check.png'
 import { ValidLocale } from '@/types'
-import { dateFormat } from '@/utils/lib'
+import { dateFormat, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -44,6 +44,15 @@ interface IIdeaNoteProps {
   onDelete?: () => void
 }
 
+const translate = {
+  en: {
+    login: 'Login required',
+  }, 
+  ko: {
+    login: '로그인이 필요한 기능입니다.',
+  },
+}
+
 export default function IdeaNote ({
   type,
   lang,
@@ -56,6 +65,14 @@ export default function IdeaNote ({
   const [noteType, setNoteType] = useState<NoteType>(type)
   const [value, setValue] = useState<string | undefined>(content)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+  const handleClickAdd = () => {
+    if (isValidToken()) {
+      setNoteType('edit')
+    } else {
+      alert(translate[lang].login)
+    }
+  }
 
   const handleUpdateNote = () => {
     if (!value) {
@@ -73,7 +90,7 @@ export default function IdeaNote ({
 
   const noteTypeComponent = {
     add: (
-      <div className="ideanote ideanote-add" onClick={() => setNoteType('edit')}>
+      <div className="ideanote ideanote-add" onClick={handleClickAdd}>
         <Image src={AddIcon} className="note note-bg" alt="Possible to add more than one idea notes" />
       </div>
     ),

@@ -6,6 +6,15 @@ import SaveBlackImg from '@/imgs/save_black.png'
 import SavedBlackImg from '@/imgs/saved_black.png'
 import { isValidToken } from '@/utils/lib'
 
+const translate = {
+  en: {
+    login: 'Login required',
+  }, 
+  ko: {
+    login: '로그인이 필요한 기능입니다.',
+  },
+}
+
 export default function Bookmark({
   isBlack = false,
   isSaved = false,
