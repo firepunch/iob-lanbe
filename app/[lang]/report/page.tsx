@@ -1,6 +1,6 @@
 'use client'
 
-import { getAllProducts } from '@/api_gql'
+import { getAllProducts, getAllReports } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Pagination, ReportCard, Select } from '@/components'
 import { useTranslation } from '@/i18n/client'
@@ -28,14 +28,14 @@ export default function Reports({
   const { t } = useTranslation(lang, 'report')
   const userId = getUserId()
   const [fetchParams, setFetchParams] = useState({
-    language: lang, 
+    language: lang.toUpperCase(), 
     userId,
     ...initPagination,
     ...sort2variables('newest'),
   })
 
   useEffect(() => {
-    getAllProducts(fetchParams).then(result => (
+    getAllReports(fetchParams).then(result => (
       updateReports({
         edges: result.edges,
         pageInfo: {

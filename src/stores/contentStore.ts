@@ -6,14 +6,14 @@ interface ContentState {
   recommend: { node: IPost }[],
   post?: IPost,
   report?: IReport,
-  reports: IReports,
+  reports: IPosts,
   notes: any[],
   searchResult?: ISearchResult,
   updatePosts: (posts: IPosts) => void
   updateRecommend: (posts: { node: IPost }[]) => void
   updatePost: (post: IPost) => void
   updateReport: (report: IReport) => void
-  updateReports: (reports: IReports) => void
+  updateReports: (reports: IPosts) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
 }

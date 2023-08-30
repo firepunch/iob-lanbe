@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Bookmark from '../Bookmark'
-import { IReport } from '@/types/store'
+import { IPost } from '@/types/store'
 
-interface ReportCardProps extends IReport {
+interface ReportCardProps extends IPost {
   onToggleBookmark: () => void;
 }
 
@@ -11,8 +11,8 @@ export const ReportCard = ({
   featuredImage,
   databaseId,
   slug,
-  name,
-  shortDescription,
+  title,
+  excerpt,
   lanbeContent: { is_save },
   onToggleBookmark,
 }: ReportCardProps) => {
@@ -37,11 +37,11 @@ export const ReportCard = ({
         </div>
 
         <p className="indiv-report-title">
-          {name}
+          {title}
         </p>
 
         <p className="report-description">
-          {shortDescription}
+          {excerpt.replace(/(\<p\>)|(\<\/p\>)/gi, '')}
         </p>
       </div>
     </Link>
