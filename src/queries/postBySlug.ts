@@ -36,7 +36,6 @@ query postBySlug($postSlug: ID!, $userId: Float) {
       country
       is_save
       subTitle
-      purchasedFile
     }
     tags {
       edges {
