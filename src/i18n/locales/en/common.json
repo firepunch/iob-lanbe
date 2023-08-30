@@ -12,25 +12,32 @@
   "clear_all": "Clear all",
   "country_filter_options": [{
     "label": "Southeast Asia",
-    "value": "southeast asia"
+    "value": "southeast asia",
+    "slug": "southeast-asia"
   }, {
     "label": "Indonesia",
-    "value": "indonesia"
+    "value": "indonesia",
+    "slug": "indonesia"
   }, {
     "label": "Malaysia",
-    "value": "malaysia"
+    "value": "malaysia",
+    "slug": "malaysia"
   }, {
     "label": "Philippines",
-    "value": "philippines"
+    "value": "philippines",
+    "slug": "philippines"
   }, {
     "label": "Singapore",
-    "value": "singapore"
+    "value": "singapore",
+    "slug": "singapore"
   }, {
     "label": "Thailand",
-    "value": "thailand"
+    "value": "thailand",
+    "slug": "thailand"
   }, {
     "label": "Vietnam",
-    "value": "vietnam"
+    "value": "vietnam",
+    "slug": "vietnam"
   }],
 
   "function_options": [
