@@ -11,7 +11,7 @@ import PRODUCT_BY_SAVED from './queries/productBySaved'
 import SEARCH_QUERY from './queries/search'
 import { ILoginUser } from './types/api'
 import { AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
-import { REPORTS_QUERY } from './queries/report'
+import { REPORTS_QUERY, REPORT_QUERY } from './queries/report'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 
@@ -93,6 +93,13 @@ export async function getProductBySlug(variables) {
     variables,
   })
   return data.product
+}
+
+export async function getReportBySlug(variables) {
+  const data = await fetchAPI(REPORT_QUERY, {
+    variables,
+  })
+  return data.report
 }
 
 export async function getContents(language) {

@@ -1,6 +1,6 @@
 'use client'
 
-import { getProductBySlug } from '@/api_gql'
+import { getProductBySlug, getReportBySlug } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Bookmark } from '@/components'
 import { useTranslation } from '@/i18n/client'
@@ -26,8 +26,8 @@ export default function Report({
   const { userId, email } = getUser()
 
   useEffect(() => {
-    getProductBySlug({
-      productSlug: report_slug, 
+    getReportBySlug({
+      reportSlug: report_slug, 
       userId,
       email,
     }).then(result => {
@@ -63,21 +63,6 @@ export default function Report({
     }
   }
 
-  const handleOrder = () => {
-    if (!report) return
-
-    updateOrder({
-      userId,
-      reportId: report.databaseId,
-      name: report.name,
-      price: report.price,
-      amount: Number(report.price.replace(/\$|\₩/gi, '')),
-      currency: 'usd',
-    })
-
-    push(`/${lang}/checkout`)
-  }
-
   if (!report) {
     return 'loading'
   }
@@ -99,11 +84,11 @@ export default function Report({
             <Image src={ShareImg} alt="Share" />
           </div>
 
-          <h2>{report.name}</h2>
+          <h2>{report.title}</h2>
 
-          {report.productTags?.nodes && (
+          {report.reportTags?.nodes && (
             <div className="tags">
-              {report.productTags.nodes.map(item => (
+              {report.reportTags.nodes.map(item => (
                 <div key={item.id} className="indiv-tag">
                   <p>{item.name}</p>
                 </div>
@@ -117,47 +102,36 @@ export default function Report({
               <li>{t('date')}</li>
               <li>{t('category')}</li>
               <li>{t('pages')}</li>
-              <li>{t('price')}</li>
             </ul>
 
             <ul>
               <li>{getAuthorInfo(report.author)}</li>
               <li>{dateFormat(report.date, true)}</li>
               <li>
-                {report.productTags.nodes?.map(
-                  item => item.name
-                ).join(', ')}
+                {report.reportCategories.edges?.map(({ node }) => node.name).join(', ')}
               </li>
               <li>
-                {report.attributes.edges.find(item => 
-                  item.node.name === 'Pages'
-                )?.node.options[0]}
+                {report.lanbeContent.pages}
               </li>
-              <li>{report.price}</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <div dangerouslySetInnerHTML={{ __html: report.description }} />
+      <div dangerouslySetInnerHTML={{ __html: report.content }} />
 
       {/* section 3: report price and cta */}
       <section id="report-price-cta">
         <div id="report-price-cta-wrap">
           <div className="report-title">
-            <h4>{report.name}</h4>
-          </div>
-
-          <div className="report-total-price">
-            <p>{t('total')}</p>
-            <p>{report.price}</p>
+            <h4>{report.title}</h4>
           </div>
 
           <div className="report-cta">
             {isValidToken() ? (
               <>
                 <p>{t('download_cta')}</p>
-                <Link href={report.lanbeContent.purchasedFile} className="cta-link" target="_blank">
+                <Link href={report.lanbeContent?.downloadFile || ''} className="cta-link" target="_blank">
                   {t('download')}
                 </Link>
               </>
