@@ -66,14 +66,15 @@ export default function Search({
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     e.stopPropagation()
-
-    try {
-      const formData = new FormData(e.currentTarget)
-      await sendSearchRequestForm(formData)
-      alert('요청 폼 전송에 성공했습니다!')
-    } catch (error) {
-      console.error('요청 폼 전송 에러:', error)
-    }
+    const formData = new FormData(e.currentTarget)
+    const res = await sendSearchRequestForm(formData)
+    console.log('res', res.response)
+    // try {
+    
+    //   alert('요청 폼 전송에 성공했습니다!')
+    // } catch (error) {
+    //   console.error('요청 폼 전송 에러:', error)
+    // }
   }
 
   return (
