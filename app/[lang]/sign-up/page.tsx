@@ -66,10 +66,18 @@ const SignUp = ({
     try {
       recaptchaRef.current.execute()
 
-      await createUser({
+      const result = await createUser({
         ...formProps,
         username: formProps.email,
       })
+
+      if (result?.message) {
+        setErrorMessages({
+          common: t(result.message),
+        })
+        return
+      }
+
       const loginData = await loginUser({
         username: formProps.email as string,
         password: formProps.password as string,
@@ -230,6 +238,7 @@ const SignUp = ({
           />
           {/* //recaptcha */}
 
+          <p>{errorMessages?.common}</p>
           <button type="submit" className="signup-button">
             {t('sign_up')}
           </button>
