@@ -43,7 +43,7 @@ export default function Category({
     }
   }, [post?.id])
 
-  const handleToggleBookmark = async ({ isSaved }) => {
+  const handleToggleBookmark = async ({ isSaved, type }) => {
     if (!contentId) return
 
     try {
@@ -61,8 +61,13 @@ export default function Category({
         })
       }
 
-      const result = await getContentBySlug(content_slug, userId)
-      updatePost(result)
+      if (type === 'post') {
+        const result = await getContentBySlug(content_slug, userId)
+        updatePost(result)
+      } else if (type === 'recommend') {
+        const result = await getContents(lang.toUpperCase(), 3)
+        updateRecommend(result)
+      }
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -165,6 +170,7 @@ export default function Category({
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: post?.lanbeContent.is_save,
+                  type: 'post',
                 })
               )}
             />
@@ -189,6 +195,7 @@ export default function Category({
                   onToggle={() => (
                     handleToggleBookmark({
                       isSaved: post?.lanbeContent.is_save,
+                      type: 'post',
                     })
                   )}
                 />
@@ -250,6 +257,7 @@ export default function Category({
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: node.lanbeContent.is_save,
+                  type:'recommend',
                 })
               )}
             />

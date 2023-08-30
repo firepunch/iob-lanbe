@@ -102,9 +102,9 @@ export async function getReportBySlug(variables) {
   return data.report
 }
 
-export async function getContents(language) {
+export async function getContents(language, first = 10) {
   const data = await fetchAPI(POSTS_QUERY, {
-    variables: { language },
+    variables: { language, first },
   })
 
   return data.posts.edges

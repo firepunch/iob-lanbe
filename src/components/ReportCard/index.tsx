@@ -29,9 +29,6 @@ export const ReportCard = ({
             <Image 
               src={featuredImage.node.sourceUrl} 
               alt={featuredImage.node.altText}
-              sizes="100vw"
-              fill={true}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           )}
         </div>
