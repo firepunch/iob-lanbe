@@ -21,6 +21,8 @@ header {
         position: relative;
         @include flex-spacebetween;
 
+        line-height: 1rem;
+
         span {
             font-weight: $bold-font-weight;
         }
@@ -58,6 +60,7 @@ header {
             text-transform: uppercase;
             font-family: $secondary-font;
             font-size: 1.75rem;
+            line-height: 2.5rem;
             color: $white;
             
             top: 5rem;
