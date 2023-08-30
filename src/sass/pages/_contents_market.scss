@@ -42,7 +42,7 @@
       display: none;
 
       &.show {
-        display: block;
+        display: flex;
       }
     }
 
@@ -105,7 +105,7 @@
       .other-content-pages {
         display: flex;
         position: absolute;
-        top: 6.5rem;
+        top: 5.5rem;
         right: 0;
       }
 
