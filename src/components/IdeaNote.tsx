@@ -66,7 +66,8 @@ export default function IdeaNote ({
     if (onSubmit) {
       setNoteType('added')
       onSubmit(value)
-      setNoteType('view')
+      setNoteType('add')
+      setValue(undefined)
     }
   }
 
