@@ -48,6 +48,7 @@
   "function_placeholder": "업무 영역을 선택해주세요.",
   "email": "이메일",
   "new_email": "새로운 이메일",
+  "new_email_placeholder": "새로운 이메일을 입력해주세요.",
   "email_placeholder": "이메일을 입력해주세요.",
   "password": "비밀번호",
   "new_password": "새로운 비밀번호",
