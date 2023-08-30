@@ -31,46 +31,42 @@ export default function Settings({
     e.preventDefault()
     e.stopPropagation()
 
-    let isValid = true
     const formData = new FormData(e.currentTarget)
     const formProps = Object.fromEntries(formData) as TStringObj
     const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
-    const pwFound = (formProps?.password as string)?.match(regex)
+    const pwFound = (formProps?.newPassword as string)?.match(regex)
 
     if (!pwFound) {
-      isValid = false
       setErrorMessages(prev => ({
         ...prev,
         password: t('password_rule_error'),
       }))
+      return
     }
 
     if (formProps?.userFunction === 'Default') {
-      isValid = false
       setErrorMessages(prev => ({
         ...prev,
         userFunction: t('function_required'),
       }))
+      return
     }
 
     if (formProps?.country === 'Default') {
-      isValid = false
       setErrorMessages(prev => ({
         ...prev,
         country: t('country_required'),
       }))
-    }
-
-    if (!isValid) {
       return
     }
 
     try {
-      await updateWPUser({
+      const result = await updateWPUser({
         ...formProps,
         user_id: userId,
         username: formProps.email,
       })
+      console.log(result)
       alert('수정 성공')
     } catch (err) {
       console.error(err)
@@ -78,6 +74,8 @@ export default function Settings({
     }
   }
 
+  console.log(errorMessages)
+  
   return (
     <>
       <div id="default-title" className="dt-no-buttons">
@@ -177,6 +175,7 @@ export default function Settings({
               {/* row1 */}
               <div className="account-info-inputs-row">
                 <InputField
+                  readOnly
                   isRequired
                   type="email"
                   name="email"
@@ -197,22 +196,6 @@ export default function Settings({
 
               {/* row2 */}
               <div className="account-info-inputs-row">
-                <InputField
-                  isRequired
-                  className="pw-field"
-                  type="password"
-                  name="password"
-                  label={t('password')}
-                  placeholder={t('password_placeholder')}
-                  errorMessage={errorMessages?.password}
-                  onResetError={() => (
-                    setErrorMessages(prev => ({
-                      ...prev,
-                      password: undefined,
-                    }))
-                  )}
-                />
-
                 <InputField
                   className="pw-field"
                   type="password"
@@ -237,17 +220,17 @@ export default function Settings({
             <h3>{t('email-notify')}</h3>
 
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletter" defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} />
-              <p>
+              <input type="checkbox" id="newsletter" name="newsletterChk" defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} />
+              <label htmlFor="newsletter">
                 {t('newsletter')}
-              </p>
+              </label>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketing" defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} />
-              <p>
+              <input type="checkbox" id="marketing" name="marketingChk" defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} />
+              <label htmlFor="marketing">
                 {t('marketing')}  
-              </p>
+              </label>
             </div>
           </div>
 

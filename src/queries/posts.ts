@@ -1,5 +1,5 @@
 const POSTS_QUERY = `
-query AllPosts(
+query postsQuery(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
   $first: Int = 10, 
@@ -40,10 +40,6 @@ query AllPosts(
           is_save
           country
         }
-        language {
-          code
-          locale
-        }
         categories {
           edges {
             node {
@@ -66,7 +62,7 @@ query AllPosts(
 `
 
 export const GET_POSTS_QUERY = `
-query AllPosts(
+query getPostsQuery(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
   $first: Int = 10, 
@@ -113,10 +109,6 @@ query AllPosts(
         lanbeContent(user_id: $userId) {
           is_save
           country
-        }
-        language {
-          code
-          locale
         }
         categories {
           edges {

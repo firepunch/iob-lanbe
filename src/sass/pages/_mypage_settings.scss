@@ -1,127 +1,128 @@
 #settings-wrap {
-    .personal-info,
-    #account-info {
-        h3 {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .personal-info-inputs-wrap,
-        .account-info-inputs-wrap {
-
-            .personal-info-inputs-row,
-            .account-info-inputs-row {
-                form,
-                .field,
-                .sortby-country,
-                .sortby-function {
-                    @include flex-column;
-                    margin: 1rem 0;
-
-                    label {
-                        font-size: $smaller-font-size;
-                        font-weight: $bold-font-weight;
-                        margin-bottom: .25rem;
-                        margin-left: 1rem;
-                    }
-
-                    input,
-                    select {
-                        height: 3rem;
-                        border: .075rem solid $black;
-                        border-radius: 10rem;
-                        padding: 0 1rem;
-                        outline: none;
-                        background: transparent;
-                    }
-                }
-            }
-        }
+  .personal-info,
+  #account-info {
+    h3 {
+      margin-top: 2rem;
+      text-align: center;
     }
 
-    #account-info {
-        h3 {
-            margin-top: 5rem;
-        }
+    .personal-info-inputs-wrap,
+    .account-info-inputs-wrap {
+      .personal-info-inputs-row,
+      .account-info-inputs-row {
+        form,
+        .field,
+        .sortby-country,
+        .sortby-function {
+          @include flex-column;
+          margin: 1rem 0;
 
-        .account-info-inputs-wrap {
-            .account-info-inputs-row:last-child {
-                #pw-form, .pw-field {
-                    p {
-                        width: 80%;
-                        margin-left: 1rem;
-                        font-size: .75rem;
-                    }
-                }
-            }
+          label {
+            font-size: $smaller-font-size;
+            font-weight: $bold-font-weight;
+            margin-bottom: 0.25rem;
+            margin-left: 1rem;
+          }
+
+          input,
+          select {
+            height: 3rem;
+            border: 0.075rem solid $black;
+            border-radius: 10rem;
+            padding: 0 1rem;
+            outline: none;
+            background: transparent;
+          }
         }
+      }
+    }
+  }
+
+  #account-info {
+    h3 {
+      margin-top: 5rem;
     }
 
-    #email-notif {
-        margin-top: 2rem;
-
-        h3 {
-            text-align: center;
-            margin-top: 2rem;
+    .account-info-inputs-wrap {
+      .account-info-inputs-row:last-child {
+        #pw-form,
+        .pw-field {
+          p {
+            width: 80%;
+            margin-left: 1rem;
+            font-size: 0.75rem;
+          }
         }
+      }
+    }
+  }
 
-        .newsletter-checkbox,
-        .marketing-checkbox {
-            display: flex;
-            align-items: baseline;
-            margin: .35rem 0;
+  #email-notif {
+    margin-top: 2rem;
 
-            p {
-                font-size: .75rem;
-                margin: 0;
-                margin-left: .5rem;
-            }
-        }
+    h3 {
+      text-align: center;
+      margin-top: 2rem;
     }
 
-    .save-button {
-        button {
-            @include mobile-button-style($black);
-            background-color: $black;
-            color: $white;
-            margin-top: 3rem;
-        }
+    .newsletter-checkbox,
+    .marketing-checkbox {
+      display: flex;
+      align-items: baseline;
+      margin: 0.35rem 0;
+
+      label {
+        font-size: 0.75rem;
+        margin: 0;
+        margin-left: 0.5rem;
+      }
     }
+  }
+
+  .save-button {
+    button {
+      @include mobile-button-style($black);
+      background-color: $black;
+      color: $white;
+      margin-top: 3rem;
+    }
+  }
 }
 
 @media (min-width: 768px) {
-    #settings-wrap {
-        width: 80%;
-        margin: 3rem auto;
-    }
+  #settings-wrap {
+    width: 80%;
+    margin: 3rem auto;
+  }
 }
 
 @media (min-width: 992px) {
-    #settings-wrap {
-        margin-top: 4rem;
-    }
+  #settings-wrap {
+    margin-top: 4rem;
+  }
 }
 
 @media (min-width: 1200px) {
-    #settings-wrap {
-        width: 45rem;
+  #settings-wrap {
+    width: 45rem;
 
-        #email-notif {
-            width: 20rem;
-            margin: 4rem auto;
-        }
-
-        .save-button {
-            button {
-                width: 15rem;
-                margin: 3rem auto;
-            }
-        }
+    #email-notif {
+      width: 20rem;
+      margin: 4rem auto;
     }
+
+    .save-button {
+      button {
+        cursor: pointer;
+        width: 15rem;
+        margin: 3rem auto;
+      }
+    }
+  }
 }
 
 @media (min-width: 1400px) {
-    #settings-wrap {
-        width: 50rem;
-    }
+  #settings-wrap {
+    width: 50rem;
+  }
 }
