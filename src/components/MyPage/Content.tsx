@@ -1,30 +1,28 @@
 'use client'
  
-import { fetchWatchList, createWatchList, removeWatchList } from '@/api_wp'
+import { fetchWatchList, removeWatchList } from '@/api_wp'
 import useUserState from '@/stores/userStore'
-import { TI18N } from '@/types'
+import { TI18N, ValidLocale } from '@/types'
+import { ILanbeContent } from '@/types/store'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { ILanbeContent } from '@/types/store'
 
 export default function Content({
   t,
-  params,
+  lang,
+  userId,
 }: {
   t: TI18N
-  params: {
-    userId: number,
-    language: string
-  }
+  lang: ValidLocale
+  userId: number
 }) {
   const { bookmark, updateBookmarkPost } = useUserState(state => state)
-  const lang = params.language.toLowerCase()
 
   useEffect(() => {
     fetchWatchList({
-      user_id: params.userId,
+      user_id: userId,
       type: 'post',
     }).then(result => (
       updateBookmarkPost(result)
@@ -36,11 +34,11 @@ export default function Content({
       await removeWatchList({
         type: 'post',
         content_id: contentId,
-        user_id: params.userId,
+        user_id: userId,
       })
 
       const result = await fetchWatchList({
-        user_id: params.userId,
+        user_id: userId,
         type: 'post',
       })
       updateBookmarkPost(result)
