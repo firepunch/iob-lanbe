@@ -66,17 +66,19 @@ export default function Report({
       </div>
       
       {bookmark?.report?.length ? (
-        bookmark?.report?.map(node => (
-          <ReportCard
-            {...node}
-            key={node.id}
-            featuredImageUrl={node?.featured_image_url}
-            lanbeContent={{
-              is_save: true,
-            } as ILanbeContent}
-            onToggleBookmark={() => handleToggleBookmark(node.id)}
-          />
-        ))
+        <div id="saved-content">
+          {bookmark?.report?.map(node => (
+            <ReportCard
+              {...node}
+              key={node.id}
+              featuredImageUrl={node?.featured_image_url}
+              lanbeContent={{
+                is_save: true,
+              } as ILanbeContent}
+              onToggleBookmark={() => handleToggleBookmark(node.id)}
+            />
+          ))}
+        </div>
       ) : (
         <div id="default-text">
           <p className="none-saved-text">{t('report_none')}</p>

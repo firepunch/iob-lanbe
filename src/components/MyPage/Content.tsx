@@ -66,17 +66,19 @@ export default function Content({
       </div>
 
       {bookmark?.post?.length ? (
-        bookmark.post?.map(node => (
-          <PostCard
-            {...node}
-            key={node.id}
-            featuredImageUrl={node?.featured_image_url}
-            lanbeContent={{
-              is_save: true,
-            } as ILanbeContent}
-            onToggleBookmark={() => handleToggleBookmark(node.id)}
-          />
-        ))
+        <div id="saved-content">
+          {bookmark.post?.map(node => (
+            <PostCard
+              {...node}
+              key={node.id}
+              featuredImageUrl={node?.featured_image_url}
+              lanbeContent={{
+                is_save: true,
+              } as ILanbeContent}
+              onToggleBookmark={() => handleToggleBookmark(node.id)}
+            />
+          ))}
+        </div>
       ) : (
         <div id="default-text">
           <p className="none-saved-text">{t('content_none')}</p>
