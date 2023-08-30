@@ -28,9 +28,9 @@ export default async function LocaleLayout({
   return (
     <html lang={lang}>
       <head />
-      <body>
+      <body className={`iob-${lang}`}>
         {
-          SIMPLE_HEADER_MAP.find(item=> fullUrl.includes(item)) ?
+          SIMPLE_HEADER_MAP.find(item => fullUrl.includes(item)) ?
             <SimpleHeader lang={lang} /> :
             <Header lang={lang} /> 
         }

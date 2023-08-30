@@ -5,7 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import LanguageImg from '@/imgs/lang_black.png'
+import LangBlackImg from '@/imgs/lang_black.png'
+import LangWhiteImg from '@/imgs/lang_white.png'
+
+const BLACK_ICONS = [
+  'about',
+  'project',
+]
 
 export default function LanguageSwitcher({ 
   lang, 
@@ -27,7 +33,14 @@ export default function LanguageSwitcher({
 
   return (
     <Link href={redirectedPathName(otherLocale)} className={className}>
-      <Image src={LanguageImg} alt="Change Language" />
+      <Image 
+        src={
+          BLACK_ICONS.find(item => pathName.includes(item)) ?
+            LangWhiteImg :
+            LangBlackImg
+        }
+        alt="Change Language" 
+      />
       {!isSimple && lang.toUpperCase()}
     </Link>
   )

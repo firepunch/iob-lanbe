@@ -32,6 +32,7 @@ query postBySlug($postSlug: ID!, $userId: Float) {
     lanbeContent(user_id: $userId) {
       country
       is_save
+      subTitle
     }
     tags {
       edges {
