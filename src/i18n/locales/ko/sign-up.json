@@ -21,6 +21,7 @@
   "privacy": "개인정보처리방침 동의 (Required)",
   "terms": "이용약관 동의 (Required)",
   
+  "Sorry, that username already exists!": "이미 등록된 이메일입니다.",
   "password_rule_error": "비밀번호 입력 조건이 맞지 않습니다.",
   "function_required": "업무 영역을 선택해주세요.",
   "country_required": "국가를 선택해주세요."
