@@ -12,7 +12,7 @@ import {
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 
-const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+const API_URL = process.env.WORDPRESS_API_URL as string
 const API_MAP = {
   wpAPI: '/wp-json',
   customAPI: '/wp-json/custom-api/v1',

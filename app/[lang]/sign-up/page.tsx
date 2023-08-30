@@ -64,7 +64,7 @@ const SignUp = ({
     }
 
     try {
-      recaptchaRef.current.execute()
+      recaptchaRef?.current?.execute()
 
       const result = await createUser({
         ...formProps,
@@ -96,7 +96,7 @@ const SignUp = ({
     if (!captchaCode) {
       return
     }
-    recaptchaRef.current.reset()
+    recaptchaRef?.current?.reset()
   }
 
   return (
@@ -138,7 +138,7 @@ const SignUp = ({
                 name="jobTitle"
                 label={t('jobtitle')}
                 placeholder={t('jobtitle_placeholder')}
-                errorMessage={errorMessages?.organization}
+                errorMessage={errorMessages?.jobTitle}
               />
             </div>
 
