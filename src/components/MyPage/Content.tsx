@@ -27,6 +27,7 @@ export default function Content({
   const [openCategory, setOpenCategory] = useState<boolean>(false)
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(),
+    in: undefined,
     categories: [],
     countries: [],
     userId,
@@ -37,24 +38,22 @@ export default function Content({
       type: 'post',
       user_id: userId,
     }).then(result => {
-      if (result?.ids) {
-        setFetchParams(prev => ({
-          ...prev,
-          in: result.ids,
-        }))
-      } else {
-        updateBookmarkPost([])
-      }
+      setFetchParams(prev => ({
+        ...prev,
+        in: result?.ids,
+      }))
     })
   }, [])
 
   useEffect(() => {
-    getPosts({
-      ...fetchParams,
-      categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
-    }).then(result => (
-      updateBookmarkPost(result?.edges)
-    ))
+    if (fetchParams.in !== undefined) {
+      getPosts({
+        ...fetchParams,
+        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+      }).then(result => (
+        updateBookmarkPost(result?.edges)
+      ))
+    }
   }, [fetchParams])
 
   const handleToggleBookmark = async (contentId: number) => {
@@ -151,7 +150,7 @@ export default function Content({
             <PostCard
               {...node}
               key={node.id}
-              onToggleBookmark={() => handleToggleBookmark(node.id)}
+              onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
             />
           ))}
         </div>

@@ -28,7 +28,7 @@ export const ReportCard = ({
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : null}
-          <Bookmark 
+          <Bookmark
             isSaved={lanbeContent?.is_save} 
             onToggle={onToggleBookmark}
           />

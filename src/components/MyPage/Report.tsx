@@ -24,6 +24,7 @@ export default function Report({
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(),
     userId,
+    in: undefined,
   })
 
   useEffect(() => {
@@ -31,21 +32,19 @@ export default function Report({
       type: 'report',
       user_id: userId,
     }).then(result => {
-      if (result?.ids) {
-        setFetchParams(prev => ({
-          ...prev,
-          in: result.ids,
-        }))
-      } else {
-        updateBookmarkReport([])
-      }
+      setFetchParams(prev => ({
+        ...prev,
+        in: result?.ids,
+      }))
     })
   }, [])
 
   useEffect(() => {
-    getAllReports(fetchParams).then(result => (
-      updateBookmarkReport(result?.edges)
-    ))
+    if (fetchParams.in !== undefined) {
+      getAllReports(fetchParams).then(result => (
+        updateBookmarkReport(result?.edges)
+      ))
+    }
   }, [fetchParams])
 
   const handleToggleBookmark = async (contentId: number) => {
@@ -99,7 +98,7 @@ export default function Report({
           {bookmark?.report?.map(({ node }) => (
             <ReportCard
               key={node.id}
-              onToggleBookmark={() => handleToggleBookmark(node.id)}
+              onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
               {...node}
             />
           ))}
