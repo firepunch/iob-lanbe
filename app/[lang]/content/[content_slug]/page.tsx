@@ -27,7 +27,7 @@ export default function Category({
       updatePost(result)
     ))
 
-    getContents(lang.toUpperCase()).then(result => (
+    getContents(lang.toUpperCase(), 3).then(result => (
       updateRecommend(result)
     ))
   }, [])
