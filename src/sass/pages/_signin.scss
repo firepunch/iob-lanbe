@@ -251,10 +251,19 @@
 
 #main-signin-wrap.password-wrap {
   #signin-info {
-    margin-top: 8rem;
+    margin-top: 6rem;
 
     h2 {
       display: block;
+      text-transform: uppercase;
+      font-family: $secondary-font;
+    }
+
+    p {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 2rem;
+      text-align: center;
     }
   }
 
@@ -266,6 +275,52 @@
     display: block;
     text-align: center;
     text-decoration: underline;
-    margin-top: 3rem;
+    // margin-top: 3rem;
+    font-size: $smaller-font-size;
+  }
+}
+
+@media (min-width: 768px) {
+  #main-signin-wrap.password-wrap {
+    #signin-info {
+      width: 70%;
+      padding-top: 6rem;
+      margin: 2rem auto;
+
+      .signin-button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #main-signin-wrap.password-wrap {
+    #signin-info {
+      p { 
+        margin-top: 1.5rem;
+      }
+    }
+
+    .back_link {
+      margin-top: 6rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #main-signin-wrap.password-wrap {
+    #signin-info {
+      margin-top: 2rem;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  #main-signin-wrap.password-wrap {
+    #signin-info {
+      width: 50%;
+      margin-top: 10rem;
+    }
   }
 }
