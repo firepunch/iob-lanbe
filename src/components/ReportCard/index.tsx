@@ -1,9 +1,9 @@
+import { IReport } from '@/types/store'
 import Image from 'next/image'
 import Link from 'next/link'
 import Bookmark from '../Bookmark'
-import { IPost } from '@/types/store'
 
-interface ReportCardProps extends IPost {
+interface ReportCardProps extends IReport {
   onToggleBookmark: () => void;
 }
 
