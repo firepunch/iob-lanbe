@@ -8,7 +8,8 @@ import { getProductBySaved } from '@/api_gql'
 import useUserState from '@/stores/userStore'
 import { getUserId } from '@/utils/lib'
 import { ReportCard } from '../ReportCard'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, fetchWatchList, removeWatchList } from '@/api_wp'
+import { ILanbeContent } from '@/types/store'
 
 export default function Report({
   t,
@@ -19,32 +20,30 @@ export default function Report({
   lang: ValidLocale
   userId: number
 }) {
-  const { reports, updateReports } = useUserState(state => state)
+  const { bookmark, updateBookmarkReport } = useUserState(state => state)
 
   useEffect(() => {
-    getProductBySaved(params).then(result => (
-      updateReports(result)
+    fetchWatchList({
+      user_id: userId,
+      type: 'report',
+    }).then(result => (
+      updateBookmarkReport(result)
     ))
   }, [])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+  const handleToggleBookmark = async (contentId: number) => {
     try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: params.userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: params.userId,
-        })
-      }
+      await removeWatchList({
+        type: 'report',
+        content_id: contentId,
+        user_id: userId,
+      })
 
-      const result = await getProductBySaved(params)
-      updateReports(result)
+      const result = await fetchWatchList({
+        user_id: userId,
+        type: 'report',
+      })
+      updateBookmarkReport(result)
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -61,22 +60,21 @@ export default function Report({
           </div>
 
           <div className="saved-read">
-            <button>{t('saved')} {`(${reports?.length || 0})`}</button>
+            <button>{t('saved')} {`(${bookmark?.report?.length || 0})`}</button>
           </div>
         </div>
       </div>
       
-      {reports?.length ? (
-        reports?.map(({ node }) => (
+      {bookmark?.report?.length ? (
+        bookmark?.report?.map(node => (
           <ReportCard
-            key={node.id}
-            onToggleBookmark={() => (
-              handleToggleBookmark({
-                isSaved: node.lanbeContent.is_save,
-                databaseId: node.databaseId,
-              })
-            )}
             {...node}
+            key={node.id}
+            featuredImageUrl={node?.featured_image_url}
+            lanbeContent={{
+              is_save: true,
+            } as ILanbeContent}
+            onToggleBookmark={() => handleToggleBookmark(node.id)}
           />
         ))
       ) : (
