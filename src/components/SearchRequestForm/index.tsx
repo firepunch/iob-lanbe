@@ -23,26 +23,26 @@ export default function SearchRequestForm ({
           <div className="sum-row">
             <div className="field">
               <label htmlFor="firstname">{t('first_name')}</label>
-              <input type="text" id="firstname" name="first-name" />
+              <input required type="text" id="firstname" name="first-name" />
             </div>
 
             <div className="field">
               <label htmlFor="lastname">{t('last_name')}</label>
-              <input type="text" id="lastname" name="last-name" />
+              <input required type="text" id="lastname" name="last-name" />
             </div>
           </div>
 
           <div className="sum-row">
             <div className="field">
               <label htmlFor="email">{t('email')}</label>
-              <input type="email" id="email" name="user-email" placeholder={t('email_placeholder')} />
+              <input required type="email" id="email" name="user-email" placeholder={t('email_placeholder')} />
             </div>
           </div>
 
           <div className="sum-message-us">
             <div className="field">
               <label htmlFor="message">{t('message')}</label>
-              <input type="text" id="message" name="message" placeholder={t('message_placeholder')} />
+              <input required type="text" id="message" name="message" placeholder={t('message_placeholder')} />
             </div>
           </div>
 
