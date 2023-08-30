@@ -1,6 +1,6 @@
 'use client'
 
-import { getProductBySlug, getReportBySlug } from '@/api_gql'
+import { getReportBySlug } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Bookmark } from '@/components'
 import { useTranslation } from '@/i18n/client'
@@ -51,8 +51,8 @@ export default function Report({
         })
       }
 
-      const result = await getProductBySlug({
-        productSlug: report_slug, 
+      const result = await getReportBySlug({
+        reportSlug: report_slug, 
         userId,
         email,
       })
