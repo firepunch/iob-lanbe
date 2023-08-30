@@ -14,6 +14,11 @@ const BLACK_ICONS = [
   'project',
 ]
 
+const CHANGE_URL = [
+  'contents',
+  'report',
+]
+
 export default function LanguageSwitcher({ 
   lang, 
   isSimple = false,
@@ -30,6 +35,13 @@ export default function LanguageSwitcher({
     if (!pathName) return '/'
     const segments = pathName.split('/')
     segments[1] = locale
+    if (CHANGE_URL.find(item => pathName.includes(item))) {
+      let targetIdx = segments.length - 1
+      const origin = segments[segments.length - 1]
+      if (origin === '' ) targetIdx -= 1
+      segments[targetIdx] = post?.translations?.[0]?.slug || origin
+    }
+    
     return segments.join('/')
   }
 

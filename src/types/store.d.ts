@@ -35,7 +35,7 @@ export interface IPost {
   lanbeContent: ILanbeContent
   translations: {
     slug: string
-  }
+  }[]
   categories: {
     edges: {
       node: {
