@@ -71,7 +71,7 @@ const SignUp = ({
         username: formProps.email,
       })
 
-      if (result?.message) {
+      if (result?.status !== 200 && result?.message) {
         setErrorMessages({
           common: t(result.message),
         })

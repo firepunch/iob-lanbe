@@ -56,7 +56,7 @@ async function fetchAPI({
       }) as any,
     },
     ...prefixPath === 'formAPI' && {
-      mode: 'no-cors',
+      // mode: 'no-cors',
       body: data,
     },
   })
