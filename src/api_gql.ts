@@ -6,7 +6,6 @@ import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
 import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
-import POST_BY_SAVED from './queries/postBySaved'
 import PRODUCT_BY_SAVED from './queries/productBySaved'
 import { REPORTS_QUERY, REPORT_QUERY } from './queries/report'
 import SEARCH_QUERY from './queries/search'
@@ -179,13 +178,6 @@ export async function getContentByDatabaseID(databaseID) {
     variables: { databaseID },
   })
   return data
-}
-
-export async function getPostBySaved(variables) {
-  const data = await fetchAPI(POST_BY_SAVED, {
-    variables,
-  })
-  return data.posts.edges
 }
 
 export async function getProductBySaved(variables) {

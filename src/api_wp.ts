@@ -147,15 +147,15 @@ export async function ProjectInquiry(data) {
   return res
 }
 
-export async function fetchWatchList(data: IFetchWatchList) {
+export async function fetchWatchList(queryParams: IFetchWatchList) {
   const res = await fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'GET',
-    data,
+    queryParams,
   })
 
-  return res
+  return res?.data
 }
 
 export async function createWatchList(data: IBodyWatchList) {

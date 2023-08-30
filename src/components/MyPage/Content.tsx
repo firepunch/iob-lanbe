@@ -1,13 +1,13 @@
 'use client'
  
-import { getPostBySaved } from '@/api_gql'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { fetchWatchList, createWatchList, removeWatchList } from '@/api_wp'
 import useUserState from '@/stores/userStore'
 import { TI18N } from '@/types'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
+import { ILanbeContent } from '@/types/store'
 
 export default function Content({
   t,
@@ -19,33 +19,31 @@ export default function Content({
     language: string
   }
 }) {
-  const { posts, updatePosts } = useUserState(state => state)
+  const { bookmark, updateBookmarkPost } = useUserState(state => state)
   const lang = params.language.toLowerCase()
 
   useEffect(() => {
-    getPostBySaved(params).then(result => (
-      updatePosts(result)
+    fetchWatchList({
+      user_id: params.userId,
+      type: 'post',
+    }).then(result => (
+      updateBookmarkPost(result)
     ))
   }, [])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
+  const handleToggleBookmark = async (contentId: number) => {
     try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: params.userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: params.userId,
-        })
-      }
+      await removeWatchList({
+        type: 'post',
+        content_id: contentId,
+        user_id: params.userId,
+      })
 
-      const result = await getPostBySaved(params)
-      updatePosts(result)
+      const result = await fetchWatchList({
+        user_id: params.userId,
+        type: 'post',
+      })
+      updateBookmarkPost(result)
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -64,22 +62,20 @@ export default function Content({
           </div>
 
           <div className="saved-read">
-            <button>{t('saved')} {`(${posts?.length || 0})`}</button>
+            <button>{t('saved')} {`(${bookmark.post?.length || 0})`}</button>
           </div>
         </div>
       </div>
 
-      {posts?.length ? (
-        posts?.map(({ node }) => (
+      {bookmark?.post?.length ? (
+        bookmark.post?.map((node) => (
           <PostCard
-            key={node.id}
-            onToggleBookmark={() => (
-              handleToggleBookmark({
-                isSaved: node.lanbeContent.is_save,
-                databaseId: node.databaseId,
-              })
-            )}
             {...node}
+            key={node.id}
+            lanbeContent={{
+              is_save: true,
+            } as ILanbeContent}
+            onToggleBookmark={() => handleToggleBookmark(node.id)}
           />
         ))
       ) : (
@@ -93,7 +89,6 @@ export default function Content({
           </Link>
         </div>
       )}
-
     </>
   )
 }

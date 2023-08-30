@@ -62,7 +62,7 @@ export default function Category({
       }
 
       if (type === 'post') {
-        const result = await getContentBySlug(content_slug, userId)
+        const result = await getContentBySlug(decodeURIComponent(content_slug), userId)
         updatePost(result)
       } else if (type === 'recommend') {
         const result = await getContents(lang.toUpperCase(), 3)

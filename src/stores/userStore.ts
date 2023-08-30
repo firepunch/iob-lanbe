@@ -17,6 +17,7 @@ interface UserState extends Tokens {
   cardHistory: IPaymentHistory
   posts?: { node: IPost }[]
   reports?: { node: IReport }[]
+  bookmark: { post: IPost[], report: IReport[] }
   updateUser: (user: IUser) => void
   updateUserInfo: (userInfo: any) => void
   updateTokens: (tokens: Tokens) => void
@@ -24,8 +25,10 @@ interface UserState extends Tokens {
   updateDownload: (download: IDownload) => void
   updateCards: (cards: IStripeCard[]) => void
   updateCardHistory: (cardHistory: IPaymentHistory) => void
-  updatePosts: (posts:{ node: IPost }[]) => void
-  updateReports: (products:{ node: IReport }[]) => void
+  updatePosts: (posts: { node: IPost }[]) => void
+  updateReports: (products: { node: IReport }[]) => void
+  updateBookmarkPost: (post: IPost[]) => void
+  updateBookmarkReport: (report: IReport[]) => void
 }
 
 const useUserState = create<UserState>((set) => ({
@@ -40,6 +43,7 @@ const useUserState = create<UserState>((set) => ({
   cardHistory: { data: [], has_more: false },
   posts: undefined,
   reports: undefined,
+  bookmark: { post: [], report: [] },
   updateUser: (user) => set({ user }),
   updateUserInfo: (userInfo) => set({ userInfo }),
   updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
@@ -53,6 +57,8 @@ const useUserState = create<UserState>((set) => ({
   updateCardHistory: (cardHistory: IPaymentHistory) => set({ cardHistory }),
   updatePosts: (posts) => set({ posts }),
   updateReports: (reports) => set({ reports }),
+  updateBookmarkPost: (post) => set((prev) => ({ bookmark: { post, report: prev.bookmark.report } })),
+  updateBookmarkReport: (report) => set((prev) => ({ bookmark: { report, post: prev.bookmark.post } })),
 }))
 
 export default useUserState
