@@ -27,12 +27,12 @@ export default function ProjectForm ({
           <div className="pi-inputs-row">
             <div className="field">
               <label htmlFor="firstname">{t('first-name')}</label>
-              <input type="text" id="firstname" name="firstname" />
+              <input required type="text" id="firstname" name="firstname" />
             </div>
 
             <div className="field">
               <label htmlFor="lastname">{t('last-name')}</label>
-              <input type="text" id="lastname" name="lastname" />
+              <input required type="text" id="lastname" name="lastname" />
             </div>
           </div>
 
@@ -40,12 +40,12 @@ export default function ProjectForm ({
           <div className="pi-inputs-row">
             <div className="field">
               <label htmlFor="org">{t('organization')}</label>
-              <input type="text" id="org" name="org" placeholder={t('organization-placeholder')} />
+              <input required type="text" id="org" name="org" placeholder={t('organization-placeholder')} />
             </div>
 
             <div className="field">
               <label htmlFor="jobtitle">{t('job-title')}</label>
-              <input type="text" id="jobtitle" name="jobtitle" placeholder={t('job-placeholder')} />
+              <input required type="text" id="jobtitle" name="jobtitle" placeholder={t('job-placeholder')} />
             </div>
           </div>
 
@@ -53,12 +53,12 @@ export default function ProjectForm ({
           <div className="pi-inputs-row">
             <div className="field">
               <label htmlFor="email">{t('email')}</label>
-              <input type="email" id="email" name="email" placeholder={t('email-placeholder')} />
+              <input required type="email" id="email" name="email" placeholder={t('email-placeholder')} />
             </div>
 
             <div className="field">
               <label htmlFor="contact">{t('contact')}</label>
-              <input type="phone" id="contact" name="contact" placeholder={t('contact-placeholder')} />
+              <input required type="phone" id="contact" name="contact" placeholder={t('contact-placeholder')} />
             </div>
           </div>
 
@@ -66,7 +66,7 @@ export default function ProjectForm ({
           <div className="message-us">
             <div className="field">
               <label htmlFor="message">{t('message')}</label>
-              <textarea id="message" name="message" placeholder={t('message-placeholder')} />
+              <textarea required id="message" name="message" placeholder={t('message-placeholder')} />
             </div>
           </div>
 
