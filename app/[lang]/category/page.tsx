@@ -194,9 +194,11 @@ export default function Category({
               </li>
             </ul>
 
-            <span className="see-all" onClick={() => handleCategory('')}>
-              {t('see_all')}
-            </span>
+            {fetchParams.categoryName !== '' && (
+              <span className="see-all" onClick={() => handleCategory('')}>
+                {t('see_all')}
+              </span>
+            )}
           </div>
 
           {fetchParams.categoryName !== '' && (
