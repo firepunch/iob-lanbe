@@ -19,6 +19,7 @@ export type ILanbeContent = {
   country: string
   purchased: boolean
   purchasedFile: string
+  subTitle: string
 }
 
 export interface IPost {
