@@ -20,21 +20,23 @@
 
             .ct {
                 width: fit-content;
-                padding: .5rem .85rem;
-                margin: 0 .25rem;
+                // padding: 0 .85rem;
+                margin: .25rem;
                 border: 1px solid $black;
                 border-radius: 10rem;
 
                 p:nth-child(1) {
                     font-size: .65rem;
                     text-align: center;
-                    margin: 0;
+                    margin: 0 .5rem;
                 }
 
                 p:nth-child(2) {
                     font-size: $smaller-font-size;
+                    font-weight: 600;
                     text-align: center;
-                    margin: 0;
+                    margin: 0 1rem;
+                    margin-top: -.3rem;
                 }
             }
         }
@@ -250,6 +252,7 @@
 
         .whyitmatters {
             h4 {
+                font-style: $primary-font;
                 font-style: italic;
             }
         }
@@ -760,7 +763,7 @@
 
             .content-tags {
                 // left: 12.5%;
-                left: 10%;
+                left: 8.5rem;
             }
 
             h2 {
@@ -785,9 +788,9 @@
     #content-title-page {
         #top-title {
 
-            .content-tags {
-                left: 8%;
-            }
+            // .content-tags {
+            //     left: 8%;
+            // }
 
             .content-location {
                 left: 92%;
