@@ -2,10 +2,15 @@
 header {
     color: $black;
 
-    .language-mobile,
     .hamburger-mobile {
         img {
             filter: invert(100%);
+        }
+    }
+
+    .language-mobile {
+        img {
+            filter: invert(0);
         }
     }
 }
