@@ -5,56 +5,56 @@
     height: 12rem;
     background-color: $black;
     position: relative;
+  }
 
-    .save {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      z-index: 5;
-    }
+  .save {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
+  }
 
-    .location-date {
+  .location-date {
+    display: flex;
+    align-items: center;
+    font-size: $smaller-font-size;
+
+    .country {
+      font-weight: 600;
+      width: 100%;
       display: flex;
       align-items: center;
-      font-size: $smaller-font-size;
 
-      .country {
-        font-weight: 600;
-        width: 100%;
-        display: flex;
-        align-items: center;
-
-        img {
-          @include icon-size;
-          margin-top: -0.1rem;
-        }
-      }
-
-      .country::after {
-        content: "";
-        display: block;
-        width: 70%;
-        height: 1px;
-        margin: 0.5rem auto;
-        background-color: $black;
+      img {
+        @include icon-size;
+        margin-top: -0.1rem;
       }
     }
 
     .country::after {
       content: "";
       display: block;
-      width: 80%;
+      width: 70%;
       height: 1px;
       margin: 0.5rem auto;
       background-color: $black;
     }
   }
 
-  .indiv-content-title {
-    font-size: $base-font-size;
-    font-weight: $bold-font-weight;
-    margin: 0;
+  .country::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 1px;
+    margin: 0.5rem auto;
+    background-color: $black;
   }
+}
+
+.indiv-content-title {
+  font-size: $base-font-size;
+  font-weight: $bold-font-weight;
+  margin: 0;
 }
 
 // report thumbnail
