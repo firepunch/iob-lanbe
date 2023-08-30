@@ -1,15 +1,13 @@
 'use client'
  
+import { getPostBySaved } from '@/api_gql'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import useUserState from '@/stores/userStore'
 import { TI18N } from '@/types'
 import Link from 'next/link'
-import Icons from '../Icons'
 import { useEffect } from 'react'
-import { getPostBySaved } from '@/api_gql'
-import { getUserId } from '@/utils/lib'
-import useUserState from '@/stores/userStore'
+import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { createWatchList, removeWatchList } from '@/api_wp'
-import { languages } from '@/i18n/settings'
 
 export default function Content({
   t,
