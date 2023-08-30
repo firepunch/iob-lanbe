@@ -9,7 +9,7 @@ import LangBlackImg from '@/imgs/lang_black.png'
 import LangWhiteImg from '@/imgs/lang_white.png'
 import useContentState from '@/stores/contentStore'
 
-const BLACK_ICONS = [
+const WHITE_ICONS = [
   'about',
   'project',
 ]
@@ -24,7 +24,7 @@ export default function LanguageSwitcher({
   isSimple = false,
   className,
 }: {
-   lang: ValidLocale 
+  lang: ValidLocale 
   isSimple?: boolean
   className?: string
 }) {
@@ -53,7 +53,7 @@ export default function LanguageSwitcher({
     <Link href={redirectedPathName(otherLocale)} className={className}>
       <Image 
         src={
-          BLACK_ICONS.find(item => pathName.includes(item)) ?
+          WHITE_ICONS.find(item => pathName.includes(item)) ?
             LangWhiteImg :
             LangBlackImg
         }

@@ -1,36 +1,35 @@
-import { Footer, Header, SimpleHeader } from '@/components'
-import { getTranslation } from '@/i18n'
-import { ValidLocale } from '@/i18n/settings'
-import { headers } from 'next/headers'
-import { AUTH_TOKEN, getStorageData, isValidToken } from '@/utils/lib'
+'use client'
 
-// export function generateStaticParams() {
-//   return languages.map((lang) => ({ lang }))
-// }
+import { Footer, Header, SimpleHeader } from '@/components'
+import { ValidLocale } from '@/i18n/settings'
+import { usePathname } from 'next/navigation'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
   'sign-up',
 ]
 
-export default async function LocaleLayout({
+const WHITE_ICONS = [
+  'about',
+  'project',
+]
+
+export default function LocaleLayout({
   children,
   params: { lang },
 }: {
   children: React.ReactNode,
   params: { lang: ValidLocale }
 }) {
-  const headersList = headers()
-  const fullUrl = headersList.get('referer') || ''
-  const { t: ct } = await getTranslation(lang, 'category-page')
-  const { t } = await getTranslation(lang, 'layout')
+  const pathName = usePathname()
+  const className = WHITE_ICONS.find(item => pathName.includes(item))
   
   return (
     <html lang={lang}>
       <head />
-      <body className={`iob-${lang}`}>
+      <body className={`iob-${lang} ${className ? `iob-${className}` : ''}`}>
         {
-          SIMPLE_HEADER_MAP.find(item => fullUrl.includes(item)) ?
+          SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
             <SimpleHeader lang={lang} /> :
             <Header lang={lang} /> 
         }
