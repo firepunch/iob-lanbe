@@ -24,10 +24,15 @@ export default function Header({
   const { user, updateUser } = useUserState(state => state)
   const { isValid, user: storageUser } = isValidUser()
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
+  const [isUser, setIsUser] = useState<boolean>(false)
 
   useEffect(() => {
     if (storageUser) updateUser(storageUser)
   }, [])
+
+  useEffect(() => {
+    setIsUser(Boolean(isValid || user))
+  }, [isValid, user])
 
   return (
     <header>
@@ -139,7 +144,7 @@ export default function Header({
             </span>
           </li>
           <li>
-            {isValid || user ? (
+            {isUser ? (
               <Link href={`/${lang}/my-page/content`}>
                 {t('h_my_page')}
               </Link>

@@ -26,10 +26,15 @@ export default function MobileMenu({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+  const [isUser, setIsUser] = useState<boolean>(false)
 
   useEffect(() => {
     if (storageUser) updateUser(storageUser)
   }, [])
+
+  useEffect(() => {
+    setIsUser(Boolean(isValid || user))
+  }, [isValid, user])
 
   const handleCloseMenu = () => setIsMenuOpen(false)
 
@@ -150,7 +155,7 @@ export default function MobileMenu({
 
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
-            {isValid || user ? (
+            {isUser ? (
               <Link href="/my-page/content">
                 <h2>{t('my_page')}</h2>
               </Link>
