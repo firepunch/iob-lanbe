@@ -8,32 +8,43 @@ import Bookmark from '../Bookmark'
 import LocationBlackImg from '@/imgs/locationicon_black.png'
 
 interface PostCardProps extends IPost {
+  featuredImageUrl?: string
   onToggleBookmark: () => void;
 }
 
 export const PostCard = ({
   featuredImage,
+  featuredImageUrl,
   tags,
   slug,
   title = '',
   date = '',
   lanbeContent: { is_save },
   categories,
+  country,
   onToggleBookmark,
 }: PostCardProps) => {
   return (
     <Link href={`/content/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
         <div className="thumbnail">
-          {featuredImage && (
-            <Image 
-              src={featuredImage.node.sourceUrl} 
-              alt={featuredImage.node.altText || 'PostCard Image'}
+          {featuredImageUrl ? (
+            <Image
+              src={featuredImageUrl} 
+              alt={'PostCard Image'}
               sizes="100vw"
               fill={true}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-          )}
+          ) : featuredImage ? (
+            <Image 
+              src={featuredImage?.node.sourceUrl} 
+              alt={featuredImage?.node.altText || 'PostCard Image'}
+              sizes="100vw"
+              fill={true}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : null}
           <Bookmark 
             isSaved={is_save} 
             onToggle={onToggleBookmark}
@@ -43,7 +54,7 @@ export const PostCard = ({
         <div className="location-date">
           <div className="country">
             <Image src={LocationBlackImg} alt="Location icon" />
-            <p>{getCountry(categories)?.toUpperCase()}</p>
+            <p>{country || getCountry(categories)?.toUpperCase()}</p>
           </div>
 
           <p className="date">

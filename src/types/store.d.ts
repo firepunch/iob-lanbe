@@ -32,6 +32,7 @@ export interface IPost {
   date: string
   country: string
   content: string
+  featured_image_url?: string
   featuredImage?: IFeaturedImage
   tags: ITags
   lanbeContent: ILanbeContent

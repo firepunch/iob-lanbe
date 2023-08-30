@@ -68,10 +68,11 @@ export default function Content({
       </div>
 
       {bookmark?.post?.length ? (
-        bookmark.post?.map((node) => (
+        bookmark.post?.map(node => (
           <PostCard
             {...node}
             key={node.id}
+            featuredImageUrl={node?.featured_image_url}
             lanbeContent={{
               is_save: true,
             } as ILanbeContent}
