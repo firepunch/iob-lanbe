@@ -32,8 +32,8 @@ export default function Search({
   }, [params, updateSearchResult])
 
   useEffect(() => {
-    if ( totalLength === 0 ) {
-      getContents(lang.toUpperCase()).then(result => (
+    if (recommend?.length === 0 && totalLength === 0) {
+      getContents(lang.toUpperCase(), 3).then(result => (
         updateRecommend(result)
       ))
     }
@@ -83,7 +83,7 @@ export default function Search({
           {totalLength}{t('results_for')}&apos;{decodeURIComponent(keyword)}&lsquo;
         </p>
 
-        {!Boolean(totalLength) && (
+        {totalLength === 0 && (
           <p className="no-result-notice">
             {t('try_again_1')}
             <span>{t('try_again_2')}</span>,<br />
@@ -92,7 +92,34 @@ export default function Search({
         )}
       </section>
 
-      {Boolean(totalLength) ? (
+      {totalLength === 0  ? (
+        <>
+          <section id="search-recommended-contents">
+            <div className="sr-recommended-title">
+              <h3>{t('recommend')}</h3>
+            </div>
+
+            <div id="search-recommended-contents-wrap">
+              {recommend?.map(({ node }) => (
+                <PostCard 
+                  {...node}
+                  key={node.id}
+                  onToggleBookmark={() => (
+                    handleToggleBookmark({
+                      isSaved: node.lanbeContent.is_save,
+                      databaseId: node.databaseId,
+                    })
+                  )}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section id="send-us-message">
+            <SearchRequestForm t={t} onSubmit={handleFormSubmit} />
+          </section>
+        </>
+      ) : (
         <>
           <section id="search-result-contents">
             <div className="sr-content-title">
@@ -134,33 +161,6 @@ export default function Search({
                 />
               ))}
             </div>
-          </section>
-        </>
-      ) : (
-        <>
-          <section id="search-recommended-contents">
-            <div className="sr-recommended-title">
-              <h3>{t('recommend')}</h3>
-            </div>
-
-            <div id="search-recommended-contents-wrap">
-              {recommend?.map(({ node }) => (
-                <PostCard 
-                  {...node}
-                  key={node.id}
-                  onToggleBookmark={() => (
-                    handleToggleBookmark({
-                      isSaved: node.lanbeContent.is_save,
-                      databaseId: node.databaseId,
-                    })
-                  )}
-                />
-              ))}
-            </div>
-          </section>
-
-          <section id="send-us-message">
-            <SearchRequestForm t={t} onSubmit={handleFormSubmit} />
           </section>
         </>
       )}
