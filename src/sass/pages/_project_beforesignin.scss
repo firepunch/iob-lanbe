@@ -3,6 +3,10 @@
   header {
     background-color: #ffffff09;
     backdrop-filter: blur(0.15rem);
+
+    .language-mobile {
+      filter: invert(0);
+    }
   }
 }
 
