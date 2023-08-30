@@ -71,10 +71,16 @@ query getPostsQuery(
   $after: String,
   $field: PostObjectsConnectionOrderbyEnum = DATE,
   $order: OrderEnum = DESC,
-  $categoryName: String = ""
+  $categoryName: String = "",
+  $in: [ID] = ""
 ) {
   posts(
-    where: {language: $language, categoryName: $categoryName, orderby: {field: $field, order: $order}}
+    where: {
+      language: $language, 
+      categoryName: $categoryName, 
+      orderby: {field: $field, order: $order},
+      in: $in
+    }
     first: $first
     after: $after
     before: $before

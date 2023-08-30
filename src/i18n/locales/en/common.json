@@ -1,5 +1,5 @@
 {
-  "sort_by": "Sort by:",
+  "sort_by": "Sort by: ",
   "sort_options": [{
     "label": "Newest",
     "value": "newest"
@@ -39,6 +39,16 @@
     "value": "vietnam",
     "slug": "vietnam"
   }],
+
+  "market_research": "Market Research",
+  "market_entry": "Market Entry",
+  "market": "Market",
+  "corporate": "Corporate",
+  "consumer": "Consumer",
+  "marketing": "Marketing",
+  "partnership": "Partnership",
+  "channel": "Channel",
+  "payment": "Payment",
 
   "function_options": [
     { "value": "Academia", "label": "Academia" },

@@ -17,7 +17,7 @@ interface UserState extends Tokens {
   cardHistory: IPaymentHistory
   posts?: { node: IPost }[]
   reports?: { node: IReport }[]
-  bookmark: { post: IPost[], report: IReport[] }
+  bookmark: { post: { node: IPost }[], report: IReport[] }
   updateUser: (user: IUser) => void
   updateUserInfo: (userInfo: any) => void
   updateTokens: (tokens: Tokens) => void
@@ -27,7 +27,7 @@ interface UserState extends Tokens {
   updateCardHistory: (cardHistory: IPaymentHistory) => void
   updatePosts: (posts: { node: IPost }[]) => void
   updateReports: (products: { node: IReport }[]) => void
-  updateBookmarkPost: (post: IPost[]) => void
+  updateBookmarkPost: (post: { node: IPost }[]) => void
   updateBookmarkReport: (report: IReport[]) => void
 }
 

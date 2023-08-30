@@ -155,7 +155,7 @@ export async function fetchWatchList(queryParams: IFetchWatchList) {
     queryParams,
   })
 
-  return res?.data
+  return res
 }
 
 export async function createWatchList(data: IBodyWatchList) {

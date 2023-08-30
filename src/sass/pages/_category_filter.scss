@@ -2,6 +2,13 @@
   position: relative;
 }
 
+main #default-content #default-title .filters-wrap button {
+  &.selected {
+    background-color: $black;
+    color: $white;
+  }
+}
+
 #category-filter {
   width: 18rem;
   height: 16rem;
@@ -39,12 +46,6 @@
       margin-top: 0.5rem;
 
       cursor: pointer;
-    }
-
-    button:active,
-    .selected {
-      background-color: $black;
-      color: $white;
     }
   }
 

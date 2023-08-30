@@ -131,3 +131,9 @@ export const getCountry = (categories) => {
 
   return countryNode?.node?.name
 }
+
+export const getUniqueArr = (arr) => (
+  arr.filter((item, pos, self) => (
+    self.indexOf(item) === pos
+  ))
+)

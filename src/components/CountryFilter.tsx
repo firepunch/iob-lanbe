@@ -1,6 +1,6 @@
 import { TI18N, ValidLocale } from '@/types'
 import Image from 'next/image'
-
+import { getUniqueArr } from '@/utils/lib'
 import CategoryFilterBg from '@/imgs/category_filter_bg.png'
 import TrashIcon from '@/imgs/trash.png'
 
@@ -27,9 +27,7 @@ export default function CountryFilter({
       const newValue = value.filter(item => item !== selected)
       onChange(newValue)
     } else {
-      const newValue = [...value, selected].filter((item, pos, self) => (
-        self.indexOf(item) === pos
-      ))
+      const newValue = getUniqueArr([...value, selected])
       onChange(newValue)
     }
   }
