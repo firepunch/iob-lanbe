@@ -12,22 +12,32 @@
       right: 1rem;
       z-index: 5;
     }
-  }
 
-  .location-date {
-    display: flex;
-    align-items: center;
-    font-size: $smaller-font-size;
+    .location-date {
+        display: flex;
+        align-items: center;
+        font-size: $smaller-font-size;
 
-    .country {
-      width: 100%;
-      display: flex;
-      align-items: center;
+        .country {
+            font-weight: 600;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            
+            img {
+                @include icon-size;
+                margin-top: -.1rem;
+            }
+        }
 
-      img {
-        @include icon-size;
-        margin-top: -0.15rem;
-      }
+        .country::after {
+            content: "";
+            display: block;
+            width: 70%;
+            height: 1px;
+            margin: .5rem auto;
+            background-color: $black;
+        }
     }
 
     .country::after {
