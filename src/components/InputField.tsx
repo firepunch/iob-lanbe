@@ -6,7 +6,7 @@ import { Select } from './Select'
 interface IInputField {
   readOnly?: boolean
   isRequired?: boolean
-  type?: 'text' | 'email' | 'password'
+  type?: 'text' | 'email' | 'password' | 'phone' | 'textarea'
   name: string
   label: string
   defaultValue?: string

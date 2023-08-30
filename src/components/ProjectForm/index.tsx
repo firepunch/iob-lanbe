@@ -2,6 +2,7 @@
 
 import { TI18N } from '@/types'
 import React, { useState } from 'react'
+import { InputField, SelectField } from '@/components'
 
 interface ProjectFormProps {
   t: TI18N;
@@ -17,14 +18,6 @@ export default function ProjectForm ({
   children,
   ...props
 }: ProjectFormProps) {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [org, setOrg] = useState('')
-  const [jobTitle, setJobTitle] = useState('')
-  const [email, setEmail] = useState('')
-  const [contact, setContact] = useState('')
-  const [message, setMessage] = useState('')
-
   return (
     <section id="project-inquiry-form">
       <h2>{t('project')}<br/>{t('inquiry')}</h2>
@@ -34,74 +27,65 @@ export default function ProjectForm ({
           {/* row1 */}
           <div className="pi-inputs-row">
             <div className="field">
-              <label htmlFor="firstname">{t('first-name')}</label>
-              <input 
-                type="text" 
-                id="firstname" 
-                name="firstname" 
-                value={firstName} 
-                onChange={e => setFirstName(e.target.value)}
+              <InputField
+                isRequired
+                type="text"
+                name="firstname"
+                label={t('first-name')}
               />
             </div>
 
             <div className="field">
-              <label htmlFor="lastname">{t('last-name')}</label>
-              <input 
-                type="text" 
-                id="lastname" 
+              <InputField
+                isRequired
                 name="lastname"
-                value={lastName} 
-                onChange={e => setLastName(e.target.value)} />
+                label={t('last-name')}
+              />
             </div>
           </div>
 
           {/* row2 */}
           <div className="pi-inputs-row">
             <div className="field">
-              <label htmlFor="org">{t('organization')}</label>
-              <input 
+              <InputField
+                isRequired
                 type="text" 
-                id="org" 
-                name="org" 
+                name="org"
+                label={t('organization')}
                 placeholder={t('organization-placeholder')}
-                value={org} 
-                onChange={e => setOrg(e.target.value)} />
+              />
             </div>
 
             <div className="field">
-              <label htmlFor="jobtitle">{t('job-title')}</label>
-              <input 
+              <InputField
+                isRequired
                 type="text" 
-                id="jobtitle" 
-                name="jobtitle" 
+                name="jobtitle"
+                label={t('job-title')}
                 placeholder={t('job-placeholder')} 
-                value={jobTitle} 
-                onChange={e => setJobTitle(e.target.value)}/>
+              />
             </div>
           </div>
 
           {/* row3 */}
           <div className="pi-inputs-row">
             <div className="field">
-              <label htmlFor="email">{t('email')}</label>
-              <input 
+              <InputField
+                isRequired
                 type="email" 
-                id="email" 
                 name="email"
+                label={t('email')}
                 placeholder={t('email-placeholder')} 
-                value={email} 
-                onChange={e => setEmail(e.target.value)}/>
+              />
             </div>
 
             <div className="field">
-              <label htmlFor="contact">{t('contact')}</label>
-              <input 
+              <InputField
                 type="phone" 
-                id="contact" 
-                name="contact" 
-                placeholder={t('contact-placeholder')}
-                value={contact} 
-                onChange={e => setContact(e.target.value)} />
+                name="contact"
+                label={t('contact')}
+                placeholder={t('contact-placeholder')} 
+              />
             </div>
           </div>
 
@@ -110,11 +94,10 @@ export default function ProjectForm ({
             <div className="field">
               <label htmlFor="message">{t('message')}</label>
               <textarea 
-                id="message" 
+                id="message"
                 name="message" 
                 placeholder={t('message-placeholder')} 
-                value={message} 
-                onChange={e => setMessage(e.target.value)}/>
+              />
             </div>
           </div>
 

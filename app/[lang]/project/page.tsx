@@ -30,17 +30,6 @@ export default function Search({
     e.preventDefault()
     try { 
       const formData = new FormData(e.currentTarget)
-
-      const firstName = formData.get('firstname')
-      const lastName = formData.get('lastname')
-      const org = formData.get('org')
-      const jobTitle = formData.get('jobtitle')
-      const email = formData.get('email')
-      if (!firstName || !lastName || !org || !jobTitle || !email) {
-        alert('모든 필드를 입력해주세요.')
-        return
-      }
-
       const { code } = await ProjectInquiry(formData)
       alert('success')
       setErrorCode(code)
