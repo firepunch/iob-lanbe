@@ -48,7 +48,8 @@
         color: $white;
         font-weight: $bold-font-weight;
         line-height: 1.25rem;
-        width: 62.5%;
+        // width: 62.5%;
+        width: 100%;
         text-align: center;
         @include absolute-center;
         top: 45%;
@@ -677,7 +678,7 @@
 
     #our-story {
         #our-story-wrap {
-            width: 65%;
+            width: 60%;
         }
     }
 }
@@ -685,7 +686,8 @@
 @media (min-width: 1200px) {
     #about-firstpage {
         p {
-            width: 30%;
+            font-size: 1.25rem;
+            line-height: 1.85rem;
         }
     }
 
