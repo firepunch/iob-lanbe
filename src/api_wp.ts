@@ -12,7 +12,7 @@ import {
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
 
-const API_URL = process.env.WORDPRESS_API_URL as string
+const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
   wpAPI: '/wp-json',
   customAPI: '/wp-json/custom-api/v1',
@@ -61,9 +61,13 @@ async function fetchAPI({
     },
   })
   
-  const json = await res.json()
+  const json = prefixPath === 'formAPI' ? 
+    await res :
+    await res.json()
+
   if (json.errors) {
-    console.error(json.errors)
+    console.log(json)
+    console.error(json?.errors)
     throw new Error('Failed to fetch API')
   }
   return method === 'GET' ? json : json.data
