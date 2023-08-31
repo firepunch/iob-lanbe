@@ -1,11 +1,10 @@
 {
-  "content": "Content",
-  "report": "Report",
-  "ideas": "Ideas",
+  "content": "콘텐츠",
+  "report": "리포트",
+  "ideas": "아이디어",
   "payment": "결제 정보",
   "payment_h2": "PAYMENT",
   "settings": "설정",
-  "settings_en": "Settings",
 
   "hi": "안녕하세요, ",
   "member_since": "Member since ",

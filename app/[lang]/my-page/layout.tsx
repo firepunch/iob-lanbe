@@ -43,22 +43,22 @@ const Layout = ({
           <p className="member-info">{t('member_since')}{dateEnFormat(user?.registeredDate)}</p>
 
           <div className="buttons-wrap">
-            <Link href={{ pathname: `/my-page/${TAB_MAP.content}` }}>
+            <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.content}` }}>
               <Image src={ContentIcon} alt="I.O.B Content"/>
               <p><span>I.O.B </span>{t(TAB_MAP.content)}</p>
             </Link>
            
-            <Link href={{ pathname: `/my-page/${TAB_MAP.report}` }}>
+            <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.report}` }}>
               <Image src={ReportIcon} alt="I.O.B Report"/>
               <p><span>I.O.B </span>{t(TAB_MAP.report)}</p>
             </Link>
            
-            <Link href={{ pathname: `/my-page/${TAB_MAP.ideas}` }}>
+            <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.ideas}` }}>
               <Image src={IdeasIcon} alt="Ideas"/>
               <p><span>I.O.B </span>{t(TAB_MAP.ideas)}</p>
             </Link>
 
-            <Link href={{ pathname: `/my-page/${TAB_MAP.settings}` }}>
+            <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.settings}` }}>
               <Image src={SettingsIcon} alt="Settings"/>
               <p>{t(TAB_MAP.settings)}</p>
             </Link>

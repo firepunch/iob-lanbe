@@ -59,7 +59,7 @@ export default function Ideas({
 
   return (
     <>
-      <div id="default-title">
+      <div id="default-title" className="dt-no-buttons">
         <h2>{t('ideas').toUpperCase()}</h2>
       </div>
 

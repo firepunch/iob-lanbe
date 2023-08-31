@@ -77,7 +77,7 @@ export default function Settings({
   return (
     <>
       <div id="default-title" className="dt-no-buttons">
-        <h2>{t('settings_en').toUpperCase()}</h2>
+        <h2>{t('settings').toUpperCase()}</h2>
       </div>
     
       <form onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ export default function Settings({
                   isRequired
                   name="firstName"
                   label={t('first_name')}
-                  defaultValue={userInfo?.display_name.split(' ')[0]}
+                  defaultValue={userInfo?.display_name?.split(' ')[0]}
                   errorMessage={errorMessages?.firstName}
                 />
             
@@ -100,7 +100,7 @@ export default function Settings({
                   isRequired
                   name="lastName"
                   label={t('last_name')}
-                  defaultValue={userInfo?.display_name.split(' ')[1]}
+                  defaultValue={userInfo?.display_name?.split(' ')[1]}
                   errorMessage={errorMessages?.lastName}
                 />
               </div>
