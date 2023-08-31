@@ -1,4 +1,23 @@
 {
+  "results_for": " 검색결과 ",
+  "content": "콘텐츠",
+  "report": "리포트",
+  "recommend": "추천 콘텐츠",
+
+  "require_keyword": "검색어를 입력해주세요.",
+
+  "looking_for": "찾고 있는 콘텐츠가 없나요?",
+  "first_name": "성",
+  "last_name": "이름",
+  "email": "이메일",
+  "email_placeholder": "이메일을 입력해주세요.",
+  "message": "내용",
+  "message_placeholder": "받고 싶은 도움을 알려주세요.",
+  "send": "전송",
+
+  "try_again_1": "다른 키워드로 ",
+  "try_again_2": "검색",
+  "try_again_3": "또는 아래 추천 콘텐츠를 확인하시거나 저희에게 원하시는 콘텐츠를 알려주세요!",
   "recommended": "추천 키워드",
   "keywords-row1": [{
     "label": "인도네시아",

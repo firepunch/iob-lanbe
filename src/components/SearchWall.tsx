@@ -23,6 +23,10 @@ export default function SearchWall({
   const keywords2 = t('keywords-row2', { returnObjects: true }) as Options
 
   const handleSearch = () => {
+    if (!keyword) {
+      alert(t('require_keyword'))
+      return
+    }
     window.location.replace(`/${lang}/search/${keyword}`)
   }
 

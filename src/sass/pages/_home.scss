@@ -1,725 +1,714 @@
 // header (mobile)
 header {
-    color: $black;
+  color: $black;
 
-    .hamburger-mobile {
-        img {
-            filter: invert(100%);
-        }
+  .hamburger-mobile {
+    img {
+      filter: invert(100%);
     }
+  }
 
-    .language-mobile {
-        img {
-            filter: invert(0);
-        }
+  .language-mobile {
+    img {
+      filter: invert(0);
     }
+  }
 }
 
 // section 1: first page
 #firstpage {
+  width: 100%;
+
+  #firstpage-toptext {
     width: 100%;
+    height: 10rem;
+    font-size: $smaller-font-size;
+    position: relative;
+    @include flex-spacebetween;
 
-    #firstpage-toptext {
-        width: 100%;
-        height: 10rem;
-        font-size: $smaller-font-size;
-        position: relative;
-        @include flex-spacebetween;
+    line-height: 1rem;
 
-        line-height: 1rem;
-
-        span {
-            font-weight: $bold-font-weight;
-        }
-
-        .toptext-left {
-            width: 30%;
-            position: absolute;
-            left: 1rem;
-            bottom: 0;
-        }
-
-        .toptext-center {
-            width: 35%;
-            position: absolute;
-            text-align: right;
-            right: 1rem;
-            bottom: 0;
-        }
-
-        .toptext-right {
-            display: none;
-        }
+    span {
+      font-weight: $bold-font-weight;
     }
 
-    #firstpage-img {
-        background: url(~/public/imgs/homepage_main.jpg);
-        // height: 95vh;
-        height: 45rem;
-        position: relative;
-        @include background(60%);
-
-        .intro-slogan {
-            width: 80%;
-            text-align: center;
-            text-transform: uppercase;
-            font-family: $secondary-font;
-            font-size: 1.75rem;
-            line-height: 2.5rem;
-            color: $white;
-            
-            top: 5rem;
-            @include absolute-center;
-        }
-
-        .intro-text {
-            width: 80%;
-            font-size: $base-font-size;
-            color: $white;
-
-            top: 45%;
-            text-align: center;
-            @include absolute-center;
-        }
-
-        .firstpage-cta {
-            width: 100%;
-            position: absolute;
-            bottom: 1rem;
-
-            .fp-cta {
-                @include fp-cta;
-            }
-
-            .fp-cta:hover {
-                background-color: $white;
-                color: $black;
-
-                img {
-                    filter: invert(100%);
-                }
-            }
-        }
+    .toptext-left {
+      width: 30%;
+      position: absolute;
+      left: 1rem;
+      bottom: 0;
     }
+
+    .toptext-center {
+      width: 35%;
+      position: absolute;
+      text-align: right;
+      right: 1rem;
+      bottom: 0;
+    }
+
+    .toptext-right {
+      display: none;
+    }
+  }
+
+  #firstpage-img {
+    background: url(~/public/imgs/homepage_main.jpg);
+    // height: 95vh;
+    height: 45rem;
+    position: relative;
+    @include background(60%);
+
+    .intro-slogan {
+      width: 80%;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: $secondary-font;
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      color: $white;
+
+      top: 5rem;
+      @include absolute-center;
+    }
+
+    .intro-text {
+      width: 80%;
+      font-size: $base-font-size;
+      color: $white;
+
+      top: 45%;
+      text-align: center;
+      @include absolute-center;
+    }
+
+    .firstpage-cta {
+      width: 100%;
+      position: absolute;
+      bottom: 1rem;
+
+      .fp-cta {
+        @include fp-cta;
+      }
+
+      .fp-cta:hover {
+        background-color: $white;
+        color: $black;
+
+        img {
+          filter: invert(100%);
+        }
+      }
+    }
+  }
 }
 
 // 겹치는 부분 (e.g. title style)
 .fp-main {
-    width: 85%; 
-    margin: auto;
+  width: 85%;
+  margin: auto;
 
-    .firstpage-title {
-        margin-top: 3rem;
-    
-        h2 {
-            @include titles;
-            margin-bottom: .75rem;
-        }
-    
-        .iob-content-info,
-        .iob-report-info,
-        .iob-project-info {
-            width: 100%;
-            border-top: 3px solid #000;
-    
-            .description {
-                font-size: $smaller-font-size;
-                font-weight: $bold-font-weight;
-            }
-    
-            .cta-web {
-                display: none;
-            }
-        }
+  .firstpage-title {
+    margin-top: 3rem;
+
+    h2 {
+      @include titles;
+      margin-bottom: 0.75rem;
     }
 
-    #section-wrap {
-        h3 {
-            margin-top: 4rem;
-        }
+    .iob-content-info,
+    .iob-report-info,
+    .iob-project-info {
+      width: 100%;
+      border-top: 3px solid #000;
+
+      .description {
+        font-size: $smaller-font-size;
+        font-weight: $bold-font-weight;
+      }
+
+      .cta-web {
+        display: none;
+      }
     }
+  }
+
+  #section-wrap {
+    h3 {
+      margin-top: 4rem;
+    }
+  }
 }
 
 aside {
-    display: none;
+  display: none;
 }
 
 .content-cta-mobile,
 .report-cta-mobile,
 .project-cta-mobile {
-    @include mobile-button-style($black);
-    margin-top: 3rem;
-    margin-bottom: 10rem;
+  @include mobile-button-style($black);
+  margin-top: 3rem;
+  margin-bottom: 10rem;
 }
 
 .content-cta-mobile:hover,
 .report-cta-mobile:hover,
 .project-cta-mobile:hover {
-    background-color: $black;
-    color: $white;
+  background-color: $black;
+  color: $white;
 
-    img {
-        filter: invert(100%);
-    }
+  img {
+    filter: invert(100%);
+  }
 }
-
 
 // section 2: I.O.B content
 #iob-content {
-    #section-wrap {
-        .iob-latest-content {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 3rem;
-        }
+  #section-wrap {
+    .iob-latest-content {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 3rem;
     }
+  }
 }
 
 // section 3: I.O.B report
 #iob-report {
-    #section-wrap {
-        .iob-latest-report {
-            .indiv-report {
-                margin-bottom: 3rem;
-            }
-        }
+  #section-wrap {
+    .iob-latest-report {
+      .indiv-report {
+        margin-bottom: 3rem;
+      }
     }
+  }
 }
 
 // section 4: I.O.B project
 #iob-project {
-    #project-diagram {
-        width: 100%;
-        max-width: 1200px;
+  #project-diagram {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    height: 30rem;
+    margin-top: 3rem;
+
+    .pd-flex-wrap {
+      display: flex;
+      justify-content: space-between;
+
+      .market-entry,
+      .digital-marketing {
+        width: 50%;
+      }
+
+      .pd-title {
+        width: 92.5%;
+        height: 3rem;
         margin: auto;
-        height: 30rem;
-        margin-top: 3rem;
+        margin-bottom: 2rem;
 
-        .pd-flex-wrap {
-            display: flex;
-            justify-content: space-between;
+        border: 1px solid $black;
+        border-radius: 0.25rem;
+        text-align: center;
+        font-size: $smaller-font-size;
+        font-weight: $bold-font-weight;
 
-            .market-entry,
-            .digital-marketing {
-                width: 50%;
-            }
+        @include flex-center;
+      }
 
-            .pd-title {
-                width: 92.5%;
-                height: 3rem;
-                margin: auto;
-                margin-bottom: 2rem;
-
-                border: 1px solid $black;
-                border-radius: .25rem;
-                text-align: center;
-                font-size: $smaller-font-size;
-                font-weight: $bold-font-weight;
-
-                @include flex-center;
-            }
-
-            .pd-wrap {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-
-                .solution {
-                    @include flex-column;
-                    align-items: center;
-                }
-
-                img {
-                    width: 4rem;
-                    height: 4rem;
-                    margin: .5rem 0;
-                }
-
-                p {
-                    font-size: .625rem;
-                    font-weight: $bold-font-weight;
-                    text-align: center;
-                    margin: 0;
-                }
-            }
-        }
-    }
-
-    .data-tracking {
-        width: 100%;
-        position: relative;
-
-        .dt-line {
-            width: 100%;
-            height: 2.5rem;
-
-            border: 1px solid $black;
-            border-top: 0;
-            border-bottom-left-radius: 1rem;
-            border-bottom-right-radius: 1rem;
-        }
+      .pd-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
 
         .solution {
-            width: 4rem;
-            height: 4rem;
-
-            @include absolute-center;
-            top: 50%;
-
-            img {
-                width: 4rem;
-                height: 4rem;
-                margin-top: 1.5rem;
-                margin-bottom: .5rem;
-            }
-
-            p {
-                width: 4rem;
-                font-size: .625rem;
-                font-weight: $bold-font-weight;
-                text-align: center;
-            }
+          @include flex-column;
+          align-items: center;
         }
+
+        img {
+          width: 4rem;
+          height: 4rem;
+          margin: 0.5rem 0;
+        }
+
+        p {
+          font-size: 0.625rem;
+          font-weight: $bold-font-weight;
+          text-align: center;
+          margin: 0;
+        }
+      }
     }
+  }
+
+  .data-tracking {
+    width: 100%;
+    position: relative;
+
+    .dt-line {
+      width: 100%;
+      height: 2.5rem;
+
+      border: 1px solid $black;
+      border-top: 0;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
+
+    .solution {
+      width: 4rem;
+      height: 4rem;
+
+      @include absolute-center;
+      top: 50%;
+
+      img {
+        width: 4rem;
+        height: 4rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        width: 4rem;
+        font-size: 0.625rem;
+        font-weight: $bold-font-weight;
+        text-align: center;
+      }
+    }
+  }
 }
 
 // media query
 @media (min-width: 576px) {
-    #firstpage {
-        #firstpage-toptext {
-            .toptext-left,
-            .toptext-center {
-                width: 50%;
-            }
+  #firstpage {
+    #firstpage-toptext {
+      .toptext-left,
+      .toptext-center {
+        width: 50%;
+      }
+    }
+  }
+
+  .fp-main {
+    .firstpage-title {
+      .iob-content-info,
+      .iob-report-info {
+        .description {
+          width: 60%;
         }
+      }
+
+      .iob-project-info {
+        .description {
+          width: 75%;
+        }
+      }
     }
 
-    .fp-main {
-        .firstpage-title {
-            .iob-content-info,
-            .iob-report-info {
-                .description {
-                    width: 60%;
-                }
-            }
-
-            .iob-project-info {
-                .description {
-                    width: 75%;
-                }
-            }
+    #section-wrap {
+      .iob-latest-content,
+      .iob-latest-report {
+        .indiv-content,
+        .indiv-report {
+          .thumbnail {
+            height: 20rem;
+          }
         }
-
-        #section-wrap {
-            .iob-latest-content,
-            .iob-latest-report {
-
-                .indiv-content,
-                .indiv-report {
-
-                    .thumbnail {
-                        height: 20rem;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 @media (min-width: 768px) {
-    #firstpage {
-        #firstpage-toptext {
-
-            .toptext-right {
-                display: block;
-                position: absolute;
-                bottom: 0;
-                right: 1rem;
-            }
-
-            .toptext-center {
-                width: 30%;
-                text-align: center;
-                @include absolute-center;
-                bottom: -.5rem;
-            }
-        }
-
-        #firstpage-img {
-            height: 35rem;
-            
-            .intro-slogan {
-                font-size: 1.25rem;
-                text-align: left;
-                top: 11.5rem;
-                left: 2rem;
-                transform: translate(0);
-            }
-
-            .intro-text {
-                width: 40%;
-                text-align: left;
-                top: 14rem;
-                left: 2rem;
-                transform: translate(0);
-            }
-
-            .firstpage-cta {
-                width: 30%;
-                top: 10rem;
-                right: 1rem;
-            }
-        }
-    }
-
-    .fp-main {
-        width: 75%;
-        margin-left: 20%;
-
-        .firstpage-title {
-
-            .iob-content-info,
-            .iob-report-info,
-            .iob-project-info {
-                @include flex-spacebetween;
-                
-                .description {
-                    margin-top: 1rem;
-                }
-
-                .cta-web,
-                .cta-web-proj {
-                    @include see-all-button-small($black);
-                }
-
-                .cta-web-proj {
-                    width: 10rem;
-                }
-
-                .cta-web:hover,
-                .cta-web-proj:hover {
-                    @include invert-color($white, $black);
-
-                    img {
-                        filter: invert(100%);
-                    }
-                }
-            }
-        }
-
-        #section-wrap {
-            .iob-latest-content {
-                .indiv-content {
-                    .thumbnail {
-                        height: 12rem;
-                    }
-                }
-            }
-
-            .iob-latest-report {
-                .indiv-report {
-                    .thumbnail {
-                        width: 95%;
-                        height: 8.5rem;
-                    }
-
-                    .indiv-report-title {
-                        font-size: 1.15rem;
-                    }
-            
-                    .report-description {
-                        width: 95%;
-                    }
-                }
-            }
-        }
-    }
-
-    // mobile cta -> web cta
-    .content-cta-mobile,
-    .report-cta-mobile,
-    .project-cta-mobile {
-        display: none;
-    }
-
-
-    aside {
+  #firstpage {
+    #firstpage-toptext {
+      .toptext-right {
         display: block;
-        margin-top: 3rem;
-        width: 15%;
-        height: 100%;
-        position: sticky;
-        top: 6.5rem;
-        left: 2.5%;
+        position: absolute;
+        bottom: 0;
+        right: 1rem;
+      }
 
-        #widget {
-            .line {
-                width: .05rem;
-                height: 10.5rem;
-                background: $black;
-                position: absolute;
-                top: 1.25rem;
-            }
-            
-            .widget-detail {
-                display: flex;
-                align-items: center;
-
-                p {
-                    font-size: $smaller-font-size;
-                    margin: 1.2rem 0;
-                    margin-left: .75rem;
-                }
-
-                .square {
-                    width: .85rem;
-                    height: .85rem;
-                    margin-left: -.425rem;
-                    background-color: $white;
-                    border: 1px solid #000;
-                    z-index: 2;
-                }
-            }
-        }
+      .toptext-center {
+        width: 30%;
+        text-align: center;
+        @include absolute-center;
+        bottom: -0.5rem;
+      }
     }
 
-    #iob-content {
-        margin-top: -12.5rem;
+    #firstpage-img {
+      height: 35rem;
 
-        #section-wrap {
-            .iob-latest-content {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-                row-gap: 3rem;
-            }
+      .intro-slogan {
+        font-size: 1.25rem;
+        text-align: left;
+        top: 11.5rem;
+        left: 2rem;
+        transform: translate(0);
+      }
+
+      .intro-text {
+        width: 40%;
+        text-align: left;
+        top: 14rem;
+        left: 2rem;
+        transform: translate(0);
+      }
+
+      .firstpage-cta {
+        width: 30%;
+        top: 10rem;
+        right: 1rem;
+      }
+    }
+  }
+
+  .fp-main {
+    width: 75%;
+    margin-left: 20%;
+
+    .firstpage-title {
+      .iob-content-info,
+      .iob-report-info,
+      .iob-project-info {
+        @include flex-spacebetween;
+
+        .description {
+          margin-top: 1rem;
         }
+
+        .cta-web,
+        .cta-web-proj {
+          @include see-all-button-small($black);
+        }
+
+        .cta-web-proj {
+          width: 10rem;
+        }
+
+        .cta-web:hover,
+        .cta-web-proj:hover {
+          @include invert-color($white, $black);
+
+          img {
+            filter: invert(100%);
+          }
+        }
+      }
     }
 
-    #iob-report {
-        margin-top: 10rem;
-
-        #section-wrap {
-            .iob-latest-report {
-                display: flex;
-            }
+    #section-wrap {
+      .iob-latest-content {
+        .indiv-content {
+          .thumbnail {
+            height: 12rem;
+          }
         }
-    }
+      }
 
-    #iob-project {
-        margin-top: 8.5rem;
-
-        #project-diagram {
-            .pd-flex-wrap {
-                .pd-wrap {
-                    grid-template-columns: repeat(4, 1fr);
-
-                    img {
-                        width: 3.5rem;
-                        height: 3.5rem;
-                        margin: 0;
-                    }
-
-                    p {
-                        font-size: .6rem;
-                        margin-top: .5rem;
-                    }
-                }
-            }
-        }
-
-        .data-tracking {
+      .iob-latest-report {
+        .indiv-report {
+          .thumbnail {
             width: 95%;
-            margin: 2.5rem auto;
+            height: 8.5rem;
+          }
 
-            .dt-line {
-                height: 1.5rem;
-            }
+          .indiv-report-title {
+            font-size: 1.15rem;
+          }
 
-            .solution {
-                img {
-                    width: 3.5rem;
-                    height: 3.5rem;
-                    margin: .25rem auto;
-                }
-
-                p {
-                    font-size: .6rem;
-                }
-            }
+          .report-description {
+            width: 95%;
+          }
         }
+      }
     }
+  }
+
+  // mobile cta -> web cta
+  .content-cta-mobile,
+  .report-cta-mobile,
+  .project-cta-mobile {
+    display: none;
+  }
+
+  aside {
+    display: block;
+    margin-top: 3rem;
+    width: 15%;
+    height: 100%;
+    position: sticky;
+    top: 6.5rem;
+    left: 2.5%;
+
+    #widget {
+      .line {
+        width: 0.05rem;
+        height: 10.5rem;
+        background: $black;
+        position: absolute;
+        top: 1.25rem;
+      }
+
+      .widget-detail {
+        display: flex;
+        align-items: center;
+
+        p {
+          font-size: $smaller-font-size;
+          margin: 1.2rem 0;
+          margin-left: 0.75rem;
+        }
+
+        .square {
+          width: 0.85rem;
+          height: 0.85rem;
+          margin-left: -0.425rem;
+          background-color: $white;
+          border: 1px solid #000;
+          z-index: 2;
+        }
+      }
+    }
+  }
+
+  #iob-content {
+    margin-top: -12.5rem;
+
+    #section-wrap {
+      .iob-latest-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        row-gap: 3rem;
+      }
+    }
+  }
+
+  #iob-report {
+    margin-top: 10rem;
+
+    #section-wrap {
+      .iob-latest-report {
+        display: flex;
+      }
+    }
+  }
+
+  #iob-project {
+    margin-top: 8.5rem;
+
+    #project-diagram {
+      .pd-flex-wrap {
+        .pd-wrap {
+          grid-template-columns: repeat(4, 1fr);
+
+          img {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin: 0;
+          }
+
+          p {
+            font-size: 0.6rem;
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .data-tracking {
+      width: 95%;
+      margin: 2.5rem auto;
+
+      .dt-line {
+        height: 1.5rem;
+      }
+
+      .solution {
+        img {
+          width: 3.5rem;
+          height: 3.5rem;
+          margin: 0.25rem auto;
+        }
+
+        p {
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 992px) {
+  .fp-main {
+    width: 82.5%;
+    margin-left: 14%;
 
-    .fp-main {
-        width: 82.5%;
-        margin-left: 14%;
-
-        .firstpage-title {
-
-            .iob-content-info,
-            .iob-report-info {
-                .description {
-                    font-size: $base-font-size;
-                    width: 45%;
-                }
-            }
-
-            .iob-project-info {
-                .description {
-                    font-size: $base-font-size;
-                    width: 65%;
-                }
-            }
+    .firstpage-title {
+      .iob-content-info,
+      .iob-report-info {
+        .description {
+          font-size: $base-font-size;
+          width: 45%;
         }
+      }
 
-        #section-wrap {
-            .iob-latest-content {
-                .indiv-content {
-                    .thumbnail {
-                        height: 15rem;
-                    }
-                }
-            }
-
-            .iob-latest-report {
-                .indiv-report {
-                    .thumbnail {
-                        height: 10rem;
-                    }
-                }
-            }
+      .iob-project-info {
+        .description {
+          font-size: $base-font-size;
+          width: 65%;
         }
+      }
     }
 
-    #iob-project {
-        #project-diagram {
-            margin-top: 5rem;
-
-            .pd-flex-wrap {
-                .pd-wrap {
-                    img {
-                        width: 5rem;
-                        height: 5rem;
-                    }
-
-                    p {
-                        font-size: $smaller-font-size;
-                    }
-                }
-            }
+    #section-wrap {
+      .iob-latest-content {
+        .indiv-content {
+          .thumbnail {
+            height: 15rem;
+          }
         }
+      }
 
-        .data-tracking {
-            .dt-line {
-                margin-top: 2rem;
-            }
-
-            .solution {
-                img {
-                    width: 5rem;
-                    height: 5rem;
-                    margin-top: 0;
-                }
-
-                p {
-                    width: 5rem;
-                    font-size: $smaller-font-size;
-                }
-            }
+      .iob-latest-report {
+        .indiv-report {
+          .thumbnail {
+            height: 10rem;
+          }
         }
+      }
     }
+  }
+
+  #iob-project {
+    #project-diagram {
+      margin-top: 5rem;
+
+      .pd-flex-wrap {
+        .pd-wrap {
+          img {
+            width: 5rem;
+            height: 5rem;
+          }
+
+          p {
+            font-size: $smaller-font-size;
+          }
+        }
+      }
+    }
+
+    .data-tracking {
+      .dt-line {
+        margin-top: 2rem;
+      }
+
+      .solution {
+        img {
+          width: 5rem;
+          height: 5rem;
+          margin-top: 0;
+        }
+
+        p {
+          width: 5rem;
+          font-size: $smaller-font-size;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1200px) {
-    #firstpage {
-        #firstpage-img {
+  #firstpage {
+    #firstpage-img {
+      .intro-slogan {
+        font-size: $h1-font-size;
+      }
 
-            .intro-slogan {
-                font-size: $h1-font-size;
-            }
-            
-            .intro-text {
-                top: 15rem;
-                // width: 40%;
-                width: 30rem;
-            }
-        }
+      .intro-text {
+        top: 15rem;
+        // width: 40%;
+        width: 30rem;
+      }
     }
+  }
 
-    .fp-main {
-        #section-wrap {
-            .iob-latest-content {
-                .indiv-content {
-                    .thumbnail {
-                        height: 18rem;
-                    }
-                }
-            }
-
-            .iob-latest-report {
-                .indiv-report {
-                    .thumbnail {
-                        height: 13rem;
-                    }
-                }
-            }
+  .fp-main {
+    #section-wrap {
+      .iob-latest-content {
+        .indiv-content {
+          .thumbnail {
+            height: 18rem;
+          }
         }
+      }
+
+      .iob-latest-report {
+        .indiv-report {
+          .thumbnail {
+            height: 13rem;
+          }
+        }
+      }
     }
+  }
 }
 
 @media (min-width: 1400px) {
-    #firstpage {
-        #firstpage-img {
-            height: 46.5rem;
+  #firstpage {
+    #firstpage-img {
+      height: 46.5rem;
 
-            .intro-slogan {
-                top: 15rem;
-            }
+      .intro-slogan {
+        top: 15rem;
+      }
 
-            .intro-text {
-                top: 19rem;
-                font-size: 1.05rem;
-            }
+      .intro-text {
+        top: 19rem;
+        font-size: 1.05rem;
+      }
 
-            .firstpage-cta {
-                top: 14rem;
-            }
+      .firstpage-cta {
+        top: 14rem;
+      }
+    }
+  }
+
+  .fp-main {
+    .firstpage-title {
+      .iob-content-info,
+      .iob-report-info,
+      .iob-project-info {
+        .cta-web,
+        .cta-web-proj {
+          width: 10rem;
+          height: 2.5rem;
+          margin-top: 1rem;
         }
+      }
     }
 
-    .fp-main {
-        .firstpage-title {
-
-            .iob-content-info,
-            .iob-report-info,
-            .iob-project-info {
-
-                .cta-web,
-                .cta-web-proj {
-                    width: 10rem;
-                    height: 2.5rem;
-                    margin-top: 1rem;
-                }
-            }
+    #section-wrap {
+      .iob-latest-content {
+        .indiv-content {
+          .thumbnail {
+            height: 22rem;
+          }
         }
+      }
 
-        #section-wrap {
-            .iob-latest-content {
-                .indiv-content {
-                    .thumbnail {
-                        height: 22rem;
-                    }
-                }
-            }
-
-            .iob-latest-report {
-                .indiv-report {
-                    .thumbnail {
-                        height: 16rem;
-                    }
-                }
-            }
+      .iob-latest-report {
+        .indiv-report {
+          .thumbnail {
+            height: 16rem;
+          }
         }
+      }
     }
+  }
 }

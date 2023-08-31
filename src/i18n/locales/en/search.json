@@ -4,6 +4,8 @@
   "report": "REPORT",
   "recommend": "RECOMMEND",
 
+  "require_keyword": "Please enter a search term.",
+
   "looking_for": "CAN'T FIND WHAT YOU'RE LOOKING FOR?",
   "first_name": "First name",
   "last_name": "Last name",
