@@ -16,7 +16,9 @@ export default function Footer({
   return (
     <footer>
       <div id="footer-left">
-        <a className="footer-logo">I.O.B </a>
+        <Link href="/" className="footer-logo">
+          I.O.B
+        </Link>
 
         <div className="footer-info">
           <p className="email">{t('f_company')}</p>

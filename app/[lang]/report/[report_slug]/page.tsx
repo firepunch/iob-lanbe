@@ -62,7 +62,7 @@ export default function Report({
   }
 
   if (!report) {
-    return 'loading'
+    return ''
   }
 
   return (
