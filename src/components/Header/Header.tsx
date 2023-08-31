@@ -23,6 +23,7 @@ export default function Header({
   const { t } = useTranslation(lang, 'layout')
   const { user, updateUser } = useUserState(state => state)
   const { isValid, user: storageUser } = isValidUser()
+  const [openContentMenu, setOpenContentMenu] = useState<boolean>(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isUser, setIsUser] = useState<boolean>(false)
 
@@ -53,11 +54,10 @@ export default function Header({
             </Link>
           </li>
 
-          <li className="content" tabIndex={0}>
+          <li className="content" tabIndex={0} onClick={() => setOpenContentMenu(!openContentMenu)}>
             <span>{t('h_content')}</span>
 
-            {/* hover */}
-            <div className="submenu">
+            <div className={`submenu ${openContentMenu ? 'show' : ''}`}>
               <div className="submenu-left">
                 <p>{t('content_intro')}</p>
 
