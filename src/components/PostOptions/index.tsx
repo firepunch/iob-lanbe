@@ -24,39 +24,71 @@ export default function PostOptions ({
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleOpenShare = () => setIsOpen(isOpen => !isOpen)
-  const handleCopy = () => navigator.clipboard.writeText(shareLink)
+  const handleToggleShare = () => setIsOpen(() => !isOpen)
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(shareLink)
+    alert('copied')
+    handleToggleShare()
+  }
 
   return (
     <>
       <div id="content-fixed-icons">
         <div className="buttons-wrap">
-          <button type="button" className="scroll-top">
+          <button type="button" className="scroll-top arrow-button">
             <Link href="#top-title">
               <Image src={ScrollTopImg} alt="Scroll to top" />
             </Link>
           </button>
     
-          <button type="button">
+          <button type="button" className="bookmark-button">
             <Bookmark isSaved={isSaved} onToggle={onToggleBookmark} />
           </button>
     
-          <button type="button" className="share" onClick={handleOpenShare}>
-            <Image src={ShareImg} alt="Share" />
-          </button>
+          <div className="share-button">
+            <button type="button" onClick={handleToggleShare}>
+              <Image src={ShareImg} alt="Share" />
+            </button>
+
+            <div className={`share-menu ${isOpen ? 'show' : ''}`}>
+              <button 
+                className="share-link"
+                onClick={handleCopy}
+              >
+                URL
+              </button>
+              <Link 
+                className="share-link"
+                target="_blank"
+                href={`mailto:${objectToGetParams({ subject: 'title', body: shareLink })}`}
+                onClick={handleToggleShare}
+              >
+                Gmail
+              </Link>
+              <Link 
+                className="share-link"
+                target="_blank"
+                href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}
+                onClick={handleToggleShare}
+              >
+                Linkedin
+              </Link>
+              <Link 
+                className="share-link"
+                target="_blank"
+                href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}
+                onClick={handleToggleShare}
+              >
+                Teams
+              </Link>
+            </div>
+          </div>
     
           <button type="button" className="font-size" onClick={onFontSize}>
             <p>Aa</p>
           </button>
         </div>
       </div>
-      
-      {/* <div className={cls(styles.shareWrapper, { [styles.open]: isOpen })}>
-        <button onClick={handleCopy}>URL</button>
-        <a href={`mailto:${objectToGetParams({ subject: 'title', body: shareLink })}`}>Gmail</a>
-        <a href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}>Linkedin</a>
-        <a href={`https://teams.microsoft.com/share?${objectToGetParams({ href: shareLink, msgText:shareLink })}`}>Teams</a>
-      </div> */}
     </>
   )
 }

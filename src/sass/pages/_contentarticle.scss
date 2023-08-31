@@ -112,27 +112,61 @@
         background-color: $orange;
       }
 
-      button:nth-child(1) {
-        img {
-          width: 1.5rem;
-        }
+      .arrow-button img {
+        width: 1.5rem;
       }
 
-      button:nth-child(2),
-      button:nth-child(3) {
+      .bookmark-button,
+      .share-button {
         img {
           width: 1.25rem;
         }
       }
 
+      .share-button {
+        position: relative;
+
+        .share-menu {
+          display: none;
+          position: absolute;
+          top: -10.25rem;
+          right: 3rem;
+          flex-direction: column;
+          background-color: $orange;
+
+          button {
+            // reset style
+            height: auto;
+            margin: 0;
+          }
+
+          .share-link {
+            width: 100%;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:not(&:last-child) {
+              border-bottom: 4px solid $white;
+            }
+          }
+
+          &.show {
+            display: flex;
+          }
+        }
+      }
+
       // 추가
-      button:nth-child(2) {
+      .bookmark-button {
         img {
           filter: invert(100%);
         }
       }
 
-      button:nth-child(4) {
+      .font-size {
         p {
           font-size: 1.25rem;
           font-weight: $bold-font-weight;
