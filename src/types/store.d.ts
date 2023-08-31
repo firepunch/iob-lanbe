@@ -17,10 +17,15 @@ export type ITags = {
 export type ILanbeContent = {
   is_save: boolean
   country: string
-  purchased: boolean
-  downloadFile: string
   subTitle: string
+  downloadFile: string
   pages: number
+  whyItMatters: string
+  firstImage: string
+  secondImage: string
+  secondText: string
+  thirdText: string
+  thirdImage: string
 }
 
 export interface IPost {

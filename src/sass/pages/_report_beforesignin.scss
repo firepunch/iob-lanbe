@@ -1,512 +1,502 @@
 // wp
 .iob-single-report {
-    overflow-x: hidden;
+  overflow-x: hidden;
 
-    div {
-        .wp-block-heading {
-            margin-left: 1.5rem;
-        }
-
-        .report-description {
-            width: 85%;
-            margin-left: 1.5rem;
-        }
-
-        .wp-block-image {
-            img {
-                margin-top: 2rem;
-                margin-left: -2.5rem;
-                width: 100vw;
-            }
-        }
-
-        .wp-container-1 {
-            @include flex-column;
-            flex-direction: column-reverse;
-
-            figure.wp-block-image {
-                img {
-                    width: 100vw;
-                }
-            }
-
-            .report-description-body {
-                width: 85%;
-                margin-left: 1.5rem;
-            }
-        }
-
-        .wp-container-2 {
-
-            figure.wp-block-image {
-                img {
-                    width: 100vw;
-                    margin-top: 2rem;
-                }
-            }
-
-            .report-description-body {
-                width: 85%;
-                margin-left: 1.5rem;
-            }
-        }
+  div {
+    .wp-block-heading {
+      margin-left: 1.5rem;
     }
+
+    .report-description {
+      width: 85%;
+      margin-left: 1.5rem;
+    }
+
+    .wp-block-image {
+      img {
+        margin-top: 2rem;
+        margin-left: -2.5rem;
+        width: 100vw;
+      }
+    }
+
+    .wp-container-1 {
+      @include flex-column;
+      flex-direction: column-reverse;
+
+      figure.wp-block-image {
+        img {
+          width: 100vw;
+        }
+      }
+
+      .report-description-body {
+        width: 85%;
+        margin-left: 1.5rem;
+      }
+    }
+
+    .wp-container-2 {
+      figure.wp-block-image {
+        img {
+          width: 100vw;
+          margin-top: 2rem;
+        }
+      }
+
+      .report-description-body {
+        width: 85%;
+        margin-left: 1.5rem;
+      }
+    }
+  }
 }
 
 #report-firstpage {
-    width: 100%;
-    margin-top: 5rem;
-    padding: 2rem;
-    @include flex-column;
+  width: 100%;
+  margin-top: 5rem;
+  padding: 2rem;
+  @include flex-column;
 
-    #report-firstpage-left {
-        .save-share {
-            @include flex-spacebetween;
+  #report-firstpage-left {
+    .save-share {
+      @include flex-spacebetween;
 
-            .save {
-                img {
-                    filter: invert(100%);
-                }
-            }
-
-            img {
-                width: 1.5rem;
-            }
+      .save {
+        img {
+          filter: invert(100%);
         }
+      }
 
-        h2 {
-            @include titles;
-            font-size: 1.75rem;
-            width: 90%;
-            font-family: $primary-font;
-        }
-
-        .report-details {
-            width: 100%;
-            display: flex;
-
-            ul:nth-child(1) {
-                margin-right: 1.5rem;
-
-                li {
-                    font-weight: $bold-font-weight;
-                }
-            }
-
-            ul {
-                padding: 0;
-
-                li {
-                    margin: .75rem 0;
-                    width: 100%;
-                    font-size: $smaller-font-size;
-                }
-            }
-        }
+      img {
+        width: 1.5rem;
+      }
     }
 
-    #report-firstpage-right {
-        margin-top: 3rem;
-        
-        h4 {
-            font-style: italic;
-        }
-
-        p {
-            line-height: 1.5rem;
-        }
+    h2 {
+      @include titles;
+      font-size: 1.75rem;
+      width: 90%;
+      font-family: $primary-font;
     }
+
+    .report-details {
+      width: 100%;
+      display: flex;
+
+      ul:nth-child(1) {
+        margin-right: 1.5rem;
+
+        li {
+          font-weight: $bold-font-weight;
+        }
+      }
+
+      ul {
+        padding: 0;
+
+        li {
+          margin: 0.75rem 0;
+          width: 100%;
+          font-size: $smaller-font-size;
+        }
+      }
+    }
+  }
+
+  #report-firstpage-right {
+    margin-top: 3rem;
+
+    h4 {
+      font-style: italic;
+    }
+
+    p {
+      line-height: 1.5rem;
+    }
+  }
 }
 
 #report-snippets {
+  width: 100%;
+
+  img {
     width: 100%;
+    position: relative !important;
+  }
 
-    img {
-        width: 100%;
+  #report-image-text1,
+  #report-image-text2 {
+    display: flex;
+    flex-direction: column-reverse;
+
+    p {
+      width: 85%;
+      margin: 2rem auto;
+      line-height: 1.5rem;
     }
+  }
 
-    #report-image-text1,
-    #report-image-text2 {
-        display: flex;
-        flex-direction: column-reverse;
-
-        p {
-            width: 85%;
-            margin: 2rem auto;
-            line-height: 1.5rem;
-        }
-    }
-
-    #report-image-text2 {
-        flex-direction: column;
-    }
+  #report-image-text2 {
+    flex-direction: column;
+  }
 }
 
 #report-price-cta {
-    width: 85%;
-    margin: auto;
+  width: 85%;
+  margin: auto;
 
-    #report-price-cta-wrap {
-        margin-top: 5rem;
+  #report-price-cta-wrap {
+    margin-top: 5rem;
 
-        .report-title {
-            @include titles;
-            font-size: $base-font-size;
-            text-transform: uppercase;
-            width: 70%;
-        }
-
-        .report-total-price {
-            width: 100%;
-            @include flex-spacebetween;
-            border-top: .35rem solid $black;
-            font-weight: $bold-font-weight;
-        }
-
-        .report-cta {
-            @include flex-column;
-            align-items: center;
-            margin: 3rem 0;
-
-            p {
-                font-size: $smaller-font-size;
-                font-weight: $bold-font-weight;
-                margin: 0;
-            }
-            
-            a, .cta-link {
-                @include mobile-button-style($black);
-                background-color: $black;
-                color: $white;
-                cursor: pointer;
-            }
-        }
+    .report-title {
+      @include titles;
+      font-size: $base-font-size;
+      text-transform: uppercase;
+      width: 70%;
     }
+
+    .report-total-price {
+      width: 100%;
+      @include flex-spacebetween;
+      border-top: 0.35rem solid $black;
+      font-weight: $bold-font-weight;
+    }
+
+    .report-cta {
+      @include flex-column;
+      align-items: center;
+      margin: 3rem 0;
+
+      p {
+        font-size: $smaller-font-size;
+        font-weight: $bold-font-weight;
+        margin: 0;
+      }
+
+      a,
+      .cta-link {
+        @include mobile-button-style($black);
+        background-color: $black;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-
 @media (min-width: 576px) {
-    #report-firstpage {
-        width: 80%;
-        margin: 2rem auto;
+  #report-firstpage {
+    width: 80%;
+    margin: 2rem auto;
 
-        #report-firstpage-left {
-            margin-top: 4rem;
-        }
-
-        #report-firstpage-right {
-            margin-top: 0;
-        }
+    #report-firstpage-left {
+      margin-top: 4rem;
     }
 
-    // #report-snippets {
-    //     #report-image-text1,
-    //     #report-image-text2 {
-    //         p {
-    //             width: 70%;
-    //             margin: 3rem auto;
-    //         }
-    //     }
-    // }
-
-    // wp
-    .iob-single-report {
-        div {
-            .wp-block-heading,
-            .report-description {
-                width: 70%;
-                margin: 2rem auto;
-            }
-
-            .wp-block-image {
-                img {
-                    margin-top: 3rem;
-                }
-            }
-
-            .wp-container-1,
-            .wp-container-2 {
-                figure.wp-block-image {
-                    img {
-                        margin-top: 0;
-                    }
-                }
-
-                .report-description-body {
-                    width: 70%;
-                    margin: 2rem auto;
-                    margin-bottom: 3rem;
-                }
-            }
-        }
+    #report-firstpage-right {
+      margin-top: 0;
     }
+  }
 
-    #report-price-cta {
+  // #report-snippets {
+  //     #report-image-text1,
+  //     #report-image-text2 {
+  //         p {
+  //             width: 70%;
+  //             margin: 3rem auto;
+  //         }
+  //     }
+  // }
+
+  // wp
+  .iob-single-report {
+    div {
+      .wp-block-heading,
+      .report-description {
         width: 70%;
+        margin: 2rem auto;
+      }
+
+      .wp-block-image {
+        img {
+          margin-top: 3rem;
+        }
+      }
+
+      .wp-container-1,
+      .wp-container-2 {
+        figure.wp-block-image {
+          img {
+            margin-top: 0;
+          }
+        }
+
+        .report-description-body {
+          width: 70%;
+          margin: 2rem auto;
+          margin-bottom: 3rem;
+        }
+      }
     }
+  }
+
+  #report-price-cta {
+    width: 70%;
+  }
 }
 
 @media (min-width: 768px) {
-    #report-snippets {
+  #report-snippets {
+    #report-image-text1,
+    #report-image-text2 {
+      flex-direction: row;
 
-        #report-image-text1,
-        #report-image-text2 {
-            flex-direction: row;
+      .rit-text {
+        width: 50%;
+      }
 
-            img {
-                width: 50%;
-            }
-        }
+      img {
+        width: 50% !important;
+        height: auto !important;
+      }
     }
+  }
 
-    #report-price-cta {
-        width: 45%;
-        margin-bottom: 7rem;
+  #report-price-cta {
+    width: 45%;
+    margin-bottom: 7rem;
 
-        #report-price-cta-wrap {
-            margin-top: 7rem;
-        }
+    #report-price-cta-wrap {
+      margin-top: 7rem;
     }
+  }
 }
 
 @media (min-width: 992px) {
-    // wp
-    .iob-single-report {
-        width: 100%;
-
-        #report-firstpage {
-            width: 100%;
-            // margin: 0;
-            margin-top: 8rem;
-            margin-bottom: 5rem;
-            margin-left: -20%;
-        }
-
-        div {
-            .wp-block-heading {
-                margin-top: -33rem;
-                margin-left: 53%;
-                width: auto;
-            }
-
-            .report-description {
-                width: 40%;
-                margin-left: 53%;
-            }
-
-            .wp-block-image {
-                img {
-                    margin-top: 4rem;
-                }
-            }
-
-            .wp-container-1 {
-                flex-direction: row;
-
-                figure.wp-block-image {
-                    width: 50vw;
-                    margin-top: 0;
-                    
-                    img {
-                        margin-top: -1.5vw;
-                        width: 50vw;
-                    }
-                }
-
-                .report-description-body {
-                    width: 40vw;
-                    margin: auto 3vw;
-                    margin-left: -2vw;
-                }
-            }
-
-            .wp-container-2 {
-                display: flex;
-                flex-direction: row;
-
-                figure.wp-block-image {
-                    width: 50vw;
-                    margin-top: 0;
-
-                    img {
-                        margin-top: -1.5vw;
-                        width: 50vw;
-                        margin-left: 4vw;
-                    }
-                }
-
-                .report-description-body {
-                    // width: 50vw;
-                    margin: auto;
-                    padding-left: 7vw;
-                }
-            }
-        }
-
-
-
-
-    }
-
+  // wp
+  .iob-single-report {
+    width: 100%;
 
     #report-firstpage {
-        // width: 100%;
-        // margin: 0;
-        flex-direction: row;
-        align-items: center;
-
-        #report-firstpage-left,
-        #report-firstpage-right {
-            width: 45%;
-            margin: 0 auto;
-        }
-
-        #report-firstpage-left {
-
-            .save-share {
-                width: 90%;
-                margin-top: 0;
-            }
-
-            .report-details {
-                
-                ul {
-                    li {
-                        font-size: $base-font-size;
-                    }
-                }
-            }
-        }
-
-        #report-firstpage-right {
-            margin-top: 3rem;
-        }
+      width: 100%;
+      // margin: 0;
+      margin-top: 8rem;
+      margin-bottom: 5rem;
+      // margin-left: -20%;
     }
 
-    #report-snippets {
+    div {
+      .wp-block-heading {
+        margin-top: -33rem;
+        margin-left: 53%;
+        width: auto;
+      }
 
-        #report-image-text1,
-        #report-image-text2 {
-            align-items: center;
-        }
-    }
-
-    #report-price-cta {
+      .report-description {
         width: 40%;
+        margin-left: 53%;
+      }
+
+      .wp-block-image {
+        img {
+          margin-top: 4rem;
+        }
+      }
+
+      .wp-container-1 {
+        flex-direction: row;
+
+        figure.wp-block-image {
+          width: 50vw;
+          margin-top: 0;
+
+          img {
+            margin-top: -1.5vw;
+            width: 50vw;
+          }
+        }
+
+        .report-description-body {
+          width: 40vw;
+          margin: auto 3vw;
+          margin-left: -2vw;
+        }
+      }
+
+      .wp-container-2 {
+        display: flex;
+        flex-direction: row;
+
+        figure.wp-block-image {
+          width: 50vw;
+          margin-top: 0;
+
+          img {
+            margin-top: -1.5vw;
+            width: 50vw;
+            margin-left: 4vw;
+          }
+        }
+
+        .report-description-body {
+          // width: 50vw;
+          margin: auto;
+          padding-left: 7vw;
+        }
+      }
     }
+  }
+
+  #report-firstpage {
+    // width: 100%;
+    // margin: 0;
+    flex-direction: row;
+    align-items: center;
+
+    #report-firstpage-left,
+    #report-firstpage-right {
+      width: 45%;
+      margin: 0 auto;
+    }
+
+    #report-firstpage-left {
+      .save-share {
+        width: 90%;
+        margin-top: 0;
+      }
+
+      .report-details {
+        ul {
+          li {
+            font-size: $base-font-size;
+          }
+        }
+      }
+    }
+
+    #report-firstpage-right {
+      margin-top: 3rem;
+    }
+  }
+
+  #report-snippets {
+    #report-image-text1,
+    #report-image-text2 {
+      align-items: center;
+    }
+  }
+
+  #report-price-cta {
+    width: 40%;
+  }
 }
 
 @media (min-width: 1200px) {
-    // wp
-    .iob-single-report {
-        #report-firstpage {
-            margin-bottom: 8rem;
-        }
-
-        div {
-            .wp-block-image {
-                img {
-                    margin-top: 6rem;
-                    // margin-left: -2.25rem;
-                }
-            }
-
-            .wp-container-2 {
-                figure.wp-block-image {
-                    img {
-                        margin-left: 3.25vw;
-                    }
-                }
-            }
-        }
+  // wp
+  .iob-single-report {
+    #report-firstpage {
+      margin-bottom: 8rem;
     }
+
+    div {
+      .wp-block-image {
+        img {
+          margin-top: 6rem;
+          // margin-left: -2.25rem;
+        }
+      }
+
+      .wp-container-2 {
+        figure.wp-block-image {
+          img {
+            margin-left: 3.25vw;
+          }
+        }
+      }
+    }
+  }
 }
 
-
-
 @media (min-width: 1400px) {
-    // wp 
-    .iob-single-report {
-        #report-firstpage {
-            width: 85%;
-            margin-left: -15%;
-        }
-
-        div {
-            .wp-block-image {
-                img {
-                    width: 99.9vw;
-                    margin-top: 10rem;
-                }
-            }
-
-            .wp-container-1 {
-                figure.wp-block-image {
-
-                    img {
-                        margin-top: -.85vw;
-                    }
-                }
-
-                .report-description-body {
-                    margin-left: 0;
-                }
-            }
-
-            .wp-container-2 {
-                figure.wp-block-image {
-                    img {
-                        margin-top: -.85vw;
-                        margin-left: 2.75vw;
-                    }
-              }
-
-              .report-cta {
-                a, .cta-link {
-                    width: 80%;
-                }
-              }
-            }
-        }
+  // wp
+  .iob-single-report {
+    #report-firstpage {
+      width: 85%;
+      margin-left: -15%;
     }
 
+    div {
+      .wp-block-image {
+        img {
+          width: 99.9vw;
+          margin-top: 10rem;
+        }
+      }
 
+      .wp-container-1 {
+        figure.wp-block-image {
+          img {
+            margin-top: -0.85vw;
+          }
+        }
 
+        .report-description-body {
+          margin-left: 0;
+        }
+      }
 
+      .wp-container-2 {
+        figure.wp-block-image {
+          img {
+            margin-top: -0.85vw;
+            margin-left: 2.75vw;
+          }
+        }
 
-    // #report-firstpage {
-    //     width: 80%;
+        .report-cta {
+          a,
+          .cta-link {
+            width: 80%;
+          }
+        }
+      }
+    }
+  }
 
-    //     #report-firstpage-left,
-    //     #report-firstpage-right {
-    //         width: 40%;
-    //         margin: 3rem;
-    //     }
+  // #report-firstpage {
+  //     width: 80%;
 
-    //     #report-firstpage-left {
+  //     #report-firstpage-left,
+  //     #report-firstpage-right {
+  //         width: 40%;
+  //         margin: 3rem;
+  //     }
 
-    //         .report-details {
-    //             margin-top: 3rem;
-    //         }
-    //     }
+  //     #report-firstpage-left {
 
-    //     #report-firstpage-right {
-    //         margin-top: 6rem;
-    //     }
-    // }
+  //         .report-details {
+  //             margin-top: 3rem;
+  //         }
+  //     }
 
-    // #report-price-cta {
-    //     width: 30%;
-    //     margin-bottom: 12rem;
+  //     #report-firstpage-right {
+  //         margin-top: 6rem;
+  //     }
+  // }
 
-    //     #report-price-cta-wrap {
-    //         margin-top: 12rem;
+  // #report-price-cta {
+  //     width: 30%;
+  //     margin-bottom: 12rem;
 
-    //         .report-cta {
-    //             a {
-    //                 width: 80%;
-    //             }
-    //         }
-    //     }
-    // }
+  //     #report-price-cta-wrap {
+  //         margin-top: 12rem;
+
+  //         .report-cta {
+  //             a {
+  //                 width: 80%;
+  //             }
+  //         }
+  //     }
+  // }
 }

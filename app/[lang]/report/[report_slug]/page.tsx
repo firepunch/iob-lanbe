@@ -19,9 +19,7 @@ export default function Report({
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
-  const { push } = useRouter()
   const { report, updateReport } = useContentState(state => state)
-  const { updateOrder } = useUserState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
   const { userId, email } = getUser()
 
@@ -116,9 +114,50 @@ export default function Report({
             </ul>
           </div>
         </div>
+        <div id="report-firstpage-right">
+          <h4>Why it matters?</h4>
+          <p>{report.lanbeContent?.whyItMatters}</p>
+        </div>
       </section>
 
-      <div dangerouslySetInnerHTML={{ __html: report.content }} />
+      <section id="report-snippets">
+        {report.lanbeContent?.firstImage && (
+          <Image 
+            src={report.lanbeContent.firstImage} 
+            alt="Report Image"
+            fill
+            sizes="100vw"
+          />
+        )}
+
+        <div id="report-image-text1">
+          {report.lanbeContent?.secondImage && (
+            <Image 
+              src={report.lanbeContent.secondImage} 
+              alt="Report Image"
+              fill
+              sizes="100vw"
+            />
+          )}   
+          <div className="rit-text">
+            <p>{report.lanbeContent?.secondText}</p>
+          </div>
+        </div>
+
+        <div id="report-image-text2">
+          <div className="rit-text">
+            <p>{report.lanbeContent?.thirdText}</p>
+          </div>
+          {report.lanbeContent?.thirdImage && (
+            <Image 
+              src={report.lanbeContent.thirdImage} 
+              alt="Report Image"
+              fill
+              sizes="100vw"
+            />
+          )}   
+        </div>
+      </section>
 
       {/* section 3: report price and cta */}
       <section id="report-price-cta">

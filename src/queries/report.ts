@@ -112,6 +112,12 @@ query reportBySlug($reportSlug: ID!, $userId: Float) {
       is_save
       pages
       downloadFile
+      whyItMatters
+      firstImage
+      secondImage
+      secondText
+      thirdText
+      thirdImage
     }
     reportTags {
       edges {

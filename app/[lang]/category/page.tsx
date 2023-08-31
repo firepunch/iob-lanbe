@@ -85,7 +85,7 @@ export default function Category({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      categoryName: `${categoryName}-${lang}`,
+      categoryName: categoryName === '' ? '' : `${categoryName}-${lang}`,
     }))
   }
   
