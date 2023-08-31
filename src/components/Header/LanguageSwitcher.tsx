@@ -59,7 +59,7 @@ export default function LanguageSwitcher({
         }
         alt="Change Language" 
       />
-      {!isSimple && lang.toUpperCase()}
+      {!isSimple && otherLocale.toUpperCase()}
     </Link>
   )
 }
