@@ -1,14 +1,15 @@
 'use client'
 
 import { getAllPosts, getAllReports } from '@/api_gql'
-import { Icons, PostCard, ReportCard } from '@/components'
+import { createWatchList, removeWatchList } from '@/api_wp'
+import { Icons, NavigationWidget, PostCard, ReportCard } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
+import { getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { useEffect, useRef } from 'react'
 
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
@@ -19,9 +20,13 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
-import { getUserId } from '@/utils/lib'
 
-// export async function generateMetadata({ params: { lang } }) {
+const SECTION_IDS = {
+  welcome: 'firstpage',
+  content: 'iob-content',
+  report: 'iob-report',
+  project: 'iob-project',
+}
 
 export default function Home({
   params: { lang },
@@ -30,6 +35,7 @@ export default function Home({
 }) {
   const { t } = useTranslation(lang, 'home')
   const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
+  const sectionRefs = useRef({})
   const userId = getUserId()
 
   useEffect(() => {
@@ -89,7 +95,11 @@ export default function Home({
 
   return (
     <>
-      <section id="firstpage">
+      {/* section 1: Welcome */}
+      <section 
+        id={SECTION_IDS.welcome}
+        ref={(el) => (sectionRefs.current[SECTION_IDS.welcome] = el)}
+      >
 
         <div id="firstpage-toptext">
           <p className="toptext-left">
@@ -128,44 +138,20 @@ export default function Home({
             </Link>
           </div>
         </div>
-
       </section>
-      {/* //section 1: first page */}
 
-
-      {/* aside: fixed widget */}
-      <aside>
-
-        <div id="widget">
-          <div className="line"></div>
-
-          <div className="widget-detail">
-            <div className="square sq1"></div>
-            <p>{t('welcome')}</p>
-          </div>
-
-          <div className="widget-detail">
-            <div className="square sq2"></div>
-            <p>{t('content')}</p>
-          </div>
-
-          <div className="widget-detail">
-            <div className="square sq3"></div>
-            <p>{t('report')}</p>
-          </div>
-
-          <div className="widget-detail">
-            <div className="square sq4"></div>
-            <p>{t('project')}</p>
-          </div>
-        </div>
-
-      </aside>
-      {/* //aside: fixed widget */}
-
+      <NavigationWidget
+        t={t}
+        sectionIds={SECTION_IDS}
+        sectionRefs={sectionRefs}
+      />
 
       {/* section 2: I.O.B content */}
-      <section id="iob-content" className="fp-main">
+      <section 
+        id={SECTION_IDS.content} 
+        className="fp-main"
+        ref={(el) => (sectionRefs.current[SECTION_IDS.content] = el)}
+      >
         <div id="iob-content-title-wrap" className="firstpage-title">
           <h2>{t('iob-content')}</h2>
 
@@ -182,10 +168,7 @@ export default function Home({
         <div id="section-wrap">
           <h3>{t('latest')}</h3>
 
-          {/* iob latest content grid */}
           <div className="iob-latest-content">
-
-            {/* individual thumbnails */}
             {posts?.edges?.map(({ node }) => (
               <PostCard
                 key={node.id}
@@ -200,7 +183,6 @@ export default function Home({
               />
             ))}
           </div>
-          {/* //iob latest content grid */}
 
           <Link href={{ pathname: `/${lang}/category` }} className="content-cta-mobile">
             <Icons type="arrowBlack" />
@@ -209,11 +191,14 @@ export default function Home({
 
         </div>
       </section>
-      {/* //section 2: I.O.B content */}
 
 
       {/* section 3: I.O.B report */}
-      <section id="iob-report" className="fp-main">
+      <section 
+        id={SECTION_IDS.report}
+        className="fp-main"
+        ref={(el) => (sectionRefs.current[SECTION_IDS.report] = el)}
+      >
         <div id="iob-report-title-wrap" className="firstpage-title">
           <h2>{t('iob-report')}</h2>
 
@@ -229,10 +214,7 @@ export default function Home({
         <div id="section-wrap">
           <h3>{t('latest')}</h3>
 
-          {/* iob latest report grid */}
           <div className="iob-latest-report">
-
-            {/* individual thumbnails */}
             {reports?.edges?.map(({ node }) => (
               <ReportCard
                 key={node.id}
@@ -246,10 +228,7 @@ export default function Home({
                 {...node}
               />
             ))}
-            {/* //individual thumbnails */}
-
           </div>
-          {/* //iob latest report grid */}
 
           <Link href={{ pathname: `/${lang}/report` }} className="report-cta-mobile">
             <Icons type="arrowBlack" />
@@ -258,11 +237,14 @@ export default function Home({
 
         </div>
       </section>
-      {/* //section 3: I.O.B report */}
 
 
       {/* section 4: I.O.B project */}
-      <section id="iob-project" className="fp-main">
+      <section 
+        id={SECTION_IDS.project} 
+        className="fp-main"
+        ref={(el) => (sectionRefs.current[SECTION_IDS.project] = el)}
+      >
         <div id="iob-project-title-wrap" className="firstpage-title">
           <h2>{t('iob-project')}</h2>
 
@@ -349,7 +331,6 @@ export default function Home({
               <p>{t('data-tracking')}{t('andAnalysis')}</p>
             </div>
           </div>
-
         </div>
 
         <Link href={{ pathname: `/project` }} className="project-cta-mobile">
