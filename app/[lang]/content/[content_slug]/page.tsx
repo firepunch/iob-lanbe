@@ -75,7 +75,7 @@ export default function Category({
   }
   
   const handleFontSize = () => {
-    setIsZoomed(prevZoomed => !prevZoomed)
+    setIsZoomed(() => !isZoomed)
   }
 
   const handleCreateNote = async (content: string) => {
@@ -166,7 +166,7 @@ export default function Category({
           <section id="main-content">
             <PostOptions
               isSaved={post.lanbeContent.is_save}
-              handleFontSize={handleFontSize} 
+              onFontSize={handleFontSize} 
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: post?.lanbeContent.is_save,
@@ -209,7 +209,10 @@ export default function Category({
             {/* content details: title, author, tags, date, etc. */}
 
             {/* className={cls(styles.content, { [styles.large]: isZoomed })} */}
-            <div className="content-article" dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div
+              className={`content-article ${isZoomed ? 'zoomed' : ''}`}
+              dangerouslySetInnerHTML={{ __html: post.content }} 
+            />
           </section>
 
           {/* idea notes wrap */}

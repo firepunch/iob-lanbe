@@ -176,6 +176,15 @@
     width: 75%;
     margin-left: 1.5rem;
 
+    &.zoomed {
+      font-size: 1.2rem;
+      line-height: 1.4;
+      .wp-block-heading strong,
+      strong {
+        font-size: 1.4rem;
+      }
+    }
+
     figure.size-large {
       width: 100vw;
       margin-left: -1.5rem;

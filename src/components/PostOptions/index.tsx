@@ -4,8 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { objectToGetParams } from '@/utils/lib'
-import cls from 'classnames'
-import styles from './index.module.scss'
 import Bookmark from '../Bookmark'
 
 import ScrollTopImg from '@/imgs/scrolltop.png'
@@ -14,15 +12,15 @@ import ShareImg from '@/imgs/share.png'
 interface ContentOptionsProps {
   isSaved?: boolean
   onToggleBookmark: () => void
-  handleFontSize?: any
+  onFontSize: () => void
 }
 
 export default function PostOptions ({
   isSaved = false,
   onToggleBookmark,
-  handleFontSize,
+  onFontSize,
 }: ContentOptionsProps) {
-  const shareLink = 'https://www.naver.com/'  // || window.location.toString()
+  const shareLink = window.location.toString()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -47,7 +45,7 @@ export default function PostOptions ({
             <Image src={ShareImg} alt="Share" />
           </button>
     
-          <button type="button" className="font-size" onClick={handleFontSize}>
+          <button type="button" className="font-size" onClick={onFontSize}>
             <p>Aa</p>
           </button>
         </div>
