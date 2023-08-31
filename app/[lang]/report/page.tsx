@@ -1,15 +1,15 @@
 'use client'
 
-import { getAllProducts, getAllReports } from '@/api_gql'
+import { getAllReports } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { Pagination, ReportCard, Select } from '@/components'
+import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
 import { getUserId, sort2variables } from '@/utils/lib'
 import { useEffect, useState } from 'react'
 
-// export async function generateMetadata({ params: { lang } }) {
 const GRID_CARD_NUMBER = 6
 const initPagination = {
   last: null, 
@@ -26,6 +26,7 @@ export default function Reports({
   const { reports, updateReports } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'report')
+  const isMobile = useIsMobile()
   const userId = getUserId()
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(), 
@@ -37,14 +38,14 @@ export default function Reports({
   useEffect(() => {
     getAllReports(fetchParams).then(result => (
       updateReports({
-        edges: result.edges,
+        edges: isMobile ? [...reports.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
           initTotal: reports.pageInfo?.initTotal || result.pageInfo.total,
         },        
       })
     ))
-  }, [fetchParams, updateReports])
+  }, [fetchParams])
 
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
@@ -114,30 +115,30 @@ export default function Reports({
           ))}
         </div>
 
-        <Pagination 
-          pageInfo={reports?.pageInfo}
-          size={GRID_CARD_NUMBER}
-          first={fetchParams?.first}
-          last={fetchParams?.last}
-          onClickPrev={() => {
-            setFetchParams(prev => ({
-              ...prev,
-              last: GRID_CARD_NUMBER, 
-              before: reports?.pageInfo.startCursor, 
-              first: null, 
-              after: null, 
-            }))
-          }}
-          onClickNext={() => {
-            setFetchParams(prev => ({
-              ...prev,
-              after: reports?.pageInfo?.endCursor,
-              first: GRID_CARD_NUMBER, 
-              last: null, 
-              before: null, 
-            }))
-          }}
-        />
+        {reports?.pageInfo?.initTotal ? (
+          <Pagination 
+            pageInfo={reports.pageInfo}
+            size={GRID_CARD_NUMBER}
+            onClickPrev={() => {
+              setFetchParams(prev => ({
+                ...prev,
+                last: GRID_CARD_NUMBER, 
+                before: reports?.pageInfo.startCursor, 
+                first: null, 
+                after: null, 
+              }))
+            }}
+            onClickNext={() => {
+              setFetchParams(prev => ({
+                ...prev,
+                after: reports?.pageInfo?.endCursor,
+                first: GRID_CARD_NUMBER, 
+                last: null, 
+                before: null, 
+              }))
+            }}
+          />
+        ) : null}
       </section>
     </>
   )

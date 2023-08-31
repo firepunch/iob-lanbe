@@ -58,7 +58,6 @@ export default function Category({
           [fetchParams.categoryName, ...fetchParams.countries].join(','),
       },
     }).then(result => {
-      console.log(isMobile)
       updatePosts({
         edges: isMobile ? [...posts.edges, ...result.edges] : result.edges,
         pageInfo: {
@@ -269,7 +268,7 @@ export default function Category({
           ))}
         </div>
 
-        {posts?.pageInfo && (
+        {posts?.pageInfo?.initTotal ? (
           <Pagination
             pageInfo={posts.pageInfo}
             size={GRID_CARD_NUMBER}
@@ -292,7 +291,7 @@ export default function Category({
               }))
             }}
           />
-        )}
+        ) : null}
       </section>
     </>
   )
