@@ -36,7 +36,9 @@ export default function EmailForm({
     <>
       <form>
         <div className="footer-signup">
-          <p>{t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}</p>
+          <p className="cta">
+            {t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}
+          </p>
           <input 
             id="email"
             name="email"

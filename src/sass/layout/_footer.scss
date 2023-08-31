@@ -1,130 +1,133 @@
 // footer (mobile)
 footer {
-    width: 90%;
-    height: 35rem;
-    margin: auto;
-    margin-top: 5rem;
-    border-top: 5px solid $black;
-    font-family: $primary-font;
-    font-size: $smaller-font-size;
-    position: relative;
+  width: 90%;
+  height: 35rem;
+  margin: auto;
+  margin-top: 5rem;
+  border-top: 5px solid $black;
+  font-family: $primary-font;
+  font-size: $smaller-font-size;
+  position: relative;
 
-    #footer-left {
+  #footer-left {
+    position: absolute;
+    left: 2.5%;
+    bottom: 5vw;
+
+    .footer-logo {
+      font-size: $large-font-size;
+      font-family: $secondary-font;
+    }
+
+    .footer-info {
+      margin-top: 1.75rem;
+    }
+  }
+
+  #footer-right {
+    .footer-signup {
+      width: 95%;
+      margin: auto;
+      margin-top: 1rem;
+      @include flex-center;
+
+      .cta {
+        width: 8rem;
+      }
+
+      input {
+        width: 90%;
+        height: 2.5rem;
+        position: relative;
+        background-color: transparent;
+        border: none;
+        border-bottom: 3px solid #000;
+        outline: none;
+
+        input[type="text"]:focus {
+          outline: none;
+        }
+      }
+
+      img {
         position: absolute;
-        left: 2.5%;
-        bottom: 5vw;
-
-        .footer-logo {
-            font-size: $large-font-size;
-            font-family: $secondary-font;
-        }
-
-        .footer-info {
-            margin-top: 1.75rem;
-        }
+        right: 1.5vw;
+      }
     }
 
-    #footer-right {
-        .footer-signup {
-            width: 95%;
-            margin: auto;
-            margin-top: 1rem;
-            @include flex-center;
+    .footer-pages {
+      position: relative;
+      display: flex;
 
-            input {
-                width: 90%;
-                height: 2.5rem;
-                position: relative;
-                background-color: transparent;
-                border: none;
-                border-bottom: 3px solid #000;
-                outline: none;
+      ul li {
+        margin-left: -2rem;
+        margin-bottom: -0.5rem;
+      }
 
-                input[type=text]:focus {
-                    outline: none;
-                }
-            }
+      ul li a {
+        display: flex;
+        align-items: center;
+        font-weight: $bold-font-weight;
 
-            img {
-                position: absolute;
-                right: 1.5vw;
-            }
+        img {
+          @include icon-size;
         }
-
-        .footer-pages {
-            position: relative;
-            display: flex;
-
-            ul li {
-                margin-left: -2rem;
-                margin-bottom: -.5rem;
-            }
-
-            ul li a {
-                display: flex;
-                align-items: center;
-                font-weight: $bold-font-weight;
-
-                img {
-                    @include icon-size;
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 @media (min-width: 768px) {
-    footer {
-        width: 95%;
-        height: 18rem;
+  footer {
+    width: 95%;
+    height: 18rem;
 
-        #footer-left {
-            top: 1.5rem;
-            left: 1rem;
+    #footer-left {
+      top: 1.5rem;
+      left: 1rem;
 
-            .footer-info {
-                margin-top: 3rem;
-            }
+      .footer-info {
+        margin-top: 3rem;
+      }
 
-            .copyright {
-                margin-top: 3rem;
-            }
-        }
-
-        #footer-right {
-            position: absolute;
-            right: 1rem;
-            width: 24rem;
-
-            .footer-signup {
-                img {
-                    right: .5vw;
-                }
-            }
-
-            .footer-pages {
-                position: absolute;
-                right: 1rem;
-
-                ul li {
-                    margin-left: -2rem;
-                }
-
-                ul:nth-child(2) {
-                    li {
-                        margin-left: -.5rem;
-                    }
-                }
-            }
-        }
+      .copyright {
+        margin-top: 3rem;
+      }
     }
+
+    #footer-right {
+      position: absolute;
+      right: 1rem;
+      width: 24rem;
+
+      .footer-signup {
+        img {
+          right: 0.5vw;
+        }
+      }
+
+      .footer-pages {
+        position: absolute;
+        right: 1rem;
+
+        ul li {
+          margin-left: -2rem;
+        }
+
+        ul:nth-child(2) {
+          li {
+            margin-left: -0.5rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1200px) {
-    footer {
-        #footer-right {
-            width: 35rem;
-        }
+  footer {
+    #footer-right {
+      width: 35rem;
     }
+  }
 }
-

@@ -49,6 +49,11 @@ main #default-content #default-title .filters-wrap button {
     }
   }
 
+  .selected {
+    background-color: $black !important;
+    color: $white;
+  }
+
   .button-wrap-2 {
     top: 6em;
   }
