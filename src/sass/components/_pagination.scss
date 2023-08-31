@@ -1,38 +1,40 @@
 @mixin pagination {
-    width: 60%;
-    margin: 6rem auto;
-    @include flex-spacebetween;
-    font-size: $smaller-font-size;
+  width: 60%;
+  margin: 6rem auto;
+  @include flex-spacebetween;
+  font-size: $smaller-font-size;
 
-    .prev,
-    .next {
-        margin: 0 .75rem;
+  .prev,
+  .next {
+    margin: 0 0.75rem;
+  }
+
+  .has-more {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .page {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    p {
+      white-space: nowrap;
+      width: 17rem;
+      text-align: center;
+      margin: rem(12);
     }
+  }
 
-    .has-more {
-        cursor: pointer;
-        text-decoration: underline;
-    }
-
-    .page {
-        width: 100%;
-        margin: auto;
-        position: relative;
-        display: flex;
-        align-items: center;
-
-        p {
-            width: 17rem;
-            text-align: center;
-        }
-    }
-
-    .page::before,
-    .page::after {
-        content: "";
-        display: inline-block;
-        width: 100%;
-        height: 1px;
-        background-color: $black;
-    }
+  .page::before,
+  .page::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    background-color: $black;
+  }
 }
