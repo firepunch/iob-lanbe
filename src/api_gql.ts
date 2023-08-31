@@ -3,7 +3,6 @@ import { CHECKOUT_QUERY, FETCH_ORDER_QUERY, ORDER_QUERY } from '@/queries/orders
 import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
-import PRODUCTS_QUERY from '@/queries/products'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
 import PRODUCT_BY_SAVED from './queries/productBySaved'
@@ -115,13 +114,6 @@ export async function getContentBySlug(postSlug, userId) {
   })
 
   return data.post
-}
-
-export async function getAllProducts(variables) {
-  const data = await fetchAPI(PRODUCTS_QUERY, {
-    variables,
-  })
-  return data.products
 }
 
 export async function getAllReports(variables) {

@@ -1,6 +1,6 @@
 'use client'
 
-import { getAllPosts, getAllProducts } from '@/api_gql'
+import { getAllPosts, getAllReports } from '@/api_gql'
 import { Icons, PostCard, ReportCard } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -41,8 +41,8 @@ export default function Home({
       updatePosts(result)
     })
 
-    getAllProducts({
-      language: lang,
+    getAllReports({
+      language: lang.toUpperCase(), 
       userId,
       first: 3,
     }).then(result => (
@@ -68,14 +68,14 @@ export default function Home({
 
       if (type === 'post') {
         const result = await getAllPosts({
-          language:lang.toUpperCase(), 
+          language: lang.toUpperCase(), 
           userId,
           first: 4,
         })
         updatePosts(result)
       } else if (type === 'report') {
-        const result = await getAllProducts({
-          language: lang,
+        const result = await getAllReports({
+          language: lang.toUpperCase(), 
           userId,
           first: 3,
         })
