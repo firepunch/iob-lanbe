@@ -29,6 +29,10 @@
         @include icon-size;
         margin-top: -0.1rem;
       }
+
+      img + p {
+        white-space: nowrap;
+      }
     }
 
     .country::after {
@@ -36,7 +40,7 @@
       display: block;
       width: 70%;
       height: 1px;
-      margin: 0.5rem auto;
+      margin: 0.5rem 1rem;
       background-color: $black;
     }
   }

@@ -1,29 +1,33 @@
-import { IPageInfo } from '@/types/store'
+'use client'
 
+import { initPageInfo } from '@/stores/contentStore'
+import { IPageInfo } from '@/types/store'
+import { useState } from 'react'
 
 interface PaginationProps {
-  pageInfo?: IPageInfo
+  pageInfo: IPageInfo
   size: number
-  first?: number
-  last?: number
   onClickPrev: () => void
   onClickNext: () => void
 }
 
 export default function Pagination({
-  pageInfo,
+  pageInfo = initPageInfo,
   size,
-  first,
-  last,
   onClickPrev,
   onClickNext,
 }: PaginationProps) {
-  const pageStartNumber = pageInfo?.hasPreviousPage ? 
-    (pageInfo?.total || 0) :
-    1
-  const pageEndNumber = (pageInfo?.total || 0) < size ?
-    pageInfo?.total :
-    pageStartNumber + size - 1
+  const [isClickPrev, setIsClickPrev] = useState(false)
+  const startNumber = isClickPrev ? 
+    pageInfo.total - (size - 1) :
+    pageInfo.initTotal - pageInfo.total + 1
+  const endNumber = isClickPrev ? 
+    pageInfo.total < size ? 
+      pageInfo.initTotal + pageInfo.total - 1 :
+      pageInfo.total :
+    pageInfo.total < size ?
+      startNumber + pageInfo.total - 1 :
+      startNumber + (size - 1)
 
   return (
     <div id="pagination">
@@ -36,21 +40,31 @@ export default function Pagination({
       <span className="pagination-on-web">
         <span 
           className={`prev ${pageInfo?.hasPreviousPage && 'has-more'}`}
-          {...pageInfo?.hasPreviousPage && { onClick: onClickPrev }}
+          {...pageInfo?.hasPreviousPage && { 
+            onClick: () => {
+              setIsClickPrev(true)
+              onClickPrev()
+            },
+          }}
         >
           Previous
         </span>
         {pageInfo?.initTotal && (
           <div className="page">
             <p>
-              {pageEndNumber === 0 ? `${pageEndNumber} ` : `${pageStartNumber}-${pageEndNumber} `}
+              {!pageInfo?.hasNextPage ? `${endNumber} ` : `${startNumber}-${endNumber} `}
                out of {pageInfo.initTotal}
             </p>
           </div>
         )}
         <span 
           className={`next ${pageInfo?.hasNextPage && 'has-more'}`}
-          {...pageInfo?.hasNextPage && { onClick: onClickNext }}
+          {...pageInfo?.hasNextPage && { 
+            onClick: () => {
+              setIsClickPrev(false)
+              onClickNext()
+            },  
+          }}
         >
           Next
         </span>

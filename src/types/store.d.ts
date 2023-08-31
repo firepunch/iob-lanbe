@@ -76,8 +76,8 @@ export interface ICategory {
   }
 
 export interface IPageInfo {
-  initTotal?: number
-  total?: number
+  initTotal: number
+  total: number
   hasNextPage?: boolean
   hasPreviousPage?: boolean
   startCursor?: string
@@ -85,7 +85,7 @@ export interface IPageInfo {
 }
 
 export interface IPosts {
-  edges: { node: IPost }[]
+  edges: { cursor: string, node: IPost }[]
   pageInfo: IPageInfo
 }
 

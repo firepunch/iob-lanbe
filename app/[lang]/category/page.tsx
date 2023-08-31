@@ -3,6 +3,7 @@
 import { getPosts } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
+import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
@@ -36,6 +37,7 @@ export default function Category({
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
+  const isMobile = useIsMobile()
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
@@ -56,8 +58,9 @@ export default function Category({
           [fetchParams.categoryName, ...fetchParams.countries].join(','),
       },
     }).then(result => {
+      console.log(isMobile)
       updatePosts({
-        edges: result.edges,
+        edges: isMobile ? [...posts.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
           initTotal: posts.pageInfo?.initTotal || result.pageInfo.total,
@@ -266,31 +269,30 @@ export default function Category({
           ))}
         </div>
 
-        <Pagination
-          pageInfo={posts?.pageInfo}
-          size={GRID_CARD_NUMBER}
-          first={fetchParams?.first}
-          last={fetchParams?.last}
-          onClickPrev={() => {
-            setFetchParams(prev => ({
-              ...prev,
-              last: GRID_CARD_NUMBER, 
-              before: posts?.pageInfo.startCursor, 
-              first: null, 
-              after: null, 
-            }))
-          }}
-          onClickNext={() => {
-            setFetchParams(prev => ({
-              ...prev,
-              after: posts?.pageInfo?.endCursor,
-              first: GRID_CARD_NUMBER, 
-              last: null, 
-              before: null, 
-            }))
-          }}
-        />
-
+        {posts?.pageInfo && (
+          <Pagination
+            pageInfo={posts.pageInfo}
+            size={GRID_CARD_NUMBER}
+            onClickPrev={() => {
+              setFetchParams(prev => ({
+                ...prev,
+                last: GRID_CARD_NUMBER, 
+                before: posts?.pageInfo.startCursor, 
+                first: null, 
+                after: null, 
+              }))
+            }}
+            onClickNext={() => {
+              setFetchParams(prev => ({
+                ...prev,
+                after: posts?.pageInfo?.endCursor,
+                first: GRID_CARD_NUMBER, 
+                last: null, 
+                before: null, 
+              }))
+            }}
+          />
+        )}
       </section>
     </>
   )

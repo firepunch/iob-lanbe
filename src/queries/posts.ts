@@ -94,6 +94,7 @@ query getPostsQuery(
       endCursor
     }
     edges {
+      cursor
       node {
         databaseId
         id

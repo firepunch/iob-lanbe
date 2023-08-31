@@ -1,6 +1,14 @@
 import { IPost, IPosts, IReport, IReports, ISearchResult } from '@/types/store'
 import { create } from 'zustand'
 
+export const initPageInfo = {
+  initTotal: 0,
+  total: 0,
+  hasNextPage: false,
+  hasPreviousPage: false,
+  startCursor: undefined,
+  endCursor: undefined,
+}
 interface ContentState {
   posts: IPosts,
   post?: IPost,
@@ -19,14 +27,14 @@ interface ContentState {
 }
 
 const useContentState = create<ContentState>((set) => ({
-  posts: { edges: [], pageInfo: {} },
+  posts: { edges: [], pageInfo: initPageInfo },
   recommend: [],
   post: undefined,
   report: undefined,
-  reports: { edges: [], pageInfo: {} },
+  reports: { edges: [], pageInfo: initPageInfo },
   notes: [],
   searchResult: undefined,
-  updatePosts: (posts) => set({ posts }),
+  updatePosts: (posts) => set({ posts }), 
   updateRecommend: (recommend) => set({ recommend }),
   updatePost: (post) => set({ post }),
   updateReport: (report) => set({ report }),
