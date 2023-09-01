@@ -129,27 +129,41 @@
         .share-menu {
           display: none;
           position: absolute;
-          top: -10.25rem;
+          top: 0;
           right: 3rem;
           flex-direction: column;
-          background-color: $orange;
+          padding: rem(24) rem(24);
+          background-color: $black;
+          color: $white;
+          border: 1px solid $black;
+          border-radius: 1rem 0 1rem 1rem;
 
           button {
             // reset style
             height: auto;
             margin: 0;
+            cursor: pointer;
+            background-color: $black;
+            color: $white;
           }
 
           .share-link {
-            width: 100%;
-            padding: 0.8rem 2rem;
+            width: rem(240);
             font-size: 1rem;
-            text-align: center;
             font-weight: 600;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: rem(10) rem(6) rem(3);
+            border-bottom: 2px solid $white;
 
-            &:not(&:last-child) {
-              border-bottom: 4px solid $white;
+            svg {
+              width: rem(20);
+              height: rem(20);
+            }
+
+            &:first-child {
+              padding-top: 0;
             }
           }
 
