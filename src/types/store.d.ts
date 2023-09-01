@@ -39,7 +39,7 @@ export interface IPost {
   content: string
   featured_image_url?: string
   featuredImage?: IFeaturedImage
-  tags: { nodes: { edges: ITags[] } }
+  tags: { edges: { node: ITags[] } }
   lanbeContent: ILanbeContent
   translations: {
     slug: string
