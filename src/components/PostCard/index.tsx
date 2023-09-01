@@ -6,6 +6,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Bookmark from '../Bookmark'
 import LocationBlackImg from '@/imgs/locationicon_black.png'
+import Tags from '../Tags'
+import { useParams } from 'next/navigation'
+import { ValidLocale } from '@/types'
 
 interface PostCardProps extends IPost {
   onToggleBookmark: () => void;
@@ -22,8 +25,11 @@ export const PostCard = ({
   country,
   onToggleBookmark,
 }: PostCardProps) => {
+  const params = useParams()
+  const lang = params?.lang || 'en' as ValidLocale
+
   return (
-    <Link href={`/content/${encodeURIComponent(slug)}`}>
+    <Link href={`/${lang}/content/${encodeURIComponent(slug)}`}>
       <div className="indiv-content">
         <div className="thumbnail">
           {featuredImage ? (
@@ -57,13 +63,7 @@ export const PostCard = ({
         </p>
 
         {tags?.edges && (
-          <div className="tags">
-            {tags.edges?.map(({ node }) => (
-              <div key={node.id} className="indiv-tag">
-                {node.name}
-              </div>
-            ))}
-          </div>
+          <Tags lang={lang as ValidLocale} tags={tags} />
         )}
       </div>
     </Link>
