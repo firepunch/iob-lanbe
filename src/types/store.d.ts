@@ -97,12 +97,7 @@ export interface IReport extends IPost {
   dateGmt: string
   excerpt: string
   reportCategories: ICategory
-  reportTags: {
-    nodes: {
-      id: string
-      name: string
-    }[]
-  }
+  reportTags: ITags
   author: {
     node: {
       id: string

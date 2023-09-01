@@ -2,7 +2,7 @@
 
 import { getReportBySlug } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { Bookmark } from '@/components'
+import { Bookmark, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
@@ -84,14 +84,8 @@ export default function Report({
 
           <h2>{report.title}</h2>
 
-          {report.reportTags?.nodes && (
-            <div className="tags">
-              {report.reportTags.nodes.map(item => (
-                <div key={item.id} className="indiv-tag">
-                  <p>{item.name}</p>
-                </div>
-              ))}       
-            </div>
+          {report.reportTags?.edges && (
+            <Tags lang={lang} tags={report.reportTags} />
           )}
 
           <div className="report-details">
