@@ -177,11 +177,11 @@ export default function Category({
 
             {/* content details: title, author, tags, date, etc. */}
             <div id="content-details">
-              {post.tags?.nodes && (
+              {post.tags?.edges && (
                 <div className="tags">
-                  {post.tags.nodes.map(item => (
-                    <div key={item.id} className="indiv-tag">
-                      {item.name}
+                  {post.tags.edges?.map(({ node }) => (
+                    <div key={node.id} className="indiv-tag">
+                      {node.name}
                     </div>
                   ))}
                 </div>

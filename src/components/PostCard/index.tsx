@@ -35,7 +35,7 @@ export const PostCard = ({
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : null}
-          <Bookmark 
+          <Bookmark
             isSaved={is_save} 
             onToggle={onToggleBookmark}
           />

@@ -723,6 +723,12 @@
       width: 55%;
       margin: auto;
       margin-top: -8.5rem;
+
+      .author-date {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     #second-main-image {

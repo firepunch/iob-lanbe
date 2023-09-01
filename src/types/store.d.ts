@@ -8,10 +8,10 @@ export type IFeaturedImage = {
 }
 
 export type ITags = {
-  nodes: {
+  node: {
     id: string
     name: string
-  }[]
+  }
 }
 
 export type ILanbeContent = {
@@ -39,7 +39,7 @@ export interface IPost {
   content: string
   featured_image_url?: string
   featuredImage?: IFeaturedImage
-  tags: ITags
+  tags: { edges: ITags[] }
   lanbeContent: ILanbeContent
   translations: {
     slug: string
