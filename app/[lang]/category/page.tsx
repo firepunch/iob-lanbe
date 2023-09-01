@@ -7,6 +7,7 @@ import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import { ValidLocale } from '@/types'
+import { CATEGORY_IDS } from '@/utils/constants'
 import { getUserId, sort2variables } from '@/utils/lib'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -41,7 +42,8 @@ export default function Category({
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryName: searchParams.get('name') ? `${searchParams.get('name')}-${lang}` : '',
+    categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
+    cateName: searchParams.get('name') || '',
     countries: [],
     language: lang.toUpperCase(), 
     userId: getUserId(),
@@ -52,14 +54,11 @@ export default function Category({
   useEffect(() => {
     getPosts({
       ...fetchParams,
-      ...fetchParams?.countries?.length && {
-        categoryName: fetchParams.categoryName === '' ? 
-          fetchParams.countries.join(',') : 
-          [fetchParams.categoryName, ...fetchParams.countries].join(','),
-      },
+      categoryName: fetchParams?.countries?.join(','),
     }).then(result => {
+      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER
       updatePosts({
-        edges: isMobile ? [...posts.edges, ...result.edges] : result.edges,
+        edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
           initTotal: posts.pageInfo?.initTotal || result.pageInfo.total,
@@ -71,7 +70,8 @@ export default function Category({
   useEffect(() => {
     setFetchParams(prev => ({
       ...prev,
-      categoryName: searchParams.get('name') ? `${searchParams.get('name')}-${lang}` : '',
+      categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
+      cateName: searchParams.get('name') || '',
     }))
   }, [searchParams])
 
@@ -87,16 +87,27 @@ export default function Category({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      categoryName: categoryName === '' ? '' : `${categoryName}-${lang}`,
+      categoryId: CATEGORY_IDS[lang]?.[categoryName] || 0,
+      cateName: categoryName,
     }))
   }
   
   const handleCountry = (countries) => {
     setFetchParams(prev => ({ 
-      ...prev, 
+      ...prev,
       ...initPagination,
       countries,
     }))
+  }
+
+  const handleOpenCategory = () => {
+    setIsOpenCategory(!isOpenCategory)
+    setIsOpenFilter(false)
+  }
+  const handleClickAll = () => {
+    handleCategory('')
+    handleCountry([])
+    setIsOpenFilter(false)
   }
   
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
@@ -130,14 +141,14 @@ export default function Category({
         <div id="title-top">
           <div className="title-arrow">
             <div className="title-categ-subcateg">
-              <p>{t(categoryTranslationKeys[fetchParams.categoryName?.split('-')[0]])}</p>
-              <h2>{t(`category_${fetchParams.categoryName?.split('-')[0]}`).toUpperCase()}</h2>
+              <p>{t(categoryTranslationKeys[fetchParams.cateName])}</p>
+              <h2>{t(`category_${fetchParams.cateName}`).toUpperCase()}</h2>
             </div>
 
             <Icons 
               type="arrowBlackDown" 
               className={isOpenCategory ? 'show' : ''}
-              onClick={() => setIsOpenCategory(!isOpenCategory)} 
+              onClick={handleOpenCategory} 
             />
           </div>
 
@@ -196,16 +207,16 @@ export default function Category({
               </li>
             </ul>
 
-            {fetchParams.categoryName !== '' && (
+            {fetchParams.cateName !== '' && (
               <span className="see-all" onClick={() => handleCategory('')}>
                 {t('see_all')}
               </span>
             )}
           </div>
 
-          {fetchParams.categoryName !== '' && (
+          {fetchParams.cateName !== '' && (
             <div id="categ-description">
-              <p>{t(`category_desc_${fetchParams?.categoryName?.split('-')[0]}`)}</p>
+              <p>{t(`category_desc_${fetchParams?.cateName}`)}</p>
             </div>
           )}
 
@@ -214,9 +225,9 @@ export default function Category({
               <span 
                 className={
                   `all-button ${
-                    (fetchParams.categoryName === '' && fetchParams.countries?.length === 0) && 'black-button'
+                    (fetchParams.cateName === '' && fetchParams.countries?.length === 0) && 'black-button'
                   }`} 
-                onClick={() => handleCategory('')}
+                onClick={handleClickAll}
               >
                 {ct('all')}
               </span>
@@ -256,7 +267,7 @@ export default function Category({
         <div id="all-contents-wrap">
           {posts?.edges?.map(({ node }) => (
             <PostCard
-              key={node.id}
+              key={node.databaseId}
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: node.lanbeContent.is_save,

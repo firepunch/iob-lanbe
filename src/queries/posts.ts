@@ -65,6 +65,7 @@ export const GET_POSTS_QUERY = `
 query getPostsQuery(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
+  $categoryId: Int = 0,
   $first: Int = 100, 
   $last: Int,
   $before: String, 
@@ -77,6 +78,7 @@ query getPostsQuery(
   posts(
     where: {
       language: $language, 
+      categoryId: $categoryId,
       categoryName: $categoryName, 
       orderby: {field: $field, order: $order},
       in: $in
