@@ -10,6 +10,7 @@ import { ValidLocale } from '@/types'
 import { dateFormat, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const translationJson = {
   en: {
@@ -24,7 +25,7 @@ const translationJson = {
   ko: {
     placeholder: '아이디어를 적어주세요.',
     content_required: '내용을 적어주세요.',
-    notice: '*Idea notes are private, therefore not shared publicly. Maximum note length is 300 characters.',
+    notice: '노트는 나만 볼 수 있습니다. (최대 300자)',
     delete_confirm: '해당 노트를 삭제하시겠습니까?',
     save: '저장',
     delete: '삭제',
@@ -44,15 +45,6 @@ interface IIdeaNoteProps {
   onDelete?: () => void
 }
 
-const translate = {
-  en: {
-    login: 'Login required',
-  }, 
-  ko: {
-    login: '로그인이 필요한 기능입니다.',
-  },
-}
-
 export default function IdeaNote ({
   type,
   lang,
@@ -62,6 +54,7 @@ export default function IdeaNote ({
   onSubmit,
   onDelete,
 }: IIdeaNoteProps) {
+  const router = useRouter()
   const [noteType, setNoteType] = useState<NoteType>(type)
   const [value, setValue] = useState<string | undefined>(content)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -70,7 +63,7 @@ export default function IdeaNote ({
     if (isValidToken()) {
       setNoteType('edit')
     } else {
-      alert(translate[lang].login)
+      router.push(`/${lang}/sign-in`)
     }
   }
 

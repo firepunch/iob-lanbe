@@ -1,250 +1,248 @@
 // 콘텐츠에서 아이디어 노트 스타일링 같게
 @mixin ideanote {
+  width: 14.5rem;
+  height: 14.5rem;
+  margin: auto;
+  position: relative;
+
+  img {
+    position: absolute;
+  }
+
+  .note {
+    width: 14.5rem;
+    height: 14.5rem;
+  }
+}
+
+.ideanotes-designs {
+  width: 80%;
+  margin: 100px auto;
+
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+
+  // .ideanote-add,
+  // .ideanote-before,
+  // .ideanote-after,
+  // .ideanote-saved {
+  //     width: 20rem;
+  //     height: 20rem;
+  //     position: relative;
+
+  //     img {
+  //         position: absolute;
+  //     }
+
+  //     .note {
+  //         width: 20rem;
+  //         height: 20rem;
+  //     }
+  // }
+
+  .ideanote {
     width: 14.5rem;
     height: 14.5rem;
     margin: auto;
     position: relative;
 
     img {
-        position: absolute;
+      position: absolute;
     }
 
     .note {
-        width: 14.5rem;
-        height: 14.5rem;
+      width: 14.5rem;
+      height: 14.5rem;
     }
-}
+  }
 
-.ideanotes-designs {
-    width: 80%;
-    margin: 100px auto;
-
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-
-    // .ideanote-add,
-    // .ideanote-before,
-    // .ideanote-after,
-    // .ideanote-saved {
-    //     width: 20rem;
-    //     height: 20rem;
-    //     position: relative;
-
-    //     img {
-    //         position: absolute;
-    //     }
-
-    //     .note {
-    //         width: 20rem;
-    //         height: 20rem;
-    //     }
-    // }
-
-    .ideanote {
-        width: 14.5rem;
-        height: 14.5rem;
-        margin: auto;
-        position: relative;
-    
-        img {
-            position: absolute;
-        }
-    
-        .note {
-            width: 14.5rem;
-            height: 14.5rem;
-        }
-    }
+  .ideanote-add {
+    cursor: pointer;
+  }
 }
 
 @media (min-width: 576px) {
-    .ideanotes-designs {
-        width: 100%;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
+  .ideanotes-designs {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
 @media (min-width: 768px) {
-    .ideanotes-designs {
-        width: 80%;
-    }
+  .ideanotes-designs {
+    width: 80%;
+  }
 }
 
 @media (min-width: 992px) {
-    .ideanotes-designs {
-        margin: 3rem;
-    }
+  .ideanotes-designs {
+    margin: 3rem;
+  }
 }
 
 @media (min-width: 1200px) {
-    .ideanotes-designs {
-        width: 60%;
+  .ideanotes-designs {
+    width: 60%;
 
-        .ideanote {
-            width: 20rem;
-            height: 20rem;
+    .ideanote {
+      width: 20rem;
+      height: 20rem;
 
-            .note {
-                width: 20rem;
-                height: 20rem;
-            }
-        }
+      .note {
+        width: 20rem;
+        height: 20rem;
+      }
     }
+  }
 }
-
-
 
 // 작성 전
 .ideanote-before {
+  textarea {
+    position: absolute;
+    z-index: 2;
+    top: 2.5rem;
+    left: 2rem;
 
-    textarea {
-        position: absolute;
-        z-index: 2;
-        top: 2.5rem;
-        left: 2rem;
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: $base-font-size;
+  }
 
-        border: none;
-        background: transparent;
-        width: 100%;
-        font-size: $base-font-size;
-    }
+  p {
+    position: absolute;
+    z-index: 2;
+    top: 4rem;
+    left: 2rem;
 
-    p {
-        position: absolute;
-        z-index: 2;
-        top: 4rem;
-        left: 2rem;
+    font-size: 0.75rem;
+    width: 70%;
+    color: #acacac;
+  }
 
-        font-size: .75rem;
-        width: 70%;
-        color: #ACACAC;
-    }
+  button {
+    position: absolute;
+    z-index: 2;
+    right: 2rem;
+    bottom: 2rem;
 
-    button {
-        position: absolute;
-        z-index: 2;
-        right: 2rem;
-        bottom: 2rem;
-
-        border: none;
-        background: transparent;
-        text-decoration: underline;
-    }
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+  }
 }
 
 // 작성 후
 .ideanote-after {
+  .user-note {
+    position: absolute;
+    z-index: 2;
+    top: 1.5rem;
+    left: 2rem;
 
-    .user-note {
-        position: absolute;
-        z-index: 2;
-        top: 1.5rem;
-        left: 2rem;
-        
-        line-height: 1.15rem;
-        width: 16rem;
-        font-size: .75rem;
-    }
+    line-height: 1.15rem;
+    width: 16rem;
+    font-size: 0.75rem;
+  }
 
-    .ideanote-content-title {
-        position: absolute;
-        z-index: 2;
-        left: 2rem;
-        bottom: 3rem;
+  .ideanote-content-title {
+    position: absolute;
+    z-index: 2;
+    left: 2rem;
+    bottom: 3rem;
 
-        width: 10rem;
-        font-size: $smaller-font-size;
-        font-weight: $bold-font-weight;
-    }
+    width: 10rem;
+    font-size: $smaller-font-size;
+    font-weight: $bold-font-weight;
+  }
 
-    .date {
-        position: absolute;
-        z-index: 2;
-        left: 2rem;
-        bottom: 2rem;
+  .date {
+    position: absolute;
+    z-index: 2;
+    left: 2rem;
+    bottom: 2rem;
 
-        font-size: .65rem;
-    }
+    font-size: 0.65rem;
+  }
 
-    .edit,
-    .delete {
-        position: absolute;
-        z-index: 2;
-        right: 2rem;
-        bottom: 2rem;
+  .edit,
+  .delete {
+    position: absolute;
+    z-index: 2;
+    right: 2rem;
+    bottom: 2rem;
 
-        cursor: pointer;
-    }
+    cursor: pointer;
+  }
 
-    .edit {
-        width: 1.2rem;
-        right: 4rem;
-    }
+  .edit {
+    width: 1.2rem;
+    right: 4rem;
+  }
 
-    .delete {
-        width: 1rem;
-    }
+  .delete {
+    width: 1rem;
+  }
 }
 
 // 저장
 .ideanote-saved {
-
-    .note-saved {
-
-        img {
-            @include absolute-center;
-            width: 3rem;
-            top: 7.5rem;
-        }
-
-        p {
-            @include absolute-center;
-            width: 20rem;
-            text-align: center;
-            top: 10rem;
-            font-size: $smaller-font-size;
-        }
+  .note-saved {
+    img {
+      @include absolute-center;
+      width: 3rem;
+      top: 7.5rem;
     }
+
+    p {
+      @include absolute-center;
+      width: 20rem;
+      text-align: center;
+      top: 10rem;
+      font-size: $smaller-font-size;
+    }
+  }
 }
 
 // 삭제
 .delete-modal {
-    width: 14rem;
-    height: 7.5rem;
-    padding: .5rem 1rem;
-    background-color: $white;
-    border: 1px solid $black;
+  width: 14rem;
+  height: 7.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $white;
+  border: 1px solid $black;
 
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 
-    position: absolute;
-    z-index: 3;
-    bottom: 4rem;
-    right: 2.5rem;
+  position: absolute;
+  z-index: 3;
+  bottom: 4rem;
+  right: 2.5rem;
 
-    p {
-        text-align: center;
-        font-size: $smaller-font-size;
+  p {
+    text-align: center;
+    font-size: $smaller-font-size;
+  }
+
+  .buttons-wrap {
+    @include flex-spacebetween;
+
+    button {
+      width: 49%;
+      height: 2rem;
+      border-radius: 1rem;
+      background-color: $white;
+      border: 0.075rem solid $black;
     }
 
-    .buttons-wrap {
-        @include flex-spacebetween;
-
-        button {
-            width: 49%;
-            height: 2rem;
-            border-radius: 1rem;
-            background-color: $white;
-            border: .075rem solid $black;
-        }
-
-        button:nth-child(2) {
-            color: $white;
-            background-color: $black;
-        }
+    button:nth-child(2) {
+      color: $white;
+      background-color: $black;
     }
+  }
 }
