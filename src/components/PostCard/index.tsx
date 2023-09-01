@@ -56,11 +56,11 @@ export const PostCard = ({
           {title}
         </p>
 
-        {tags?.nodes && (
+        {tags?.edges && (
           <div className="tags">
-            {tags.nodes.map(item => (
-              <div key={item.id} className="indiv-tag">
-                {item.name}
+            {tags.edges?.map(({ node }) => (
+              <div key={node.id} className="indiv-tag">
+                {node.name}
               </div>
             ))}
           </div>
