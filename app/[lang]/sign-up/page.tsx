@@ -209,12 +209,12 @@ const SignUp = ({
 
           <div id="signup-checkboxes">
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletterChk" />
+              <input type="checkbox" id="newsletter" name="newsletterChk" defaultChecked />
               <label htmlFor="newsletter">{t('newsletter')}</label>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketingChk" />
+              <input type="checkbox" id="marketing" name="marketingChk" defaultChecked />
               <label htmlFor="marketing">{t('marketing')}</label>
             </div>
 
