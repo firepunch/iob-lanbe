@@ -1,19 +1,10 @@
 import Image from 'next/image'
-
 import SaveImg from '@/imgs/save.png'
 import SavedImg from '@/imgs/saved.png'
 import SaveBlackImg from '@/imgs/save_black.png'
 import SavedBlackImg from '@/imgs/saved_black.png'
 import { isValidToken } from '@/utils/lib'
-
-const translate = {
-  en: {
-    login: 'Login required',
-  }, 
-  ko: {
-    login: '로그인이 필요한 기능입니다.',
-  },
-}
+import { useRouter, usePathname, useParams } from 'next/navigation'
 
 export default function Bookmark({
   isBlack = false,
@@ -24,6 +15,8 @@ export default function Bookmark({
   isSaved?: boolean
   onToggle: () => void
 }) {
+  const router = useRouter()
+  const params = useParams()
   const imgSrc = isBlack ? (
     isSaved ? SavedBlackImg : SaveBlackImg
   ) : (
@@ -36,7 +29,7 @@ export default function Bookmark({
     if (isValidToken()) {
       onToggle()
     } else {
-      alert('로그인이 필요한 기능입니다.')
+      router.replace(`/${params?.lang || 'en'}/sign-in`)
     }
   }
 
