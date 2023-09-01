@@ -2,7 +2,7 @@
 
 import { getContentBySlug, getContents } from '@/api_gql'
 import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateNote } from '@/api_wp'
-import { Bookmark, Icons, IdeaNote, PostCard, PostOptions } from '@/components'
+import { Bookmark, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
@@ -178,13 +178,7 @@ export default function Category({
             {/* content details: title, author, tags, date, etc. */}
             <div id="content-details">
               {post.tags?.edges && (
-                <div className="tags">
-                  {post.tags.edges?.map(({ node }) => (
-                    <div key={node.id} className="indiv-tag">
-                      {node.name}
-                    </div>
-                  ))}
-                </div>
+                <Tags lang={lang} tags={post.tags} />
               )}
 
               <div className="title-save">
