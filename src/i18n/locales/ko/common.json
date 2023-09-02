@@ -6,6 +6,9 @@
   }, {
     "label": "오래된순",
     "value": "oldest"
+  }, {
+    "label": "조회순",
+    "value": "most_viewed"
   }],
 
   "selected": "선택됨",
