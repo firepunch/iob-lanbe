@@ -33,7 +33,6 @@ export default async function About({
           <p>{t('main-1')}<br/>{t('main-2')}<br/>{t('main-3')}</p>
           <h2>{t('about-us')}</h2>
         </section>
-        {/* //section 1: about first page */}
 
         {/* section 2: about-how */}
         <section id="about-how">
