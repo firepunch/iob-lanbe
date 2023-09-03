@@ -2,7 +2,7 @@
 
 import { getReportBySlug } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { Bookmark, Tags } from '@/components'
+import { Bookmark, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
@@ -87,6 +87,17 @@ export default function Report({
           {report.reportTags?.edges && (
             <Tags lang={lang} tags={report.reportTags} />
           )}
+
+          <PostOptions
+            isSaved={report.lanbeContent.is_save}
+            onFontSize={() => {}} 
+            onToggleBookmark={() => (
+              handleToggleBookmark({
+                isSaved: report?.lanbeContent.is_save,
+                databaseId: report.databaseId,
+              })
+            )}
+          />
 
           <div className="report-details">
             <ul>
