@@ -3,5 +3,13 @@
   "recommend_h2": "RECOMMENDED",
   "see_all": "See all",
 
-  "login_wall": "To continue reading, create a free account or log in."
+  "wall_h3": "HOLD ON!",
+  "wall_p1": "To continue reading, please create a ",
+  "wall_keyword1": "free account",
+  "wall_p2": " or ",
+  "wall_keyword2": "sign in",
+  "wall_p3": ".",
+  "wall_desc": "Create a free account and gain full access to our free content, receive newsletters, and more.",
+  "wall_signup": "Create free account",
+  "wall_signin": "Sign in"
 }

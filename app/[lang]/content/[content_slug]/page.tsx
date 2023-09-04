@@ -2,7 +2,7 @@
 
 import { getContentBySlug, getContents } from '@/api_gql'
 import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
-import { Bookmark, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
+import { Bookmark, Icons, ContentWall, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
@@ -206,9 +206,10 @@ export default function Category({
                 <p>{dateEnFormat(post?.date)}</p>
               </div>
             </div>
-            {/* content details: title, author, tags, date, etc. */}
 
-            {/* className={cls(styles.content, { [styles.large]: isZoomed })} */}
+            {!userId && (
+              <ContentWall lang={lang} t={t} />
+            )}
             <div
               className={`content-article ${isZoomed ? 'zoomed' : ''}`}
               dangerouslySetInnerHTML={{ __html: post.content }} 
