@@ -1,7 +1,7 @@
 'use client'
 
 import { getContentBySlug, getContents } from '@/api_gql'
-import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateNote } from '@/api_wp'
+import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
 import { Bookmark, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -39,6 +39,12 @@ export default function Category({
         post_id: contentId,
       }).then(result => {
         updateNotes(result)
+      })
+
+      updateCountView({
+        user_id: userId,
+        content_id: contentId,
+        type: 'post',
       })
     }
   }, [post?.id])
