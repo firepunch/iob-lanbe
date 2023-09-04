@@ -7,11 +7,9 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
-import useUserState from '@/stores/userStore'
 import { dateFormat, getAuthorInfo, getUser, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function Report({
