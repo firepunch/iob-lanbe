@@ -61,7 +61,7 @@ export default function Category({
         edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
-          initTotal: posts.pageInfo?.initTotal || result.pageInfo.total,
+          initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
         },
       })
     })

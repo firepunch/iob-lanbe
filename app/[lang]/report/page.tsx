@@ -36,15 +36,16 @@ export default function Reports({
   })
 
   useEffect(() => {
-    getAllReports(fetchParams).then(result => (
+    getAllReports(fetchParams).then(result => {
+      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER
       updateReports({
-        edges: isMobile ? [...reports.edges, ...result.edges] : result.edges,
+        edges: isMobile && !isFirstPage ? [...reports.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
-          initTotal: reports.pageInfo?.initTotal || result.pageInfo.total,
-        },        
+          initTotal: isFirstPage ? result.pageInfo.total : reports.pageInfo?.initTotal,
+        },
       })
-    ))
+    })
   }, [fetchParams])
 
   const handleSorter = (sorter) => {
