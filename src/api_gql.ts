@@ -183,10 +183,7 @@ export async function getSearchResults(variables) {
   const data = await fetchAPI(SEARCH_QUERY, {
     variables,
   })
-  return {
-    posts: data.posts.edges,
-    products: data.products.edges,
-  }
+  return data
 }
 
 // EXAMPLE

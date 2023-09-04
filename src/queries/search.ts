@@ -1,43 +1,9 @@
 const SEARCH_QUERY = `
-query getSearchResult($postLanguage: LanguageCodeFilterEnum!, $reportLanguage: String, $userId: Float, $keyword: String = "") {
-  products(where: {category: $reportLanguage, search: $keyword}) {
-    edges {
-      node {
-        databaseId
-        id
-        name
-        type
-        slug
-        shortDescription(format: RAW)
-        image {
-          id
-          sourceUrl
-          altText
-        }
-        lanbeContent(user_id: $userId, type: "report") {
-          country
-          is_save
-        }
-        ... on SimpleProduct {
-          id
-          name
-          price
-          salePrice
-          regularPrice
-        }
-        ... on VariableProduct {
-          id
-          name
-          price
-          salePrice
-          regularPrice
-        }
-      }
+query getSearchResult($language: LanguageCodeFilterEnum!, $userId: Float = 0, $keyword: String = "") {
+  posts(where: {language: $language, search: $keyword}) {
+    pageInfo {
+      total
     }
-  }
-  posts(
-    where: {language: $postLanguage, search: $keyword}
-  ) {
     edges {
       node {
         databaseId
@@ -59,11 +25,67 @@ query getSearchResult($postLanguage: LanguageCodeFilterEnum!, $reportLanguage: S
         }
         lanbeContent(user_id: $userId) {
           is_save
-          country
         }
-        language {
-          code
-          locale
+        categories {
+          edges {
+            node {
+              parentId
+              parent {
+                node {
+                  id
+                  name
+                }
+              }
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+  reports(where: {language: $language, search: $keyword}) {
+    pageInfo {
+      total
+    }
+    edges {
+      node {
+        databaseId
+        id
+        title
+        slug
+        date
+        excerpt
+        reportTags {
+          nodes {
+            id
+            name
+          }
+        }
+        featuredImage {
+          node {
+            id
+            sourceUrl
+          }
+        }
+        lanbeContent(user_id: $userId) {
+          is_save
+          pages
+        }
+        reportCategories {
+          edges {
+            node {
+              parentId
+              parent {
+                node {
+                  id
+                  name
+                }
+              }
+              id
+              name
+            }
+          }
         }
       }
     }

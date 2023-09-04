@@ -14,13 +14,12 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
-  const { searchResult, recommend, updateSearchResult , updateRecommend } = useContentState(state => state)
+  const { searchResult, recommend, updateSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
   const userId = getUserId()
-  const totalLength = (searchResult?.posts?.length || 0) + (searchResult?.products?.length || 0)
+  const totalLength = (searchResult?.posts?.pageInfo.total || 0) + (searchResult?.reports?.pageInfo.total || 0)
   const [params] = useState({
-    postLanguage: lang.toUpperCase(),
-    reportLanguage: lang,
+    language: lang.toUpperCase(),
     userId,
     keyword,
   })
@@ -127,7 +126,7 @@ export default function Search({
             </div>
 
             <div id="search-result-contents-wrap">
-              {searchResult?.posts?.map(({ node }) => (
+              {searchResult?.posts?.edges?.map(({ node }) => (
                 <PostCard
                   key={node.id}
                   onToggleBookmark={() => (
@@ -148,7 +147,7 @@ export default function Search({
             </div>
 
             <div id="search-result-reports-wrap">
-              {searchResult?.products?.map(({ node }) => (
+              {searchResult?.reports?.edges?.map(({ node }) => (
                 <ReportCard
                   key={node.id}
                   onToggleBookmark={() => (
