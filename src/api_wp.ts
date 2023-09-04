@@ -8,6 +8,7 @@ import {
   IFetchWatchList,
   IBodyWatchList,
   IUpdateNote,
+  ICountData,
 } from './types/api'
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
@@ -112,6 +113,39 @@ export async function sendPWLink(email: string) {
     path: '/users/password',
     method: 'POST',
     data: { email },
+  })
+
+  return res
+}
+
+export async function fetchCountContent(queryParams: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/view',
+    method: 'GET',
+    queryParams,
+  })
+
+  return res
+}
+
+export async function updateCountView(data: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/view',
+    method: 'PUT',
+    data,
+  })
+
+  return res
+}
+
+export async function updateCountDownload(data: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/download',
+    method: 'POST',
+    data,
   })
 
   return res
