@@ -76,7 +76,6 @@ export default function IdeaNote ({
     if (onSubmit) {
       setNoteType('added')
       onSubmit(value)
-      setNoteType('add')
       setValue(undefined)
     }
   }
@@ -113,33 +112,6 @@ export default function IdeaNote ({
         <button onClick={handleUpdateNote}>
           {translationJson[lang].save}
         </button>
-      </div>
-    ),
-    view: (
-      <div className="ideanote ideanote-after">
-        <Image src={LimeBg} className="note note-bg" alt="Idea note lime color" />
-        <p className="user-note">
-          {value}
-        </p>
-        <p className="ideanote-content-title">
-          {postTitle}
-        </p>
-        <p className="date">
-          {updatedAt && dateFormat(updatedAt, true)}
-        </p>
-        <Image src={EditIcon} className="edit" alt="Edit" onClick={() => setNoteType('edit')}/>
-        <Image src={DeleteIcon} className="delete" alt="Delete" onClick={() => setShowConfirmModal(true)} />
-
-        {showConfirmModal && (
-          <div className="delete-modal">
-            <p>Are you sure you want to delete this note?</p>
-              
-            <div className="buttons-wrap">
-              <button type="button">Cancel</button>
-              <button type="button">Delete</button>
-            </div>
-          </div>
-        )}
       </div>
     ),
   }

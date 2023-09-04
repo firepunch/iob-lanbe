@@ -216,25 +216,29 @@ export default function Category({
             />
           </section>
 
-          {/* idea notes wrap */}
-          <section id="idea-notes">
-            <h5>{t('idea_h5')}</h5>
-            <div className="idea-note-wrap">
-              {notes?.map(item => (
-                <IdeaNote
-                  key={item.id}
-                  type="view"
-                  lang={lang}
-                  onSubmit={value => handleUpdateNote(item.id, value)}
-                  onDelete={() => handleDeleteNote(item.id)}
-                  {...item}
-                />
-              ))}
-              {notes?.length < 4 && (
-                <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
-              )}
-            </div>
-          </section>
+          {userId ? (
+            <section id="idea-notes">
+              <h5>{t('idea_h5')}</h5>
+              <div className="idea-note-wrap">
+                {notes?.map(item => (
+                  <IdeaNote
+                    key={item.id}
+                    type="view"
+                    lang={lang}
+                    onSubmit={value => handleUpdateNote(item.id, value)}
+                    onDelete={() => handleDeleteNote(item.id)}
+                    {...item}
+                  />
+                ))}
+                {notes?.length === 0 && (
+                  <IdeaNote type="edit" lang={lang} content={undefined} onSubmit={handleCreateNote} />
+                )}
+                {notes?.length < 4 && (
+                  <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
+                )}
+              </div>
+            </section>
+          ) : null}
         </>
       ) : (
         <div id="idea-notes">
