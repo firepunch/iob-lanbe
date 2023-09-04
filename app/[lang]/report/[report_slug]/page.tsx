@@ -1,7 +1,7 @@
 'use client'
 
 import { getReportBySlug } from '@/api_gql'
-import { createWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, removeWatchList, updateCountDownload, updateCountView } from '@/api_wp'
 import { Bookmark, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -30,6 +30,11 @@ export default function Report({
       email,
     }).then(result => {
       updateReport(result)
+      updateCountView({
+        user_id: userId,
+        content_id: result?.databaseId,
+        type: 'report',
+      })
     })
   }, [])
 
@@ -59,6 +64,14 @@ export default function Report({
       console.log(err)
       alert('저장 실패')
     }
+  }
+
+  const handleUpdateCount = async () => {
+    await updateCountDownload({
+      user_id: userId,
+      content_id: report?.databaseId,
+      type: 'report',
+    })
   }
 
   if (!report) {
@@ -175,7 +188,12 @@ export default function Report({
             {isValidToken() ? (
               <>
                 <p>{t('download_cta')}</p>
-                <Link href={report.lanbeContent?.downloadFile || ''} className="cta-link" target="_blank">
+                <Link 
+                  href={report.lanbeContent?.downloadFile || ''} 
+                  className="cta-link" 
+                  target="_blank"
+                  onClick={handleUpdateCount}
+                >
                   {t('download')}
                 </Link>
               </>
