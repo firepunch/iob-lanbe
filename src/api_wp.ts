@@ -204,21 +204,25 @@ export async function fetchWatchList(queryParams: IFetchWatchList) {
 }
 
 export async function createWatchList(data: IBodyWatchList) {
-  return fetchAPI({
+  const res = fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'POST',
     data,
   })
+
+  return res
 }
 
 export async function removeWatchList(data: IBodyWatchList) {
-  return fetchAPI({
+  const res = fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'DELETE',
     data,
   })
+
+  return res
 }
 
 export async function fetchNotes(queryParams: IFetchNotes) {

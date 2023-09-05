@@ -1,7 +1,7 @@
 'use client'
  
 import { getPosts } from '@/api_gql'
-import { fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
 import { useTranslation } from '@/i18n/client'
 import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
@@ -12,6 +12,15 @@ import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
 import { IPost } from '@/types/store'
+
+interface IFetchParams {
+  language: string
+  userId: number
+  savedIn?: string[]
+  readIn?: string[]
+  categories: string[]
+  countries: string[]
+}
 
 export default function Content({
   t,
@@ -27,7 +36,7 @@ export default function Content({
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
   const [openCategory, setOpenCategory] = useState<boolean>(false)
-  const [fetchParams, setFetchParams] = useState({
+  const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
     savedIn: undefined,
     readIn: undefined,
@@ -79,29 +88,27 @@ export default function Content({
     }
   }, [fetchParams])
 
-  const handleToggleBookmark = async (contentId: number) => {
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
-      await removeWatchList({
-        type: 'post',
-        content_id: contentId,
-        user_id: userId,
-      })
-
-      const result = await fetchWatchList({
-        type: 'post',
-        user_id: userId,
-      })
-
-      if (result?.ids) {
-        setFetchParams(prev => ({
-          ...prev,
-          in: result.ids,
-        }))
+      let result = { ids: [] }
+      if (isSaved) {
+        result = await removeWatchList({
+          type: 'post',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       } else {
-        setFetchParams(prev => ({
-          ...prev,
-        }))
+        result = await createWatchList({
+          type: 'post',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       }
+
+      setFetchParams(prev => ({
+        ...prev,
+        savedIn: result?.ids,
+      }))
     } catch (err) {
       console.log(err)
       alert('저장 실패')
@@ -196,7 +203,12 @@ export default function Content({
             <PostCard
               {...node}
               key={node.id}
-              onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbeContent.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
             />
           ))}
         </div>

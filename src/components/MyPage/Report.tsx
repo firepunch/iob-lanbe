@@ -11,6 +11,13 @@ import { ReportCard } from '../ReportCard'
 import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
 import { ILanbeContent } from '@/types/store'
 
+interface IFetchParams {
+  language: string
+  userId: number
+  savedIn?: string[]
+  downloadIn?: string[]
+}
+
 export default function Report({
   t,
   lang,
@@ -22,7 +29,7 @@ export default function Report({
 }) {
   const { bookmark, read, updateBookmarkReport, updateDownloadedReport } = useUserState(state => state)
   const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')
-  const [fetchParams, setFetchParams] = useState({
+  const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
     userId,
     savedIn: undefined,
@@ -69,32 +76,29 @@ export default function Report({
     }
   }, [fetchParams])
 
-  const handleToggleBookmark = async (contentId: number) => {
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
-      await removeWatchList({
-        type: 'report',
-        content_id: contentId,
-        user_id: userId,
-      })
-
-      const result = await fetchWatchList({
-        type: 'report',
-        user_id: userId,
-      })
-
-      if (result?.ids) {
-        setFetchParams(prev => ({
-          ...prev,
-          in: result.ids,
-        }))
+      let result = { ids: [] }
+      if (isSaved) {
+        result = await removeWatchList({
+          type: 'report',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       } else {
-        setFetchParams(prev => ({
-          ...prev,
-        }))
+        result = await createWatchList({
+          type: 'report',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       }
+
+      setFetchParams(prev => ({
+        ...prev,
+        savedIn: result?.ids,
+      }))
     } catch (err) {
       console.log(err)
-      alert('저장 실패')
     }
   }
 
@@ -133,7 +137,12 @@ export default function Report({
           {(clickedType === 'saved' ? bookmark : read)?.report?.map(({ node }) => (
             <ReportCard
               key={node.id}
-              onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbeContent.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
               {...node}
             />
           ))}

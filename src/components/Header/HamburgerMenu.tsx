@@ -14,7 +14,7 @@ import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'
 import useUserState from '@/stores/userStore'
 
-export default function MobileMenu({
+export default function HamburgerMenu({
   lang,
 }: {
   lang: ValidLocale
