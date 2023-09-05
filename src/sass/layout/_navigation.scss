@@ -54,6 +54,10 @@ header {
           font-weight: $bold-font-weight;
           margin: 0 1.2rem;
           cursor: pointer;
+
+          &.content:hover > .submenu {
+            display: flex;
+          }
         }
 
         .submenu {
@@ -69,10 +73,6 @@ header {
           position: absolute;
           top: 3rem;
           left: 0;
-
-          &.show {
-            display: flex;
-          }
 
           .submenu-left {
             width: 25%;

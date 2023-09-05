@@ -23,7 +23,6 @@ export default function Header({
   const { t } = useTranslation(lang, 'layout')
   const { user, updateUser } = useUserState(state => state)
   const { isValid, user: storageUser } = isValidUser()
-  const [openContentMenu, setOpenContentMenu] = useState<boolean>(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isUser, setIsUser] = useState<boolean>(false)
 
@@ -54,10 +53,12 @@ export default function Header({
             </Link>
           </li>
 
-          <li className="content" tabIndex={0} onClick={() => setOpenContentMenu(!openContentMenu)}>
-            <span>{t('h_content')}</span>
+          <li className="content" tabIndex={0}>
+            <Link href={`/${lang}/category`}>
+              <span>{t('h_content')}</span>
+            </Link>
 
-            <div className={`submenu ${openContentMenu ? 'show' : ''}`}>
+            <div className={`submenu`}>
               <div className="submenu-left">
                 <p>{t('content_intro')}</p>
 
@@ -162,9 +163,7 @@ export default function Header({
       </nav>
       {/* //web version nav */}
 
-      {/* mobile version hamburger menu */}
       <HamburgerMenu lang={lang} />
-      {/* //mobile version hamburger menu */}
 
       {openSearchWall && (
         <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
