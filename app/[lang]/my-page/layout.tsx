@@ -34,11 +34,11 @@ const Layout = ({
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
   const { userId } = getUser()
-  const { user, updateUser } = useUserState(state => state)
+  const { user, resetUser } = useUserState(state => state)
 
   const handleLogout = () => {
     removeStorageData(AUTH_TOKEN)
-    updateUser()
+    resetUser()
     router.replace(`/${lang}/sign-in`)
   }
 
