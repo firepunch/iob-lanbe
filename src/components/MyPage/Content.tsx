@@ -125,6 +125,16 @@ export default function Content({
     setClickedType(clicked)
   }
 
+  const handleToggleCountry = () => {
+    setOpenCountry(!openCountry)
+    setOpenCategory(false)
+  }
+
+  const handleToggleCategory = () => {
+    setOpenCountry(false)
+    setOpenCategory(!openCategory)
+  }
+
   return (
     <>
       <div id="default-title">
@@ -133,14 +143,14 @@ export default function Content({
         <div className="filters-wrap">
           <div className="country-category">
             <button 
-              className={`${fetchParams.countries?.length ? 'black-button' : ''}`}
-              onClick={() => setOpenCountry(!openCountry)}
+              className={`${(openCountry || fetchParams.countries?.length) ? 'black-button' : ''}`}
+              onClick={handleToggleCountry}
             >
               {t('country')}
             </button>
             <button 
-              className={`${fetchParams.categories?.length ? 'black-button' : ''}`}
-              onClick={() => setOpenCategory(!openCategory)}
+              className={`${(openCategory || fetchParams.countries?.length) ? 'black-button' : ''}`}
+              onClick={handleToggleCategory}
             >
               {t('category')}
             </button>
