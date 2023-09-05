@@ -1,12 +1,7 @@
 import { IPaymentHistory, IStripeCard } from '@/types/api'
-import { IUser, IOrder, IDownload, IPost, IReport, IPosts, IReports } from '@/types/store'
+import { IUser, IOrder, Tokens, IDownload, IPost, IReport, IResponseUser } from '@/types/store'
 import { create } from 'zustand'
 
-interface Tokens {
-  authToken?: string
-  refreshToken?: string
-  sessionToken?: string
-}
 
 interface UserState extends Tokens {
   user?: IUser
@@ -19,7 +14,8 @@ interface UserState extends Tokens {
   reports?: { node: IReport }[]
   bookmark: { post: { node: IPost }[], report: { node: IReport }[] }
   read: { post: { node: IPost }[], report: { node: IReport }[] }
-  updateUser: (user?: IUser) => void
+  resetUser: () => void
+  updateUser: (userRes: IResponseUser) => void
   updateUserInfo: (userInfo: any) => void
   updateTokens: (tokens: Tokens) => void
   updateOrder: (order: IOrder) => void
@@ -48,7 +44,14 @@ const useUserState = create<UserState>((set) => ({
   reports: undefined,
   bookmark: { post: [], report: [] },
   read: { post: [], report: [] },
-  updateUser: (user) => set({ user }),
+  resetUser: () => set({ 
+    user: undefined,
+    userInfo: undefined,
+    authToken: undefined,
+    refreshToken: undefined,
+    sessionToken: undefined,
+  }),
+  updateUser: (userRes) => set({ ...userRes, user: userRes.user }),
   updateUserInfo: (userInfo) => set({ userInfo }),
   updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
     authToken,

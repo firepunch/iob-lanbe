@@ -1,3 +1,6 @@
+import { Tokens } from '@/stores/userStore'
+import { IUser } from './store'
+
 export interface ICreateUser {
   clientMutationId: string
   username: string

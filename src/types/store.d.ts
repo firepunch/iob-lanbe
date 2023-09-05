@@ -1,5 +1,11 @@
 import { initReactI18next } from 'react-i18next'
 
+export interface Tokens {
+  authToken?: string
+  refreshToken?: string
+  sessionToken?: string
+}
+
 export type IFeaturedImage = {
   node: {
     sourceUrl: string
@@ -147,4 +153,8 @@ export interface IUser {
   name: string
   email: string
   registeredDate: string
+}
+
+export interface IResponseUser extends Tokens {
+  user: IUser
 }
