@@ -37,7 +37,7 @@ export default function Reports({
 
   useEffect(() => {
     getAllReports(fetchParams).then(result => {
-      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER
+      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
       updateReports({
         edges: isMobile && !isFirstPage ? [...reports.edges, ...result.edges] : result.edges,
         pageInfo: {
