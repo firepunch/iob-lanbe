@@ -46,6 +46,7 @@ export default function Content({
         savedIn: result?.ids,
       }))
     })
+    
     fetchCountContent({
       type: 'post',
       user_id: userId,

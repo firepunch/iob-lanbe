@@ -151,6 +151,17 @@ export async function updateCountDownload(data: ICountData) {
   return res
 }
 
+export async function fetchCountDownload(queryParams: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/download',
+    method: 'GET',
+    queryParams,
+  })
+
+  return res
+}
+
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',

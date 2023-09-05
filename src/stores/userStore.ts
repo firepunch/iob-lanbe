@@ -31,7 +31,7 @@ interface UserState extends Tokens {
   updateBookmarkPost: (post: { node: IPost }[]) => void
   updateBookmarkReport: (report: { node: IReport }[]) => void
   updateReadPost: (post: { node: IPost }[]) => void
-  updateReadReport: (report: { node: IReport }[]) => void
+  updateDownloadedReport: (report: { node: IReport }[]) => void
 }
 
 const useUserState = create<UserState>((set) => ({
@@ -64,7 +64,7 @@ const useUserState = create<UserState>((set) => ({
   updateBookmarkPost: (post) => set((prev) => ({ bookmark: { post, report: prev.bookmark.report } })),
   updateBookmarkReport: (report) => set((prev) => ({ bookmark: { report, post: prev.bookmark.post } })),
   updateReadPost: (post) => set((prev) => ({ read: { post, report: prev.read.report } })),
-  updateReadReport: (report) => set((prev) => ({ read: { report, post: prev.read.post } })),
+  updateDownloadedReport: (report) => set((prev) => ({ read: { report, post: prev.read.post } })),
 }))
 
 export default useUserState

@@ -8,7 +8,7 @@ import { getAllReports, getProductBySaved } from '@/api_gql'
 import useUserState from '@/stores/userStore'
 import { getUserId } from '@/utils/lib'
 import { ReportCard } from '../ReportCard'
-import { createWatchList, fetchWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
 import { ILanbeContent } from '@/types/store'
 
 export default function Report({
@@ -20,11 +20,13 @@ export default function Report({
   lang: ValidLocale
   userId: number
 }) {
-  const { bookmark, updateBookmarkReport } = useUserState(state => state)
+  const { bookmark, read, updateBookmarkReport, updateDownloadedReport } = useUserState(state => state)
+  const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(),
     userId,
-    in: undefined,
+    savedIn: undefined,
+    downloadIn: undefined,
   })
 
   useEffect(() => {
@@ -34,15 +36,35 @@ export default function Report({
     }).then(result => {
       setFetchParams(prev => ({
         ...prev,
-        in: result?.ids,
+        savedIn: result?.ids,
+      }))
+    })
+    
+    fetchCountDownload({
+      user_id: userId,
+    }).then(result => {
+      setFetchParams(prev => ({
+        ...prev,
+        downloadIn: result?.ids,
       }))
     })
   }, [])
 
   useEffect(() => {
-    if (fetchParams.in !== undefined) {
-      getAllReports(fetchParams).then(result => (
+    if (fetchParams.savedIn !== undefined) {
+      getAllReports({
+        ...fetchParams,
+        in: fetchParams.savedIn,
+      }).then(result => (
         updateBookmarkReport(result?.edges)
+      ))
+    }
+    if (fetchParams.downloadIn !== undefined) {
+      getAllReports({
+        ...fetchParams,
+        in: fetchParams.downloadIn,
+      }).then(result => (
+        updateDownloadedReport(result?.edges)
       ))
     }
   }, [fetchParams])
@@ -75,6 +97,10 @@ export default function Report({
       alert('저장 실패')
     }
   }
+
+  const handleClickedType = (clicked) => {
+    setClickedType(clicked)
+  }
   
   return (
     <>
@@ -86,16 +112,25 @@ export default function Report({
           </div>
 
           <div className="saved-read">
-            <button className="black-button">
+            <button 
+              className={`${clickedType === 'saved' ? 'black-button' : ''}`}
+              onClick={() => handleClickedType('saved')}
+            >
               {t('saved')} {`(${bookmark?.report?.length || 0})`}
+            </button>
+            <button
+              className={`${clickedType === 'download' ? 'black-button' : ''}`}
+              onClick={() => handleClickedType('download')}
+            >
+              {t('download')} {`(${read?.report?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
       
-      {bookmark?.report?.length ? (
+      {(clickedType === 'saved' ? bookmark : read)?.report?.length ? (
         <div id="saved-content">
-          {bookmark?.report?.map(({ node }) => (
+          {(clickedType === 'saved' ? bookmark : read)?.report?.map(({ node }) => (
             <ReportCard
               key={node.id}
               onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
@@ -105,7 +140,7 @@ export default function Report({
         </div>
       ) : (
         <div id="default-text">
-          <p className="none-saved-text">{t('report_none')}</p>
+          <p className="none-saved-text">{t(`report_none_${clickedType}`)}</p>
           <p className="explore-text">{t('report_explore')}</p>
 
           <Link href={{ pathname: `/${lang}/report` }}>

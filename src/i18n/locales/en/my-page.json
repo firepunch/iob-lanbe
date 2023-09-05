@@ -14,12 +14,14 @@
 
   "saved": "Saved",
   "read": "Read",
+  "download": "Downloaded",
 
   "content_none_saved": "You haven't saved anything yet.",
   "content_none_read": "You haven't read anything yet.",
   "content_explore": "Check out our contents page and explore now!",
 
-  "report_none": "You haven't saved anything yet.",
+  "report_none_saved": "You haven't saved anything yet.",
+  "report_none_download": "You haven't downloaded anything yet.",
   "report_explore": "Check out our reports page and explore now!",
 
   "ideas_none": "You don’t have any idea notes yet.",
