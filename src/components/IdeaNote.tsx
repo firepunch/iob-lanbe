@@ -10,6 +10,7 @@ import { ValidLocale } from '@/types'
 import { dateFormat, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 const translationJson = {
@@ -40,6 +41,7 @@ interface IIdeaNoteProps {
   lang: ValidLocale
   content?: string
   post_title?: string
+  post_name?: string
   updated_at?: string
   onSubmit?: (value: string) => void
   onDelete?: () => void
@@ -50,6 +52,7 @@ export default function IdeaNote ({
   lang,
   content,
   post_title: postTitle,
+  post_name: postSlug,
   updated_at: updatedAt,
   onSubmit,
   onDelete,
@@ -125,7 +128,13 @@ export default function IdeaNote ({
             {value}
           </p>
           <p className="ideanote-content-title">
-            {postTitle}
+            {postSlug ? (
+              <Link href={`/${lang}/content/${postSlug}`}>
+                {postTitle}
+              </Link>
+            ) : (
+              postTitle
+            )}
           </p>
           <p className="date">
             {updatedAt && dateFormat(updatedAt, true)}
