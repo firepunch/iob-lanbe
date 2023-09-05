@@ -36,6 +36,7 @@ query AllReports(
         slug
         date
         excerpt
+        viewCounts
         reportTags {
           nodes {
             id
