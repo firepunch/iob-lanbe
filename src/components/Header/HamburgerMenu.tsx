@@ -156,7 +156,7 @@ export default function MobileMenu({
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
             {isUser ? (
-              <Link href="/my-page/content">
+              <Link href={`/${lang}/my-page/content`}>
                 <h2>{t('my_page')}</h2>
               </Link>
             ) : (
