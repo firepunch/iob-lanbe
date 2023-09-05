@@ -1,5 +1,6 @@
 {
   "results_for": " 검색결과 ",
+  "results_len": "개",
   "content": "콘텐츠",
   "report": "리포트",
   "recommend": "추천 콘텐츠",
@@ -12,7 +13,7 @@
   "email": "이메일",
   "email_placeholder": "이메일을 입력해주세요.",
   "message": "내용",
-  "message_placeholder": "받고 싶은 도움을 알려주세요.",
+  "message_placeholder": "내용을 입력해주세요.",
   "send": "전송",
 
   "try_again_1": "다른 키워드로 ",
