@@ -14,7 +14,7 @@ import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'
 import useUserState from '@/stores/userStore'
 
-export default function MobileMenu({
+export default function HamburgerMenu({
   lang,
 }: {
   lang: ValidLocale
@@ -156,7 +156,7 @@ export default function MobileMenu({
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
             {isUser ? (
-              <Link href="/my-page/content">
+              <Link href={`/${lang}/my-page/content`}>
                 <h2>{t('my_page')}</h2>
               </Link>
             ) : (

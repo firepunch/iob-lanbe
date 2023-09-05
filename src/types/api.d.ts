@@ -21,6 +21,12 @@ export interface IFetchNotes {
   post_id?: number
 }
 
+export interface ICountData {
+  user_id: number
+  content_id?: number
+  type?: 'post' | 'report'
+}
+
 export interface ICreateNote {
   user_id: number
   post_id: number

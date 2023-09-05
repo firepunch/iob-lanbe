@@ -8,6 +8,7 @@ import {
   IFetchWatchList,
   IBodyWatchList,
   IUpdateNote,
+  ICountData,
 } from './types/api'
 import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
 
@@ -117,6 +118,50 @@ export async function sendPWLink(email: string) {
   return res
 }
 
+export async function fetchCountContent(queryParams: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/view',
+    method: 'GET',
+    queryParams,
+  })
+
+  return res
+}
+
+export async function updateCountView(data: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/view',
+    method: 'PUT',
+    data,
+  })
+
+  return res
+}
+
+export async function updateCountDownload(data: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/download',
+    method: 'POST',
+    data,
+  })
+
+  return res
+}
+
+export async function fetchCountDownload(queryParams: ICountData) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/count/download',
+    method: 'GET',
+    queryParams,
+  })
+
+  return res
+}
+
 export async function sendEmailForm(data) {
   const res = await fetchAPI({
     prefixPath: 'formAPI',
@@ -159,21 +204,25 @@ export async function fetchWatchList(queryParams: IFetchWatchList) {
 }
 
 export async function createWatchList(data: IBodyWatchList) {
-  return fetchAPI({
+  const res = fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'POST',
     data,
   })
+
+  return res
 }
 
 export async function removeWatchList(data: IBodyWatchList) {
-  return fetchAPI({
+  const res = fetchAPI({
     prefixPath: 'customAPI',
     path: '/watchlist',
     method: 'DELETE',
     data,
   })
+
+  return res
 }
 
 export async function fetchNotes(queryParams: IFetchNotes) {

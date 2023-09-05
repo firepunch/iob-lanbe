@@ -112,7 +112,10 @@ export const sort2variables = (type: string) => {
   const map = {
     newest: { field: 'DATE', order: 'DESC' },
     oldest: { field: 'DATE', order: 'ASC' },
-    most_viewed: { field: 'DATE', order: 'DESC' },
+    most_viewed: { field: 'VIEW_COUNTS', order: 'DESC' },
+    newest_report: { field: 'DATE', order: 'DESC' },
+    oldest_report: { field: 'DATE', order: 'ASC' },
+    most_viewed_report: { field: 'VIEW_COUNTS', order: 'ASC' },
   }
 
   return map[type] || map.newest

@@ -138,8 +138,8 @@ export interface IDownload {
 }
 
 export interface ISearchResult {
-  posts: { node: IPost }[]
-  products: { node: IReport}[]
+  posts: IPosts
+  reports: IReports
 }
 
 export interface IUser {

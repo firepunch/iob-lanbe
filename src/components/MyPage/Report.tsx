@@ -8,8 +8,15 @@ import { getAllReports, getProductBySaved } from '@/api_gql'
 import useUserState from '@/stores/userStore'
 import { getUserId } from '@/utils/lib'
 import { ReportCard } from '../ReportCard'
-import { createWatchList, fetchWatchList, removeWatchList } from '@/api_wp'
+import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
 import { ILanbeContent } from '@/types/store'
+
+interface IFetchParams {
+  language: string
+  userId: number
+  savedIn?: string[]
+  downloadIn?: string[]
+}
 
 export default function Report({
   t,
@@ -20,11 +27,13 @@ export default function Report({
   lang: ValidLocale
   userId: number
 }) {
-  const { bookmark, updateBookmarkReport } = useUserState(state => state)
-  const [fetchParams, setFetchParams] = useState({
+  const { bookmark, read, updateBookmarkReport, updateDownloadedReport } = useUserState(state => state)
+  const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')
+  const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
     userId,
-    in: undefined,
+    savedIn: undefined,
+    downloadIn: undefined,
   })
 
   useEffect(() => {
@@ -34,46 +43,67 @@ export default function Report({
     }).then(result => {
       setFetchParams(prev => ({
         ...prev,
-        in: result?.ids,
+        savedIn: result?.ids,
+      }))
+    })
+    
+    fetchCountDownload({
+      user_id: userId,
+    }).then(result => {
+      setFetchParams(prev => ({
+        ...prev,
+        downloadIn: result?.ids,
       }))
     })
   }, [])
 
   useEffect(() => {
-    if (fetchParams.in !== undefined) {
-      getAllReports(fetchParams).then(result => (
+    if (fetchParams.savedIn !== undefined) {
+      getAllReports({
+        ...fetchParams,
+        in: fetchParams.savedIn,
+      }).then(result => (
         updateBookmarkReport(result?.edges)
+      ))
+    }
+    if (fetchParams.downloadIn !== undefined) {
+      getAllReports({
+        ...fetchParams,
+        in: fetchParams.downloadIn,
+      }).then(result => (
+        updateDownloadedReport(result?.edges)
       ))
     }
   }, [fetchParams])
 
-  const handleToggleBookmark = async (contentId: number) => {
+  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
-      await removeWatchList({
-        type: 'report',
-        content_id: contentId,
-        user_id: userId,
-      })
-
-      const result = await fetchWatchList({
-        type: 'report',
-        user_id: userId,
-      })
-
-      if (result?.ids) {
-        setFetchParams(prev => ({
-          ...prev,
-          in: result.ids,
-        }))
+      let result = { ids: [] }
+      if (isSaved) {
+        result = await removeWatchList({
+          type: 'report',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       } else {
-        setFetchParams(prev => ({
-          ...prev,
-        }))
+        result = await createWatchList({
+          type: 'report',
+          content_id: databaseId,
+          user_id: userId,
+        }) 
       }
+
+      setFetchParams(prev => ({
+        ...prev,
+        savedIn: result?.ids,
+      }))
     } catch (err) {
       console.log(err)
-      alert('저장 실패')
     }
+  }
+
+  const handleClickedType = (clicked) => {
+    setClickedType(clicked)
   }
   
   return (
@@ -86,26 +116,40 @@ export default function Report({
           </div>
 
           <div className="saved-read">
-            <button className="black-button">
+            <button 
+              className={`${clickedType === 'saved' ? 'black-button' : ''}`}
+              onClick={() => handleClickedType('saved')}
+            >
               {t('saved')} {`(${bookmark?.report?.length || 0})`}
+            </button>
+            <button
+              className={`${clickedType === 'download' ? 'black-button' : ''}`}
+              onClick={() => handleClickedType('download')}
+            >
+              {t('download')} {`(${read?.report?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
       
-      {bookmark?.report?.length ? (
+      {(clickedType === 'saved' ? bookmark : read)?.report?.length ? (
         <div id="saved-content">
-          {bookmark?.report?.map(({ node }) => (
+          {(clickedType === 'saved' ? bookmark : read)?.report?.map(({ node }) => (
             <ReportCard
               key={node.id}
-              onToggleBookmark={() => handleToggleBookmark(node.databaseId)}
+              onToggleBookmark={() => (
+                handleToggleBookmark({
+                  isSaved: node.lanbeContent.is_save,
+                  databaseId: node.databaseId,
+                })
+              )}
               {...node}
             />
           ))}
         </div>
       ) : (
         <div id="default-text">
-          <p className="none-saved-text">{t('report_none')}</p>
+          <p className="none-saved-text">{t(`report_none_${clickedType}`)}</p>
           <p className="explore-text">{t('report_explore')}</p>
 
           <Link href={{ pathname: `/${lang}/report` }}>

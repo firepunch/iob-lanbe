@@ -90,105 +90,6 @@
   width: 100%;
   // position: relative;
 
-  // fixed icons on right side
-  #content-fixed-icons {
-    width: 2.5rem;
-    height: 12.25rem;
-    z-index: 10;
-
-    display: block;
-    position: sticky;
-    top: 60%;
-    left: 85%;
-
-    .buttons-wrap {
-      button {
-        width: 2.5rem;
-        height: 2.5rem;
-        @include flex-center;
-        margin: 0.75rem 0;
-
-        border: none;
-        background-color: $orange;
-      }
-
-      .arrow-button img {
-        width: 1.5rem;
-      }
-
-      .bookmark-button,
-      .share-button {
-        img {
-          width: 1.25rem;
-        }
-      }
-
-      .share-button {
-        position: relative;
-
-        .share-menu {
-          display: none;
-          position: absolute;
-          top: 0;
-          right: 3rem;
-          flex-direction: column;
-          padding: rem(24) rem(24);
-          background-color: $black;
-          color: $white;
-          border: 1px solid $black;
-          border-radius: 1rem 0 1rem 1rem;
-
-          button {
-            // reset style
-            height: auto;
-            margin: 0;
-            cursor: pointer;
-            background-color: $black;
-            color: $white;
-          }
-
-          .share-link {
-            width: rem(240);
-            font-size: 1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: rem(10) rem(6) rem(3);
-            border-bottom: 2px solid $white;
-
-            svg {
-              width: rem(20);
-              height: rem(20);
-            }
-
-            &:first-child {
-              padding-top: 0;
-            }
-          }
-
-          &.show {
-            display: flex;
-          }
-        }
-      }
-
-      // 추가
-      .bookmark-button {
-        img {
-          filter: invert(100%);
-        }
-      }
-
-      .font-size {
-        p {
-          font-size: 1.25rem;
-          font-weight: $bold-font-weight;
-        }
-      }
-    }
-  }
-
   // first 10% of text
   #content-details {
     width: 85%;
@@ -226,7 +127,7 @@
 
     &.zoomed {
       font-size: 1.2rem;
-      line-height: 1.4;
+      line-height: 1.6;
       .wp-block-heading strong,
       strong {
         font-size: 1.4rem;
@@ -655,11 +556,6 @@
       margin: auto;
     }
 
-    #content-fixed-icons {
-      left: 90%;
-      top: 50%;
-    }
-
     #two-large-images-layout {
       flex-direction: row;
 
@@ -727,10 +623,6 @@
 
     .content-article {
       margin: auto;
-    }
-
-    #content-fixed-icons {
-      top: 35%;
     }
 
     #content-details {

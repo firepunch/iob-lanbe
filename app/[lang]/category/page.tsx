@@ -56,12 +56,12 @@ export default function Category({
       ...fetchParams,
       categoryName: fetchParams?.countries?.join(','),
     }).then(result => {
-      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER
+      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
       updatePosts({
         edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
         pageInfo: {
           ...result.pageInfo,
-          initTotal: posts.pageInfo?.initTotal || result.pageInfo.total,
+          initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
         },
       })
     })

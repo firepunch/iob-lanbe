@@ -36,6 +36,7 @@ query AllReports(
         slug
         date
         excerpt
+        viewCounts
         reportTags {
           nodes {
             id
@@ -48,7 +49,7 @@ query AllReports(
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId) {
+        lanbeContent(user_id: $userId, type: "report") {
           is_save
           country
           pages

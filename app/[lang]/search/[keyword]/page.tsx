@@ -14,20 +14,22 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
-  const { searchResult, recommend, updateSearchResult , updateRecommend } = useContentState(state => state)
+  const { searchResult, recommend, updateSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
   const userId = getUserId()
-  const totalLength = (searchResult?.posts?.length || 0) + (searchResult?.products?.length || 0)
+  const totalLength = (searchResult?.posts?.pageInfo.total || 0) + (searchResult?.reports?.pageInfo.total || 0)
+  const [loading, setLoading] = useState(false)
   const [params] = useState({
-    postLanguage: lang.toUpperCase(),
-    reportLanguage: lang,
+    language: lang.toUpperCase(),
     userId,
-    keyword,
+    keyword: decodeURIComponent(keyword),
   })
 
   useEffect(() => {
+    setLoading(true)
     getSearchResults(params).then(result => {
       updateSearchResult(result)
+      setLoading(false)
     })
   }, [params, updateSearchResult])
 
@@ -76,12 +78,18 @@ export default function Search({
     }
   }
 
+  if (loading) {
+    return 'loading'
+  }
+
   return (
     <>
       <section className={`search-result-text ${Boolean(totalLength) ? '' : 'search-noresult-text'}`}>
-        <p>
-          {totalLength}{t('results_for')}&apos;{decodeURIComponent(keyword)}&lsquo;
-        </p>
+        {lang === 'en' ? (
+          <p>{totalLength}{t('results_for')}&apos;{params.keyword}&lsquo;</p>
+        ) : (
+          <p>&apos;{params.keyword}&lsquo;{t('results_for')}{totalLength}{t('results_len')}</p>
+        )}
 
         {totalLength === 0 && (
           <p className="no-result-notice">
@@ -127,7 +135,7 @@ export default function Search({
             </div>
 
             <div id="search-result-contents-wrap">
-              {searchResult?.posts?.map(({ node }) => (
+              {searchResult?.posts?.edges?.map(({ node }) => (
                 <PostCard
                   key={node.id}
                   onToggleBookmark={() => (
@@ -148,7 +156,7 @@ export default function Search({
             </div>
 
             <div id="search-result-reports-wrap">
-              {searchResult?.products?.map(({ node }) => (
+              {searchResult?.reports?.edges?.map(({ node }) => (
                 <ReportCard
                   key={node.id}
                   onToggleBookmark={() => (

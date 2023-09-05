@@ -1,8 +1,8 @@
 'use client'
 
 import { getContentBySlug, getContents } from '@/api_gql'
-import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateNote } from '@/api_wp'
-import { Bookmark, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
+import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
+import { Bookmark, Icons, ContentWall, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
@@ -39,6 +39,12 @@ export default function Category({
         post_id: contentId,
       }).then(result => {
         updateNotes(result)
+      })
+
+      updateCountView({
+        user_id: userId,
+        content_id: contentId,
+        type: 'post',
       })
     }
   }, [post?.id])
@@ -200,34 +206,39 @@ export default function Category({
                 <p>{dateEnFormat(post?.date)}</p>
               </div>
             </div>
-            {/* content details: title, author, tags, date, etc. */}
 
-            {/* className={cls(styles.content, { [styles.large]: isZoomed })} */}
+            {!userId && (
+              <ContentWall lang={lang} t={t} />
+            )}
             <div
               className={`content-article ${isZoomed ? 'zoomed' : ''}`}
               dangerouslySetInnerHTML={{ __html: post.content }} 
             />
           </section>
 
-          {/* idea notes wrap */}
-          <section id="idea-notes">
-            <h5>{t('idea_h5')}</h5>
-            <div className="idea-note-wrap">
-              {notes?.map(item => (
-                <IdeaNote
-                  key={item.id}
-                  type="view"
-                  lang={lang}
-                  onSubmit={value => handleUpdateNote(item.id, value)}
-                  onDelete={() => handleDeleteNote(item.id)}
-                  {...item}
-                />
-              ))}
-              {notes?.length < 4 && (
-                <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
-              )}
-            </div>
-          </section>
+          {userId ? (
+            <section id="idea-notes">
+              <h5>{t('idea_h5')}</h5>
+              <div className="idea-note-wrap">
+                {notes?.map(item => (
+                  <IdeaNote
+                    key={item.id}
+                    type="view"
+                    lang={lang}
+                    onSubmit={value => handleUpdateNote(item.id, value)}
+                    onDelete={() => handleDeleteNote(item.id)}
+                    {...item}
+                  />
+                ))}
+                {notes?.length === 0 && (
+                  <IdeaNote type="edit" lang={lang} content={undefined} onSubmit={handleCreateNote} />
+                )}
+                {notes?.length < 4 && (
+                  <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
+                )}
+              </div>
+            </section>
+          ) : null}
         </>
       ) : (
         <div id="idea-notes">

@@ -10,6 +10,7 @@ import { ValidLocale } from '@/types'
 import { dateFormat, isValidToken } from '@/utils/lib'
 import Image from 'next/image'
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 const translationJson = {
@@ -40,6 +41,7 @@ interface IIdeaNoteProps {
   lang: ValidLocale
   content?: string
   post_title?: string
+  post_name?: string
   updated_at?: string
   onSubmit?: (value: string) => void
   onDelete?: () => void
@@ -50,6 +52,7 @@ export default function IdeaNote ({
   lang,
   content,
   post_title: postTitle,
+  post_name: postSlug,
   updated_at: updatedAt,
   onSubmit,
   onDelete,
@@ -76,7 +79,6 @@ export default function IdeaNote ({
     if (onSubmit) {
       setNoteType('added')
       onSubmit(value)
-      setNoteType('add')
       setValue(undefined)
     }
   }
@@ -115,33 +117,6 @@ export default function IdeaNote ({
         </button>
       </div>
     ),
-    view: (
-      <div className="ideanote ideanote-after">
-        <Image src={LimeBg} className="note note-bg" alt="Idea note lime color" />
-        <p className="user-note">
-          {value}
-        </p>
-        <p className="ideanote-content-title">
-          {postTitle}
-        </p>
-        <p className="date">
-          {updatedAt && dateFormat(updatedAt, true)}
-        </p>
-        <Image src={EditIcon} className="edit" alt="Edit" onClick={() => setNoteType('edit')}/>
-        <Image src={DeleteIcon} className="delete" alt="Delete" onClick={() => setShowConfirmModal(true)} />
-
-        {showConfirmModal && (
-          <div className="delete-modal">
-            <p>Are you sure you want to delete this note?</p>
-              
-            <div className="buttons-wrap">
-              <button type="button">Cancel</button>
-              <button type="button">Delete</button>
-            </div>
-          </div>
-        )}
-      </div>
-    ),
   }
   
   return (
@@ -153,7 +128,13 @@ export default function IdeaNote ({
             {value}
           </p>
           <p className="ideanote-content-title">
-            {postTitle}
+            {postSlug ? (
+              <Link href={`/${lang}/content/${postSlug}`}>
+                {postTitle}
+              </Link>
+            ) : (
+              postTitle
+            )}
           </p>
           <p className="date">
             {updatedAt && dateFormat(updatedAt, true)}
