@@ -13,8 +13,10 @@
   "category": "카테고리",
 
   "saved": "저장됨",
+  "read": "읽음",
 
-  "content_none": "아직 저장된 콘텐츠가 없어요.",
+  "content_none_saved": "아직 저장된 콘텐츠가 없어요.",
+  "content_none_read": "아직 읽은 콘텐츠가 없어요.",
   "content_explore": "지금 바로 다양한 콘텐츠를 찾아보세요.",
 
   "report_none": "아직 저장된 리포트가 없어요.",

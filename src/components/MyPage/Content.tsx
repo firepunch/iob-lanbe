@@ -1,7 +1,7 @@
 'use client'
  
 import { getPosts } from '@/api_gql'
-import { fetchWatchList, removeWatchList } from '@/api_wp'
+import { fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
 import { useTranslation } from '@/i18n/client'
 import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
@@ -11,6 +11,7 @@ import CategoryFilter from '../CategoryFilter'
 import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
+import { IPost } from '@/types/store'
 
 export default function Content({
   t,
@@ -22,12 +23,14 @@ export default function Content({
   userId: number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const { bookmark, updateBookmarkPost } = useUserState(state => state)
+  const { bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
   const [openCategory, setOpenCategory] = useState<boolean>(false)
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(),
-    in: undefined,
+    savedIn: undefined,
+    readIn: undefined,
     categories: [],
     countries: [],
     userId,
@@ -40,18 +43,37 @@ export default function Content({
     }).then(result => {
       setFetchParams(prev => ({
         ...prev,
-        in: result?.ids,
+        savedIn: result?.ids,
+      }))
+    })
+    fetchCountContent({
+      type: 'post',
+      user_id: userId,
+    }).then(result => {
+      setFetchParams(prev => ({
+        ...prev,
+        readIn: result?.ids,
       }))
     })
   }, [])
 
   useEffect(() => {
-    if (fetchParams.in !== undefined) {
+    if (fetchParams.savedIn !== undefined) {
       getPosts({
         ...fetchParams,
         categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        in: fetchParams.savedIn,
       }).then(result => (
         updateBookmarkPost(result?.edges)
+      ))
+    }
+    if (fetchParams.readIn !== undefined) {
+      getPosts({
+        ...fetchParams,
+        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        in: fetchParams.readIn,
+      }).then(result => (
+        updateReadPost(result?.edges)
       ))
     }
   }, [fetchParams])
@@ -99,6 +121,10 @@ export default function Content({
     }))
   }
 
+  const handleClickedType = (clicked) => {
+    setClickedType(clicked)
+  }
+
   return (
     <>
       <div id="default-title">
@@ -137,16 +163,25 @@ export default function Content({
           </div>
 
           <div className="saved-read">
-            <button className="black-button">
+            <button 
+              className={`${clickedType === 'saved' ? 'black-button' : '' }`}
+              onClick={() => handleClickedType('saved')}
+            >
               {t('saved')} {`(${bookmark?.post?.length || 0})`}
+            </button>
+            <button 
+              className={`${clickedType === 'read' ? 'black-button' : '' }`}
+              onClick={() => handleClickedType('read')}
+            >
+              {t('read')} {`(${read?.post?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
 
-      {bookmark?.post?.length ? (
+      {(clickedType === 'saved' ? bookmark : read)?.post?.length ? (
         <div id="saved-content">
-          {bookmark.post?.map(({ node }) => (
+          {(clickedType === 'saved' ? bookmark : read)?.post?.map(({ node }) => (
             <PostCard
               {...node}
               key={node.id}
@@ -156,7 +191,7 @@ export default function Content({
         </div>
       ) : (
         <div id="default-text">
-          <p className="none-saved-text">{t('content_none')}</p>
+          <p className="none-saved-text">{t(`content_none_${clickedType}`)}</p>
           <p className="explore-text">{t('content_explore')}</p>
 
           <Link href={{ pathname: `/${lang}/category` }}>
