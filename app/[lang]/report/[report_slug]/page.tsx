@@ -23,7 +23,7 @@ export default function Report({
 
   useEffect(() => {
     getReportBySlug({
-      reportSlug: encodeURIComponent(report_slug), 
+      reportSlug: decodeURI(report_slug), 
       userId,
       email,
     }).then(result => {
@@ -53,7 +53,7 @@ export default function Report({
       }
 
       const result = await getReportBySlug({
-        reportSlug: encodeURIComponent(report_slug), 
+        reportSlug: decodeURI(report_slug), 
         userId,
         email,
       })
