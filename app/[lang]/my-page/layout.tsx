@@ -6,14 +6,14 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
 
 import ContentIcon from '@/imgs/content_icon.png'
 import IdeasIcon from '@/imgs/ideas_icon.png'
 import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
-import { dateEnFormat, getUser } from '@/utils/lib'
+import { AUTH_TOKEN, dateEnFormat, getUser, removeStorageData } from '@/utils/lib'
 import useUserState from '@/stores/userStore'
 
 const TAB_MAP = {
@@ -29,11 +29,18 @@ const Layout = ({
 }: {
   params: { lang: ValidLocale },
 }) => {
+  const router = useRouter()
+  const segment = useSelectedLayoutSegment()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
-  const segment = useSelectedLayoutSegment()
   const { userId } = getUser()
-  const user = useUserState(state => state.user)
+  const { user, updateUser } = useUserState(state => state)
+
+  const handleLogout = () => {
+    removeStorageData(AUTH_TOKEN)
+    updateUser()
+    router.replace(`/${lang}/sign-in`)
+  }
 
   return (
     <div id="beige-bg-wrap">
@@ -41,6 +48,7 @@ const Layout = ({
         <div className="mypage-buttons-wrap">
           <p className="user-name">{t('hi')}{user?.name}!</p>
           <p className="member-info">{t('member_since')}{dateEnFormat(user?.registeredDate)}</p>
+          <button className="member-info logout-button" onClick={handleLogout}>{t('logout')}</button>
 
           <div className="buttons-wrap">
             <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.content}` }}>

@@ -29,7 +29,8 @@ main {
 
       position: absolute;
 
-      p {
+      p,
+      .logout-button {
         text-align: center;
         color: $white;
         margin: 0.5rem 0;
@@ -41,7 +42,8 @@ main {
       }
 
       .user-name,
-      .member-info {
+      .member-info,
+      .logout-button {
         width: 15rem;
         position: absolute;
         @include absolute-center;
@@ -50,6 +52,13 @@ main {
 
       .member-info {
         top: 8rem;
+      }
+
+      .logout-button {
+        top: 10rem;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
       }
 
       .buttons-wrap {

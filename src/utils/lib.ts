@@ -20,13 +20,6 @@ export const generateRandomString = () => (
 )
 
 export const AUTH_TOKEN = 'IOB_TOKENS'
-export const setStorageData = (key: string, data: string | object, isRemember = false) => {
-  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
-
-  isRemember ?
-    sessionStorage.setItem(key, JSON.stringify(data)) :
-    localStorage.setItem(key, JSON.stringify(data))
-}
 
 type Tokens = {
   authToken?: string
@@ -39,6 +32,14 @@ type Tokens = {
 
 interface IGetStorageData {
   (key: string): [undefined, undefined] | [Tokens, boolean]
+}
+
+export const setStorageData = (key: string, data: string | object, isRemember = false) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+
+  isRemember ?
+    sessionStorage.setItem(key, JSON.stringify(data)) :
+    localStorage.setItem(key, JSON.stringify(data))
 }
 
 export const getStorageData:IGetStorageData = (key: string) => {
@@ -55,10 +56,12 @@ export const getStorageData:IGetStorageData = (key: string) => {
   return [JSON.parse(item), Boolean(rememberData)]
 }
 
-function remove_data(key) {
-  if (!window.localStorage || !window.JSON || !key) {
+export const removeStorageData = (key: string) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) {
     return
   }
+
+  sessionStorage.removeItem(key)
   localStorage.removeItem(key)
 }
 

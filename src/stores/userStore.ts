@@ -19,7 +19,7 @@ interface UserState extends Tokens {
   reports?: { node: IReport }[]
   bookmark: { post: { node: IPost }[], report: { node: IReport }[] }
   read: { post: { node: IPost }[], report: { node: IReport }[] }
-  updateUser: (user: IUser) => void
+  updateUser: (user?: IUser) => void
   updateUserInfo: (userInfo: any) => void
   updateTokens: (tokens: Tokens) => void
   updateOrder: (order: IOrder) => void
