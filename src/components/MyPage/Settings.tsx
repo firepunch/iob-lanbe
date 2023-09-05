@@ -18,6 +18,7 @@ export default function Settings({
 }) {
   const { userInfo, updateUserInfo } = useUserState(state => state)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
+  const [infoMessage, setInfoMessage] = useState<string>()
 
   useEffect(() => {
     if (userId) {
@@ -36,13 +37,15 @@ export default function Settings({
     const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
     const pwFound = (formProps?.newPassword as string)?.match(regex)
 
-    if (!pwFound) {
-      setErrorMessages(prev => ({
-        ...prev,
-        password: t('password_rule_error'),
-      }))
-      return
-    }
+    if (formProps?.newPassword) {
+      if (!pwFound) {
+        setErrorMessages(prev => ({
+          ...prev,
+          password: t('password_rule_error'),
+        }))
+        return
+      }
+    } 
 
     if (formProps?.userFunction === 'Default') {
       setErrorMessages(prev => ({
@@ -61,17 +64,25 @@ export default function Settings({
     }
 
     try {
-      await updateWPUser({
+      const result = await updateWPUser({
         ...formProps,
         user_id: userId,
         username: formProps.email,
       })
-      alert('수정 성공')
-      // TODO Update user
+
+      if (result.message) {
+        setInfoMessage(result.message)
+      } else {
+        setInfoMessage(t('updated_userinfo_success'))
+      }
     } catch (err) {
       console.error(err)
-      alert('수정 실패')
+      setInfoMessage(t('updated_userinfo_fail'))
     }
+  }
+
+  if (!userInfo) {
+    return 'loading'
   }
 
   return (
@@ -92,7 +103,7 @@ export default function Settings({
                   isRequired
                   name="firstName"
                   label={t('first_name')}
-                  defaultValue={userInfo?.display_name?.split(' ')[0]}
+                  defaultValue={userInfo?.first_name}
                   errorMessage={errorMessages?.firstName}
                 />
             
@@ -100,7 +111,7 @@ export default function Settings({
                   isRequired
                   name="lastName"
                   label={t('last_name')}
-                  defaultValue={userInfo?.display_name?.split(' ')[1]}
+                  defaultValue={userInfo?.last_name}
                   errorMessage={errorMessages?.lastName}
                 />
               </div>
@@ -218,20 +229,31 @@ export default function Settings({
             <h3>{t('email-notify')}</h3>
 
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletterChk" defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} />
+              <input 
+                type="checkbox" 
+                id="newsletter" 
+                name="newsletterChk" 
+                defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} 
+              />
               <label htmlFor="newsletter">
                 {t('newsletter')}
               </label>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketingChk" defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} />
+              <input 
+                type="checkbox" 
+                id="marketing" 
+                name="marketingChk" 
+                defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} 
+              />
               <label htmlFor="marketing">
                 {t('marketing')}  
               </label>
             </div>
           </div>
 
+          <p>{infoMessage}</p>
           <div className="save-button">
             <button type="submit">{t('save')}</button>
           </div>

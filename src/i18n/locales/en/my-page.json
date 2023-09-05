@@ -61,5 +61,7 @@
   
   "password_rule_error": "Your password does not meet the requirements.",
   "function_required": "Function is required",
-  "country_required": "Country is required"
+  "country_required": "Country is required",
+  "updated_userinfo_success": "User information updated successfully.",
+  "updated_userinfo_fail": "User information update failed."
 }

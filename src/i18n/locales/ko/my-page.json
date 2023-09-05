@@ -61,5 +61,7 @@
   
   "password_rule_error": "비밀번호가 일치하지 않습니다.",
   "function_required": "업무 영역을 선택해주세요.",
-  "country_required": "국가를 선택해주세요."
+  "country_required": "국가를 선택해주세요.",
+  "updated_userinfo_success": "사용자 정보를 성공적으로 수정했습니다.",
+  "updated_userinfo_fail": "사용자 정보 수정에 실패하였습니다."
 }
