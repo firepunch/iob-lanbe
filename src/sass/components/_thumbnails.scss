@@ -63,6 +63,7 @@
 
 // report thumbnail
 .indiv-report {
+  width: 100%;
   .thumbnail {
     width: 100%;
     height: 12rem;
@@ -97,6 +98,10 @@
 }
 
 @media (min-width: 768px) {
+  .iob-latest-report .indiv-report {
+    width: 33%;
+  }
+
   .indiv-content,
   .indiv-report {
     .thumbnail {

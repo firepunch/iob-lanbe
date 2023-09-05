@@ -16,8 +16,8 @@ export const ReportCard = ({
   onToggleBookmark,
 }: ReportCardProps) => {
   return (
-    <Link href={`/report/${encodeURIComponent(slug)}`}>
-      <div className="indiv-report i-r-1">
+    <div className="indiv-report i-r-1">
+      <Link href={`/report/${encodeURIComponent(slug)}`}>
         <div className="thumbnail">
           {featuredImage ? (
             <Image 
@@ -40,7 +40,7 @@ export const ReportCard = ({
         <p className="report-description">
           {excerpt?.replace(/(\<p\>)|(\<\/p\>)/gi, '')}
         </p>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }
