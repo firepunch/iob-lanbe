@@ -109,7 +109,7 @@ query reportBySlug($reportSlug: ID!, $userId: Float) {
         altText
       }
     }
-    lanbeContent(user_id: $userId) {
+    lanbeContent(user_id: $userId, type: "report") {
       is_save
       pages
       downloadFile
