@@ -1,3 +1,9 @@
+.iob-single-content.guest-user {
+  #content-fixed-icons .buttons-wrap {
+    display: none;
+  }
+}
+
 // content title page
 #content-title-page {
   width: 100%;
@@ -116,6 +122,59 @@
       p:nth-child(2) {
         font-size: 0.75rem;
         color: #b0b0b0;
+      }
+    }
+  }
+
+  .signin-wall,
+  .signin-wall .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signin-wall {
+    width: 100;
+    padding: rem(38) rem(33) rem(80);
+    background-color: $white;
+    border-top: 1px solid $black;
+
+    p {
+      text-align: center;
+      margin-bottom: rem(30);
+
+      &.desc {
+        font-size: rem(14);
+        margin: 0 rem(40) rem(34);
+      }
+
+      span {
+        background-color: $lime;
+        font-size: rem(18);
+        font-weight: bold;
+      }
+    }
+
+    .button-wrapper {
+      width: 100%;
+
+      a {
+        @include mobile-button-style($black);
+        margin: 0 0 rem(12);
+
+        &.black {
+          background-color: $black;
+          color: $white;
+        }
+      }
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+
+        a.black {
+          margin-left: rem(24);
+        }
       }
     }
   }

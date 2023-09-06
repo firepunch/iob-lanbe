@@ -16,12 +16,17 @@ export default function ContentWall({
       <h3>{t('wall_h3')}</h3>
       <p>
         {t('wall_p1')}
+        <br className="mobile-br"/>
         <span>{t('wall_keyword1')}</span>
         {t('wall_p2')}
         <span>{t('wall_keyword2')}</span>
         {t('wall_p3')}
       </p>
-      <p>{t('wall_desc')}</p>
+      <p className="desc">
+        {t('wall_desc1')}
+        <br className="mobile-br"/>
+        {t('wall_desc2')}
+      </p>
       <div className="button-wrapper">
         <Link href={`/${lang}/sign-up`}>
           {t('wall_signup')}
