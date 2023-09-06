@@ -2,10 +2,9 @@
 
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { isValidUser } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Icons from '../Icons'
 import SearchWall from '../SearchWall'
 import HamburgerMenu from './HamburgerMenu'
@@ -22,23 +21,12 @@ export default function Header({
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
   const { user, updateUser } = useUserState(state => state)
-  const { isValid, user: storageUser } = isValidUser()
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
-  const [isUser, setIsUser] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (storageUser) updateUser(storageUser)
-  }, [])
-
-  useEffect(() => {
-    setIsUser(Boolean(isValid || user))
-  }, [isValid, user])
 
   return (
     <header>
       {/* mobile version change language */}
       <LanguageSwitcher isSimple lang={lang} className="language-mobile" />
-      {/* //mobile version change language */}
 
       {/* web version nav */}
       <h1>
@@ -145,7 +133,7 @@ export default function Header({
             </span>
           </li>
           <li>
-            {isUser ? (
+            {user?.databaseId ? (
               <Link href={`/${lang}/my-page/content`}>
                 {t('h_my_page')}
               </Link>

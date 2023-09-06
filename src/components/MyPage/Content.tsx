@@ -11,7 +11,6 @@ import CategoryFilter from '../CategoryFilter'
 import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { IPost } from '@/types/store'
 
 interface IFetchParams {
   language: string
@@ -29,10 +28,10 @@ export default function Content({
 }: {
   t: TI18N
   lang: ValidLocale
-  userId: number
+  userId:number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const { bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const {  bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
   const [openCategory, setOpenCategory] = useState<boolean>(false)
@@ -42,7 +41,7 @@ export default function Content({
     readIn: undefined,
     categories: [],
     countries: [],
-    userId,
+    userId: userId,
   })
 
   useEffect(() => {

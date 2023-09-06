@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { deleteNote, fetchNotes, updateNote } from '@/api_wp'
 import IdeaNote from '../IdeaNote'
+import useUserState from '@/stores/userStore'
 
 export default function Ideas({
   t,
@@ -18,7 +19,7 @@ export default function Ideas({
   lang: ValidLocale
   userId: number
 }) {
-  const { notes, updateNotes } = useContentState(state => state)
+  const {  notes, updateNotes } = useContentState(state => state)
 
   useEffect(() => {
     fetchNotes({

@@ -1,15 +1,13 @@
 'use client'
  
+import { getAllReports } from '@/api_gql'
+import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
+import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
 import Link from 'next/link'
-import Icons from '../Icons'
 import { useEffect, useState } from 'react'
-import { getAllReports, getProductBySaved } from '@/api_gql'
-import useUserState from '@/stores/userStore'
-import { getUserId } from '@/utils/lib'
+import Icons from '../Icons'
 import { ReportCard } from '../ReportCard'
-import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
-import { ILanbeContent } from '@/types/store'
 
 interface IFetchParams {
   language: string
@@ -25,13 +23,13 @@ export default function Report({
 }: {
   t: TI18N,
   lang: ValidLocale
-  userId: number
+  userId:number
 }) {
   const { bookmark, read, updateBookmarkReport, updateDownloadedReport } = useUserState(state => state)
   const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')
   const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
-    userId,
+    userId: userId,
     savedIn: undefined,
     downloadIn: undefined,
   })

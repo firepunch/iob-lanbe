@@ -4,7 +4,7 @@ import { create } from 'zustand'
 
 
 interface UserState extends Tokens {
-  user?: IUser
+  user: IUser
   userInfo?: any
   order?: IOrder
   download?: IDownload
@@ -30,8 +30,9 @@ interface UserState extends Tokens {
   updateDownloadedReport: (report: { node: IReport }[]) => void
 }
 
+const INIT_USER = { databaseId: 0, name: '', email:'', registeredDate: '' }
 const useUserState = create<UserState>((set) => ({
-  user: undefined,
+  user: INIT_USER,
   userInfo: undefined,
   authToken: undefined,
   refreshToken: undefined,
@@ -45,13 +46,13 @@ const useUserState = create<UserState>((set) => ({
   bookmark: { post: [], report: [] },
   read: { post: [], report: [] },
   resetUser: () => set({ 
-    user: undefined,
+    user: INIT_USER,
     userInfo: undefined,
     authToken: undefined,
     refreshToken: undefined,
     sessionToken: undefined,
   }),
-  updateUser: (userRes) => set({ ...userRes, user: userRes.user }),
+  updateUser: (userRes) => set({ ...userRes, user: userRes?.user }),
   updateUserInfo: (userInfo) => set({ userInfo }),
   updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
     authToken,

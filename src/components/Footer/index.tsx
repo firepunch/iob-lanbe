@@ -4,7 +4,7 @@ import { EmailForm } from '@/components'
 import Icons from '@/components/Icons'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { isValidToken } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
 import Link from 'next/link'
 
 export default function Footer({
@@ -13,6 +13,7 @@ export default function Footer({
   lang: ValidLocale
 }) {  
   const { t } = useTranslation(lang, 'layout')
+  const user = useUserState(state => state.user)
 
   return (
     <footer>
@@ -32,8 +33,7 @@ export default function Footer({
       </div>
 
       <div id="footer-right">
-        
-        {!isValidToken() && (
+        {!user?.databaseId && (
           <EmailForm lang={lang}/>
         )}
 

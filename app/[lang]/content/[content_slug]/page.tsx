@@ -2,11 +2,12 @@
 
 import { getContentBySlug, getContents } from '@/api_gql'
 import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
-import { Bookmark, Icons, ContentWall, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
+import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { dateEnFormat, getAuthorInfo, getCountry, getUserId } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
+import { dateEnFormat, getAuthorInfo, getCountry } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -16,14 +17,14 @@ export default function Category({
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
+  const { user } = useUserState(state=>state)
   const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
-  const userId = getUserId()
   const contentId = post?.databaseId
 
   useEffect(() => {
-    getContentBySlug(decodeURIComponent(content_slug), userId).then(result => (
+    getContentBySlug(decodeURIComponent(content_slug), user.databaseId).then(result => (
       updatePost(result)
     ))
 
@@ -35,14 +36,14 @@ export default function Category({
   useEffect(() => {
     if (contentId) {
       fetchNotes({
-        user_id: userId,
+        user_id: user.databaseId,
         post_id: contentId,
       }).then(result => {
         updateNotes(result)
       })
 
       updateCountView({
-        user_id: userId,
+        user_id: user.databaseId,
         content_id: contentId,
         type: 'post',
       })
@@ -57,18 +58,18 @@ export default function Category({
         await removeWatchList({
           type: 'report',
           content_id: contentId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       } else {
         await createWatchList({
           type: 'report',
           content_id: contentId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       }
 
       if (type === 'post') {
-        const result = await getContentBySlug(decodeURIComponent(content_slug), userId)
+        const result = await getContentBySlug(decodeURIComponent(content_slug), user.databaseId)
         updatePost(result)
       } else if (type === 'recommend') {
         const result = await getContents(lang.toUpperCase(), 3)
@@ -89,12 +90,12 @@ export default function Category({
 
     try {
       await createNote({
-        user_id: userId,
+        user_id: user.databaseId,
         post_id: contentId,
         content,
       })
       const result = await fetchNotes({
-        user_id: userId,
+        user_id: user.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -110,7 +111,7 @@ export default function Category({
         content,
       })
       const result = await fetchNotes({
-        user_id: userId,
+        user_id: user.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -125,7 +126,7 @@ export default function Category({
         note_id: noteId,
       })
       const result = await fetchNotes({
-        user_id: userId,
+        user_id: user.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -135,7 +136,7 @@ export default function Category({
   }
 
   return (
-    <div className="iob-single-content">
+    <div className={`iob-single-content ${user.databaseId ? '' : 'guest-user'}`}>
       {post ? (
         <>
           <section id="content-title-page">
@@ -207,7 +208,7 @@ export default function Category({
               </div>
             </div>
 
-            {!userId && (
+            {!user.databaseId && (
               <ContentWall lang={lang} t={t} />
             )}
             <div
@@ -216,7 +217,7 @@ export default function Category({
             />
           </section>
 
-          {userId ? (
+          {user.databaseId ? (
             <section id="idea-notes">
               <h5>{t('idea_h5')}</h5>
               <div className="idea-note-wrap">

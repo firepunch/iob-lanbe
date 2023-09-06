@@ -7,7 +7,8 @@ import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { getUserId, sort2variables } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
+import { sort2variables } from '@/utils/lib'
 import { useEffect, useState } from 'react'
 
 const GRID_CARD_NUMBER = 6
@@ -23,14 +24,14 @@ export default function Reports({
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const { user } = useUserState(state => state)
   const { reports, updateReports } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'report')
   const isMobile = useIsMobile()
-  const userId = getUserId()
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(), 
-    userId,
+    userId: user.databaseId,
     ...initPagination,
     ...sort2variables('newest'),
   })
@@ -62,13 +63,13 @@ export default function Reports({
         await removeWatchList({
           type: 'report',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       } else {
         await createWatchList({
           type: 'report',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       }
 

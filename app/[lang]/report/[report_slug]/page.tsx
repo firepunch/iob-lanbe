@@ -7,7 +7,8 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
-import { dateFormat, getAuthorInfo, getUser, isValidToken } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
+import { dateFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -17,24 +18,24 @@ export default function Report({
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
+  const user = useUserState(state => state.user)
   const { report, updateReport } = useContentState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
-  const { userId, email } = getUser()
 
   useEffect(() => {
     getReportBySlug({
       reportSlug: decodeURI(report_slug), 
-      userId,
-      email,
+      userId: user.databaseId,
+      email: user.email,
     }).then(result => {
       updateReport(result)
       updateCountView({
-        user_id: userId,
+        user_id: user.databaseId,
         content_id: result?.databaseId,
         type: 'report',
       })
     })
-  }, [])
+  }, [user])
 
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -42,20 +43,20 @@ export default function Report({
         await removeWatchList({
           type: 'report',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       } else {
         await createWatchList({
           type: 'report',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       }
 
       const result = await getReportBySlug({
         reportSlug: decodeURI(report_slug), 
-        userId,
-        email,
+        userId: user.databaseId,
+        email: user.email,
       })
       updateReport(result)
     } catch (err) {
@@ -66,7 +67,7 @@ export default function Report({
 
   const handleUpdateCount = async () => {
     await updateCountDownload({
-      user_id: userId,
+      user_id: user.databaseId,
       content_id: report?.databaseId,
       type: 'report',
     })
@@ -183,7 +184,7 @@ export default function Report({
             </div>
 
             <div className="report-cta">
-              {isValidToken() ? (
+              {user.databaseId ? (
                 <>
                   <p>{t('download_cta')}</p>
                   <Link 

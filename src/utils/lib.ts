@@ -1,4 +1,3 @@
-import { IUser } from '@/types/store'
 import { format } from 'date-fns'
 
 export const objectToGetParams = (object: {
@@ -81,34 +80,6 @@ export const getAuthorInfo = (author) => {
   if (!roles) return name
   
   return `${name} | ${roles.edges?.node.id}`
-}
-
-export const isValidToken = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  const isValid = userData?.authToken && userData?.user?.databaseId
-
-  return Boolean(isValid)
-}
-
-export const isValidUser = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  const isValid = userData?.authToken && userData?.user?.databaseId
-
-  return { isValid: Boolean(isValid), user: userData?.user as IUser }
-}
-
-export const getUserId = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  return userData?.user?.databaseId || 0
-}
-
-export const getUser = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  
-  return {
-    userId: userData?.user?.databaseId || 0,
-    email: userData?.user?.email || '',
-  }
 }
 
 export const sort2variables = (type: string) => {

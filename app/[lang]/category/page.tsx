@@ -6,9 +6,10 @@ import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components
 import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
+import useUserState from '@/stores/userStore'
 import { ValidLocale } from '@/types'
 import { CATEGORY_IDS } from '@/utils/constants'
-import { getUserId, sort2variables } from '@/utils/lib'
+import { sort2variables } from '@/utils/lib'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -35,10 +36,11 @@ export default function Category({
   params: { lang: ValidLocale }
 }) {
   const searchParams = useSearchParams()
+  const isMobile = useIsMobile()
+  const { user } = useUserState(state=>state)
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
-  const isMobile = useIsMobile()
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
@@ -46,7 +48,7 @@ export default function Category({
     cateName: searchParams.get('name') || '',
     countries: [],
     language: lang.toUpperCase(), 
-    userId: getUserId(),
+    userId: user.databaseId,
     ...initPagination,
     ...sort2variables('newest'),
   })

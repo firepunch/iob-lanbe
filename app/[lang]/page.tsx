@@ -6,7 +6,6 @@ import { Icons, NavigationWidget, PostCard, ReportCard } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
@@ -20,6 +19,7 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
+import useUserState from '@/stores/userStore'
 
 const SECTION_IDS = {
   welcome: 'firstpage',
@@ -34,14 +34,14 @@ export default function Home({
   params: { lang: ValidLocale; },
 }) {
   const { t } = useTranslation(lang, 'home')
+  const { user } = useUserState(state => state)
   const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
   const sectionRefs = useRef({})
-  const userId = getUserId()
 
   useEffect(() => {
     getAllPosts({
       language: lang.toUpperCase(), 
-      userId,
+      userId: user.databaseId,
       first: 4,
     }).then(result => {
       updatePosts(result)
@@ -49,7 +49,7 @@ export default function Home({
 
     getAllReports({
       language: lang.toUpperCase(), 
-      userId,
+      userId: user.databaseId,
       first: 3,
     }).then(result => (
       updateReports(result)
@@ -62,27 +62,27 @@ export default function Home({
         await removeWatchList({
           type,
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       } else {
         await createWatchList({
           type,
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       }
 
       if (type === 'post') {
         const result = await getAllPosts({
           language: lang.toUpperCase(), 
-          userId,
+          userId: user.databaseId,
           first: 4,
         })
         updatePosts(result)
       } else if (type === 'report') {
         const result = await getAllReports({
           language: lang.toUpperCase(), 
-          userId,
+          userId: user.databaseId,
           first: 3,
         })
         updateReports(result)

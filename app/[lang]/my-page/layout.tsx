@@ -3,18 +3,17 @@
 import { MyPageContent, MyPageIdeas, MyPageReport, MyPageSettings } from '@/components'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/i18n/client'
+import useUserState from '@/stores/userStore'
 import { ValidLocale } from '@/types'
+import { AUTH_TOKEN, dateEnFormat, removeStorageData } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
 
 import ContentIcon from '@/imgs/content_icon.png'
 import IdeasIcon from '@/imgs/ideas_icon.png'
-import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
-import { AUTH_TOKEN, dateEnFormat, getUser, removeStorageData } from '@/utils/lib'
-import useUserState from '@/stores/userStore'
 
 const TAB_MAP = {
   content: 'content',
@@ -33,7 +32,6 @@ const Layout = ({
   const segment = useSelectedLayoutSegment()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
-  const { userId } = getUser()
   const { user, resetUser } = useUserState(state => state)
 
   const handleLogout = () => {
@@ -74,10 +72,10 @@ const Layout = ({
         </div>
       </div>
       <section id="default-content">
-        {segment === TAB_MAP.content && <MyPageContent t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.report && <MyPageReport t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} userId={userId} />}
+        {segment === TAB_MAP.content && <MyPageContent t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.report && <MyPageReport t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} userId={user.databaseId} />}
       </section>
     </div>
   )

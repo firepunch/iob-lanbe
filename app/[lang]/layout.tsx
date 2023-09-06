@@ -2,7 +2,11 @@
 
 import { Footer, Header, SimpleHeader } from '@/components'
 import { ValidLocale } from '@/i18n/settings'
+import useUserState from '@/stores/userStore'
+import { IResponseUser } from '@/types/store'
+import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -23,6 +27,14 @@ export default function LocaleLayout({
 }) {
   const pathName = usePathname()
   const className = WHITE_ICONS.find(item => pathName.includes(item))
+  const { user, updateUser } = useUserState(state => state)
+  const [storageUser] = getStorageData(AUTH_TOKEN)
+
+  useEffect(( ) => {
+    if (storageUser && !user) {
+      updateUser(storageUser as IResponseUser)
+    }
+  }, [storageUser])
   
   return (
     <html lang={lang}>

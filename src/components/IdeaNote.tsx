@@ -1,17 +1,19 @@
 'use client'
 
+import useUserState from '@/stores/userStore'
+import { ValidLocale } from '@/types'
+import { dateFormat } from '@/utils/lib'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+
 import DeleteIcon from '@/imgs/delete_bin.png'
+import CheckIcon from '@/imgs/done_check.png'
 import EditIcon from '@/imgs/edit_pencil.png'
 import AddIcon from '@/imgs/ideanote_add.png'
 import BeigeBg from '@/imgs/ideanote_beige.png'
 import LimeBg from '@/imgs/ideanote_lime.png'
-import CheckIcon from '@/imgs/done_check.png'
-import { ValidLocale } from '@/types'
-import { dateFormat, isValidToken } from '@/utils/lib'
-import Image from 'next/image'
-import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 const translationJson = {
   en: {
@@ -58,15 +60,16 @@ export default function IdeaNote ({
   onDelete,
 }: IIdeaNoteProps) {
   const router = useRouter()
+  const { user } = useUserState(state=>state)
   const [noteType, setNoteType] = useState<NoteType>(type)
   const [value, setValue] = useState<string | undefined>(content)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const handleClickAdd = () => {
-    if (isValidToken()) {
+    if (user.databaseId) {
       setNoteType('edit')
     } else {
-      router.push(`/${lang}/sign-in`)
+      router.replace(`/${lang}/sign-in`)
     }
   }
 

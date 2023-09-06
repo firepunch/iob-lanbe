@@ -6,7 +6,7 @@ import { PostCard, ReportCard, SearchRequestForm } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { getUserId } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
 import { useEffect, useState } from 'react'
 
 export default function Search({
@@ -14,14 +14,14 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
+  const { user } = useUserState(state => state)
   const { searchResult, recommend, updateSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
-  const userId = getUserId()
   const totalLength = (searchResult?.posts?.pageInfo.total || 0) + (searchResult?.reports?.pageInfo.total || 0)
   const [loading, setLoading] = useState(false)
   const [params] = useState({
     language: lang.toUpperCase(),
-    userId,
+    userId: user.databaseId,
     keyword: decodeURIComponent(keyword),
   })
 
@@ -47,13 +47,13 @@ export default function Search({
         await removeWatchList({
           type: 'post',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       } else {
         await createWatchList({
           type: 'post',
           content_id: databaseId,
-          user_id: userId,
+          user_id: user.databaseId,
         })
       }
 
@@ -72,9 +72,8 @@ export default function Search({
     try {
       const formData = new FormData(e.currentTarget)
       await sendSearchRequestForm(formData)
-      alert('요청 폼 전송에 성공했습니다!')
     } catch (error) {
-      console.error('요청 폼 전송 에러:', error)
+      console.error(error)
     }
   }
 

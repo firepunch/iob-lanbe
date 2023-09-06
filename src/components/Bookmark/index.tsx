@@ -1,10 +1,11 @@
+import useUserState from '@/stores/userStore'
 import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
+
 import SaveImg from '@/imgs/save.png'
-import SavedImg from '@/imgs/saved.png'
 import SaveBlackImg from '@/imgs/save_black.png'
+import SavedImg from '@/imgs/saved.png'
 import SavedBlackImg from '@/imgs/saved_black.png'
-import { isValidToken } from '@/utils/lib'
-import { useRouter, usePathname, useParams } from 'next/navigation'
 
 export default function Bookmark({
   isBlack = false,
@@ -15,6 +16,7 @@ export default function Bookmark({
   isSaved?: boolean
   onToggle: () => void
 }) {
+  const { user } = useUserState(state=>state)
   const router = useRouter()
   const params = useParams()
   const imgSrc = isBlack ? (
@@ -26,7 +28,7 @@ export default function Bookmark({
   const handleClick = e => {
     e.preventDefault() 
     
-    if (isValidToken()) {
+    if (user.databaseId) {
       onToggle()
     } else {
       router.replace(`/${params?.lang || 'en'}/sign-in`)
