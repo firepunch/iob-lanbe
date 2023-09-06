@@ -123,10 +123,12 @@ export default function Report({
                 <li>{getAuthorInfo(report.author)}</li>
                 <li>{dateFormat(report.date, true)}</li>
                 <li>
-                  {report.reportCategories.edges?.map(({ node }) => node.name).join(', ')}
+                  {report.reportCategories.edges?.length ?
+                    report.reportCategories.edges?.map(({ node }) => node.name).join(', ') : 
+                    '-'}
                 </li>
                 <li>
-                  {report.lanbeContent.pages}
+                  {report.lanbeContent?.pages}
                 </li>
               </ul>
             </div>
