@@ -4,6 +4,7 @@ import { getPosts } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import useIsMobile from '@/hooks/useMobile'
+import useOutsideClick from '@/hooks/useOutsideClick'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
 import useUserState from '@/stores/userStore'
@@ -37,6 +38,7 @@ export default function Category({
 }) {
   const searchParams = useSearchParams()
   const isMobile = useIsMobile()
+  const [isClickedOutside] = useOutsideClick(['filters'])
   const { user } = useUserState(state=>state)
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
@@ -76,6 +78,12 @@ export default function Category({
       cateName: searchParams.get('name') || '',
     }))
   }, [searchParams])
+
+  useEffect(() => {
+    if (isClickedOutside) {
+      setIsOpenFilter(false)
+    }
+  }, [isClickedOutside])
 
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
@@ -223,7 +231,7 @@ export default function Category({
           )}
 
           <div id="filters-sorting">
-            <div className="filters">
+            <section id="filters" className="filters">
               <span 
                 className={
                   `all-button ${
@@ -248,7 +256,7 @@ export default function Category({
                   onChange={handleCountry}
                 />
               )}
-            </div>
+            </section>
 
             <div className="sort">
               <label htmlFor="sortby">
