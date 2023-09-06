@@ -111,3 +111,27 @@ export const getUniqueArr = (arr) => (
     self.indexOf(item) === pos
   ))
 )
+
+export const formatPostTaxQuery = (
+  cateName: string[],
+  countries: string[],
+) => { 
+  const taxArray: any[] = []
+  if (cateName?.length) {
+    taxArray.push({
+      terms: cateName,
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+      field: 'NAME',
+    })
+  }
+  if (countries?.length) {
+    taxArray.push({
+      terms: countries,
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+      field: 'SLUG',
+    })
+  }
+  return { relation: 'AND', taxArray }
+}

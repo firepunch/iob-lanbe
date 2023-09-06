@@ -10,7 +10,7 @@ import useContentState from '@/stores/contentStore'
 import useUserState from '@/stores/userStore'
 import { ValidLocale } from '@/types'
 import { CATEGORY_IDS } from '@/utils/constants'
-import { sort2variables } from '@/utils/lib'
+import { formatPostTaxQuery, getTaxArray, sort2variables } from '@/utils/lib'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -55,30 +55,14 @@ export default function Category({
   })
 
   useEffect(() => {
-    const taxArray: any[] = []
-    if (fetchParams.cateName !== '') {
-      taxArray.push({
-        terms: [fetchParams.cateName],
-        taxonomy: 'CATEGORY',
-        operator: 'IN',
-        field: 'NAME',
-      })
-    }
-    if (fetchParams.countries?.length) {
-      taxArray.push({
-        terms: fetchParams.countries,
-        taxonomy: 'CATEGORY',
-        operator: 'IN',
-        field: 'SLUG',
-      })
-    }
+    const taxQuery = formatPostTaxQuery(
+      fetchParams.cateName === '' ? [] : [fetchParams.cateName],
+      fetchParams.countries,
+    )
 
     getPosts({
       ...fetchParams,
-      taxQuery: {
-        relation: 'AND',
-        taxArray,
-      },
+      taxQuery,
     })
       .then(result => {
         const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null

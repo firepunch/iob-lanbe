@@ -12,6 +12,7 @@ import CategoryFilter from '../CategoryFilter'
 import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
+import { formatPostTaxQuery } from '@/utils/lib'
 
 interface IFetchParams {
   language: string
@@ -69,10 +70,15 @@ export default function Content({
   }, [])
 
   useEffect(() => {
+    const taxQuery = formatPostTaxQuery(
+      fetchParams.categories,
+      fetchParams.countries,
+    )
+
     if (fetchParams.savedIn !== undefined) {
       getPosts({
         ...fetchParams,
-        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        taxQuery,
         in: fetchParams.savedIn,
       }).then(result => (
         updateBookmarkPost(result?.edges)
@@ -81,7 +87,7 @@ export default function Content({
     if (fetchParams.readIn !== undefined) {
       getPosts({
         ...fetchParams,
-        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        taxQuery,
         in: fetchParams.readIn,
       }).then(result => (
         updateReadPost(result?.edges)
@@ -193,13 +199,13 @@ export default function Content({
               className={`${clickedType === 'saved' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('saved')}
             >
-              {t('saved')} {`(${bookmark?.post?.length || 0})`}
+              {t('saved')} {`(${fetchParams?.savedIn?.length || 0})`}
             </button>
             <button 
               className={`${clickedType === 'read' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('read')}
             >
-              {t('read')} {`(${read?.post?.length || 0})`}
+              {t('read')} {`(${fetchParams?.readIn?.length || 0})`}
             </button>
           </div>
         </div>
