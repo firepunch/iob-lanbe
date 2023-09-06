@@ -2,6 +2,7 @@
  
 import { getPosts } from '@/api_gql'
 import { createWatchList, fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
+import useOutsideClick from '@/hooks/useOutsideClick'
 import { useTranslation } from '@/i18n/client'
 import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
@@ -31,7 +32,8 @@ export default function Content({
   userId:number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const {  bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const { bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const [isClickedOutside] = useOutsideClick(['filters'])
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
   const [openCategory, setOpenCategory] = useState<boolean>(false)
@@ -86,6 +88,13 @@ export default function Content({
       ))
     }
   }, [fetchParams])
+
+  useEffect(() => {
+    if (isClickedOutside) {
+      setOpenCountry(false)
+      setOpenCategory(false)
+    }
+  }, [isClickedOutside])
 
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -148,7 +157,7 @@ export default function Content({
         <h2>{t('content').toUpperCase()}</h2>
 
         <div className="filters-wrap">
-          <div className="country-category">
+          <section id="filters" className="country-category">
             <button 
               className={`${(openCountry || fetchParams.countries?.length) ? 'black-button' : ''}`}
               onClick={handleToggleCountry}
@@ -156,7 +165,7 @@ export default function Content({
               {t('country')}
             </button>
             <button 
-              className={`${(openCategory || fetchParams.countries?.length) ? 'black-button' : ''}`}
+              className={`${(openCategory || fetchParams.categories?.length) ? 'black-button' : ''}`}
               onClick={handleToggleCategory}
             >
               {t('category')}
@@ -177,7 +186,7 @@ export default function Content({
                 onChange={handleCategory}
               />
             )}
-          </div>
+          </section>
 
           <div className="saved-read">
             <button 
