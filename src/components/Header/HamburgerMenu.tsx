@@ -27,8 +27,8 @@ export default function HamburgerMenu({
   const [isUser, setIsUser] = useState(false)
 
   useEffect(() => {
-    setIsUser(Boolean(user.databaseId))
-  }, [user.databaseId])
+    setIsUser(Boolean(user?.databaseId))
+  }, [user?.databaseId])
   
   const handleCloseMenu = () => setIsMenuOpen(false)
 

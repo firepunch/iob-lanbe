@@ -11,12 +11,12 @@ const withAuth = (Component: NextComponentType) => {
     const [storageUser] = getStorageData(AUTH_TOKEN)
     const { replace } = useRouter()
 
-    if (storageUser && !user.databaseId) {
-      updateUser(storageUser as IResponseUser)
-    }
-
     useEffect(() => {
-      if (!storageUser && !user.databaseId) {
+      if (storageUser?.user && user?.databaseId === 0) {
+        updateUser(storageUser as IResponseUser)
+      }
+    
+      if (user?.databaseId === 0) {
         replace('/sign-in')
       }
     }, [user, storageUser, updateUser, replace])
