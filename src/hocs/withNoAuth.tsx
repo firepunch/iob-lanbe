@@ -12,11 +12,11 @@ const withNoAuth = (Component: NextComponentType) => {
     const { back } = useRouter()
 
     useEffect(() => {
-      if (storageUser && !user) {
+      if (storageUser && !user.databaseId) {
         updateUser(storageUser as IResponseUser)
       }
       
-      if (storageUser || user) {
+      if (storageUser || user.databaseId) {
         back()
       }
     }, [user, storageUser, updateUser, back])
