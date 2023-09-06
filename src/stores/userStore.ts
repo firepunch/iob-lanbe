@@ -1,10 +1,12 @@
+import { TStringObj } from '@/types'
 import { IPaymentHistory, IStripeCard } from '@/types/api'
 import { IUser, IOrder, Tokens, IDownload, IPost, IReport, IResponseUser } from '@/types/store'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 
-interface IUserState extends Tokens {
+export interface IUserState extends Tokens {
+  _hasHydrated: boolean
   user: IUser
   userInfo?: any
   posts?: { node: IPost }[]
@@ -21,22 +23,27 @@ interface IUserState extends Tokens {
   updateBookmarkReport: (report: { node: IReport }[]) => void
   updateReadPost: (post: { node: IPost }[]) => void
   updateDownloadedReport: (report: { node: IReport }[]) => void
+  setHasHydrated: (state: boolean) => void
 }
 
 const INIT_USER = { databaseId: 0, name: '', email:'', registeredDate: '' }
+export const INIT_USER_STATE = {
+  _hasHydrated: false,
+  user: INIT_USER,
+  userInfo: undefined,
+  authToken: undefined,
+  refreshToken: undefined,
+  sessionToken: undefined,
+  posts: undefined,
+  reports: undefined,
+  bookmark: { post: [], report: [] },
+  read: { post: [], report: [] },
+}
 
-const useUserState = create<IUserState, any>(
+const useUserState = create<IUserState>()(
   persist(
     (set) => ({
-      user: INIT_USER,
-      userInfo: undefined,
-      authToken: undefined,
-      refreshToken: undefined,
-      sessionToken: undefined,
-      posts: undefined,
-      reports: undefined,
-      bookmark: { post: [], report: [] },
-      read: { post: [], report: [] },
+      ...INIT_USER_STATE,
       resetUser: () => set({ 
         user: INIT_USER,
         userInfo: undefined,
@@ -57,9 +64,17 @@ const useUserState = create<IUserState, any>(
       updateBookmarkReport: (report) => set((prev) => ({ bookmark: { report, post: prev.bookmark.post } })),
       updateReadPost: (post) => set((prev) => ({ read: { post, report: prev.read.report } })),
       updateDownloadedReport: (report) => set((prev) => ({ read: { report, post: prev.read.post } })),
+      setHasHydrated: (state: boolean) => {
+        set({
+          _hasHydrated: state,
+        })
+      },
     }),
     {
       name: 'user-storage',
+      onRehydrateStorage: () => (state: IUserState) => {
+        state.setHasHydrated(true)
+      },
     }
   )
 )
