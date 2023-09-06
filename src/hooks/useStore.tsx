@@ -1,8 +1,10 @@
+import { TStringObj } from '@/types'
 import { useState, useEffect } from 'react'
 
 const useStore = <T, F>(
   store: (callback: (state: T) => unknown) => unknown,
-  callback: (state: T) => F
+  callback: (state: T) => F,
+  initState: object
 ) => {
   const result = store(callback) as F
   const [data, setData] = useState<F>()
@@ -11,7 +13,7 @@ const useStore = <T, F>(
     setData(result)
   }, [result])
 
-  return data
+  return data || initState
 }
 
 export default useStore
