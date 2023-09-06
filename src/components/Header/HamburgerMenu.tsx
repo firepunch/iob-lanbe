@@ -4,7 +4,7 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icons from '../Icons'
 import SearchWall from '../SearchWall'
 
@@ -20,11 +20,16 @@ export default function HamburgerMenu({
 }) {
   const { t: ct } = useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const { user, updateUser } = useUserState(state => state)
+  const { user } = useUserState(state => state)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+  const [isUser, setIsUser] = useState(false)
 
+  useEffect(() => {
+    setIsUser(Boolean(user.databaseId))
+  }, [user.databaseId])
+  
   const handleCloseMenu = () => setIsMenuOpen(false)
 
   return (
@@ -144,7 +149,7 @@ export default function HamburgerMenu({
 
           {/* signin */}
           <div id="mm-signin" onClick={handleCloseMenu}> 
-            {user?.databaseId ? (
+            {isUser ? (
               <Link href={`/${lang}/my-page/content`}>
                 <h2>{t('my_page')}</h2>
               </Link>

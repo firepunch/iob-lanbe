@@ -4,7 +4,7 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icons from '../Icons'
 import SearchWall from '../SearchWall'
 import HamburgerMenu from './HamburgerMenu'
@@ -22,6 +22,11 @@ export default function Header({
   const { t } = useTranslation(lang, 'layout')
   const { user, updateUser } = useUserState(state => state)
   const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
+  const [isUser, setIsUser] = useState(false)
+
+  useEffect(() => {
+    setIsUser(Boolean(user.databaseId))
+  }, [user.databaseId])
 
   return (
     <header>
@@ -133,7 +138,7 @@ export default function Header({
             </span>
           </li>
           <li>
-            {user?.databaseId ? (
+            {isUser ? (
               <Link href={`/${lang}/my-page/content`}>
                 {t('h_my_page')}
               </Link>
