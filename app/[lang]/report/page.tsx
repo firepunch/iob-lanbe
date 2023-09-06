@@ -53,7 +53,7 @@ export default function Reports({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      ...sort2variables(`${sorter}_report`),
+      ...sort2variables(sorter),
     }))
   }
 

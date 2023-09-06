@@ -23,7 +23,7 @@ export default function Report({
 }: {
   t: TI18N,
   lang: ValidLocale
-  userId:number
+  userId: number
 }) {
   const { bookmark, read, updateBookmarkReport, updateDownloadedReport } = useUserState(state => state)
   const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')

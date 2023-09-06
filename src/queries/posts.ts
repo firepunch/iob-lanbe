@@ -24,6 +24,7 @@ query postsQuery(
         title
         slug
         date
+        viewCounts
         tags {
           nodes {
             id
@@ -103,6 +104,7 @@ query getPostsQuery(
         title
         slug
         date
+        viewCounts
         tags {
           nodes {
             id
