@@ -4,7 +4,7 @@ import { getPosts } from '@/api_gql'
 import { createWatchList, fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useTranslation } from '@/i18n/client'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE, IUserState } from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -13,6 +13,7 @@ import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
 import { formatPostTaxQuery } from '@/utils/lib'
+import useStore from '@/hooks/useStore'
 
 interface IFetchParams {
   language: string
@@ -33,7 +34,7 @@ export default function Content({
   userId:number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const { bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const { _hasHydrated, bookmark, read, updateBookmarkPost, updateReadPost } = useStore(useUserState, state => state, INIT_USER_STATE)
   const [isClickedOutside] = useOutsideClick(['filters'])
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
@@ -49,7 +50,7 @@ export default function Content({
 
   useEffect(() => {
     fetchWatchList({
-      type: 'post',
+      type: `post_${lang}`,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -59,7 +60,7 @@ export default function Content({
     })
     
     fetchCountContent({
-      type: 'post',
+      type: `post_${lang}`,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -71,7 +72,10 @@ export default function Content({
 
   useEffect(() => {
     const taxQuery = formatPostTaxQuery(
-      fetchParams.categories,
+      {
+        terms: fetchParams.categories,
+        field: 'SLUG',
+      },
       fetchParams.countries,
     )
 
@@ -101,6 +105,10 @@ export default function Content({
       setOpenCategory(false)
     }
   }, [isClickedOutside])
+
+  if (!_hasHydrated) {
+    return <p>Loading...</p>
+  }
 
   const handleToggleBookmark = async ({ isSaved, databaseId }) => {
     try {
@@ -155,6 +163,10 @@ export default function Content({
   const handleToggleCategory = () => {
     setOpenCountry(false)
     setOpenCategory(!openCategory)
+  }
+
+  if (!_hasHydrated) {
+    return <p>Loading...</p>
   }
 
   return (

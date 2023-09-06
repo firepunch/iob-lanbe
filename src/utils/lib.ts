@@ -113,16 +113,15 @@ export const getUniqueArr = (arr) => (
 )
 
 export const formatPostTaxQuery = (
-  cateName: string[],
+  categories: { terms: string[], field: string },
   countries: string[],
 ) => { 
   const taxArray: any[] = []
-  if (cateName?.length) {
+  if (categories?.terms?.length) {
     taxArray.push({
-      terms: cateName,
+      ...categories,
       taxonomy: 'CATEGORY',
       operator: 'IN',
-      field: 'NAME',
     })
   }
   if (countries?.length) {
