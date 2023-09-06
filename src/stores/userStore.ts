@@ -1,9 +1,10 @@
 import { IPaymentHistory, IStripeCard } from '@/types/api'
 import { IUser, IOrder, Tokens, IDownload, IPost, IReport, IResponseUser } from '@/types/store'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 
-interface UserState extends Tokens {
+interface IUserState extends Tokens {
   user: IUser
   userInfo?: any
   order?: IOrder
@@ -31,44 +32,52 @@ interface UserState extends Tokens {
 }
 
 const INIT_USER = { databaseId: 0, name: '', email:'', registeredDate: '' }
-const useUserState = create<UserState>((set) => ({
-  user: INIT_USER,
-  userInfo: undefined,
-  authToken: undefined,
-  refreshToken: undefined,
-  sessionToken: undefined,
-  order: undefined,
-  download: undefined,
-  cards: undefined,
-  cardHistory: { data: [], has_more: false },
-  posts: undefined,
-  reports: undefined,
-  bookmark: { post: [], report: [] },
-  read: { post: [], report: [] },
-  resetUser: () => set({ 
-    user: INIT_USER,
-    userInfo: undefined,
-    authToken: undefined,
-    refreshToken: undefined,
-    sessionToken: undefined,
-  }),
-  updateUser: (userRes) => set({ ...userRes, user: userRes?.user }),
-  updateUserInfo: (userInfo) => set({ userInfo }),
-  updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
-    authToken,
-    refreshToken,
-    sessionToken,
-  }),
-  updateOrder: (order: IOrder) => set({ order }),
-  updateDownload: (download: IDownload) => set({ download }),
-  updateCards: (cards: IStripeCard[]) => set({ cards }),
-  updateCardHistory: (cardHistory: IPaymentHistory) => set({ cardHistory }),
-  updatePosts: (posts) => set({ posts }),
-  updateReports: (reports) => set({ reports }),
-  updateBookmarkPost: (post) => set((prev) => ({ bookmark: { post, report: prev.bookmark.report } })),
-  updateBookmarkReport: (report) => set((prev) => ({ bookmark: { report, post: prev.bookmark.post } })),
-  updateReadPost: (post) => set((prev) => ({ read: { post, report: prev.read.report } })),
-  updateDownloadedReport: (report) => set((prev) => ({ read: { report, post: prev.read.post } })),
-}))
+
+const useUserState = create<IUserState, any>(
+  persist(
+    (set) => ({
+      user: INIT_USER,
+      userInfo: undefined,
+      authToken: undefined,
+      refreshToken: undefined,
+      sessionToken: undefined,
+      order: undefined,
+      download: undefined,
+      cards: undefined,
+      cardHistory: { data: [], has_more: false },
+      posts: undefined,
+      reports: undefined,
+      bookmark: { post: [], report: [] },
+      read: { post: [], report: [] },
+      resetUser: () => set({ 
+        user: INIT_USER,
+        userInfo: undefined,
+        authToken: undefined,
+        refreshToken: undefined,
+        sessionToken: undefined,
+      }),
+      updateUser: (userRes) => set({ ...userRes, user: userRes?.user }),
+      updateUserInfo: (userInfo) => set({ userInfo }),
+      updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
+        authToken,
+        refreshToken,
+        sessionToken,
+      }),
+      updateOrder: (order: IOrder) => set({ order }),
+      updateDownload: (download: IDownload) => set({ download }),
+      updateCards: (cards: IStripeCard[]) => set({ cards }),
+      updateCardHistory: (cardHistory: IPaymentHistory) => set({ cardHistory }),
+      updatePosts: (posts) => set({ posts }),
+      updateReports: (reports) => set({ reports }),
+      updateBookmarkPost: (post) => set((prev) => ({ bookmark: { post, report: prev.bookmark.report } })),
+      updateBookmarkReport: (report) => set((prev) => ({ bookmark: { report, post: prev.bookmark.post } })),
+      updateReadPost: (post) => set((prev) => ({ read: { post, report: prev.read.report } })),
+      updateDownloadedReport: (report) => set((prev) => ({ read: { report, post: prev.read.post } })),
+    }),
+    {
+      name: 'user-storage',
+    }
+  )
+)
 
 export default useUserState
