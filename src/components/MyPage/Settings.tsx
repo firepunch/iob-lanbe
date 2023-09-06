@@ -81,8 +81,8 @@ export default function Settings({
     }
   }
 
-  if (!userInfo) {
-    return 'loading'
+  if (!userId) {
+    return null
   }
 
   return (

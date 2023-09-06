@@ -40,6 +40,10 @@ const Layout = ({
     router.replace(`/${lang}/sign-in`)
   }
 
+  if (!user?.name) {
+    return null
+  }
+
   return (
     <div id="beige-bg-wrap">
       <div id="mypage-aside">
