@@ -78,7 +78,7 @@ export default function Search({
   }
 
   if (loading) {
-    return 'loading'
+    return null
   }
 
   return (

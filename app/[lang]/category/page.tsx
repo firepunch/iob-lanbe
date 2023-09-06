@@ -46,7 +46,6 @@ export default function Category({
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
     cateName: searchParams.get('name') || '',
     countries: [],
     language: lang.toUpperCase(), 
@@ -56,26 +55,49 @@ export default function Category({
   })
 
   useEffect(() => {
+    const taxArray: any[] = []
+    if (fetchParams.cateName !== '') {
+      taxArray.push({
+        terms: [fetchParams.cateName],
+        taxonomy: 'CATEGORY',
+        operator: 'IN',
+        field: 'NAME',
+      })
+    }
+    if (fetchParams.countries?.length) {
+      taxArray.push({
+        terms: fetchParams.countries,
+        taxonomy: 'CATEGORY',
+        operator: 'IN',
+        field: 'SLUG',
+      })
+    }
+
     getPosts({
       ...fetchParams,
-      categoryName: fetchParams?.countries?.join(','),
-    }).then(result => {
-      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
-      updatePosts({
-        edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
-        pageInfo: {
-          ...result.pageInfo,
-          initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
-        },
-      })
+      taxQuery: {
+        relation: 'AND',
+        taxArray,
+      },
     })
+      .then(result => {
+        const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
+        updatePosts({
+          edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
+          pageInfo: {
+            ...result.pageInfo,
+            initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
+          },
+        })
+      })
   }, [fetchParams])
 
   useEffect(() => {
+    const newCateName = searchParams.get('name') || ''
+
     setFetchParams(prev => ({
       ...prev,
-      categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
-      cateName: searchParams.get('name') || '',
+      cateName: newCateName,
     }))
   }, [searchParams])
 
@@ -97,7 +119,6 @@ export default function Category({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      categoryId: CATEGORY_IDS[lang]?.[categoryName] || 0,
       cateName: categoryName,
     }))
   }
@@ -114,6 +135,7 @@ export default function Category({
     setIsOpenCategory(!isOpenCategory)
     setIsOpenFilter(false)
   }
+
   const handleClickAll = () => {
     handleCategory('')
     handleCountry([])

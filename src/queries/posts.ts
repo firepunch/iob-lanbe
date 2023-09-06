@@ -4,10 +4,15 @@ query postsQuery(
   $userId: Float = 0, 
   $first: Int = 10, 
   $field: PostObjectsConnectionOrderbyEnum = DATE,
-  $order: OrderEnum = DESC
+  $order: OrderEnum = DESC,
+  $taxQuery: TaxQuery = {}
 ) {
   posts(
-    where: {language: $language, orderby: {field: $field, order: $order}}
+    where: {
+      language: $language, 
+      orderby: {field: $field, order: $order},
+      taxQuery: $taxQuery
+    }
     first: $first
   ) {
     pageInfo {
@@ -66,22 +71,20 @@ export const GET_POSTS_QUERY = `
 query getPostsQuery(
   $language: LanguageCodeFilterEnum!, 
   $userId: Float = 0, 
-  $categoryId: Int = 0,
   $first: Int = 100, 
   $last: Int,
   $before: String, 
   $after: String,
   $field: PostObjectsConnectionOrderbyEnum = DATE,
   $order: OrderEnum = DESC,
-  $categoryName: String = "",
-  $in: [ID] = []
+  $in: [ID] = [],
+  $taxQuery: TaxQuery = {}
 ) {
   posts(
     where: {
       language: $language, 
-      categoryId: $categoryId,
-      categoryName: $categoryName, 
       orderby: {field: $field, order: $order},
+      taxQuery: $taxQuery, 
       in: $in
     }
     first: $first
