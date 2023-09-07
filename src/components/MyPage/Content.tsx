@@ -112,31 +112,11 @@ export default function Content({
     return <p>Loading...</p>
   }
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      let result = { ids: [] }
-      if (isSaved) {
-        result = await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      } else {
-        result = await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      }
-
-      setFetchParams(prev => ({
-        ...prev,
-        savedIn: result?.ids,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  const handleFetchData = async (ids?: string[]) => {
+    setFetchParams(prev => ({
+      ...prev,
+      savedIn: ids,
+    }))
   }
   
   const handleCategory = (categories) => {
@@ -231,12 +211,7 @@ export default function Content({
             <PostCard
               {...node}
               key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
+              onFetchData={handleFetchData}
             />
           ))}
         </div>
