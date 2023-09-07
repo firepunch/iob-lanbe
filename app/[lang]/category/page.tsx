@@ -5,12 +5,13 @@ import { createWatchList, removeWatchList } from '@/api_wp'
 import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import useIsMobile from '@/hooks/useMobile'
 import useOutsideClick from '@/hooks/useOutsideClick'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { ValidLocale } from '@/types'
 import { CATEGORY_IDS } from '@/utils/constants'
-import { formatPostTaxQuery, getTaxArray, sort2variables } from '@/utils/lib'
+import { formatPostTaxQuery, sort2variables } from '@/utils/lib'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -39,7 +40,7 @@ export default function Category({
   const searchParams = useSearchParams()
   const isMobile = useIsMobile()
   const [isClickedOutside] = useOutsideClick(['filters'])
-  const { user } = useUserState(state=>state)
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
@@ -48,6 +49,7 @@ export default function Category({
   const [fetchParams, setFetchParams] = useState({
     cateName: searchParams.get('name') || '',
     countries: [],
+    lang,
     language: lang.toUpperCase(), 
     userId: user.databaseId,
     ...initPagination,
@@ -66,27 +68,41 @@ export default function Category({
     getPosts({
       ...fetchParams,
       taxQuery,
-    })
-      .then(result => {
-        const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
-        updatePosts({
-          edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
-          pageInfo: {
-            ...result.pageInfo,
-            initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
-          },
-        })
+    }).then(result => {
+      const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
+      updatePosts({
+        edges: isMobile && !isFirstPage ? [...posts.edges, ...result.edges] : result.edges,
+        pageInfo: {
+          ...result.pageInfo,
+          initTotal: isFirstPage ? result.pageInfo.total : posts.pageInfo?.initTotal,
+        },
       })
+    })
   }, [fetchParams])
 
   useEffect(() => {
     const newCateName = searchParams.get('name') || ''
 
-    setFetchParams(prev => ({
-      ...prev,
-      cateName: newCateName,
-    }))
+    if (newCateName !== fetchParams.cateName) {
+      setFetchParams(prev => ({
+        ...prev,
+        cateName: newCateName,
+      }))
+    }
   }, [searchParams])
+
+  useEffect(() => {
+    if (user.databaseId !== fetchParams.userId) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+    }
+  }, [user])
+
+  useEffect(() => {
+    
+  }, [])
 
   useEffect(() => {
     if (isClickedOutside) {
@@ -129,29 +145,14 @@ export default function Category({
     setIsOpenFilter(false)
   }
   
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: fetchParams.userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: fetchParams.userId,
-        })
-      }
+  const handleReload = () => {
+    setFetchParams(prev => ({
+      ...prev,
+    }))
+  }
 
-      setFetchParams(prev => ({
-        ...prev,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  if (!_hasHydrated){
+    return <div></div>
   }
 
   return (
@@ -286,14 +287,9 @@ export default function Category({
         <div id="all-contents-wrap">
           {posts?.edges?.map(({ node }) => (
             <PostCard
-              key={node.databaseId}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
               {...node}
+              key={node.databaseId}
+              onFetchData={handleReload}
             />
           ))}
         </div>
