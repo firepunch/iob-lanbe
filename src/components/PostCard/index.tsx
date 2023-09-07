@@ -11,7 +11,6 @@ import { useParams } from 'next/navigation'
 import { ValidLocale } from '@/types'
 
 interface PostCardProps extends IPost {
-  metaKey: string
   onFetchData: () => void;
 }
 
@@ -22,7 +21,6 @@ export const PostCard = ({
   slug,
   title = '',
   date = '',
-  metaKey = '',
   lanbeContent: { is_save },
   categories,
   country,
@@ -46,7 +44,7 @@ export const PostCard = ({
           ) : null}
           <Bookmark
             isSaved={is_save} 
-            metaKey={metaKey}
+            metaKey={`post_${lang}`}
             contentId={databaseId}
             onFetchData={onFetchData}
           />

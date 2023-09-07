@@ -67,7 +67,7 @@ export default function Home({
     }
   }, [user])
 
-  const handleFetchData = async (type) => {
+  const handleFetchData = async (type: 'post' | 'report') => {
     if (type === 'post') {
       const result = await getAllPosts(fetchParams)
       updatePosts(result)
@@ -160,7 +160,6 @@ export default function Home({
                 <PostCard
                   {...node}
                   key={node.id}
-                  metaKey={`post_${lang}`}
                   onFetchData={() => handleFetchData('post')}
                 />
               ))
