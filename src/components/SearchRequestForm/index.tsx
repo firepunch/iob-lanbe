@@ -42,7 +42,7 @@ export default function SearchRequestForm ({
           <div className="sum-message-us">
             <div className="field">
               <label htmlFor="message">{t('message')}</label>
-              <input required type="text" id="message" name="message" placeholder={t('message_placeholder')} />
+              <textarea required id="message" name="message" placeholder={t('message_placeholder')} />
             </div>
           </div>
 

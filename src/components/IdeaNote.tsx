@@ -112,8 +112,9 @@ export default function IdeaNote ({
       await deleteNote({ 
         note_id: noteId,
       })
-      onReload()
       setIsProcess(false)
+      setShowConfirmModal(false)
+      onReload()
     } catch (err) {
       console.error(err)
     }
