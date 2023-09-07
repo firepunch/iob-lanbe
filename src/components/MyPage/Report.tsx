@@ -1,7 +1,7 @@
 'use client'
  
 import { getAllReports } from '@/api_gql'
-import { createWatchList, fetchCountDownload, fetchWatchList, removeWatchList } from '@/api_wp'
+import { fetchCountDownload, fetchWatchList } from '@/api_wp'
 import useUserState from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
 import Link from 'next/link'

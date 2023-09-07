@@ -1,19 +1,19 @@
 'use client'
  
 import { getPosts } from '@/api_gql'
-import { createWatchList, fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
+import { fetchCountContent, fetchWatchList } from '@/api_wp'
 import useOutsideClick from '@/hooks/useOutsideClick'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
-import useUserState, { INIT_USER_STATE, IUserState } from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
+import { formatPostTaxQuery } from '@/utils/lib'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import CategoryFilter from '../CategoryFilter'
 import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { formatPostTaxQuery } from '@/utils/lib'
-import useStore from '@/hooks/useStore'
 
 interface IFetchParams {
   language: string
