@@ -161,6 +161,8 @@ main {
 
 @media (min-width: 992px) {
   #beige-bg-wrap {
+    display: flex;
+
     header {
       @include bg-color($beige);
 
@@ -171,6 +173,8 @@ main {
   main {
     #mypage-aside {
       width: 25%;
+      height: rem(400);
+      margin-bottom: 2rem;
       position: sticky;
       top: 5rem;
       left: 1.75rem;

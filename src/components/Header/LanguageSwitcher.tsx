@@ -13,6 +13,7 @@ const WHITE_ICONS = [
   'about',
   'project',
   'welcome',
+  'my-page',
 ]
 
 const CHANGE_URL = [

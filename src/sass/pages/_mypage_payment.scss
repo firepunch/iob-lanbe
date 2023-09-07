@@ -1,306 +1,300 @@
 .dt-no-buttons {
-    border-bottom: .35rem solid $black;
+  border-bottom: 0.35rem solid $black;
 }
 
 #payment-info-wrap {
-    .card-info-wrap {
-        h3 {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .cards {
-            .added-card {
-                position: relative;
-
-                img {
-                    width: 100%;
-                }
-
-                button {
-                    position: absolute;
-                    top: 1rem;
-                    right: 1rem;
-
-                    background: transparent;
-                    border: none;
-
-                    img {
-                        width: .85rem;
-                    }
-                }
-            }
-
-            .add-new-card {
-                width: 90%;
-                height: 12rem;
-                margin: 2rem auto;
-                border: 1px solid #909090;
-                border-radius: 1rem;
-
-                @include flex-center;
-
-                img {
-                    width: 2rem;
-                    margin: auto;
-                }
-            }
-        }
-
-        // 카드 누르면 나타나는 카드 정보
-        .card-info-details {
-            padding: 2rem 0;
-            border-bottom: .35rem solid $black;
-
-            button {
-                background: transparent;
-                border: none;
-
-                margin-left: 90%;
-
-            }
-
-            form {
-                @include flex-column;
-
-                label {
-                    font-size: $smaller-font-size;
-                    font-weight: $bold-font-weight;
-                    margin-bottom: .25rem;
-                    margin-left: 1rem;
-                }
-
-                input[type=text] {
-                    height: 3rem;
-                    border: .075rem solid $black;
-                    border-radius: 10rem;
-                    padding: 0 1rem;
-                    outline: none;
-                    background-color: $beige;
-
-                    margin-bottom: 1.25rem;
-                }
-
-                .card-numbers {
-                    @include flex-column;
-
-                    input[type=text] {
-                        margin-bottom: .75rem;
-                    }
-
-                    .card-numbers-flex {
-                        @include flex-spacebetween;
-
-                        input[type=text] {
-                            margin-bottom: 1rem;
-                            width: 49%;
-                        }
-                    }
-                }
-            }
-        }
+  .card-info-wrap {
+    h3 {
+      margin-top: 2rem;
+      text-align: center;
     }
 
-    #payment-history {
-        h3 {
-            margin-top: 2rem;
-            text-align: center;
+    .cards {
+      .added-card {
+        position: relative;
+
+        img {
+          width: 100%;
         }
 
-        .payment-history-details {
-            width: 100%;
-            height: 7rem;
-            padding: 0 1.25rem;
-            margin: 2rem 0;
-            border: 1px solid $black;
-            border-radius: 1rem;
+        button {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
 
+          background: transparent;
+          border: none;
+
+          img {
+            width: 0.85rem;
+          }
+        }
+      }
+
+      .add-new-card {
+        width: 90%;
+        height: 12rem;
+        margin: 2rem auto;
+        border: 1px solid #909090;
+        border-radius: 1rem;
+
+        @include flex-center;
+
+        img {
+          width: 2rem;
+          margin: auto;
+        }
+      }
+    }
+
+    // 카드 누르면 나타나는 카드 정보
+    .card-info-details {
+      padding: 2rem 0;
+      border-bottom: 0.35rem solid $black;
+
+      button {
+        background: transparent;
+        border: none;
+
+        margin-left: 90%;
+      }
+
+      form {
+        @include flex-column;
+
+        label {
+          font-size: $smaller-font-size;
+          font-weight: $bold-font-weight;
+          margin-bottom: 0.25rem;
+          margin-left: 1rem;
+        }
+
+        input[type="text"] {
+          height: 3rem;
+          border: 0.075rem solid $black;
+          border-radius: 10rem;
+          padding: 0 1rem;
+          outline: none;
+          background-color: $beige;
+
+          margin-bottom: 1.25rem;
+        }
+
+        .card-numbers {
+          @include flex-column;
+
+          input[type="text"] {
+            margin-bottom: 0.75rem;
+          }
+
+          .card-numbers-flex {
             @include flex-spacebetween;
-            align-items: first baseline;
 
-            .phd-left {
-                @include flex-column;
-                justify-content: space-between;
-                width: 70%;
-
-                h5 {
-                    margin: 0;
-                    padding: 1rem 0;
-                }
-
-                p {
-                    font-size: .6rem;
-                }
+            input[type="text"] {
+              margin-bottom: 1rem;
+              width: 49%;
             }
-
-            .phd-right {
-                p {
-                    font-weight: 500;
-                }
-            }
+          }
         }
+      }
     }
+  }
+
+  #payment-history {
+    h3 {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .payment-history-details {
+      width: 100%;
+      height: 7rem;
+      padding: 0 1.25rem;
+      margin: 2rem 0;
+      border: 1px solid $black;
+      border-radius: 1rem;
+
+      @include flex-spacebetween;
+      align-items: first baseline;
+
+      .phd-left {
+        @include flex-column;
+        justify-content: space-between;
+        width: 70%;
+
+        h5 {
+          margin: 0;
+          padding: 1rem 0;
+        }
+
+        p {
+          font-size: 0.6rem;
+        }
+      }
+
+      .phd-right {
+        p {
+          font-weight: 500;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 576px) {
-    .dt-no-buttons {
-        margin-top: 3ch;
+  #payment-info-wrap {
+    .card-info-wrap {
+      h3 {
+        margin-top: 3rem;
+      }
+
+      .cards {
+        display: flex;
+        align-items: center;
+
+        .add-new-card {
+          width: 80%;
+          height: 9rem;
+          margin-left: 1rem;
+
+          img {
+            width: 1.85rem;
+          }
+        }
+      }
     }
 
-    #payment-info-wrap {
-        .card-info-wrap {
-            h3 {
-                margin-top: 3rem;
-            }
+    #payment-history {
+      h3 {
+        margin-top: 3rem;
+      }
 
-            .cards {
-                display: flex;
-                align-items: center;
+      .payment-history-details {
+        align-items: center;
 
-                .add-new-card {
-                    width: 80%;
-                    height: 9rem;
-                    margin-left: 1rem;
+        .phd-left {
+          h5 {
+            font-size: 1rem;
+          }
 
-                    img {
-                        width: 1.85rem;
-                    }
-                }
-            }
+          p {
+            font-size: $smaller-font-size;
+          }
         }
 
-        #payment-history {
-            h3 {
-                margin-top: 3rem;
-            }
-
-            .payment-history-details {
-                align-items: center;
-
-                .phd-left {
-                    h5 {
-                        font-size: 1rem;
-                    }
-
-                    p {
-                        font-size: $smaller-font-size;
-                    }
-                }
-
-                .phd-right {
-                    p {
-                        font-size: 1.25rem;
-                    }
-                }
-            }
+        .phd-right {
+          p {
+            font-size: 1.25rem;
+          }
         }
+      }
     }
+  }
 }
 
 @media (min-width: 768px) {
-    #payment-info-wrap {
-        .card-info-wrap {
-            width: 80%;
-            margin: auto;
+  #payment-info-wrap {
+    .card-info-wrap {
+      width: 80%;
+      margin: auto;
 
-            .cards {
-
-                .added-card {
-                    width: 50%;
-                }
-
-                .add-new-card {
-                    width: 50%;
-                }
-            }
+      .cards {
+        .added-card {
+          width: 50%;
         }
 
-        #payment-history {
-            width: 80%;
-            margin: auto;
-
-            .payment-history-details {
-                margin: 1.5rem 0;
-
-                .phd-left {
-                    width: 60%;
-                }
-            }
+        .add-new-card {
+          width: 50%;
         }
+      }
     }
+
+    #payment-history {
+      width: 80%;
+      margin: auto;
+
+      .payment-history-details {
+        margin: 1.5rem 0;
+
+        .phd-left {
+          width: 60%;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 992px) {
-    #payment-info-wrap {
-        .card-info-wrap {
-            h3 {
-                margin-top: 4rem;
-            }
-        }
-
-        #payment-history {
-            .payment-history-details {
-                padding: 2rem;
-
-                .phd-left {
-                    width: 75%;
-
-                    p {
-                        font-size: .8rem;
-                    }
-                }
-            }
-        }
+  #payment-info-wrap {
+    .card-info-wrap {
+      h3 {
+        margin-top: 4rem;
+      }
     }
+
+    #payment-history {
+      .payment-history-details {
+        padding: 2rem;
+
+        .phd-left {
+          width: 75%;
+
+          p {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1200px) {
-    #payment-info-wrap {
-        .card-info-wrap {
-            width: 45rem;
+  #payment-info-wrap {
+    .card-info-wrap {
+      width: 45rem;
 
-            .cards {
-                width: 40rem;
-                margin: auto;
+      .cards {
+        width: 40rem;
+        margin: auto;
 
-                .added-card {
-                    .card-sample {
-                        width: 19rem;
-                        height: 12rem;
-                    }
+        .added-card {
+          .card-sample {
+            width: 19rem;
+            height: 12rem;
+          }
 
-                    button {
-                        right: 2rem;
-                    }
-                }
-
-                .add-new-card {
-                    width: 17rem;
-                    height: 10rem;
-                }
-            }
-
-            .card-info-details {
-                button {
-                    margin-left: 95%;
-                }
-            }
+          button {
+            right: 2rem;
+          }
         }
 
-        #payment-history {
-            width: 45rem;
+        .add-new-card {
+          width: 17rem;
+          height: 10rem;
         }
+      }
+
+      .card-info-details {
+        button {
+          margin-left: 95%;
+        }
+      }
     }
+
+    #payment-history {
+      width: 45rem;
+    }
+  }
 }
 
 @media (min-width: 1400px) {
-    #payment-info-wrap {
-        .card-info-wrap {
-            width: 50rem;
-        }
+  #payment-info-wrap {
+    .card-info-wrap {
+      width: 50rem;
+    }
 
-        #payment-history {
-            width: 50rem;
-        }
-    }    
+    #payment-history {
+      width: 50rem;
+    }
+  }
 }

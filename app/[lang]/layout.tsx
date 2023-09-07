@@ -19,6 +19,7 @@ const DESIGN_PAGE = [
   'welcome',
   'sign-in',
   'sign-up',
+  'my-page',
 ]
 
 export default function LocaleLayout({
