@@ -9,22 +9,16 @@
 }
 
 .ideanote {
-  // width: 17rem;
-  // height: 17rem;
-  // gap: 3rem;
-
-  // .note {
-  //   width: 17rem;
-  //   height: 17rem;
-  // }
-
   position: relative;
-  width: rem(280);
+  width: 100%;
+  max-width: rem(280);
   height: rem(280);
   padding: rem(27) rem(34) rem(20) rem(22);
   margin: auto;
   white-space: pre-wrap;
   word-break: keep-all;
+  word-wrap: break-word;
+  overflow: hidden;
 
   .footer {
     position: absolute;
@@ -87,7 +81,15 @@
     border: none;
     background: transparent;
     text-decoration: underline;
+    cursor: pointer;
   }
+}
+
+.loading-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: rem(30);
 }
 
 // 작성 후

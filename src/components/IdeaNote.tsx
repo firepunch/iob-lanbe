@@ -1,20 +1,16 @@
 'use client'
 
-import useUserState from '@/stores/userStore'
-import { TStringObj, ValidLocale } from '@/types'
+import { createNote, deleteNote, updateNote } from '@/api_wp'
+import { ValidLocale } from '@/types'
 import { dateFormat } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
+import Spinner from './Spinner'
 
 import DeleteIcon from '@/imgs/delete_bin.png'
-import CheckIcon from '@/imgs/done_check.png'
 import EditIcon from '@/imgs/edit_pencil.png'
-import AddIcon from '@/imgs/ideanote_add.png'
-import BeigeBg from '@/imgs/ideanote_beige.png'
-import LimeBg from '@/imgs/ideanote_lime.png'
 
 const translationJson: any = {
   en: {
@@ -28,7 +24,7 @@ const translationJson: any = {
   },
   ko: {
     placeholder: '여기에 아이디어를 적어보세요.',
-    content_required: '내용을 적어주세요.',
+    content_required: '내용을 입력해주세요.',
     notice: '* 아이디어 노트는 개인 기록용이며, 외부에 공개되지 않습니다. 한글 기준 최대 150자까지 입력 가능합니다.',
     delete_confirm: '해당 노트를 삭제하시겠습니까?',
     save: '저장',
@@ -64,6 +60,7 @@ export default function IdeaNote ({
   const lang = params?.lang || 'en' as ValidLocale
   const [t, setT] = useState(translationJson[lang as string])
 
+  const [isProcess, setIsProcess] = useState<boolean>(false)
   const [noteType, setNoteType] = useState<NoteType>(type)
   const [value, setValue] = useState<string | undefined>(content)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -78,10 +75,14 @@ export default function IdeaNote ({
   }, [content])
 
   const handleSave = async () => {
+    if (isProcess) {
+      return
+    }
     if (!value) {
       alert(t.content_required)
       return
     }
+    setIsProcess(true)
 
     try {
       if (noteId) {
@@ -89,6 +90,7 @@ export default function IdeaNote ({
           note_id: noteId,
           content: value,
         })
+        setNoteType('view')
       } else {
         await createNote({
           user_id: userId,
@@ -100,14 +102,18 @@ export default function IdeaNote ({
     } catch (err) {
       console.error(err)
     }
+
+    setIsProcess(false)
   }
 
   const handleDelete = async () => {
     try {
+      setIsProcess(true)
       await deleteNote({ 
         note_id: noteId,
       })
       onReload()
+      setIsProcess(false)
     } catch (err) {
       console.error(err)
     }
@@ -133,7 +139,8 @@ export default function IdeaNote ({
 
           <div className="footer">
             <span />
-            <button className="save-btn" onClick={handleSave}>
+            <button className="save-btn loading-btn" onClick={handleSave} disabled={isProcess}>
+              <Spinner loading={isProcess} />
               {t.save}
             </button>
           </div>
@@ -179,10 +186,11 @@ export default function IdeaNote ({
                   <p>{t.delete_confirm}</p>
               
                   <div className="buttons-wrap">
-                    <button type="button" onClick={() => setShowConfirmModal(false)}>
+                    <button onClick={() => setShowConfirmModal(false)}>
                       {t.cancel}
                     </button>
-                    <button type="button" onClick={handleDelete}>
+                    <button className="loading-btn" onClick={handleDelete} disabled={isProcess}>
+                      <Spinner loading={isProcess} />
                       {t.delete}
                     </button>
                   </div>
