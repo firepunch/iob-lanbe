@@ -28,6 +28,7 @@ type MetaKey = 'post_en' | 'post_ko' | 'report_en' | 'report_ko'
 export interface ICountData {
   user_id: number
   content_id?: number
+  lang?: 'en' | 'ko'
   type?: MetaKey
 }
 

@@ -35,7 +35,7 @@ export default function Content({
   userId:number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const { _hasHydrated, bookmark, read, updateBookmarkPost, updateReadPost } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { bookmark, read, updateBookmarkPost, updateReadPost } = useStore(useUserState, state => state, INIT_USER_STATE)
   const [isClickedOutside] = useOutsideClick(['filters'])
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
@@ -108,10 +108,6 @@ export default function Content({
     }
   }, [isClickedOutside])
 
-  if (!_hasHydrated) {
-    return <div></div>
-  }
-
   const handleFetchData = async (ids?: string[]) => {
     setFetchParams(prev => ({
       ...prev,
@@ -145,10 +141,6 @@ export default function Content({
   const handleToggleCategory = () => {
     setOpenCountry(false)
     setOpenCategory(!openCategory)
-  }
-
-  if (!_hasHydrated) {
-    return <p>Loading...</p>
   }
 
   return (

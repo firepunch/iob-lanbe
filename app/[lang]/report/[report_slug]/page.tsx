@@ -69,7 +69,7 @@ export default function Report({
     await updateCountDownload({
       user_id: user.databaseId,
       content_id: report?.databaseId,
-      type: 'report',
+      lang,
     })
   }
 

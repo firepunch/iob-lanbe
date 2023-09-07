@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation'
 import { ValidLocale } from '@/types'
 
 interface PostCardProps extends IPost {
-  onFetchData: () => void;
+  onFetchData: (ids?: string[]) => void
 }
 
 export const PostCard = ({

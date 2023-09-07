@@ -11,6 +11,7 @@ import { ReportCard } from '../ReportCard'
 
 interface IFetchParams {
   language: string
+  lang: string
   userId: number
   savedIn?: string[]
   downloadIn?: string[]
@@ -29,6 +30,7 @@ export default function Report({
   const [clickedType, setClickedType] = useState<'saved'|'download'>('saved')
   const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
+    lang: lang,
     userId: userId,
     savedIn: undefined,
     downloadIn: undefined,
@@ -36,7 +38,7 @@ export default function Report({
 
   useEffect(() => {
     fetchWatchList({
-      type: 'report',
+      type: `report_${lang}`,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -46,6 +48,7 @@ export default function Report({
     })
     
     fetchCountDownload({
+      lang,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -74,30 +77,11 @@ export default function Report({
     }
   }, [fetchParams])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      let result = { ids: [] }
-      if (isSaved) {
-        result = await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      } else {
-        result = await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      }
-
-      setFetchParams(prev => ({
-        ...prev,
-        savedIn: result?.ids,
-      }))
-    } catch (err) {
-      console.log(err)
-    }
+  const handleFetchData = async (ids?: string[]) => {
+    setFetchParams(prev => ({
+      ...prev,
+      savedIn: ids,
+    }))
   }
 
   const handleClickedType = (clicked) => {
@@ -118,30 +102,25 @@ export default function Report({
               className={`${clickedType === 'saved' ? 'black-button' : ''}`}
               onClick={() => handleClickedType('saved')}
             >
-              {t('saved')} {`(${bookmark?.report?.length || 0})`}
+              {t('saved')} {`(${fetchParams?.savedIn?.length || 0})`}
             </button>
             <button
               className={`${clickedType === 'download' ? 'black-button' : ''}`}
               onClick={() => handleClickedType('download')}
             >
-              {t('download')} {`(${read?.report?.length || 0})`}
+              {t('download')} {`(${fetchParams?.downloadIn?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
       
-      {(clickedType === 'saved' ? bookmark : read)?.report?.length ? (
+      {fetchParams?.[clickedType === 'saved' ? 'savedIn' : 'downloadIn']?.length ? (
         <div id="saved-content">
           {(clickedType === 'saved' ? bookmark : read)?.report?.map(({ node }) => (
             <ReportCard
-              key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
               {...node}
+              key={node.id}
+              onFetchData={handleFetchData}
             />
           ))}
         </div>
