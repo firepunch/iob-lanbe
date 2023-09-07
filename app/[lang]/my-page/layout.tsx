@@ -51,7 +51,6 @@ const Layout = ({
         <div className="mypage-buttons-wrap">
           <p className="user-name">{t('hi')}{user?.name}!</p>
           <p className="member-info">{t('member_since')}{dateEnFormat(user?.registeredDate)}</p>
-          <button className="member-info logout-button" onClick={handleLogout}>{t('logout')}</button>
 
           <div className="buttons-wrap">
             <Link href={{ pathname: `/${lang}/my-page/${TAB_MAP.content}` }}>
@@ -73,6 +72,11 @@ const Layout = ({
               <Image src={SettingsIcon} alt="Settings"/>
               <p>{t(TAB_MAP.settings)}</p>
             </Link>
+
+            <button className="logout-button" onClick={handleLogout}>
+              <Image src={SettingsIcon} alt="Settings"/>
+              <p>{t('logout')}</p>
+            </button>
           </div>
         </div>
       </div>

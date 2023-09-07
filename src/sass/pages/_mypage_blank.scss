@@ -29,8 +29,7 @@ main {
 
       position: absolute;
 
-      p,
-      .logout-button {
+      p {
         text-align: center;
         color: $white;
         margin: 0.5rem 0;
@@ -42,8 +41,7 @@ main {
       }
 
       .user-name,
-      .member-info,
-      .logout-button {
+      .member-info {
         width: 15rem;
         position: absolute;
         @include absolute-center;
@@ -52,13 +50,6 @@ main {
 
       .member-info {
         top: 8rem;
-      }
-
-      .logout-button {
-        top: 10rem;
-        background-color: transparent;
-        border: 0;
-        cursor: pointer;
       }
 
       .buttons-wrap {
@@ -75,9 +66,12 @@ main {
           background-color: transparent;
           border: none;
           border-right: 0.05rem solid #ababab;
-
           @include flex-column;
           align-items: center;
+
+          &:last-child {
+            border-right: 0;
+          }
 
           img {
             @include icon-size;
