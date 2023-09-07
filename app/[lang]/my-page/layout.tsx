@@ -42,7 +42,7 @@ const Layout = ({
   }
 
   if (!_hasHydrated) {
-    return <p>Loading</p>
+    return <div></div>
   }
 
   return (

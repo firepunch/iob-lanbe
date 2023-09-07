@@ -109,7 +109,7 @@ export default function Content({
   }, [isClickedOutside])
 
   if (!_hasHydrated) {
-    return <p>Loading...</p>
+    return <div></div>
   }
 
   const handleFetchData = async (ids?: string[]) => {
