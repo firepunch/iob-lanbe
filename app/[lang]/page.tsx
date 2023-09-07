@@ -58,46 +58,30 @@ export default function Home({
     ))
   }, [])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId, type }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type,
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      } else {
-        await createWatchList({
-          type,
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      }
+  useEffect(() => {
+    if (user?.databaseId) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+    }
+  }, [user])
 
-      if (type === 'post') {
-        const result = await getAllPosts({
-          language: lang.toUpperCase(), 
-          userId: user.databaseId,
-          first: 4,
-        })
-        updatePosts(result)
-      } else if (type === 'report') {
-        const result = await getAllReports({
-          language: lang.toUpperCase(), 
-          userId: user.databaseId,
-          first: 3,
-        })
-        updateReports(result)
-      }
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
+  const handleFetchData = async (type) => {
+    if (type === 'post') {
+      const result = await getAllPosts(fetchParams)
+      updatePosts(result)
+    } else if (type === 'report') {
+      const result = await getAllReports({
+        ...fetchParams,
+        first: 3,
+      })
+      updateReports(result)
     }
   }
 
   return (
     <>
-      {/* section 1: Welcome */}
       <section 
         id={SECTION_IDS.welcome}
         ref={(el) => (sectionRefs.current[SECTION_IDS.welcome] = el)}
@@ -171,19 +155,16 @@ export default function Home({
           <h3>{t('latest')}</h3>
 
           <div className="iob-latest-content">
-            {posts?.edges?.map(({ node }) => (
-              <PostCard
-                key={node.id}
-                onToggleBookmark={() => (
-                  handleToggleBookmark({
-                    type: 'post',
-                    isSaved: node.lanbeContent.is_save,
-                    databaseId: node.databaseId,
-                  })
-                )}
-                {...node}
-              />
-            ))}
+            {_hasHydrated && (
+              posts?.edges?.map(({ node }) => (
+                <PostCard
+                  {...node}
+                  key={node.id}
+                  metaKey={`post_${lang}`}
+                  onFetchData={() => handleFetchData('post')}
+                />
+              ))
+            )}
           </div>
 
           <Link href={{ pathname: `/${lang}/category` }} className="content-cta-mobile">
@@ -217,19 +198,16 @@ export default function Home({
           <h3>{t('latest')}</h3>
 
           <div className="iob-latest-report">
-            {reports?.edges?.map(({ node }) => (
-              <ReportCard
-                key={node.id}
-                onToggleBookmark={() => (
-                  handleToggleBookmark({
-                    type: 'report',
-                    isSaved: node.lanbeContent.is_save,
-                    databaseId: node.databaseId,
-                  })
-                )}
-                {...node}
-              />
-            ))}
+            {_hasHydrated && (
+              reports?.edges?.map(({ node }) => (
+                <ReportCard
+                  {...node}
+                  key={node.id}
+                  metaKey={`report_${lang}`}
+                  onFetchData={() => handleFetchData('report')}
+                />
+              ))
+            )}
           </div>
 
           <Link href={{ pathname: `/${lang}/report` }} className="report-cta-mobile">

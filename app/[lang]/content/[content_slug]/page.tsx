@@ -6,25 +6,30 @@ import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } f
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { dateEnFormat, getAuthorInfo, getCountry } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import useStore from '@/hooks/useStore'
 
 export default function Category({
   params: { lang, content_slug },
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
-  const { user } = useUserState(state=>state)
+  const { user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
   const contentId = post?.databaseId
 
   useEffect(() => {
-    getContentBySlug(decodeURIComponent(content_slug), user.databaseId).then(result => (
+    getContentBySlug({ 
+      postSlug: decodeURIComponent(content_slug), 
+      userId: user?.databaseId,
+      lang,
+    }).then(result => (
       updatePost(result)
     ))
 
@@ -35,20 +40,40 @@ export default function Category({
 
   useEffect(() => {
     if (contentId) {
-      fetchNotes({
-        user_id: user.databaseId,
-        post_id: contentId,
-      }).then(result => {
-        updateNotes(result)
-      })
-
       updateCountView({
-        user_id: user.databaseId,
+        user_id: user?.databaseId,
         content_id: contentId,
         type: 'post',
       })
+
+      if (user?.databaseId) {
+        fetchNotes({
+          user_id: user?.databaseId,
+          post_id: contentId,
+        }).then(result => {
+          updateNotes(result)
+        })
+      }
     }
   }, [post?.id])
+
+  const handleFetchData = async (type: 'post' | 'recommend') => {
+    if (type === 'post') {
+      const result = await getContentBySlug({
+        postSlug: decodeURIComponent(content_slug), 
+        userId: user?.databaseId,
+        lang,
+      })
+      updatePost(result)
+    } else if (type === 'recommend') {
+      const result = await getContents(lang.toUpperCase(), 3)
+      updateRecommend(result)
+    }
+  }
+  
+  const handleFontSize = () => {
+    setIsZoomed(() => !isZoomed)
+  }
 
   const handleToggleBookmark = async ({ isSaved, type }) => {
     if (!contentId) return
@@ -58,18 +83,22 @@ export default function Category({
         await removeWatchList({
           type: 'report',
           content_id: contentId,
-          user_id: user.databaseId,
+          user_id: user?.databaseId,
         })
       } else {
         await createWatchList({
           type: 'report',
           content_id: contentId,
-          user_id: user.databaseId,
+          user_id: user?.databaseId,
         })
       }
 
       if (type === 'post') {
-        const result = await getContentBySlug(decodeURIComponent(content_slug), user.databaseId)
+        const result = await getContentBySlug({
+          postSlug: decodeURIComponent(content_slug), 
+          userId: user?.databaseId,
+          lang,
+        })
         updatePost(result)
       } else if (type === 'recommend') {
         const result = await getContents(lang.toUpperCase(), 3)
@@ -80,22 +109,18 @@ export default function Category({
       alert('저장 실패')
     }
   }
-  
-  const handleFontSize = () => {
-    setIsZoomed(() => !isZoomed)
-  }
 
   const handleCreateNote = async (content: string) => {
     if (!contentId) return
 
     try {
       await createNote({
-        user_id: user.databaseId,
+        user_id: user?.databaseId,
         post_id: contentId,
         content,
       })
       const result = await fetchNotes({
-        user_id: user.databaseId,
+        user_id: user?.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -111,7 +136,7 @@ export default function Category({
         content,
       })
       const result = await fetchNotes({
-        user_id: user.databaseId,
+        user_id: user?.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -126,7 +151,7 @@ export default function Category({
         note_id: noteId,
       })
       const result = await fetchNotes({
-        user_id: user.databaseId,
+        user_id: user?.databaseId,
         post_id: contentId,
       })
       updateNotes(result)
@@ -136,7 +161,7 @@ export default function Category({
   }
 
   return (
-    <div className={`iob-single-content ${user.databaseId ? '' : 'guest-user'}`}>
+    <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
         <>
           <section id="content-title-page">
@@ -193,10 +218,13 @@ export default function Category({
                 <Bookmark 
                   isBlack
                   isSaved={post?.lanbeContent?.is_save}
+                  metaKey={`post_${lang}`}
+                  contentId={contentId}
+                  onFetchData={() => handleFetchData('recommend')}
                   onToggle={() => (
                     handleToggleBookmark({
                       isSaved: post?.lanbeContent.is_save,
-                      type: 'post',
+                      type: `post_${lang}`,
                     })
                   )}
                 />
@@ -208,7 +236,7 @@ export default function Category({
               </div>
             </div>
 
-            {!user.databaseId && (
+            {!user?.databaseId && (
               <ContentWall lang={lang} t={t} />
             )}
             <div
@@ -217,7 +245,7 @@ export default function Category({
             />
           </section>
 
-          {user.databaseId ? (
+          {user?.databaseId ? (
             <section id="idea-notes">
               <h5>{t('idea_h5')}</h5>
               <div className="idea-note-wrap">
@@ -263,6 +291,8 @@ export default function Category({
             <PostCard 
               {...node}
               key={node.id}
+              bookmarkName={`post_${lang}`}
+              onFetchData={() => handleFetchData('recommend')}
               onToggleBookmark={() => (
                 handleToggleBookmark({
                   isSaved: node.lanbeContent.is_save,

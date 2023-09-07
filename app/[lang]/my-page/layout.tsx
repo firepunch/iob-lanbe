@@ -3,7 +3,7 @@
 import { MyPageContent, MyPageIdeas, MyPageReport, MyPageSettings } from '@/components'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/i18n/client'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { ValidLocale } from '@/types'
 import { AUTH_TOKEN, dateEnFormat, removeStorageData } from '@/utils/lib'
 import Image from 'next/image'
@@ -14,6 +14,7 @@ import ContentIcon from '@/imgs/content_icon.png'
 import IdeasIcon from '@/imgs/ideas_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
+import useStore from '@/hooks/useStore'
 
 const TAB_MAP = {
   content: 'content',
@@ -32,7 +33,7 @@ const Layout = ({
   const segment = useSelectedLayoutSegment()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
-  const { user, resetUser } = useUserState(state => state)
+  const { _hasHydrated, user, resetUser } = useStore(useUserState, state => state, INIT_USER_STATE)
 
   const handleLogout = () => {
     removeStorageData(AUTH_TOKEN)
@@ -40,8 +41,8 @@ const Layout = ({
     router.replace(`/${lang}/sign-in`)
   }
 
-  if (!user?.name) {
-    return null
+  if (!_hasHydrated) {
+    return <p>Loading</p>
   }
 
   return (
