@@ -1,13 +1,13 @@
 import useUserState from '@/stores/userStore'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { createWatchList, removeWatchList } from '@/api_wp'
 
 import SaveImg from '@/imgs/save.png'
 import SaveBlackImg from '@/imgs/save_black.png'
 import SavedImg from '@/imgs/saved.png'
 import SavedBlackImg from '@/imgs/saved_black.png'
-import { createWatchList, removeWatchList } from '@/api_wp'
-import { useEffect, useState } from 'react'
 
 export default function Bookmark({
   isBlack = false,

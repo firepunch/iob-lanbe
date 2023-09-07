@@ -1,6 +1,6 @@
 'use client'
 
-import { getContentBySlug, getContents } from '@/api_gql'
+import { getAllPosts, getContentBySlug, getContents } from '@/api_gql'
 import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
 import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
@@ -12,102 +12,78 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import useStore from '@/hooks/useStore'
+import { MetaKey } from '@/types/api'
 
 export default function Category({
   params: { lang, content_slug },
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
-  const { user } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
-  const contentId = post?.databaseId
+  const [fetchParams, setFetchParams] = useState({
+    lang,
+    language: lang.toUpperCase(),
+    postSlug: decodeURIComponent(content_slug), 
+    userId: user?.databaseId,
+  })
+  const contentId = post?.databaseId || 0
+  const META_KEY = `post_${lang}`
 
   useEffect(() => {
-    getContentBySlug({ 
-      postSlug: decodeURIComponent(content_slug), 
-      userId: user?.databaseId,
-      lang,
-    }).then(result => (
+    getContentBySlug(fetchParams).then(result => (
       updatePost(result)
     ))
 
-    getContents(lang.toUpperCase(), 3).then(result => (
+    getAllPosts({
+      ...fetchParams,
+      first: 3,
+    }).then(result => (
       updateRecommend(result)
     ))
   }, [])
+
+  useEffect(() => {
+    if (user?.databaseId !== 0) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+
+      fetchNotes({
+        user_id: user?.databaseId,
+        post_id: contentId,
+      }).then(result => {
+        updateNotes(result)
+      })
+    }
+  }, [user])
 
   useEffect(() => {
     if (contentId) {
       updateCountView({
         user_id: user?.databaseId,
         content_id: contentId,
-        type: 'post',
+        type: META_KEY as MetaKey,
       })
-
-      if (user?.databaseId) {
-        fetchNotes({
-          user_id: user?.databaseId,
-          post_id: contentId,
-        }).then(result => {
-          updateNotes(result)
-        })
-      }
     }
-  }, [post?.id])
+  }, [contentId])
 
-  const handleFetchData = async (type: 'post' | 'recommend') => {
-    if (type === 'post') {
-      const result = await getContentBySlug({
-        postSlug: decodeURIComponent(content_slug), 
-        userId: user?.databaseId,
-        lang,
-      })
-      updatePost(result)
-    } else if (type === 'recommend') {
-      const result = await getContents(lang.toUpperCase(), 3)
-      updateRecommend(result)
-    }
+  const handleReload = async () => {
+    const postRes = await getContentBySlug(fetchParams)
+    const recommendRes = await getAllPosts({
+      ...fetchParams,
+      first: 3,
+    })
+
+    updatePost(postRes)
+    updateRecommend(recommendRes)
   }
   
   const handleFontSize = () => {
     setIsZoomed(() => !isZoomed)
-  }
-
-  const handleToggleBookmark = async ({ isSaved, type }) => {
-    if (!contentId) return
-
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: contentId,
-          user_id: user?.databaseId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: contentId,
-          user_id: user?.databaseId,
-        })
-      }
-
-      if (type === 'post') {
-        const result = await getContentBySlug({
-          postSlug: decodeURIComponent(content_slug), 
-          userId: user?.databaseId,
-          lang,
-        })
-        updatePost(result)
-      } else if (type === 'recommend') {
-        const result = await getContents(lang.toUpperCase(), 3)
-        updateRecommend(result)
-      }
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
   }
 
   const handleCreateNote = async (content: string) => {
@@ -160,6 +136,10 @@ export default function Category({
     }
   }
 
+  if (!_hasHydrated) {
+    return <div></div>
+  }
+
   return (
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
@@ -198,13 +178,10 @@ export default function Category({
           <section id="main-content">
             <PostOptions
               isSaved={post.lanbeContent.is_save}
-              onFontSize={handleFontSize} 
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: post?.lanbeContent.is_save,
-                  type: 'post',
-                })
-              )}
+              metaKey={META_KEY}
+              contentId={contentId}
+              onFontSize={handleFontSize}
+              onFetchData={handleReload}
             />
 
             {/* content details: title, author, tags, date, etc. */}
@@ -218,15 +195,9 @@ export default function Category({
                 <Bookmark 
                   isBlack
                   isSaved={post?.lanbeContent?.is_save}
-                  metaKey={`post_${lang}`}
+                  metaKey={META_KEY}
                   contentId={contentId}
-                  onFetchData={() => handleFetchData('recommend')}
-                  onToggle={() => (
-                    handleToggleBookmark({
-                      isSaved: post?.lanbeContent.is_save,
-                      type: `post_${lang}`,
-                    })
-                  )}
+                  onFetchData={handleReload}
                 />
               </div>
 
@@ -287,18 +258,11 @@ export default function Category({
         </div>
 
         <div className="recommended-content-wrap">
-          {recommend?.map(({ node }) => (
+          {recommend?.edges?.map(({ node }) => (
             <PostCard 
               {...node}
               key={node.id}
-              bookmarkName={`post_${lang}`}
-              onFetchData={() => handleFetchData('recommend')}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  type:'recommend',
-                })
-              )}
+              onFetchData={handleReload}
             />
           ))}
         </div>

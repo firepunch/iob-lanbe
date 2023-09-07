@@ -1,9 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
-import { objectToGetParams } from '@/utils/lib'
+import Link from 'next/link'
+import { useState } from 'react'
 import Bookmark from '../Bookmark'
 import ShareLinks from './ShareLinks'
 
@@ -12,13 +11,17 @@ import ShareImg from '@/imgs/share.png'
 
 interface ContentOptionsProps {
   isSaved?: boolean
-  onToggleBookmark: () => void
+  metaKey: string
+  contentId: number
+  onFetchData: () => void
   onFontSize: () => void
 }
 
 export default function PostOptions ({
   isSaved = false,
-  onToggleBookmark,
+  metaKey,
+  contentId,
+  onFetchData,
   onFontSize,
 }: ContentOptionsProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +38,10 @@ export default function PostOptions ({
         <button type="button" className="bookmark-button">
           <Bookmark 
             isSaved={isSaved}
-            onToggle={onToggleBookmark} />
+            metaKey={metaKey}
+            contentId={contentId}
+            onFetchData={onFetchData} 
+          />
         </button>
     
         <div className="share-button">

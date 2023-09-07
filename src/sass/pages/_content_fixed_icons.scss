@@ -10,7 +10,8 @@
   left: 85%;
 
   .buttons-wrap {
-    button {
+    & > button,
+    .share-button > button {
       width: 2.5rem;
       height: 2.5rem;
       @include flex-center;

@@ -8,8 +8,9 @@ import useContentState from '@/stores/contentStore'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import useStore from '@/hooks/useStore'
+
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
 import DataTrackingIcon from '@/imgs/datatracking.jpg'
@@ -19,7 +20,6 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
-import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 
 const SECTION_IDS = {
   welcome: 'firstpage',

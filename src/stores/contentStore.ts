@@ -12,18 +12,18 @@ export const initPageInfo = {
 }
 interface IContentState {
   _hasHydrated: boolean
+  recommend: IPosts,
   posts: IPosts,
   post?: IPost,
   report?: IReport,
   reports: IReports,
-  recommend: { node: IPost }[],
   notes: any[],
   searchResult?: ISearchResult,
+  updateRecommend: (posts: IPosts) => void
   updatePosts: (posts: IPosts) => void
   updatePost: (post: IPost) => void
   updateReport: (report: IReport) => void
   updateReports: (reports: IReports) => void
-  updateRecommend: (posts: { node: IPost }[]) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
   setHasHydrated: (state: boolean) => void
@@ -31,8 +31,8 @@ interface IContentState {
 
 export const INIT_CONTENT_STATE = {
   _hasHydrated: false,
+  recommend: { edges: [], pageInfo: initPageInfo },
   posts: { edges: [], pageInfo: initPageInfo },
-  recommend: [],
   post: undefined,
   report: undefined,
   reports: { edges: [], pageInfo: initPageInfo },
@@ -44,8 +44,8 @@ const useContentState = create<IContentState>()(
   persist(
     (set) => ({
       ...INIT_CONTENT_STATE,
-      updatePosts: (posts) => set({ posts }), 
       updateRecommend: (recommend) => set({ recommend }),
+      updatePosts: (posts) => set({ posts }), 
       updatePost: (post) => set({ post }),
       updateReport: (report) => set({ report }),
       updateReports: (reports) => set({ reports }),
