@@ -126,33 +126,37 @@ export default function Report({
             />
           )}
 
-          <div id="report-image-text1">
-            {report.lanbeContent?.secondImage && (
-              <Image 
-                src={report.lanbeContent.secondImage} 
-                alt="Report Image"
-                fill
-                sizes="100vw"
-              />
-            )}   
-            <div className="rit-text">
-              <p>{report.lanbeContent?.secondText}</p>
+          {(report.lanbeContent?.secondImage || report.lanbeContent?.secondText) && (
+            <div id="report-image-text1">
+              {report.lanbeContent?.secondImage && (
+                <Image 
+                  src={report.lanbeContent.secondImage} 
+                  alt="Report Image"
+                  fill
+                  sizes="100vw"
+                />
+              )}
+              <div className="rit-text">
+                <p>{report.lanbeContent?.secondText}</p>
+              </div>
             </div>
-          </div>
+          )}
 
-          <div id="report-image-text2">
-            <div className="rit-text">
-              <p>{report.lanbeContent?.thirdText}</p>
+          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdText) && (
+            <div id="report-image-text2">
+              <div className="rit-text">
+                <p>{report.lanbeContent?.thirdText}</p>
+              </div>
+              {report.lanbeContent?.thirdImage && (
+                <Image 
+                  src={report.lanbeContent.thirdText} 
+                  alt="Report Image"
+                  fill
+                  sizes="100vw"
+                />
+              )}   
             </div>
-            {report.lanbeContent?.thirdImage && (
-              <Image 
-                src={report.lanbeContent.thirdImage} 
-                alt="Report Image"
-                fill
-                sizes="100vw"
-              />
-            )}   
-          </div>
+          )}
         </section>
 
         {/* section 3: report price and cta */}
