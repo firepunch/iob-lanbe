@@ -1,12 +1,14 @@
 'use client'
 
-import { getContents, getSearchResults } from '@/api_gql'
+import { getAllPosts, getContents, getSearchResults } from '@/api_gql'
 import { createWatchList, removeWatchList, sendSearchRequestForm } from '@/api_wp'
 import { PostCard, ReportCard, SearchRequestForm } from '@/components'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import { formatSearchTaxQuery } from '@/utils/lib'
 import { useEffect, useState } from 'react'
 
 export default function Search({
@@ -14,55 +16,59 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
-  const { user } = useUserState(state => state)
-  const { searchResult, recommend, updateSearchResult, updateRecommend } = useContentState(state => state)
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { searchResult, recommend, mergeSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
-  const totalLength = (searchResult?.posts?.pageInfo.total || 0) + (searchResult?.reports?.pageInfo.total || 0)
-  const [loading, setLoading] = useState(false)
-  const [params] = useState({
+  const totalLength = (searchResult?.posts?.edges?.length || 0) + (searchResult?.reports?.edges?.length || 0)
+  const [fetchParams, setFetchParams] = useState({
+    lang,
     language: lang.toUpperCase(),
     userId: user.databaseId,
     keyword: decodeURIComponent(keyword),
   })
 
   useEffect(() => {
-    setLoading(true)
-    getSearchResults(params).then(result => {
-      updateSearchResult(result)
-      setLoading(false)
-    })
-  }, [params, updateSearchResult])
+    getAllPosts({
+      lang,
+      language: lang.toUpperCase(),
+      userId: user?.databaseId,
+      first: 3,
+    }).then(result => (
+      updateRecommend(result)
+    ))
+  }, [])
 
   useEffect(() => {
-    if (recommend?.length === 0 && totalLength === 0) {
-      getContents(lang.toUpperCase(), 3).then(result => (
-        updateRecommend(result)
-      ))
-    }
-  }, [totalLength])
+    getSearchResults({
+      ...fetchParams,
+      taxQuery: formatSearchTaxQuery(fetchParams.keyword),
+      keyword: '',
+    }).then(taxResult => {
+      console.log(taxResult)
+      mergeSearchResult(taxResult)
+    })
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      } else {
-        await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      }
-
-      const result = await getSearchResults(params)
-      updateSearchResult(result)
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
+    getSearchResults({
+      ...fetchParams,
+    }).then(keyResult => {
+      console.log(keyResult)
+      mergeSearchResult(keyResult)
+    })
+  }, [fetchParams.keyword])
+  
+  useEffect(() => {
+    if (user?.databaseId !== 0) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
     }
+  }, [user])
+
+  const handleReload = async () => {
+    setFetchParams(prev => ({
+      ...prev,
+    }))
   }
   
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,17 +83,17 @@ export default function Search({
     }
   }
 
-  if (loading) {
-    return null
+  if (!_hasHydrated) {
+    return <div></div>
   }
 
   return (
     <>
       <section className={`search-result-text ${Boolean(totalLength) ? '' : 'search-noresult-text'}`}>
         {lang === 'en' ? (
-          <p>{totalLength}{t('results_for')}&apos;{params.keyword}&lsquo;</p>
+          <p>{totalLength}{t('results_for')}&apos;{fetchParams.keyword}&lsquo;</p>
         ) : (
-          <p>&apos;{params.keyword}&lsquo;{t('results_for')}{totalLength}{t('results_len')}</p>
+          <p>&apos;{fetchParams.keyword}&lsquo;{t('results_for')}{totalLength}{t('results_len')}</p>
         )}
 
         {totalLength === 0 && (
@@ -107,16 +113,11 @@ export default function Search({
             </div>
 
             <div id="search-recommended-contents-wrap">
-              {recommend?.map(({ node }) => (
+              {recommend?.edges?.map(({ node }) => (
                 <PostCard 
                   {...node}
                   key={node.id}
-                  onToggleBookmark={() => (
-                    handleToggleBookmark({
-                      isSaved: node.lanbeContent.is_save,
-                      databaseId: node.databaseId,
-                    })
-                  )}
+                  onFetchData={handleReload}
                 />
               ))}
             </div>
@@ -136,14 +137,9 @@ export default function Search({
             <div id="search-result-contents-wrap">
               {searchResult?.posts?.edges?.map(({ node }) => (
                 <PostCard
-                  key={node.id}
-                  onToggleBookmark={() => (
-                    handleToggleBookmark({
-                      isSaved: node.lanbeContent.is_save,
-                      databaseId: node.databaseId,
-                    })
-                  )}
                   {...node}
+                  key={node.id}
+                  onFetchData={handleReload}
                 />
               ))}
             </div>
@@ -157,14 +153,9 @@ export default function Search({
             <div id="search-result-reports-wrap">
               {searchResult?.reports?.edges?.map(({ node }) => (
                 <ReportCard
-                  key={node.id}
-                  onToggleBookmark={() => (
-                    handleToggleBookmark({
-                      isSaved: node.lanbeContent.is_save,
-                      databaseId: node.databaseId,
-                    })
-                  )}
                   {...node}
+                  key={node.id}
+                  onFetchData={handleReload}
                 />
               ))}
             </div>

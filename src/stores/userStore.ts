@@ -53,11 +53,13 @@ const useUserState = create<IUserState>()(
       }),
       updateUser: (userRes) => set({ ...userRes, user: userRes?.user }),
       updateUserInfo: (userInfo) => set({ userInfo }),
-      updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => set({
-        authToken,
-        refreshToken,
-        sessionToken,
-      }),
+      updateTokens: ({ authToken, refreshToken, sessionToken }: Tokens) => {
+        set({
+          authToken,
+          refreshToken,
+          sessionToken,
+        })
+      },
       updatePosts: (posts) => set({ posts }),
       updateReports: (reports) => set({ reports }),
       updateBookmarkPost: (post) => set((prev) => ({ bookmark: { post, report: prev.bookmark.report } })),

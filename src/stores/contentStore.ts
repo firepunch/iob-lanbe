@@ -1,4 +1,5 @@
 import { IPost, IPosts, IReport, IReports, ISearchResult } from '@/types/store'
+import { getUniqueEdges } from '@/utils/lib'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -26,6 +27,7 @@ interface IContentState {
   updateReports: (reports: IReports) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
+  mergeSearchResult: (result: ISearchResult) => void
   setHasHydrated: (state: boolean) => void
 }
 
@@ -51,6 +53,33 @@ const useContentState = create<IContentState>()(
       updateReports: (reports) => set({ reports }),
       updateNotes: (notes) => set({ notes }),
       updateSearchResult: (searchResult) => set({ searchResult }),
+      mergeSearchResult: (searchResult) => {
+        set((prev) => {
+          let result = searchResult
+          if (prev.searchResult?.posts) {
+            result = {
+              posts: getUniqueEdges(
+                [
+                  ...searchResult?.posts?.edges || [], 
+                  ...prev.searchResult?.posts?.edges || [],
+                ],
+                'databaseId'
+              ),
+              reports: getUniqueEdges(
+                [
+                  ...searchResult?.reports?.edges || [], 
+                  ...prev.searchResult?.reports?.edges || [],
+                ],
+                'databaseId'
+              ),
+            }
+          }
+
+          return {
+            searchResult: result,
+          }
+        })
+      },
       setHasHydrated: (state: boolean) => {
         set({
           _hasHydrated: state,

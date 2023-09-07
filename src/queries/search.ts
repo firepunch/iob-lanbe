@@ -1,6 +1,18 @@
 const SEARCH_QUERY = `
-query getSearchResult($language: LanguageCodeFilterEnum!, $userId: Float = 0, $keyword: String = "") {
-  posts(where: {language: $language, search: $keyword}) {
+query getSearchResult(
+  $language: LanguageCodeFilterEnum!,
+  $lang: String = "en", 
+  $userId: Float = 0,
+  $keyword: String = "",
+  $taxQuery: TaxQuery = {}
+) {
+  posts(
+    where: {
+      language: $language,
+      search: $keyword,
+      taxQuery: $taxQuery
+    }
+  ) {
     pageInfo {
       total
     }
@@ -23,7 +35,7 @@ query getSearchResult($language: LanguageCodeFilterEnum!, $userId: Float = 0, $k
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId) {
+        lanbeContent(user_id: $userId, lang: $lang, type: "post") {
           is_save
         }
         categories {
@@ -44,7 +56,13 @@ query getSearchResult($language: LanguageCodeFilterEnum!, $userId: Float = 0, $k
       }
     }
   }
-  reports(where: {language: $language, search: $keyword}) {
+  reports(
+    where: {
+      language: $language,
+      search: $keyword,
+      taxQuery: $taxQuery
+    }
+  ) {
     pageInfo {
       total
     }
@@ -68,7 +86,7 @@ query getSearchResult($language: LanguageCodeFilterEnum!, $userId: Float = 0, $k
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId) {
+        lanbeContent(user_id: $userId, lang: $lang, type: "report") {
           is_save
           pages
         }

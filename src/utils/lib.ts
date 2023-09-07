@@ -107,10 +107,18 @@ export const getCountry = (categories) => {
 }
 
 export const getUniqueArr = (arr) => (
-  arr.filter((item, pos, self) => (
-    self.indexOf(item) === pos
+  arr.filter((item, index, self) => (
+    self.indexOf(item) === index
   ))
 )
+
+export const getUniqueEdges = (arr, field) => {
+  return arr.filter((item, index, self) =>
+    index === self.findIndex((t) => (
+      t[field] === item[field]
+    ))
+  )
+}
 
 export const formatPostTaxQuery = (
   categories: { terms: string[], field: string },
@@ -133,4 +141,22 @@ export const formatPostTaxQuery = (
     })
   }
   return { relation: 'AND', taxArray }
+}
+
+export const formatSearchTaxQuery = (keyword: string) => {
+  let taxArray: any[] = []
+  if (keyword) {
+    taxArray = [{
+      terms: [keyword],
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+      field: 'NAME',
+    }, {
+      terms: [keyword],
+      taxonomy: 'TAG',
+      operator: 'IN',
+      field: 'NAME',
+    }]
+  }
+  return { relation: 'OR', taxArray }
 }
