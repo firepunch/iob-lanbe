@@ -56,10 +56,10 @@ export default function Home({
     }).then(result => (
       updateReports(result)
     ))
-  }, [])
+  }, [fetchParams])
 
   useEffect(() => {
-    if (user?.databaseId) {
+    if (user?.databaseId !== 0) {
       setFetchParams(prev => ({
         ...prev,
         userId: user.databaseId,

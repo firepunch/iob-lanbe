@@ -7,7 +7,7 @@ import SaveBlackImg from '@/imgs/save_black.png'
 import SavedImg from '@/imgs/saved.png'
 import SavedBlackImg from '@/imgs/saved_black.png'
 import { createWatchList, removeWatchList } from '@/api_wp'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Bookmark({
   isBlack = false,
@@ -22,19 +22,25 @@ export default function Bookmark({
   contentId: number
   onFetchData: () => void
 }) {
+  const [localSaved, setLocalSaved] = useState(isSaved)
   const [isProcess, setIsProcess] = useState(false)
   const { user } = useUserState(state => state)
   const router = useRouter()
   const params = useParams()
   const imgSrc = isBlack ? (
-    isSaved ? SavedBlackImg : SaveBlackImg
+    localSaved ? SavedBlackImg : SaveBlackImg
   ) : (
-    isSaved ? SavedImg : SaveImg
+    localSaved ? SavedImg : SaveImg
   )
+
+  useEffect(() => {
+    setLocalSaved(isSaved)
+  }, [isSaved])
 
   const handleClick = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault()
     if (isProcess) return
+    setLocalSaved(!localSaved)
     setIsProcess(true)
     
     if (user.databaseId && contentId) {
