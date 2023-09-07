@@ -59,6 +59,7 @@ export default function LanguageSwitcher({
             LangBlackImg
         }
         alt="Change Language" 
+        className="language-icon"
       />
       {!isSimple && otherLocale.toUpperCase()}
     </Link>

@@ -3,9 +3,19 @@
 .iob-project {
   header h1 {
     color: $white;
+  }
 
-    @media (min-width: 992px) {
-      color: $black;
+  @media (min-width: 992px) {
+    header {
+      background-color: transparent;
+
+      h1 {
+        color: $black;
+      }
+
+      .language-icon {
+        filter: invert(100);
+      }
     }
   }
 }
