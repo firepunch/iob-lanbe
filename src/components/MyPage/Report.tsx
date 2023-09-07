@@ -80,7 +80,7 @@ export default function Report({
   const handleFetchData = async (ids?: string[]) => {
     setFetchParams(prev => ({
       ...prev,
-      savedIn: ids,
+      [clickedType === 'saved' ? 'savedIn' : 'downloadIn']: ids,
     }))
   }
 

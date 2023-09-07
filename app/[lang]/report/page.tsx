@@ -57,29 +57,10 @@ export default function Reports({
     }))
   }
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      }
-
-      setFetchParams(prev => ({
-        ...prev,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  const handleReload = () => {
+    setFetchParams(prev => ({
+      ...prev,
+    }))
   }
 
   return (
@@ -105,14 +86,9 @@ export default function Reports({
         <div id="all-reports-wrap">
           {reports?.edges?.map(({ node }) => (
             <ReportCard
-              key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
               {...node}
+              key={node.id}
+              onFetchData={handleReload}
             />
           ))}
         </div>

@@ -1,68 +1,52 @@
 'use client'
 
 import { getReportBySlug } from '@/api_gql'
-import { createWatchList, removeWatchList, updateCountDownload, updateCountView } from '@/api_wp'
-import { Bookmark, PostOptions, Tags } from '@/components'
+import { updateCountDownload, updateCountView } from '@/api_wp'
+import { Bookmark, ShareLinks, Tags } from '@/components'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { dateFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Report({
   params: { lang, report_slug },
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
-  const user = useUserState(state => state.user)
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { report, updateReport } = useContentState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
+  const [isOpenShare, setIsOpenShare] = useState(false)
 
   useEffect(() => {
     getReportBySlug({
       reportSlug: decodeURI(report_slug), 
       userId: user.databaseId,
       email: user.email,
+      lang,
     }).then(result => {
       updateReport(result)
       updateCountView({
         user_id: user.databaseId,
         content_id: result?.databaseId,
-        type: 'report',
+        lang,
       })
     })
   }, [user])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: user.databaseId,
-        })
-      }
-
-      const result = await getReportBySlug({
-        reportSlug: decodeURI(report_slug), 
-        userId: user.databaseId,
-        email: user.email,
-      })
-      updateReport(result)
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  const handleReload = async () => {
+    const result = await getReportBySlug({
+      reportSlug: decodeURI(report_slug), 
+      userId: user.databaseId,
+      email: user.email,
+    })
+    updateReport(result)
   }
 
   const handleUpdateCount = async () => {
@@ -73,36 +57,29 @@ export default function Report({
     })
   }
 
-  if (!report) {
-    return ''
+  if (!_hasHydrated || !report) {
+    return <div></div>
   }
 
   return (
     <>
-      <PostOptions
-        isSaved={report.lanbeContent.is_save}
-        onFontSize={() => {}} 
-        onToggleBookmark={() => (
-          handleToggleBookmark({
-            isSaved: report?.lanbeContent.is_save,
-            databaseId: report.databaseId,
-          })
-        )}
-      />
       <div className="iob-single-report">
         <section id="report-firstpage">
           <div id="report-firstpage-left">
             <div className="save-share">
               <Bookmark 
                 isSaved={report.lanbeContent.is_save}
-                onToggle={() => (
-                  handleToggleBookmark({ 
-                    isSaved: report.lanbeContent.is_save,
-                    databaseId: report.databaseId,
-                  })
-                )}
+                metaKey={`report_${lang}`}
+                contentId={report.databaseId}
+                onFetchData={handleReload}
               />
-              <Image src={ShareImg} alt="Share" />
+
+              <div className="share-button">
+                <Image src={ShareImg} alt="Share" onClick={() => setIsOpenShare(!isOpenShare)} />
+                {isOpenShare && (
+                  <ShareLinks onClose={() => setIsOpenShare(!isOpenShare)} />
+                )}
+              </div>
             </div>
 
             <h2>{report.title}</h2>
