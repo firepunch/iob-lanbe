@@ -1,5 +1,6 @@
 import { IPost, IPosts, IReport, IReports, ISearchResult } from '@/types/store'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export const initPageInfo = {
   initTotal: 0,
@@ -9,7 +10,8 @@ export const initPageInfo = {
   startCursor: undefined,
   endCursor: undefined,
 }
-interface ContentState {
+interface IContentState {
+  _hasHydrated: boolean
   posts: IPosts,
   post?: IPost,
   report?: IReport,
@@ -24,9 +26,11 @@ interface ContentState {
   updateRecommend: (posts: { node: IPost }[]) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
+  setHasHydrated: (state: boolean) => void
 }
 
-const useContentState = create<ContentState>((set) => ({
+export const INIT_CONTENT_STATE = {
+  _hasHydrated: false,
   posts: { edges: [], pageInfo: initPageInfo },
   recommend: [],
   post: undefined,
@@ -34,13 +38,32 @@ const useContentState = create<ContentState>((set) => ({
   reports: { edges: [], pageInfo: initPageInfo },
   notes: [],
   searchResult: undefined,
-  updatePosts: (posts) => set({ posts }), 
-  updateRecommend: (recommend) => set({ recommend }),
-  updatePost: (post) => set({ post }),
-  updateReport: (report) => set({ report }),
-  updateReports: (reports) => set({ reports }),
-  updateNotes: (notes) => set({ notes }),
-  updateSearchResult: (searchResult) => set({ searchResult }),
-}))
+}
+
+const useContentState = create<IContentState>()(
+  persist(
+    (set) => ({
+      ...INIT_CONTENT_STATE,
+      updatePosts: (posts) => set({ posts }), 
+      updateRecommend: (recommend) => set({ recommend }),
+      updatePost: (post) => set({ post }),
+      updateReport: (report) => set({ report }),
+      updateReports: (reports) => set({ reports }),
+      updateNotes: (notes) => set({ notes }),
+      updateSearchResult: (searchResult) => set({ searchResult }),
+      setHasHydrated: (state: boolean) => {
+        set({
+          _hasHydrated: state,
+        })
+      },
+    }),
+    {
+      name: 'content-storage',
+      onRehydrateStorage: () => (state: IContentState) => {
+        state.setHasHydrated(true)
+      },
+    }
+  )
+)
 
 export default useContentState
