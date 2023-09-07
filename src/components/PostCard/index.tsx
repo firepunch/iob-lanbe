@@ -11,19 +11,22 @@ import { useParams } from 'next/navigation'
 import { ValidLocale } from '@/types'
 
 interface PostCardProps extends IPost {
-  onToggleBookmark: () => void;
+  metaKey: string
+  onFetchData: () => void;
 }
 
 export const PostCard = ({
   featuredImage,
   tags,
+  databaseId,
   slug,
   title = '',
   date = '',
+  metaKey = '',
   lanbeContent: { is_save },
   categories,
   country,
-  onToggleBookmark,
+  onFetchData,
 }: PostCardProps) => {
   const params = useParams()
   const lang = params?.lang || 'en' as ValidLocale
@@ -43,7 +46,9 @@ export const PostCard = ({
           ) : null}
           <Bookmark
             isSaved={is_save} 
-            onToggle={onToggleBookmark}
+            metaKey={metaKey}
+            contentId={databaseId}
+            onFetchData={onFetchData}
           />
         </div>
 

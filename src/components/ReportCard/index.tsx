@@ -4,16 +4,19 @@ import Link from 'next/link'
 import Bookmark from '../Bookmark'
 
 interface ReportCardProps extends IReport {
-  onToggleBookmark: () => void;
+  metaKey: string;
+  onFetchData: () => void;
 }
 
 export const ReportCard = ({
   featuredImage,
+  databaseId,
+  metaKey,
   slug,
   title,
   excerpt,
   lanbeContent,
-  onToggleBookmark,
+  onFetchData,
 }: ReportCardProps) => {
   return (
     <div className="indiv-report i-r-1">
@@ -30,7 +33,9 @@ export const ReportCard = ({
           ) : null}
           <Bookmark
             isSaved={lanbeContent?.is_save} 
-            onToggle={onToggleBookmark}
+            metaKey={metaKey}
+            contentId={databaseId}
+            onFetchData={onFetchData}
           />
         </div>
         <p className="indiv-report-title">
