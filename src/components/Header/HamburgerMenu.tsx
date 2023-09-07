@@ -9,20 +9,30 @@ import Icons from '../Icons'
 import SearchWall from '../SearchWall'
 
 import HamburgerWhiteImg from '@/imgs/hamburger_white.png'
+import HamburgerBlackImg from '@/imgs/hamburger_black.png'
 import SearchBlackIcon from '@/imgs/search_black.png'
 import userIcon from '@/imgs/user.png'
 import useUserState from '@/stores/userStore'
+import { usePathname } from 'next/navigation'
+
+const WHITE_ICONS = [
+  'about',
+  'project',
+]
 
 export default function HamburgerMenu({
   lang,
+  openMenu,
+  onOpenMenu,
 }: {
   lang: ValidLocale
+  openMenu?: string
+  onOpenMenu: (menu?: string) => void
 }) {
+  const pathName = usePathname()
   const { t: ct } = useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
   const { user } = useUserState(state => state)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false)
   const [isUser, setIsUser] = useState(false)
 
@@ -30,16 +40,26 @@ export default function HamburgerMenu({
     setIsUser(Boolean(user?.databaseId))
   }, [user?.databaseId])
   
-  const handleCloseMenu = () => setIsMenuOpen(false)
+  const handleCloseHamburger = () => onOpenMenu()
 
   return (
     <>
-      <a className="hamburger-mobile" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <Image src={HamburgerWhiteImg} alt="Hamburger menu" />
+      <a 
+        className="hamburger-mobile" 
+        onClick={() => onOpenMenu(openMenu === 'hamburger' ? undefined : 'hamburger')}
+      >
+        <Image 
+          src={
+            WHITE_ICONS.find(item => pathName.includes(item)) ?
+              HamburgerWhiteImg :
+              HamburgerBlackImg
+          } 
+          alt="Hamburger menu" 
+        />
       </a>
       
-      {isMenuOpen && (
-        <section id="mobile-menu" className="show" onClick={handleCloseMenu}>
+      {openMenu === 'hamburger' && (
+        <section id="mobile-menu" className="show" onClick={handleCloseHamburger}>
           {/* about us */}
           <div id="mm-about-us">
             <Link href="/about">
@@ -65,19 +85,19 @@ export default function HamburgerMenu({
               <div className="other-content-pages">
                 <ul>
                   <li className="main-categ">{ct('market_research')}</li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=market`}>
                       <Icons type="arrowBlack" />
                       {ct('market')}
                     </Link>
                   </li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=corporate`}>
                       <Icons type="arrowBlack" />
                       {ct('corporate')}
                     </Link>
                   </li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=consumer`}>
                       <Icons type="arrowBlack" />
                       {ct('consumer')}
@@ -87,25 +107,25 @@ export default function HamburgerMenu({
 
                 <ul>
                   <li className="main-categ">{ct('market_entry')}</li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=marketing`}>
                       <Icons type="arrowBlack" />
                       {ct('marketing')}
                     </Link>
                   </li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=partnership`}>
                       <Icons type="arrowBlack" />
                       {ct('partnership')}
                     </Link>
                   </li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=channel`}>
                       <Icons type="arrowBlack" />
                       {ct('channel')}
                     </Link>
                   </li>
-                  <li className="sub-categ">
+                  <li className="sub-categ" onClick={handleCloseHamburger}>
                     <Link href={`/${lang}/category/?name=payment`}>
                       <Icons type="arrowBlack" />
                       {ct('payment')}
@@ -113,7 +133,7 @@ export default function HamburgerMenu({
                   </li>
                 </ul>
 
-                <Link href={`/${lang}/category`} className="see-all">
+                <Link href={`/${lang}/category`} className="see-all" onClick={handleCloseHamburger}>
                   {t('content_see_all')}
                 </Link>
               </div>
@@ -121,7 +141,7 @@ export default function HamburgerMenu({
           </div>
 
           {/* report */}
-          <div id="mm-report">
+          <div id="mm-report" onClick={handleCloseHamburger}>
             <Link href={`/${lang}/report`}>
               <h2>{t('report')}</h2>
               <Icons type="arrowBlack" />
@@ -129,7 +149,7 @@ export default function HamburgerMenu({
           </div>
 
           {/* project */}
-          <div id="mm-project">
+          <div id="mm-project" onClick={handleCloseHamburger}>
             <Link href={`/${lang}/project`}>
               <h2>{t('project')}</h2>
               <Icons type="arrowBlack" />
@@ -137,10 +157,10 @@ export default function HamburgerMenu({
           </div>
 
           {/* search */}
-          <div id="mm-search">
+          <div id="mm-search" onClick={handleCloseHamburger}>
             <span 
               className="search-link"
-              onClick={() => setOpenSearchWall(true)}
+              onClick={() => onOpenMenu('search')}
             >
               <h2>{t('search')}</h2>
               <Image src={SearchBlackIcon} alt="Search" />
@@ -148,7 +168,7 @@ export default function HamburgerMenu({
           </div>
 
           {/* signin */}
-          <div id="mm-signin" onClick={handleCloseMenu}> 
+          <div id="mm-signin" onClick={handleCloseHamburger}> 
             {isUser ? (
               <Link href={`/${lang}/my-page/content`}>
                 <h2>{t('my_page')}</h2>
@@ -163,8 +183,8 @@ export default function HamburgerMenu({
         </section>
       )}
 
-      {openSearchWall && (
-        <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
+      {openMenu === 'search' && (
+        <SearchWall lang={lang} onClose={handleCloseHamburger} />
       )}
     </>
   )

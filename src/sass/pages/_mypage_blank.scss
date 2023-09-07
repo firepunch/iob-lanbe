@@ -3,13 +3,6 @@
 
   header {
     color: $white;
-
-    .language-mobile,
-    .hamburger-mobile {
-      img {
-        filter: invert(0);
-      }
-    }
   }
 }
 
@@ -172,13 +165,6 @@ main {
       @include bg-color($beige);
 
       color: $black;
-
-      .language-mobile,
-      .hamburger-mobile {
-        img {
-          filter: invert(100%);
-        }
-      }
     }
   }
 

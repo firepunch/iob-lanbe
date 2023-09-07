@@ -6,7 +6,7 @@ import useUserState from '@/stores/userStore'
 import { IResponseUser } from '@/types/store'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -29,21 +29,24 @@ export default function LocaleLayout({
   const className = WHITE_ICONS.find(item => pathName.includes(item))
   const { user, updateUser } = useUserState(state => state)
   const [storageUser] = getStorageData(AUTH_TOKEN)
+  const [openMenu, setOpenMenu] = useState<'search' | undefined>()
 
   useEffect(( ) => {
     if (storageUser && !user) {
       updateUser(storageUser as IResponseUser)
     }
   }, [storageUser])
+
+  const handleOpenMenu = (menu?: 'search' | undefined) => setOpenMenu(menu)
   
   return (
     <html lang={lang}>
       <head />
-      <body className={`iob-${lang} ${className ? `iob-${className}` : ''}`}>
+      <body className={`iob-${lang} ${className ? `iob-${className}` : ''} ${openMenu ? `iob-open` : ''}`}>
         {
           SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
-            <SimpleHeader lang={lang} /> :
-            <Header lang={lang} /> 
+            <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :
+            <Header lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} />
         }
         <main>
           {children}

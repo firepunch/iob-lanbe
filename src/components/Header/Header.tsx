@@ -15,13 +15,16 @@ import useUserState from '@/stores/userStore'
 
 export default function Header({
   lang,
+  openMenu,
+  onOpenMenu,
 }: {
   lang: ValidLocale
+  openMenu?: string
+  onOpenMenu: (menu?: string) => void
 }) {
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const { user, updateUser } = useUserState(state => state)
-  const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
+  const { user } = useUserState(state => state)
   const [isUser, setIsUser] = useState(false)
 
   useEffect(() => {
@@ -132,7 +135,7 @@ export default function Header({
       <nav className="right-nav">
         <ul>
           <li>
-            <span className="search-link" onClick={() => setOpenSearchWall(true)}>
+            <span className="search-link" onClick={() => onOpenMenu('search')}>
               <Image src={SearchImg} alt="Search" />
               {t('h_search')}
             </span>
@@ -156,10 +159,10 @@ export default function Header({
       </nav>
       {/* //web version nav */}
 
-      <HamburgerMenu lang={lang} />
+      <HamburgerMenu lang={lang} openMenu={openMenu} onOpenMenu={onOpenMenu} />
 
-      {openSearchWall && (
-        <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
+      {openMenu === 'search' && (
+        <SearchWall lang={lang} onClose={() => onOpenMenu()} />
       )}
     </header>
   )

@@ -1,240 +1,231 @@
 // mobile first
 #only-logo-nav-design-blackbg {
-    header {
-        h1 {
-            color: $white;
-        }
-
-        .language-mobile,
-        .hamburger-mobile {
-            img {
-                filter: invert(0);
-            }
-        }
+  header {
+    h1 {
+      color: $white;
     }
+  }
 }
 
-
 #payment-receipt {
-    width: 100%;
-    height: 28rem;
-    background-color: $black;
-    color: $white;
+  width: 100%;
+  height: 28rem;
+  background-color: $black;
+  color: $white;
 
-    .receipt-details {
-        width: 85%;
-        padding-top: 5rem;
-        margin: auto;
+  .receipt-details {
+    width: 85%;
+    padding-top: 5rem;
+    margin: auto;
 
-        .your-order {
-            margin-bottom: 2rem;
-        }
-
-        .report-title {
-            font-family: $secondary-font;
-        }
-
-        .total-price {
-            border-top: .15rem solid $white;
-            border-bottom: .15rem solid $white;
-            @include flex-spacebetween;
-            align-items: center;
-        }
-
-        .disclaimer1 {
-            font-size: $smaller-font-size;
-        }
+    .your-order {
+      margin-bottom: 2rem;
     }
 
-    .please-complete {
-        width: 85%;
-        padding-top: 3rem;
-        margin: auto;
+    .report-title {
+      font-family: $secondary-font;
     }
 
-    .prev-page {
-        display: none;
+    .total-price {
+      border-top: 0.15rem solid $white;
+      border-bottom: 0.15rem solid $white;
+      @include flex-spacebetween;
+      align-items: center;
     }
+
+    .disclaimer1 {
+      font-size: $smaller-font-size;
+    }
+  }
+
+  .please-complete {
+    width: 85%;
+    padding-top: 3rem;
+    margin: auto;
+  }
+
+  .prev-page {
+    display: none;
+  }
 }
 
 #payment-details {
-    width: 100%;
-    padding-top: 3rem;
-    background-color: $beige;
+  width: 100%;
+  padding-top: 3rem;
+  background-color: $beige;
 
-    .payment-inputs {
-        width: 85%;
-        margin: auto;
+  .payment-inputs {
+    width: 85%;
+    margin: auto;
 
-        form {
-            @include flex-column;
-            margin: 1rem 0;
+    form {
+      @include flex-column;
+      margin: 1rem 0;
 
-            label {
-                font-size: $smaller-font-size;
-                font-weight: $bold-font-weight;
-                margin-bottom: .25rem;
-                margin-left: 1rem;
-            }
+      label {
+        font-size: $smaller-font-size;
+        font-weight: $bold-font-weight;
+        margin-bottom: 0.25rem;
+        margin-left: 1rem;
+      }
 
-            input[type=text] {
-                height: 3rem;
-                border: .075rem solid $black;
-                border-radius: 10rem;
-                padding: 0 1rem;
-                outline: none;
-                background-color: $beige;
-            }
-        }
-
-        .payment-input-flex {
-            display: flex;
-            margin-top: -1.25rem;
-
-            form {
-                width: 48%;
-            }
-
-            form:nth-child(1) {
-                margin-right: 4%;
-            }
-        }  
-    }
-    
-    // country
-    .payment-inputs-country {
-        width: 85%;
-        @include flex-column;
-        margin: 1rem auto;
-
-        select {
-            height: 3rem;
-            border: .075rem solid $black;
-            border-radius: 10rem;
-            padding: 0 1rem;
-            outline: none;
-            background-color: $beige;
-
-            margin-top: .25rem;
-        }
-
-        label {
-            font-size: $smaller-font-size;
-            font-weight: $bold-font-weight;
-            margin-left: 1rem;
-        }
+      input[type="text"] {
+        height: 3rem;
+        border: 0.075rem solid $black;
+        border-radius: 10rem;
+        padding: 0 1rem;
+        outline: none;
+        background-color: $beige;
+      }
     }
 
-    .pay-button {
-        width: 85%;
-        margin: auto;
-        padding: 2rem 0;
+    .payment-input-flex {
+      display: flex;
+      margin-top: -1.25rem;
 
-        p {
-            font-size: .75rem;
-        }
+      form {
+        width: 48%;
+      }
 
-        button {
-            @include mobile-button-style($black);
-            background-color: $black;
-            color: $white;
-        }
+      form:nth-child(1) {
+        margin-right: 4%;
+      }
     }
+  }
+
+  // country
+  .payment-inputs-country {
+    width: 85%;
+    @include flex-column;
+    margin: 1rem auto;
+
+    select {
+      height: 3rem;
+      border: 0.075rem solid $black;
+      border-radius: 10rem;
+      padding: 0 1rem;
+      outline: none;
+      background-color: $beige;
+
+      margin-top: 0.25rem;
+    }
+
+    label {
+      font-size: $smaller-font-size;
+      font-weight: $bold-font-weight;
+      margin-left: 1rem;
+    }
+  }
+
+  .pay-button {
+    width: 85%;
+    margin: auto;
+    padding: 2rem 0;
+
+    p {
+      font-size: 0.75rem;
+    }
+
+    button {
+      @include mobile-button-style($black);
+      background-color: $black;
+      color: $white;
+    }
+  }
 }
 
 @media (min-width: 768px) {
-    #payment-receipt {
-        height: 30rem;
+  #payment-receipt {
+    height: 30rem;
 
-        .receipt-details {
-            width: 60%;
-            padding-top: 6rem;
-        }
-
-        .please-complete {
-            width: 60%;
-        }
+    .receipt-details {
+      width: 60%;
+      padding-top: 6rem;
     }
 
-    #payment-details {
-        .payment-inputs,
-        .payment-inputs-country,
-        .pay-button {
-            width: 70%;
-        }
+    .please-complete {
+      width: 60%;
     }
+  }
+
+  #payment-details {
+    .payment-inputs,
+    .payment-inputs-country,
+    .pay-button {
+      width: 70%;
+    }
+  }
 }
 
 @media (min-width: 992px) {
-    #only-logo-nav-design-blackbg {
-        header {
-            background-color: transparent;
-        }
+  #only-logo-nav-design-blackbg {
+    header {
+      background-color: transparent;
     }
+  }
 }
 
 @media (min-width: 1200px) {
-    #payment-page {
-        display: flex;
+  #payment-page {
+    display: flex;
 
-        // hide scroll bar
-        ::-webkit-scrollbar {
-            width: .5rem;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: transparent;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
-
-        #payment-receipt {
-            width: 40%;
-            height: 100vh;
-            overflow-y: scroll;
-            position: relative;
-
-            .receipt-details {
-                width: 75%;
-                @include absolute-center;
-                top: 12.5rem;
-            }
-
-            .please-complete {
-                width: 75%;
-                @include absolute-center;
-                top: 30rem;
-                padding-bottom: 2rem;
-            }
-        }
-
-        #payment-details {
-            height: 100vh;
-            overflow-y: scroll;
-            padding-top: 9vh;
-
-            .pay-button {
-    
-                p {
-                    width: 50%;
-                    margin: .25rem auto;
-                }
-
-                button {
-                    width: 55%;
-                    margin: 1rem auto;
-                }
-            }
-        }
+    // hide scroll bar
+    ::-webkit-scrollbar {
+      width: 0.5rem;
     }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    #payment-receipt {
+      width: 40%;
+      height: 100vh;
+      overflow-y: scroll;
+      position: relative;
+
+      .receipt-details {
+        width: 75%;
+        @include absolute-center;
+        top: 12.5rem;
+      }
+
+      .please-complete {
+        width: 75%;
+        @include absolute-center;
+        top: 30rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    #payment-details {
+      height: 100vh;
+      overflow-y: scroll;
+      padding-top: 9vh;
+
+      .pay-button {
+        p {
+          width: 50%;
+          margin: 0.25rem auto;
+        }
+
+        button {
+          width: 55%;
+          margin: 1rem auto;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 1400px) {
-    #payment-page {
-        #payment-details {
-            padding-top: 11.5vh;
-        }
+  #payment-page {
+    #payment-details {
+      padding-top: 11.5vh;
     }
+  }
 }

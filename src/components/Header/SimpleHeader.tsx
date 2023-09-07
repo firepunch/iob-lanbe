@@ -5,8 +5,12 @@ import LanguageSwitcher from './LanguageSwitcher'
 
 export default function SimpleHeader({
   lang,
+  openMenu,
+  onOpenMenu,
 }: {
   lang: ValidLocale
+  openMenu?: string
+  onOpenMenu: (menu?: string) => void
 }) {
   return (
     <header>
@@ -14,7 +18,7 @@ export default function SimpleHeader({
       <h1>
         <Link href="/">I.O.B</Link>
       </h1>
-      <HamburgerMenu lang={lang} />
+      <HamburgerMenu lang={lang} openMenu={openMenu} onOpenMenu={onOpenMenu} />
     </header>
   )
 }
