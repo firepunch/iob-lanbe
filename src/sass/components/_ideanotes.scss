@@ -42,6 +42,10 @@
       }
     }
   }
+
+  @media (min-width: 1200px) {
+    max-width: 100%;
+  }
 }
 
 // 작성 전
@@ -188,20 +192,20 @@
 * MyPage Ideas
 */
 .ideanotes-designs {
-  width: 80%;
-  margin: 100px auto;
+  width: 100%;
+  margin: 1rem auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
 
   @media (min-width: 576px) {
-    width: 100%;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
   @media (min-width: 768px) {
-    width: 80%;
+    width: 90%;
+    margin-top: rem(90);
   }
 
   @media (min-width: 992px) {
@@ -211,16 +215,8 @@
   @media (min-width: 1200px) {
     width: 60%;
   }
+  @media (min-width: 1200px) {
+    width: 80%;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
-// @media (min-width: 1200px) {
-//     .ideanote {
-//       width: 20rem;
-//       height: 20rem;
-
-//       .note {
-//         width: 20rem;
-//         height: 20rem;
-//       }
-//   }
-// }
