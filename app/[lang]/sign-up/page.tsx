@@ -85,8 +85,7 @@ const SignUp = ({
 
       updateUser(loginData?.user)
       setStorageData(AUTH_TOKEN, loginData)
-
-      replace('/')
+      replace(`/${lang}/welcome`)
     } catch (err) {
       console.error('login error', err)
     }

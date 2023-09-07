@@ -18,6 +18,7 @@ import { usePathname } from 'next/navigation'
 const WHITE_ICONS = [
   'about',
   'project',
+  'welcome',
 ]
 
 export default function HamburgerMenu({

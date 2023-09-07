@@ -12,6 +12,7 @@ import useContentState from '@/stores/contentStore'
 const WHITE_ICONS = [
   'about',
   'project',
+  'welcome',
 ]
 
 const CHANGE_URL = [

@@ -37,9 +37,9 @@ const Layout = ({
   const { _hasHydrated, user, resetUser } = useStore(useUserState, state => state, INIT_USER_STATE)
 
   const handleLogout = () => {
+    router.replace(`/${lang}/sign-in`)
     removeStorageData(AUTH_TOKEN)
     resetUser()
-    router.replace(`/${lang}/sign-in`)
   }
 
   if (!_hasHydrated) {

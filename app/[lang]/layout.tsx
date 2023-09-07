@@ -16,6 +16,7 @@ const SIMPLE_HEADER_MAP = [
 const WHITE_ICONS = [
   'about',
   'project',
+  'welcome',
 ]
 
 export default function LocaleLayout({

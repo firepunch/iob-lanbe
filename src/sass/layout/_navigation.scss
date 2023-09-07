@@ -1,7 +1,12 @@
+.iob-welcome,
 .iob-about,
 .iob-project {
   header h1 {
     color: $white;
+
+    @media (min-width: 992px) {
+      color: $black;
+    }
   }
 }
 

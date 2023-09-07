@@ -1,12 +1,12 @@
 // Font families
 @font-face {
-    font-family: 'inter';
-    src: url(~/public/fonts/inter_variableFont.ttf);
+  font-family: "inter";
+  src: url(~/public/fonts/inter_variableFont.ttf);
 }
 
 @font-face {
-    font-family: 'quantico';
-    src: url(~/public/fonts/quantico_bold.ttf);
+  font-family: "quantico";
+  src: url(~/public/fonts/quantico_bold.ttf);
 }
 
 // @font-face {
@@ -14,13 +14,13 @@
 //     src: url(~/public/fonts/SUIT-Variable.ttf);
 // }
 
-$primary-font: 'inter';
-$secondary-font: 'quantico';
+$primary-font: "inter";
+$secondary-font: "quantico";
 // $korean-font: 'suit';
 
 // Font sizes
 $base-font-size: 1rem;
-$smaller-font-size: .85rem;
+$smaller-font-size: 0.85rem;
 $h1-font-size: 1.5rem;
 $large-font-size: 2.25rem;
 
@@ -31,44 +31,43 @@ $bold-font-weight: 600;
 
 // title font style
 @mixin titles {
-    font-family: $secondary-font;
-    font-size: $h1-font-size;
-    font-weight: $bold-font-weight;
+  font-family: $secondary-font;
+  font-size: $h1-font-size;
+  font-weight: $bold-font-weight;
 }
 
-
 .iob-en {
-    font-family: $primary-font;
+  font-family: $primary-font;
 }
 
 .iob-ko {
-    #main-content {
-        line-height: 1.85rem;
-    }
+  #main-content {
+    line-height: 1.85rem;
+  }
 }
 
 #main-content {
-    line-height: 1.5rem;
-    
-    h2 {
-        font-size: $large-font-size;
-        // 2.25rem
-    }
+  line-height: 1.5rem;
 
-    strong {
-        font-size: 1.15rem;
-        margin: 2rem 0;
-    }
+  h2 {
+    font-size: $large-font-size;
+    // 2.25rem
+  }
 
-    h3 {
-        font-size: 1.5rem;
-    }
+  strong {
+    font-size: 1.15rem;
+    margin: 2rem 0;
+  }
 
-    h5 {
-        font-size: 1.25rem;
-    }
+  h3 {
+    font-size: 1.5rem;
+  }
 
-    mark {
-        background-color: $lime;
-    }
+  h5 {
+    font-size: 1.25rem;
+  }
+
+  mark {
+    background-color: $lime;
+  }
 }

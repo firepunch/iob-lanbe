@@ -1,13 +1,30 @@
-import { ValidLocale } from '@/i18n/settings'
+'use client'
 
-export default async function Welcome({
+import withAuth from '@/hocs/withAuth'
+import useStore from '@/hooks/useStore'
+import { useTranslation } from '@/i18n/client'
+import { ValidLocale } from '@/i18n/settings'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+
+const Welcome = ({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
-}) {
+}) => {
+  const { user } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { t } = useTranslation(lang, 'welcome')
+
   return (
     <section id="welcome-main">
-      <p>Welcome to I.O.B,<br /><span>Seoyoung!</span></p>
+      <div className="welcome-text">
+        <p>
+          {t('p1')}<br />
+          <span>{user.name}!</span>
+        </p>
+        <p className="email">{t('email')}</p>
+      </div>
     </section>
   )
 }
+
+export default Welcome
