@@ -1,6 +1,5 @@
 'use client'
 
-import withAuth from '@/hocs/withAuth'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'

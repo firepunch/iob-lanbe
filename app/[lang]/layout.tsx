@@ -13,10 +13,12 @@ const SIMPLE_HEADER_MAP = [
   'sign-up',
 ]
 
-const WHITE_ICONS = [
+const DESIGN_PAGE = [
   'about',
   'project',
   'welcome',
+  'sign-in',
+  'sign-up',
 ]
 
 export default function LocaleLayout({
@@ -27,7 +29,7 @@ export default function LocaleLayout({
   params: { lang: ValidLocale }
 }) {
   const pathName = usePathname()
-  const className = WHITE_ICONS.find(item => pathName.includes(item))
+  const page = DESIGN_PAGE.find(item => pathName.includes(item))
   const { user, updateUser } = useUserState(state => state)
   const [storageUser] = getStorageData(AUTH_TOKEN)
   const [openMenu, setOpenMenu] = useState<'search' | undefined>()
@@ -43,7 +45,7 @@ export default function LocaleLayout({
   return (
     <html lang={lang}>
       <head />
-      <body className={`iob-${lang} ${className ? `iob-${className}` : ''} ${openMenu ? `iob-open` : ''}`}>
+      <body className={`iob-${lang} ${page ? `iob-${page}` : ''} ${openMenu ? `iob-open` : ''}`}>
         {
           SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
             <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :

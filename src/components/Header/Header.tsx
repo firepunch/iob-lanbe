@@ -34,7 +34,7 @@ export default function Header({
   return (
     <header>
       {/* mobile version change language */}
-      <LanguageSwitcher isSimple lang={lang} className="language-mobile" />
+      <LanguageSwitcher isSimple lang={lang} />
 
       {/* web version nav */}
       <h1>

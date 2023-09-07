@@ -20,6 +20,18 @@
   }
 }
 
+@media (min-width: 992px) {
+  .iob-sign-in,
+  .iob-sign-up {
+    header {
+      background-color: transparent;
+      .language-link {
+        display: none;
+      }
+    }
+  }
+}
+
 // nav (mobile)
 header {
   width: 100%;

@@ -23,11 +23,9 @@ const CHANGE_URL = [
 export default function LanguageSwitcher({ 
   lang, 
   isSimple = false,
-  className,
 }: {
   lang: ValidLocale 
   isSimple?: boolean
-  className?: string
 }) {
   const post = useContentState(state => state.post)
   const pathName = usePathname()
@@ -51,7 +49,7 @@ export default function LanguageSwitcher({
   }
 
   return (
-    <Link href={redirectedPathName(otherLocale)} className={className}>
+    <Link href={redirectedPathName(otherLocale)} className="language-link">
       <Image 
         src={
           WHITE_ICONS.find(item => pathName.includes(item)) ?
