@@ -225,7 +225,7 @@ export default function Content({
         </div>
       </div>
 
-      {(clickedType === 'saved' ? bookmark : read)?.post?.length ? (
+      {fetchParams?.[clickedType === 'saved' ? 'savedIn' : 'readIn']?.length ? (
         <div id="saved-content">
           {(clickedType === 'saved' ? bookmark : read)?.post?.map(({ node }) => (
             <PostCard
