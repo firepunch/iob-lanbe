@@ -37,7 +37,7 @@ export default function Header({
       <LanguageSwitcher isSimple lang={lang} />
 
       {/* web version nav */}
-      <h1>
+      <h1 onClick={() => onOpenMenu()}>
         <Link href="/">I.O.B</Link>
       </h1>
 

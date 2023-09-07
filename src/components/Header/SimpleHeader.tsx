@@ -15,7 +15,7 @@ export default function SimpleHeader({
   return (
     <header>
       <LanguageSwitcher isSimple lang={lang} />
-      <h1>
+      <h1 onClick={() => onOpenMenu()}>
         <Link href="/">I.O.B</Link>
       </h1>
       <HamburgerMenu lang={lang} openMenu={openMenu} onOpenMenu={onOpenMenu} />
