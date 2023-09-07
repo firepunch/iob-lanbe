@@ -1,134 +1,89 @@
-// 콘텐츠에서 아이디어 노트 스타일링 같게
-@mixin ideanote {
-  width: 14.5rem;
-  height: 14.5rem;
-  margin: auto;
-  position: relative;
+.ideanote {
+  background: url(~/public/imgs/ideanote_beige.png);
+  @include background(50%);
+  background-size: contain;
 
-  img {
-    position: absolute;
-  }
-
-  .note {
-    width: 14.5rem;
-    height: 14.5rem;
+  &-view {
+    background-image: url(~/public/imgs/ideanote_lime.png);
   }
 }
 
-.ideanotes-designs {
-  width: 80%;
-  margin: 100px auto;
+.ideanote {
+  // width: 17rem;
+  // height: 17rem;
+  // gap: 3rem;
 
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 2rem;
-
-  // .ideanote-add,
-  // .ideanote-before,
-  // .ideanote-after,
-  // .ideanote-saved {
-  //     width: 20rem;
-  //     height: 20rem;
-  //     position: relative;
-
-  //     img {
-  //         position: absolute;
-  //     }
-
-  //     .note {
-  //         width: 20rem;
-  //         height: 20rem;
-  //     }
+  // .note {
+  //   width: 17rem;
+  //   height: 17rem;
   // }
 
-  .ideanote {
-    width: 14.5rem;
-    height: 14.5rem;
-    margin: auto;
-    position: relative;
+  position: relative;
+  width: rem(280);
+  height: rem(280);
+  padding: rem(27) rem(34) rem(20) rem(22);
+  margin: auto;
+  white-space: pre-wrap;
+  word-break: keep-all;
 
-    img {
-      position: absolute;
-    }
+  .footer {
+    position: absolute;
+    bottom: rem(25);
+    width: calc(100% - rem(44));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(24);
 
-    .note {
-      width: 14.5rem;
-      height: 14.5rem;
-    }
-  }
+    &-icons {
+      position: relative;
+      align-self: flex-end;
+      display: flex;
+      gap: rem(12);
 
-  .ideanote-add {
-    cursor: pointer;
-  }
-}
-
-@media (min-width: 576px) {
-  .ideanotes-designs {
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .ideanotes-designs {
-    width: 80%;
-  }
-}
-
-@media (min-width: 992px) {
-  .ideanotes-designs {
-    margin: 3rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  .ideanotes-designs {
-    width: 60%;
-
-    .ideanote {
-      width: 20rem;
-      height: 20rem;
-
-      .note {
-        width: 20rem;
-        height: 20rem;
+      .icon {
+        width: rem(20);
+        height: rem(20);
+        cursor: pointer;
       }
     }
   }
 }
 
 // 작성 전
-.ideanote-before {
-  textarea {
-    position: absolute;
-    z-index: 2;
-    top: 2.5rem;
-    left: 2rem;
-
+.ideanote-edit {
+  .textarea {
+    position: inherit;
+    width: 100%;
+    height: rem(180);
     border: none;
     background: transparent;
-    width: 100%;
     font-size: $base-font-size;
+    resize: none;
+    z-index: 2;
   }
 
-  p {
+  .placeholder {
     position: absolute;
-    z-index: 2;
-    top: 4rem;
-    left: 2rem;
+    top: rem(27);
+    left: rem(34);
+    max-width: rem(200);
 
-    font-size: 0.75rem;
-    width: 70%;
-    color: #acacac;
+    .title {
+      font-size: rem(18);
+      font-weight: $bold-font-weight;
+      margin-bottom: rem(17);
+    }
+
+    .desc {
+      font-size: rem(14);
+      font-weight: $thin-font-weight;
+      color: #acacac;
+    }
   }
 
-  button {
-    position: absolute;
-    z-index: 2;
-    right: 2rem;
-    bottom: 2rem;
-
+  .save-btn {
+    font-weight: $bold-font-weight;
     border: none;
     background: transparent;
     text-decoration: underline;
@@ -136,108 +91,65 @@
 }
 
 // 작성 후
-.ideanote-after {
+.ideanote-view {
+  font-size: rem(12);
+
   .user-note {
-    position: absolute;
-    z-index: 2;
-    top: 1.5rem;
-    left: 2rem;
-
+    width: 100%;
     line-height: 1.15rem;
-    width: 16rem;
-    font-size: 0.75rem;
+    margin: 0;
   }
 
-  .ideanote-content-title {
-    position: absolute;
-    z-index: 2;
-    left: 2rem;
-    bottom: 3rem;
+  p {
+    margin: 0;
+  }
 
-    width: 10rem;
-    font-size: $smaller-font-size;
+  .title {
+    font-size: rem(13);
     font-weight: $bold-font-weight;
-  }
-
-  .date {
-    position: absolute;
-    z-index: 2;
-    left: 2rem;
-    bottom: 2rem;
-
-    font-size: 0.65rem;
-  }
-
-  .edit,
-  .delete {
-    position: absolute;
-    z-index: 2;
-    right: 2rem;
-    bottom: 2rem;
-
-    cursor: pointer;
-  }
-
-  .edit {
-    width: 1.2rem;
-    right: 4rem;
-  }
-
-  .delete {
-    width: 1rem;
-  }
-}
-
-// 저장
-.ideanote-saved {
-  .note-saved {
-    img {
-      @include absolute-center;
-      width: 3rem;
-      top: 7.5rem;
-    }
-
-    p {
-      @include absolute-center;
-      width: 20rem;
-      text-align: center;
-      top: 10rem;
-      font-size: $smaller-font-size;
-    }
+    margin-bottom: rem(6);
   }
 }
 
 // 삭제
 .delete-modal {
-  width: 14rem;
-  height: 7.5rem;
-  padding: 0.5rem 1rem;
+  position: absolute;
+  z-index: 3;
+  bottom: rem(30);
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+
+  width: rem(220);
+  height: rem(100);
   background-color: $white;
   border: 1px solid $black;
-
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
 
-  position: absolute;
-  z-index: 3;
-  bottom: 4rem;
-  right: 2.5rem;
-
   p {
-    text-align: center;
     font-size: $smaller-font-size;
+    margin-bottom: rem(14);
   }
 
   .buttons-wrap {
+    width: 100%;
+    padding: 0 rem(14);
     @include flex-spacebetween;
+    gap: rem(8);
 
     button {
-      width: 49%;
+      width: 100%;
       height: 2rem;
       border-radius: 1rem;
       background-color: $white;
       border: 0.075rem solid $black;
+      cursor: pointer;
     }
 
     button:nth-child(2) {
@@ -246,3 +158,67 @@
     }
   }
 }
+
+/**
+* Content Single
+*/
+.idea-note-wrap {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    row-gap: 2rem;
+  }
+
+  @media (min-width: 1400px) {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+/**
+* MyPage Ideas
+*/
+.ideanotes-designs {
+  width: 80%;
+  margin: 100px auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+
+  @media (min-width: 576px) {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+
+  @media (min-width: 992px) {
+    margin: 3rem;
+  }
+
+  @media (min-width: 1200px) {
+    width: 60%;
+  }
+}
+
+// @media (min-width: 1200px) {
+//     .ideanote {
+//       width: 20rem;
+//       height: 20rem;
+
+//       .note {
+//         width: 20rem;
+//         height: 20rem;
+//       }
+//   }
+// }

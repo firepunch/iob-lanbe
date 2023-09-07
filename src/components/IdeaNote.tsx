@@ -1,12 +1,13 @@
 'use client'
 
 import useUserState from '@/stores/userStore'
-import { ValidLocale } from '@/types'
+import { TStringObj, ValidLocale } from '@/types'
 import { dateFormat } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
 
 import DeleteIcon from '@/imgs/delete_bin.png'
 import CheckIcon from '@/imgs/done_check.png'
@@ -15,7 +16,7 @@ import AddIcon from '@/imgs/ideanote_add.png'
 import BeigeBg from '@/imgs/ideanote_beige.png'
 import LimeBg from '@/imgs/ideanote_lime.png'
 
-const translationJson = {
+const translationJson: any = {
   en: {
     placeholder: 'Write down your ideas here.',
     content_required: 'Content is required.',
@@ -26,9 +27,9 @@ const translationJson = {
     cancel: 'Cancel',
   },
   ko: {
-    placeholder: '아이디어를 적어주세요.',
+    placeholder: '여기에 아이디어를 적어보세요.',
     content_required: '내용을 적어주세요.',
-    notice: '노트는 나만 볼 수 있습니다. (최대 300자)',
+    notice: '* 아이디어 노트는 개인 기록용이며, 외부에 공개되지 않습니다. 한글 기준 최대 150자까지 입력 가능합니다.',
     delete_confirm: '해당 노트를 삭제하시겠습니까?',
     save: '저장',
     delete: '삭제',
@@ -36,131 +37,161 @@ const translationJson = {
   },
 }
 
-type NoteType = 'add' | 'view' | 'edit' | 'added'
-
-interface IIdeaNoteProps {
-  type: NoteType
-  lang: ValidLocale
-  content?: string
-  post_title?: string
-  post_name?: string
-  updated_at?: string
-  onSubmit?: (value: string) => void
-  onDelete?: () => void
-}
+type NoteType = 'view' | 'edit' 
 
 export default function IdeaNote ({
   type,
-  lang,
+  noteId = 0,
+  userId = 0,
+  postId = 0,
   content,
   post_title: postTitle,
   post_name: postSlug,
   updated_at: updatedAt,
-  onSubmit,
-  onDelete,
-}: IIdeaNoteProps) {
-  const router = useRouter()
-  const { user } = useUserState(state=>state)
+  onReload,
+}: {
+  type: NoteType
+  noteId?: number
+  userId?: number
+  postId?: number
+  content?: string
+  post_title?: string
+  post_name?: string
+  updated_at?: string
+  onReload: () => void
+}) {
+  const params = useParams()
+  const lang = params?.lang || 'en' as ValidLocale
+  const [t, setT] = useState(translationJson[lang as string])
+
   const [noteType, setNoteType] = useState<NoteType>(type)
   const [value, setValue] = useState<string | undefined>(content)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
 
-  const handleClickAdd = () => {
-    if (user.databaseId) {
-      setNoteType('edit')
-    } else {
-      router.replace(`/${lang}/sign-in`)
-    }
-  }
+  useEffect(() => {
+    const lang = params?.lang || 'en' as ValidLocale
+    setT(translationJson[lang as string])
+  }, [params])
 
-  const handleUpdateNote = () => {
+  useEffect(() => {
+    setValue(content)
+  }, [content])
+
+  const handleSave = async () => {
     if (!value) {
-      alert(translationJson[lang].content_required)
+      alert(t.content_required)
       return
     }
 
-    if (onSubmit) {
-      setNoteType('added')
-      onSubmit(value)
-      setValue(undefined)
+    try {
+      if (noteId) {
+        await updateNote({
+          note_id: noteId,
+          content: value,
+        })
+      } else {
+        await createNote({
+          user_id: userId,
+          post_id: postId,
+          content: value,
+        })
+      }
+      onReload()
+    } catch (err) {
+      console.error(err)
     }
   }
 
-  const noteTypeComponent = {
-    add: (
-      <div className="ideanote ideanote-add" onClick={handleClickAdd}>
-        <Image src={AddIcon} className="note note-bg" alt="Possible to add more than one idea notes" />
-      </div>
-    ),
-    added: (
-      <div className="ideanote ideanote-saved">
-        <Image src={BeigeBg} className="note note-bg" alt="Idea note beige color" />
-        <div className="note-saved">
-          <Image src={CheckIcon} alt="Check" />
-          <p>Your note has been saved!</p>
-        </div>
-      </div>
-    ),
-    edit: (
-      <div className="ideanote ideanote-before">
-        <Image src={BeigeBg} className="note note-bg" alt="Idea note beige color" />
-        <textarea 
-          rows={4}
-          maxLength={300}
-          className="ideanote-input"
-          name="ideanote"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder={
-            translationJson[lang].placeholder + '\n' + translationJson[lang].notice
-          }
-        />
-        <button onClick={handleUpdateNote}>
-          {translationJson[lang].save}
-        </button>
-      </div>
-    ),
+  const handleDelete = async () => {
+    try {
+      await deleteNote({ 
+        note_id: noteId,
+      })
+      onReload()
+    } catch (err) {
+      console.error(err)
+    }
   }
-  
+
   return (
     <>
-      {noteType === 'view' ? (
-        <div className="ideanote ideanote-after">
-          <Image src={LimeBg} className="note note-bg" alt="Idea note lime color" />
+      {noteType === 'edit' ? (
+        <div className="ideanote ideanote-edit">
+          <textarea 
+            maxLength={300}
+            className="textarea"
+            name="ideanote"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+          />
+          {!value && (
+            <div className="placeholder">
+              <p className="title">{t.placeholder}</p>
+              <p className="desc">{t.notice}</p>
+            </div>
+          )}
+
+          <div className="footer">
+            <span />
+            <button className="save-btn" onClick={handleSave}>
+              {t.save}
+            </button>
+          </div>
+        </div>
+      ) : noteType === 'view' ? (
+        <div className="ideanote ideanote-view">
           <p className="user-note">
             {value}
           </p>
-          <p className="ideanote-content-title">
-            {postSlug ? (
-              <Link href={`/${lang}/content/${postSlug}`}>
-                {postTitle}
-              </Link>
-            ) : (
-              postTitle
-            )}
-          </p>
-          <p className="date">
-            {updatedAt && dateFormat(updatedAt, true)}
-          </p>
-          <Image src={EditIcon} className="edit" alt="Edit" onClick={() => setNoteType('edit')}/>
-          <Image src={DeleteIcon} className="delete" alt="Delete" onClick={() => setShowConfirmModal(true)} />
 
-          {showConfirmModal && (
-            <div className="delete-modal">
-              <p>{translationJson[lang].delete_confirm}</p>
-              
-              <div className="buttons-wrap">
-                <button type="button" onClick={() => setShowConfirmModal(false)}>
-                  {translationJson[lang].cancel}
-                </button>
-                <button type="button" onClick={onDelete}>
-                  {translationJson[lang].delete}
-                </button>
-              </div>
+          <div className="footer">
+            <div >
+              <p className="title">
+                {postSlug ? (
+                  <Link href={`/${lang}/content/${postSlug}`}>
+                    {postTitle}
+                  </Link>
+                ) : (
+                  postTitle
+                )}
+              </p>
+
+              <p className="date">
+                {updatedAt && dateFormat(updatedAt, true)}
+              </p>
             </div>
-          )}
+
+            <div className="footer-icons">
+              <Image 
+                src={EditIcon}
+                className="icon"
+                alt="Edit"
+                onClick={() => setNoteType('edit')}
+              />
+              <Image 
+                src={DeleteIcon}
+                className="icon"
+                alt="Delete"
+                onClick={() => setShowConfirmModal(true)} 
+              />
+              {showConfirmModal && (
+                <div className="delete-modal">
+                  <p>{t.delete_confirm}</p>
+              
+                  <div className="buttons-wrap">
+                    <button type="button" onClick={() => setShowConfirmModal(false)}>
+                      {t.cancel}
+                    </button>
+                    <button type="button" onClick={handleDelete}>
+                      {t.delete}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      ) : noteTypeComponent[noteType]}
+      )  : null}
     </>  
   )
 }

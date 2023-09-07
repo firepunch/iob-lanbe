@@ -541,39 +541,6 @@
     text-align: center;
     font-family: $secondary-font;
   }
-
-  .idea-note-wrap {
-    display: grid;
-
-    // mobile first
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-
-    .ideanote {
-      @include ideanote;
-    }
-
-    // .ideanote {
-    //     width: 16rem;
-    //     height: 16rem;
-    //     margin: auto;
-    //     margin-bottom: 2rem;
-    //     position: relative;
-
-    //     .note-bg {
-    //       width: 100%;
-    //     }
-
-    //     .ideanote-input {
-    //         width: auto;
-    //         background-color: transparent;
-    //         border: none;
-    //         outline: none;
-    //         margin: 0;
-    //         resize: none;
-    //     }
-    // }
-  }
 }
 
 // recommended content
@@ -642,44 +609,10 @@
       }
     }
   }
-
-  #idea-notes {
-    .idea-note-wrap {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      // .ideanote {
-      //     width: 15rem;
-
-      //     .note {
-      //         width: 15rem;
-      //         height: 15rem;
-      //     }
-      // }
-
-      // .ideanote {
-      //     margin-bottom: 0;
-      //     margin: 0 .5rem;
-
-      //     .ideanote-input {
-      //         font-size: .75rem;
-      //     }
-      // }
-    }
-  }
 }
 
 @media (min-width: 768px) {
   #main-content {
-    // #content-details,
-    // .content-article,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 55%;
-    // }
-
     .content-article {
       margin: auto;
     }
@@ -757,10 +690,6 @@
 
   #idea-notes {
     width: 70%;
-
-    .idea-note-wrap {
-      row-gap: 2rem;
-    }
   }
 
   #recommended-content {
@@ -813,9 +742,6 @@
   #content-title-page {
     #top-title {
       left: 2rem;
-      // .content-tags {
-      //     left: 8%;
-      // }
 
       .content-location {
         left: 92%;
@@ -824,14 +750,6 @@
   }
 
   #main-content {
-    // #content-details,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 45%;
-    // }
-
     #main-body-1 {
       figure {
         img {
@@ -858,22 +776,9 @@
         left: 93%;
       }
     }
-
-    // #content-thumbnail-img {
-    //     height: 45rem;
-    // }
   }
 
   #main-content {
-    // #content-details,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 35%;
-    // }
-
-    // wp
     #content-details {
       width: 35%;
     }
@@ -913,27 +818,5 @@
   #idea-notes {
     width: 50%;
     padding-bottom: 3.5rem;
-
-    .idea-note-wrap {
-      width: 80%;
-      margin: auto;
-
-      .ideanote {
-        width: 17rem;
-        height: 17rem;
-        gap: 3rem;
-
-        .note {
-          width: 17rem;
-          height: 17rem;
-        }
-      }
-
-      // .idea-note-1,
-      // .add-idea-note {
-      //     width: 20rem;
-      //     height: 20rem;
-      // }
-    }
   }
 }

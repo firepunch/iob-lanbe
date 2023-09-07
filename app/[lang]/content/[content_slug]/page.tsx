@@ -82,6 +82,14 @@ export default function Category({
     updateRecommend(recommendRes)
   }
   
+  const handleReloadNotes = async () => {
+    const result = await fetchNotes({
+      user_id: user?.databaseId,
+      post_id: contentId,
+    })
+    updateNotes(result) 
+  }
+
   const handleFontSize = () => {
     setIsZoomed(() => !isZoomed)
   }
@@ -220,22 +228,23 @@ export default function Category({
             <section id="idea-notes">
               <h5>{t('idea_h5')}</h5>
               <div className="idea-note-wrap">
+                {notes?.length < 4 && (
+                  <IdeaNote 
+                    type="edit" 
+                    userId={user?.databaseId}
+                    postId={post?.databaseId}
+                    onReload={handleReloadNotes}
+                  />
+                )}
                 {notes?.map(item => (
                   <IdeaNote
                     key={item.id}
+                    noteId={item.id}
                     type="view"
-                    lang={lang}
-                    onSubmit={value => handleUpdateNote(item.id, value)}
-                    onDelete={() => handleDeleteNote(item.id)}
+                    onReload={handleReloadNotes}
                     {...item}
                   />
                 ))}
-                {notes?.length === 0 && (
-                  <IdeaNote type="edit" lang={lang} content={undefined} onSubmit={handleCreateNote} />
-                )}
-                {notes?.length < 4 && (
-                  <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
-                )}
               </div>
             </section>
           ) : null}
