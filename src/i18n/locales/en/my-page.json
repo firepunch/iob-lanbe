@@ -53,6 +53,7 @@
   "new_email": "New Email",
   "email_placeholder": "Please enter your job email.",
   "new_email_placeholder": "Please enter your new email.",
+  "new_email_rule": "If you change this we will send you an email at your new address to confirm it. The new address will not become active until confirmed.",
   "password": "Password",
   "new_password": "New Password",
   "password_placeholder": "Please enter your job password.",

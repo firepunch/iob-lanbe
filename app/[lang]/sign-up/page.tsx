@@ -2,7 +2,7 @@
 
 import { loginUser } from '@/api_gql'
 import { createUser } from '@/api_wp'
-import { InputField, SelectField } from '@/components'
+import { InputField, SelectField, Spinner } from '@/components'
 import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
@@ -21,7 +21,8 @@ const SignUp = ({
   const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
-  const updateUser = useUserState(state => state.updateUser)
+  const { user, updateUser } = useUserState(state => state)
+  const [isProcess, setIsProcess] = useState<boolean>(false)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
   const recaptchaRef = React.useRef<any>()
 
@@ -63,6 +64,8 @@ const SignUp = ({
       return
     }
 
+    setIsProcess(true)
+
     try {
       recaptchaRef?.current?.execute()
 
@@ -72,6 +75,7 @@ const SignUp = ({
       })
 
       if (result?.status !== 200 && result?.message) {
+        setIsProcess(false)
         setErrorMessages({
           common: t(result.message),
         })
@@ -87,8 +91,10 @@ const SignUp = ({
       setStorageData(AUTH_TOKEN, loginData)
       replace(`/${lang}/welcome`)
     } catch (err) {
-      console.error('login error', err)
+      console.error(err)
     }
+
+    setIsProcess(false)
   }
 
   const onReCAPTCHAChange = (captchaCode) => {
@@ -96,6 +102,10 @@ const SignUp = ({
       return
     }
     recaptchaRef?.current?.reset()
+  }
+
+  if (user) {
+    replace('/')
   }
 
   return (
@@ -235,10 +245,10 @@ const SignUp = ({
 	          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
             onChange={onReCAPTCHAChange}
           />
-          {/* //recaptcha */}
 
           <p>{errorMessages?.common}</p>
-          <button type="submit" className="signup-button">
+          <button type="submit" className="signup-button" disabled={isProcess}>
+            <Spinner loading={isProcess} />
             {t('sign_up')}
           </button>
         </form>
@@ -247,4 +257,4 @@ const SignUp = ({
   )
 }
 
-export default withNoAuth(SignUp)
+export default SignUp

@@ -43,16 +43,12 @@
       margin-top: 5rem;
     }
 
-    .account-info-inputs-wrap {
-      .account-info-inputs-row:last-child {
-        #pw-form,
-        .pw-field {
-          p {
-            width: 80%;
-            margin-left: 1rem;
-            font-size: 0.75rem;
-          }
-        }
+    .pw-field,
+    .new-email-field {
+      p {
+        width: 80%;
+        margin-left: 1rem;
+        font-size: 0.75rem;
       }
     }
   }

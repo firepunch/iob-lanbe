@@ -81,8 +81,8 @@ export default function Settings({
     }
   }
 
-  if (!userId) {
-    return null
+  if (!userInfo) {
+    return <div></div>
   }
 
   return (
@@ -195,10 +195,12 @@ export default function Settings({
                 />
                                 
                 <InputField
+                  className="new-email-field"
                   type="email"
                   name="newEmail"
                   label={t('new_email')}
                   placeholder={t('new_email_placeholder')}
+                  description={t('new_email_rule')}
                   errorMessage={errorMessages?.newEmail}
                 />
               </div>

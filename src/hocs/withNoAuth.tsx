@@ -9,7 +9,7 @@ const withNoAuth = (Component: NextComponentType) => {
   const Auth = props => {
     const { user, updateUser } = useUserState(state => state)
     const [storageUser] = getStorageData(AUTH_TOKEN)
-    const { back } = useRouter()
+    const { replace } = useRouter()
 
     useEffect(() => {
       if (storageUser?.user && user?.databaseId === 0) {
@@ -18,9 +18,9 @@ const withNoAuth = (Component: NextComponentType) => {
       }
       
       if (user?.databaseId !== 0) {
-        back()
+        replace('/')
       }
-    }, [user, storageUser, updateUser, back])
+    }, [user, storageUser, updateUser, replace])
 
     return <Component {...props} />
   }
