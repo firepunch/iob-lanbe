@@ -5,10 +5,10 @@ import { createWatchList, removeWatchList } from '@/api_wp'
 import { Icons, NavigationWidget, PostCard, ReportCard } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import useContentState from '@/stores/contentStore'
+import useContentState, { INIT_CONTENT_STATE } from '@/stores/contentStore'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
@@ -19,7 +19,8 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE, IUserState } from '@/stores/userStore'
+import useStore from '@/hooks/useStore'
 
 const SECTION_IDS = {
   welcome: 'firstpage',
@@ -33,23 +34,24 @@ export default function Home({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = useTranslation(lang, 'home')
-  const { user } = useUserState(state => state)
-  const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
   const sectionRefs = useRef({})
+  const { t } = useTranslation(lang, 'home')
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
+  const [fetchParams, setFetchParams] = useState({
+    lang,
+    language: lang.toUpperCase(), 
+    userId: user.databaseId,
+    first: 4,
+  })
 
   useEffect(() => {
-    getAllPosts({
-      language: lang.toUpperCase(), 
-      userId: user.databaseId,
-      first: 4,
-    }).then(result => {
+    getAllPosts(fetchParams).then(result => {
       updatePosts(result)
     })
 
     getAllReports({
-      language: lang.toUpperCase(), 
-      userId: user.databaseId,
+      ...fetchParams,
       first: 3,
     }).then(result => (
       updateReports(result)

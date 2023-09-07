@@ -102,15 +102,15 @@ export async function getReportBySlug(variables) {
 
 export async function getContents(language, first = 10) {
   const data = await fetchAPI(POSTS_QUERY, {
-    variables: { language, first },
+    variables: { language, first, lang: language.toLowerCase() },
   })
 
   return data.posts.edges
 }
 
-export async function getContentBySlug(postSlug, userId) {
+export async function getContentBySlug(variables) {
   const data = await fetchAPI(POST_BY_SLUG_QUERY, {
-    variables: { postSlug, userId },
+    variables,
   })
 
   return data.post
