@@ -20,7 +20,7 @@ export default function Bookmark({
   isSaved: boolean
   metaKey: string
   contentId: number
-  onFetchData: () => void
+  onFetchData: (ids?: string[]) => void
 }) {
   const [localSaved, setLocalSaved] = useState(isSaved)
   const [isProcess, setIsProcess] = useState(false)
@@ -45,21 +45,22 @@ export default function Bookmark({
     
     if (user.databaseId && contentId) {
       try {
+        let result = { ids: [] }
         if (isSaved) {
-          await removeWatchList({
+          result = await removeWatchList({
             type: metaKey,
             content_id: contentId,
             user_id: user.databaseId,
           })
         } else {
-          await createWatchList({
+          result = await createWatchList({
             type: metaKey,
             content_id: contentId,
             user_id: user.databaseId,
           })
         }
 
-        if (onFetchData) onFetchData()
+        if (onFetchData) onFetchData(result?.ids)
       } catch (err) {
         console.log(err)
       }
