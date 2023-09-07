@@ -2,9 +2,10 @@
 
 import { EmailForm } from '@/components'
 import Icons from '@/components/Icons'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import Link from 'next/link'
 
 export default function Footer({
@@ -13,7 +14,7 @@ export default function Footer({
   lang: ValidLocale
 }) {  
   const { t } = useTranslation(lang, 'layout')
-  const user = useUserState(state => state.user)
+  const user = useStore(useUserState, state => state.user, INIT_USER_STATE)
 
   return (
     <footer>
@@ -33,7 +34,7 @@ export default function Footer({
       </div>
 
       <div id="footer-right">
-        {!user?.databaseId && (
+        {user?.databaseId === 0 && (
           <EmailForm lang={lang}/>
         )}
 
