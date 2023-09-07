@@ -9,12 +9,13 @@ import { AUTH_TOKEN, dateEnFormat, removeStorageData } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
+import useStore from '@/hooks/useStore'
 
 import ContentIcon from '@/imgs/content_icon.png'
 import IdeasIcon from '@/imgs/ideas_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
-import useStore from '@/hooks/useStore'
+import LogoutIcon from '@/imgs/logout.png'
 
 const TAB_MAP = {
   content: 'content',
@@ -74,7 +75,7 @@ const Layout = ({
             </Link>
 
             <button className="logout-button" onClick={handleLogout}>
-              <Image src={SettingsIcon} alt="Settings"/>
+              <Image src={LogoutIcon} alt="Logout"/>
               <p>{t('logout')}</p>
             </button>
           </div>
