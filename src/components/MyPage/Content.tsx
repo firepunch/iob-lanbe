@@ -17,6 +17,7 @@ import useStore from '@/hooks/useStore'
 
 interface IFetchParams {
   language: string
+  lang: string
   userId: number
   savedIn?: string[]
   readIn?: string[]
@@ -41,6 +42,7 @@ export default function Content({
   const [openCategory, setOpenCategory] = useState<boolean>(false)
   const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
+    lang: lang,
     savedIn: undefined,
     readIn: undefined,
     categories: [],

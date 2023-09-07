@@ -1,6 +1,7 @@
 const POSTS_QUERY = `
 query postsQuery(
   $language: LanguageCodeFilterEnum!, 
+  $lang: String = "en", 
   $userId: Float = 0, 
   $first: Int = 10, 
   $field: PostObjectsConnectionOrderbyEnum = DATE,
@@ -42,7 +43,7 @@ query postsQuery(
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId) {
+        lanbeContent(user_id: $userId, lang: $lang, type: "post") {
           is_save
           country
         }
@@ -58,6 +59,7 @@ query postsQuery(
               }
               id
               name
+              slug
             }
           }
         }
@@ -70,6 +72,7 @@ query postsQuery(
 export const GET_POSTS_QUERY = `
 query getPostsQuery(
   $language: LanguageCodeFilterEnum!, 
+  $lang: String = "en", 
   $userId: Float = 0, 
   $first: Int = 100, 
   $last: Int,
@@ -120,7 +123,7 @@ query getPostsQuery(
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId) {
+        lanbeContent(user_id: $userId, type: "post", lang: $lang) {
           is_save
           country
         }
@@ -136,6 +139,7 @@ query getPostsQuery(
               }
               id
               name
+              slug
             }
           }
         }
