@@ -33,9 +33,8 @@ export default function CountryFilter({
   }
   
   return (
-    <div id="category-filter">
-      <Image src={CategoryFilterBg} alt="speech bubble bg" className="speech-bubble" />
-
+    <div id="category-filter" className="country-filter">
+      <div className="arrow-top" />
       <div className="button-wrap-1">
         {countries?.map(item => {
           const isSelected = value.includes(`${item.slug}-${lang}`)

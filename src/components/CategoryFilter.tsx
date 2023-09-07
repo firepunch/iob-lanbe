@@ -32,8 +32,7 @@ export default function CategoryFilter({
 
   return (
     <div id="category-filter">
-      <Image src={CategoryFilterBg} alt="speech bubble bg" className="speech-bubble" />
-
+      <div className="arrow-top" />
       <div className="button-wrap-1">
         <p>{ct('market_research')}</p>
         {categoryKeys.market_research.map(item => {
