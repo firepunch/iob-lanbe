@@ -1,20 +1,24 @@
 'use client'
 
-import { sendPWLink } from '@/api_wp'
+import { sendPWLink, updatePassword } from '@/api_wp'
 import { useState } from 'react'
 import { InputField } from '@/components'
 import { TStringObj, ValidLocale } from '@/types'
 import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
-const SignInPassword = ({
+const SignInPasswordChange = ({
   lang,
 }: {
   lang: ValidLocale
 }) => {
+  const params = useParams()
   const { t } = useTranslation(lang, 'password')
   const [message, setMessage] = useState<TStringObj>()
+
+  console.log(params)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -22,36 +26,42 @@ const SignInPassword = ({
     const formData = new FormData(e.currentTarget)
     const formProps = Object.fromEntries(formData) as TStringObj
     
-    if (!formProps?.email) {
-      setMessage({ error: t('email_require') })
+    if (!formProps?.newPassword) {
+      setMessage({ error: t('password_required') })
       return
     }
 
-    const result = await sendPWLink(formProps.email)
-    setMessage({ info: t(result.message) })
+    const result = await updatePassword({
+      ...formProps,
+      key: params.key,
+      email: params.login,
+    })
+    setMessage({ info: t(result) })
   }
 
   return (
     <section id="main-signin-wrap" className="password-wrap">
       <div id="signin-info">
-        <h2>{t('h2')}</h2>
+        <h2>{t('h2_change')}</h2>
 
         <form className="email-pw-wrap" onSubmit={handleSubmit}>
-          <p>{t('desc')}</p>
-
+          {params.login && (
+            <p>{params.login}</p>
+          )}
+          
           <InputField
             isRequired
-            type="email"
-            name="email"
-            label={t('email')}
-            placeholder={t('email_placeholder')}
+            type="password"
+            name="newPassword"
+            label={t('newPassword')}
+            placeholder={t('password_required')}
             errorMessage={message?.error}
             onResetError={() => (
               setMessage({ error: undefined })
             )}
           />
           <button type="submit" className="signin-button">
-            {t('send')}
+            {t('update_password')}
           </button>
           <p className="info">
             {message?.info || ''}
@@ -67,4 +77,4 @@ const SignInPassword = ({
   )
 }
 
-export default withNoAuth(SignInPassword)
+export default withNoAuth(SignInPasswordChange)

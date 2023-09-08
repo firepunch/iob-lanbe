@@ -111,11 +111,22 @@ export async function sendPWLink(email: string) {
   const res = await fetchAPI({
     prefixPath: 'customAPI',
     path: '/users/password',
-    method: 'POST',
-    data: { email },
+    method: 'GET',
+    queryParams: { email },
   })
 
-  return res
+  return res?.data
+}
+
+export async function updatePassword(data) {
+  const res = await fetchAPI({
+    prefixPath: 'customAPI',
+    path: '/users/password',
+    method: 'POST',
+    data,
+  })
+
+  return res?.data
 }
 
 export async function fetchCountContent(queryParams: ICountData) {
