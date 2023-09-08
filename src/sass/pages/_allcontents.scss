@@ -56,6 +56,7 @@
       }
 
       .sort {
+
         label {
           font-size: 0.65rem;
         }
@@ -63,7 +64,15 @@
         #sortby {
           height: 1.75rem;
           padding-left: 0.05rem;
+
+
+          -webkit-border-radius: 10rem;
+          -moz-border-radius: 10rem;
           border-radius: 10rem;
+
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
         }
       }
     }

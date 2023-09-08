@@ -35,6 +35,14 @@
                     border-radius: 10rem;
                     padding: 0 1rem;
                     outline: none;
+
+                    -webkit-border-radius: 10rem;
+                    -moz-border-radius: 10rem;
+                    border-radius: 10rem;
+          
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
                 }
             }
 
