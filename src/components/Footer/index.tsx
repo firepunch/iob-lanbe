@@ -7,6 +7,8 @@ import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import Link from 'next/link'
+import Image from 'next/image'
+import arrowBlackImg from '@/imgs/arrow_black.png'
 
 export default function Footer({
   lang, 
@@ -35,7 +37,10 @@ export default function Footer({
 
       <div id="footer-right">
         {user?.databaseId === 0 && (
-          <EmailForm lang={lang}/>
+          <Link href={`/${lang}/sign-up`} className="newsletter-link">
+            <p>{t('form_signup')}</p>
+            <Image src={arrowBlackImg} alt="Arrow"  />
+          </Link>
         )}
 
         <div className="footer-pages">
