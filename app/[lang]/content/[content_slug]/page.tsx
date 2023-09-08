@@ -104,7 +104,7 @@ export default function Category({
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
         <>
-          <section className="content-title-page">
+          <section id="top" className="content-title-page">
             <div className="top-title">
               <div className="content-tags">
                 {post.categories?.edges?.map(({ node }) => (

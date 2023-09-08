@@ -5,6 +5,12 @@ html {
   box-sizing: border-box;
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 *,
 *::before,
 *::after {

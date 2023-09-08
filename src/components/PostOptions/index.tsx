@@ -30,9 +30,9 @@ export default function PostOptions ({
     <div id="content-fixed-icons">
       <div className="buttons-wrap">
         <button type="button" className="scroll-top arrow-button">
-          <Link href="#top-title">
+          <a href="#top">
             <Image src={ScrollTopImg} alt="Scroll to top" />
-          </Link>
+          </a>
         </button>
     
         <button type="button" className="bookmark-button">
