@@ -35,17 +35,9 @@ export default function EmailForm({
   return (
     <div className="footer-signup">
       <p className="cta">
-        {t('form_signup')}<br/>{t('form_newsletter')}<br/>{t('form_receive')}
+        {t('form_signup')}{t('form_newsletter')}{t('form_receive')}
+        <Image src={arrowBlackImg} alt="Arrow" onClick={handleSubmit} />
       </p>
-      <input 
-        id="email"
-        name="email"
-        type="email" 
-        placeholder="Email"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-      <Image src={arrowBlackImg} alt="Arrow" onClick={handleSubmit} />
     </div>
   )
 }
