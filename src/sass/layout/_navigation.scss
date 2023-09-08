@@ -1,6 +1,5 @@
 .iob-my-page,
 .iob-welcome,
-.iob-about,
 .iob-project {
   header h1 {
     color: $white;
@@ -22,11 +21,31 @@
 }
 
 @media (min-width: 992px) {
+  header > .language-link {
+    display: none;
+  }
+
+  .iob-about {
+    header {
+      background-color: transparent;
+      color: $white;
+
+      h1 a {
+        color: $white;
+      }
+
+      .search-link img {
+        filter: invert(100);
+      }
+    }
+  }
+
   .iob-my-page,
   .iob-sign-in,
   .iob-sign-up {
     header {
       background-color: transparent;
+
       .language-link {
         display: none;
       }
