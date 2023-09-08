@@ -100,6 +100,8 @@ export default function Category({
     return <div></div>
   }
 
+  const FIRST_IMAGE = '<figure class=\"wp-block-image'
+
   return (
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
@@ -169,13 +171,14 @@ export default function Category({
               </div>
             </div>
 
+            <div
+              className={`content-article ${isZoomed ? 'zoomed' : ''}`}
+              dangerouslySetInnerHTML={{ __html: user?.databaseId ? post.content : post.content.split(FIRST_IMAGE)[0].replace(FIRST_IMAGE, '') }} 
+            />
+
             {!user?.databaseId && (
               <ContentWall lang={lang} t={t} />
             )}
-            <div
-              className={`content-article ${isZoomed ? 'zoomed' : ''}`}
-              dangerouslySetInnerHTML={{ __html: post.content }} 
-            />
           </section>
 
           {user?.databaseId ? (

@@ -130,10 +130,12 @@
   }
 
   .signin-wall {
-    width: 100;
-    padding: rem(38) rem(33) rem(80);
+    width: 100%;
+    padding: rem(24) rem(33);
+    margin-top: rem(38);
     background-color: $white;
     border-top: 1px solid $black;
+    border-bottom: 1px solid $black;
 
     p {
       text-align: center;

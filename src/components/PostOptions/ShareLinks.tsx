@@ -27,7 +27,7 @@ const ShareLinks = ({
       <Link 
         className="share-link"
         target="_blank"
-        href={`https://linkedin.com/shareArticle?${objectToGetParams({ url: shareLink })}`}
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURI(shareLink)}`}
         onClick={onClose}
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useState } from 'react'
 import Bookmark from '../Bookmark'
 import ShareLinks from './ShareLinks'
