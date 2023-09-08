@@ -84,8 +84,17 @@ export default function Report({
 
             <h2>{report.title}</h2>
 
-            {report.reportTags?.edges && (
-              <Tags lang={lang} tags={report.reportTags} />
+            {report.reportCategories?.edges && (
+              <div className="content-tags">
+                {report.reportCategories?.edges?.map(({ node }) => (
+                  node.parentId && node.parent.node.name !== 'Country' && (
+                    <div className="ct" key={node.id}>
+                      <p>{node.parent.node.name}</p>
+                      <p>{node.name}</p>
+                    </div>
+                  ))
+                )}
+              </div>
             )}
 
             <div className="report-details">
@@ -101,7 +110,9 @@ export default function Report({
                 <li>{dateFormat(report.date, true)}</li>
                 <li>
                   {report.reportCategories.edges?.length ?
-                    report.reportCategories.edges?.map(({ node }) => node.name).join(', ') : 
+                    report.reportCategories.edges?.filter(({ node }) => (
+                      node.parent.node.name !== 'Country'
+                    ))?.map(({ node }) => node.name).join(', ') : 
                     '-'}
                 </li>
                 <li>
