@@ -112,12 +112,12 @@ export const getUniqueArr = (arr) => (
   ))
 )
 
-export const getUniqueEdges = (arr, field) => {
-  return arr.filter((item, index, self) =>
+export const getUniqueEdges = (arr) => {
+  return arr.filter((item, index, self) => (
     index === self.findIndex((t) => (
-      t[field] === item[field]
+      t['node']['databaseId'] === item['node']['databaseId']
     ))
-  )
+  ))
 }
 
 export const formatPostTaxQuery = (

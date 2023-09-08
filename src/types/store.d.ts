@@ -144,8 +144,8 @@ export interface IDownload {
 }
 
 export interface ISearchResult {
-  posts: IPosts
-  reports: IReports
+  posts: { node: IPost }[]
+  reports:{ node: IReport }[]
 }
 
 export interface IUser {

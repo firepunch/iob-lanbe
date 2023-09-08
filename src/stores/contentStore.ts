@@ -27,7 +27,10 @@ interface IContentState {
   updateReports: (reports: IReports) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
-  mergeSearchResult: (result: ISearchResult) => void
+  mergeSearchResult: (result: {
+    posts: IPosts
+    reports: IReports
+  }) => void
   setHasHydrated: (state: boolean) => void
 }
 
@@ -55,25 +58,31 @@ const useContentState = create<IContentState>()(
       updateSearchResult: (searchResult) => set({ searchResult }),
       mergeSearchResult: (searchResult) => {
         set((prev) => {
-          let result = searchResult
+          let result = {
+            posts: searchResult.posts?.edges,
+            reports: searchResult.reports?.edges,
+          }
+          console.log([
+            ...searchResult?.posts?.edges || [], 
+            ...prev.searchResult?.posts || [],
+          ])
+
           if (prev.searchResult?.posts) {
             result = {
               posts: getUniqueEdges(
                 [
-                  ...searchResult?.posts?.edges || [], 
-                  ...prev.searchResult?.posts?.edges || [],
+                  ...result?.posts || [], 
+                  ...prev.searchResult?.posts || [],
                 ],
-                'databaseId'
               ),
               reports: getUniqueEdges(
                 [
-                  ...searchResult?.reports?.edges || [], 
-                  ...prev.searchResult?.reports?.edges || [],
+                  ...result?.reports || [], 
+                  ...prev.searchResult?.reports || [],
                 ],
-                'databaseId'
               ),
             }
-          }
+          } 
 
           return {
             searchResult: result,
