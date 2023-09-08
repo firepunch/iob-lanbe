@@ -83,13 +83,13 @@ const SignUp = ({
         return
       }
 
-      const loginData = await loginUser({
-        username: formProps.email as string,
-        password: formProps.password as string,
-      })
+      // const loginData = await loginUser({
+      //   username: formProps.email as string,
+      //   password: formProps.password as string,
+      // })
 
-      updateUser(loginData?.user)
-      setStorageData(AUTH_TOKEN, loginData)
+      // updateUser(loginData?.user)
+      // setStorageData(AUTH_TOKEN, loginData)
       replace(`/${lang}/welcome`)
     } catch (err) {
       console.error(err)

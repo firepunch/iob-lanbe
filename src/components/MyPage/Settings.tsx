@@ -75,7 +75,12 @@ export default function Settings({
         username: formProps.email,
       })
 
-      if (result.message === 'Sorry, that email address is already used!') {
+      if (result.message === 'Sorry, that username already exists!') {
+        setErrorMessages(prev => ({
+          ...prev,
+          newEmail: t('email_duplicate_error'),
+        }))
+      } else if (result.message === 'Sorry, that email address is already used!') {
         setErrorMessages(prev => ({
           ...prev,
           newEmail: t('email_duplicate_error'),
