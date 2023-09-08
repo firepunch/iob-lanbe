@@ -5,68 +5,63 @@
 }
 
 // content title page
-#content-title-page {
+.content-title-page {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: rem(100);
 
-  #top-title {
-    width: 100%;
-    height: 12rem;
-    position: relative;
+  .top-title {
+    @include flex-center;
+    flex-direction: column;
+    margin-bottom: rem(20);
 
-    // 콘텐츠에만 적용되는 tag는 일반 tag 컴포넌트와 다르니, 이 파일에서 바로 작업했습니다!
-    .content-tags {
-      width: 60%;
-      margin: auto;
-      @include flex-center;
-      position: absolute;
-      @include absolute-center;
-      bottom: 0;
-
-      .ct {
-        width: fit-content;
-        // padding: 0 .85rem;
-        margin: 0.25rem;
-        border: 1px solid $black;
-        border-radius: 10rem;
-
-        p:nth-child(1) {
-          font-size: 0.65rem;
-          text-align: center;
-          margin: 0.25rem;
-          margin-top: 0.5rem;
-        }
-
-        p:nth-child(2) {
-          font-size: $smaller-font-size;
-          font-weight: 600;
-          text-align: center;
-          margin: 0 1.5rem;
-          margin-top: -0.3rem;
-          margin-bottom: 0.5rem;
-        }
-      }
+    h2,
+    p {
+      margin: 0;
     }
 
-    h2 {
-      width: 80%;
-      text-align: center;
-      position: absolute;
-      @include absolute-center;
-      top: 20%;
+    .content-tags {
+      order: 3;
+    }
+
+    .title {
+      margin-bottom: rem(4);
     }
 
     .content-location {
-      width: max-content;
+      margin-bottom: rem(34);
+    }
+  }
+
+  .content-tags {
+    @include flex-center;
+
+    .ct {
       @include flex-center;
+      flex-direction: column;
+      width: fit-content;
+      padding: 0.5rem 0.8rem 0.3rem;
+      margin: 0.25rem;
+      border: 1px solid $black;
+      border-radius: 10rem;
 
-      position: absolute;
-      @include absolute-center;
-      top: 45%;
-
-      img {
-        @include icon-size;
+      p:nth-child(1) {
+        font-size: 0.65rem;
+        margin-bottom: rem(4);
       }
+
+      p:nth-child(2) {
+        font-size: $smaller-font-size;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .content-location {
+    width: max-content;
+    @include flex-center;
+
+    img {
+      @include icon-size;
     }
   }
 
@@ -612,6 +607,24 @@
 }
 
 @media (min-width: 768px) {
+  .content-title-page .top-title {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 rem(35) rem(20);
+
+    .content-tags {
+      order: 0;
+    }
+
+    .title {
+      font-size: $large-font-size;
+    }
+
+    .content-location {
+      margin-bottom: 0;
+    }
+  }
+
   #main-content {
     .content-article {
       margin: auto;
@@ -703,6 +716,7 @@
       .recommended-web-cta {
         display: block;
         @include see-all-button-small($black);
+        width: max-content;
       }
     }
 
@@ -713,25 +727,6 @@
 }
 
 @media (min-width: 992px) {
-  #content-title-page {
-    #top-title {
-      .content-tags {
-        // left: 12.5%;
-        left: 8.5rem;
-      }
-
-      h2 {
-        top: 65%;
-        font-size: $large-font-size;
-      }
-
-      .content-location {
-        left: 90%;
-        top: 85%;
-      }
-    }
-  }
-
   #idea-notes {
     width: 50%;
     padding-bottom: 5rem;
@@ -739,16 +734,6 @@
 }
 
 @media (min-width: 1200px) {
-  #content-title-page {
-    #top-title {
-      left: 2rem;
-
-      .content-location {
-        left: 92%;
-      }
-    }
-  }
-
   #main-content {
     #main-body-1 {
       figure {
@@ -766,18 +751,6 @@
 }
 
 @media (min-width: 1400px) {
-  #content-title-page {
-    #top-title {
-      .content-tags {
-        left: 7%;
-      }
-
-      .content-location {
-        left: 93%;
-      }
-    }
-  }
-
   #main-content {
     #content-details {
       width: 35%;

@@ -36,6 +36,11 @@ $bold-font-weight: 600;
   font-weight: $bold-font-weight;
 }
 
+@mixin break-work {
+  word-wrap: break-word;
+  word-break: keep-all;
+}
+
 .iob-en {
   font-family: $primary-font;
 }

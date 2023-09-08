@@ -67,7 +67,9 @@ export default function Reports({
     <>
       <section id="all-report-title">
         <div id="report-title-description">
-          <h2>{t('report_h2')}</h2>
+          <h2>
+            I.O.B<br/>{t('report_h2')}
+          </h2>
           <p>{t('report_intro-1')}{t('report_intro-2')}</p>
         </div>
 

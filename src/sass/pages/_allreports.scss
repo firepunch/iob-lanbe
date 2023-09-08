@@ -1,123 +1,84 @@
 // all report title
 #all-report-title {
-    width: 95%;
+  width: 95%;
+  margin: auto;
+
+  #report-title-description {
+    width: 90%;
     margin: auto;
+    padding-top: 8.5rem;
+    border-bottom: 0.3rem solid $black;
+    margin-bottom: 1rem;
 
-    #report-title-description {
-        width: 90%;
-        margin: auto;
-        padding-top: 8.5rem;
-
-        h2 {
-            @include titles;
-            margin: .5rem 0;
-        }
-
-        p {
-            font-weight: $bold-font-weight;
-            font-size: $smaller-font-size;
-        }
-
-        h2::after,
-        p::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: .3rem;
-            margin: .5rem 0;
-            background-color: $black;
-        }
-
-        p::after {
-            margin-top: 1rem;
-        }
+    h2 {
+      @include titles;
+      font-size: $large-font-size;
+      margin: 0.5rem 0;
     }
 
-    .sort {
-        width: 90%;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        label {
-            font-size: .65rem;
-            margin-right: .75rem;
-        }
-
-        #sortby {
-            height: 1.75rem;
-            padding-left: .05rem;
-            border-radius: 10rem;
-        }
+    p {
+      font-weight: $bold-font-weight;
+      font-size: $smaller-font-size;
+      @include break-work;
     }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 0.3rem;
+      margin: 0.5rem 0;
+      background-color: $black;
+    }
+  }
+
+  .sort {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    label {
+      font-size: 0.65rem;
+      margin-right: 0.75rem;
+    }
+
+    #sortby {
+      height: 1.75rem;
+      padding-left: 0.05rem;
+      border-radius: 10rem;
+    }
+  }
 }
 
 #reports-grid {
-    width: 85%;
-    margin: auto;
-    margin-top: 5rem;  
-    
-    #all-reports-wrap {
-        @include standard-grid;
-        padding-left: 1.5%;
-    }
+  width: 85%;
+  margin: auto;
+  margin-top: 5rem;
+
+  #all-reports-wrap {
+    @include standard-grid;
+    padding-left: 1.5%;
+  }
 }
 
 @media (min-width: 768px) {
-    #all-report-title {
+  #all-report-title {
+    #report-title-description {
+      padding-top: 13rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
 
-        #report-title-description {
-            height: 17.5rem;
-            padding-top: 13rem;
-            position: relative;
+      h2::after {
+        display: none;
+      }
 
-            p::after {
-                display: none;
-            }
-
-            p {
-                width: 45%;
-                position: absolute;
-                top: 10rem;
-                right: 0;
-                font-size: $smaller-font-size;
-            }
-        }
+      p {
+        width: rem(350);
+        font-size: $smaller-font-size;
+      }
     }
-}
-
-@media (min-width: 992px) {
-    #all-report-title {
-        #report-title-description {
-            p {
-                width: 50%;
-                top: 11rem;
-            }
-        }
-    }
-}
-
-@media (min-width: 1200px) {
-    #all-report-title {
-        #report-title-description {
-            p {
-                width: 45%;
-                font-size: $base-font-size;
-                top: 10.5rem;
-            }
-        }
-    }
-}
-
-@media (min-width: 1400px) {
-    #all-report-title {
-
-        #report-title-description {
-            p {
-                top: 10rem;
-                width: 38.5%;
-            }
-        }
-    }
+  }
 }

@@ -94,56 +94,6 @@ export default function Category({
     setIsZoomed(() => !isZoomed)
   }
 
-  const handleCreateNote = async (content: string) => {
-    if (!contentId) return
-
-    try {
-      await createNote({
-        user_id: user?.databaseId,
-        post_id: contentId,
-        content,
-      })
-      const result = await fetchNotes({
-        user_id: user?.databaseId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const handleUpdateNote = async (noteId: number, content: string) => {
-    try {
-      await updateNote({
-        note_id: noteId,
-        content,
-      })
-      const result = await fetchNotes({
-        user_id: user?.databaseId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const handleDeleteNote = async (noteId: number) => {
-    try {
-      await deleteNote({ 
-        note_id: noteId,
-      })
-      const result = await fetchNotes({
-        user_id: user?.databaseId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   if (!_hasHydrated) {
     return <div></div>
   }
@@ -152,8 +102,8 @@ export default function Category({
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
         <>
-          <section id="content-title-page">
-            <div id="top-title">
+          <section className="content-title-page">
+            <div className="top-title">
               <div className="content-tags">
                 {post.categories?.edges?.map(({ node }) => (
                   node.parentId && node.parent.node.name !== 'Country' && (
@@ -165,7 +115,9 @@ export default function Category({
                 )}
               </div>
 
-              <h2>{post.lanbeContent.subTitle || post.title}</h2>
+              <h2 className="title">
+                {post.lanbeContent.subTitle || post.title}
+              </h2>
 
               <div className="content-location">
                 <Icons type="location" />
