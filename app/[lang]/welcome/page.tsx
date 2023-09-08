@@ -18,7 +18,7 @@ const Welcome = ({
       <div className="welcome-text">
         <p>
           {t('p1')}<br />
-          <span>{user.name}!</span>
+          {/* <span>{user.name}!</span> */}
         </p>
         <p className="email">{t('email')}</p>
       </div>
