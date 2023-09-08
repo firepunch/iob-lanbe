@@ -88,7 +88,7 @@ export default function Search({
     }
   }
 
-  if (searchResult?.keyword !== fetchParams?.keyword || !_hasHydrated) {
+  if ((!searchResult?.keyword && searchResult?.keyword !== fetchParams?.keyword) || !_hasHydrated) {
     return <div></div>
   }
   
