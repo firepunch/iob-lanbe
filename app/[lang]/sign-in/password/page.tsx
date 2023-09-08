@@ -9,9 +9,9 @@ import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
 
 const SignInPassword = ({
-  lang,
+  params: { lang },
 }: {
-  lang: ValidLocale
+  params: { lang: ValidLocale; },
 }) => {
   const { t } = useTranslation(lang, 'password')
   const [message, setMessage] = useState<TStringObj>()

@@ -10,9 +10,9 @@ import { useParams } from 'next/navigation'
 import { useState } from 'react'
 
 const SignInPasswordChange = ({
-  lang,
+  params: { lang },
 }: {
-  lang: ValidLocale
+  params: { lang: ValidLocale; },
 }) => {
   const params = useParams()
   const { t } = useTranslation(lang, 'password')
