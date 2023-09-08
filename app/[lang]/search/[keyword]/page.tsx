@@ -44,13 +44,13 @@ export default function Search({
       taxQuery: formatSearchTaxQuery(fetchParams.keyword),
       keyword: '',
     }).then(taxResult => {
-      mergeSearchResult(taxResult)
+      mergeSearchResult(taxResult, keyword)
     })
 
     getSearchResults({
       ...fetchParams,
     }).then(keyResult => {
-      mergeSearchResult(keyResult)
+      mergeSearchResult(keyResult, keyword)
     })
   }, [fetchParams.keyword])
   
@@ -62,6 +62,13 @@ export default function Search({
       }))
     }
   }, [user])
+
+  useEffect(() => {
+    setFetchParams(prev => ({
+      ...prev,
+      keyword: decodeURIComponent(keyword),
+    }))
+  }, [keyword])
 
   const handleReload = async () => {
     setFetchParams(prev => ({
