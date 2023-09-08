@@ -27,10 +27,13 @@ interface IContentState {
   updateReports: (reports: IReports) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
-  mergeSearchResult: (result: {
-    posts: IPosts
-    reports: IReports
-  }) => void
+  mergeSearchResult: (
+    searchResult: {
+      posts: IPosts
+      reports: IReports
+    },
+    keyword: string
+  ) => void
   setHasHydrated: (state: boolean) => void
 }
 
@@ -56,18 +59,14 @@ const useContentState = create<IContentState>()(
       updateReports: (reports) => set({ reports }),
       updateNotes: (notes) => set({ notes }),
       updateSearchResult: (searchResult) => set({ searchResult }),
-      mergeSearchResult: (searchResult) => {
+      mergeSearchResult: (searchResult, keyword) => {
         set((prev) => {
           let result = {
             posts: searchResult.posts?.edges,
             reports: searchResult.reports?.edges,
           }
-          console.log([
-            ...searchResult?.posts?.edges || [], 
-            ...prev.searchResult?.posts || [],
-          ])
 
-          if (prev.searchResult?.posts) {
+          if (prev.searchResult?.keyword !== keyword) {
             result = {
               posts: getUniqueEdges(
                 [
