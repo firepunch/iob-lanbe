@@ -6,7 +6,7 @@ import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
 import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 const SignInPasswordChange = ({
@@ -41,7 +41,7 @@ const SignInPasswordChange = ({
       key: params.get('key'),
       email: params.get('email'),
     })
-    setMessage({ info: t(result) })
+    setMessage({ info: t(result?.message) })
   }
 
   return (
