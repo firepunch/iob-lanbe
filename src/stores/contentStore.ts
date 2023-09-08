@@ -62,12 +62,14 @@ const useContentState = create<IContentState>()(
       mergeSearchResult: (searchResult, keyword) => {
         set((prev) => {
           let result = {
+            keyword,
             posts: searchResult.posts?.edges,
             reports: searchResult.reports?.edges,
           }
 
           if (prev.searchResult?.keyword !== keyword) {
             result = {
+              keyword,
               posts: getUniqueEdges(
                 [
                   ...result?.posts || [], 
