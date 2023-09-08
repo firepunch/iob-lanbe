@@ -27,7 +27,9 @@ export default function Footer({
 
         <div className="footer-info">
           <p className="email">{t('f_company')}</p>
-          <p className="email">{t('f_email')}</p>
+          <p className="email">
+            <a href="mailto:support@iob.team">support@iob.team</a>
+          </p>
           <p className="address">{t('f_address')}<br/>{t('f_building')}</p>
           <p className="address">{t('f_ceo')}</p>
         </div>
