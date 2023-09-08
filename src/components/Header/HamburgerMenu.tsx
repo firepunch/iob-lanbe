@@ -20,6 +20,7 @@ const WHITE_ICONS = [
   'project',
   'welcome',
   'my-page',
+  'sign-in',
 ]
 
 export default function HamburgerMenu({
