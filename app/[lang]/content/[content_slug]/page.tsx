@@ -33,7 +33,9 @@ export default function Category({
   const META_KEY = `post_${lang}`
 
   useEffect(() => {
-    getContentBySlug(fetchParams).then(result => (
+    getContentBySlug({
+      ...fetchParams,
+    }).then(result => (
       updatePost(result)
     ))
 
@@ -43,7 +45,7 @@ export default function Category({
     }).then(result => (
       updateRecommend(result)
     ))
-  }, [])
+  }, [fetchParams])
 
   useEffect(() => {
     if (user?.databaseId !== 0) {
