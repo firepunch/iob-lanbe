@@ -6,6 +6,7 @@ import { TI18N, TStringObj } from '@/types'
 import { useEffect, useState } from 'react'
 import InputField from '../InputField'
 import SelectField from '../SelectField'
+import Spinner from '../Spinner'
 
 export default function Settings({
   t,
@@ -19,6 +20,7 @@ export default function Settings({
   const { userInfo, updateUserInfo } = useUserState(state => state)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
   const [infoMessage, setInfoMessage] = useState<string>()
+  const [isProcess, setIsProcess] = useState<boolean>(false)
 
   useEffect(() => {
     if (userId) {
@@ -37,17 +39,17 @@ export default function Settings({
     const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
     const pwFound = (formProps?.newPassword as string)?.match(regex)
 
-    if (formProps?.newPassword) {
-      if (!pwFound) {
-        setErrorMessages(prev => ({
-          ...prev,
-          password: t('password_rule_error'),
-        }))
-        return
-      }
+    if (formProps?.newPassword && !pwFound) {
+      setInfoMessage(undefined)
+      setErrorMessages(prev => ({
+        ...prev,
+        newPassword: t('password_rule_error'),
+      }))
+      return
     } 
 
     if (formProps?.userFunction === 'Default') {
+      setInfoMessage(undefined)
       setErrorMessages(prev => ({
         ...prev,
         userFunction: t('function_required'),
@@ -56,6 +58,7 @@ export default function Settings({
     }
 
     if (formProps?.country === 'Default') {
+      setInfoMessage(undefined)
       setErrorMessages(prev => ({
         ...prev,
         country: t('country_required'),
@@ -64,21 +67,31 @@ export default function Settings({
     }
 
     try {
+      setIsProcess(true)
+
       const result = await updateWPUser({
         ...formProps,
         user_id: userId,
         username: formProps.email,
       })
 
-      if (result.message) {
+      if (result.message === 'Sorry, that email address is already used!') {
+        setErrorMessages(prev => ({
+          ...prev,
+          newEmail: t('email_duplicate_error'),
+        }))
+      } else if (result.message) {
         setInfoMessage(result.message)
       } else {
         setInfoMessage(t('updated_userinfo_success'))
+        setErrorMessages({})
       }
     } catch (err) {
       console.error(err)
       setInfoMessage(t('updated_userinfo_fail'))
     }
+
+    setIsProcess(false)
   }
 
   if (!userInfo) {
@@ -202,6 +215,12 @@ export default function Settings({
                   placeholder={t('new_email_placeholder')}
                   description={t('new_email_rule')}
                   errorMessage={errorMessages?.newEmail}
+                  onResetError={() => (
+                    setErrorMessages(prev => ({
+                      ...prev,
+                      newEmail: undefined,
+                    }))
+                  )}
                 />
               </div>
 
@@ -212,13 +231,13 @@ export default function Settings({
                   type="password"
                   name="newPassword"
                   label={t('new_password')}
-                  placeholder={t('password_placeholder')}
+                  placeholder={t('new_password_placeholder')}
                   description={t('password_rule')}
                   errorMessage={errorMessages?.newPassword}
                   onResetError={() => (
                     setErrorMessages(prev => ({
                       ...prev,
-                      password: undefined,
+                      newPassword: undefined,
                     }))
                   )}
                 />
@@ -257,7 +276,10 @@ export default function Settings({
 
           <p>{infoMessage}</p>
           <div className="save-button">
-            <button type="submit">{t('save')}</button>
+            <button type="submit" disabled={isProcess}>
+              <Spinner loading={isProcess} />
+              {t('save')}
+            </button>
           </div>
                     
         </div>

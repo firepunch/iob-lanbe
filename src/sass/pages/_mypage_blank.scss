@@ -68,6 +68,7 @@ main {
 
           img {
             @include icon-size;
+            margin-right: 0;
           }
 
           p {
