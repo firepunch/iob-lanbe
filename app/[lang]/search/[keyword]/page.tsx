@@ -1,7 +1,7 @@
 'use client'
 
-import { getAllPosts, getContents, getSearchResults } from '@/api_gql'
-import { createWatchList, removeWatchList, sendSearchRequestForm } from '@/api_wp'
+import { getAllPosts, getSearchResults } from '@/api_gql'
+import { sendSearchRequestForm } from '@/api_wp'
 import { PostCard, ReportCard, SearchRequestForm } from '@/components'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
@@ -88,7 +88,7 @@ export default function Search({
     }
   }
 
-  if (!_hasHydrated) {
+  if (searchResult?.keyword !== fetchParams?.keyword || !_hasHydrated) {
     return <div></div>
   }
   
