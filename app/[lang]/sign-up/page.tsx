@@ -11,7 +11,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import React from 'react'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import useStore from '@/hooks/useStore'
 
 const SignUp = ({
   params: { lang },
@@ -21,7 +22,7 @@ const SignUp = ({
   const { replace } = useRouter()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'sign-up')
-  const { user, updateUser } = useUserState(state => state)
+  const { user, updateUser } = useStore(useUserState, state => state, INIT_USER_STATE)
   const [isProcess, setIsProcess] = useState<boolean>(false)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
   const recaptchaRef = React.useRef<any>()
@@ -104,7 +105,7 @@ const SignUp = ({
     recaptchaRef?.current?.reset()
   }
 
-  if (user) {
+  if (user?.databaseId) {
     replace('/')
   }
 
