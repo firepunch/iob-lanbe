@@ -14,6 +14,7 @@ const WHITE_ICONS = [
   'project',
   'welcome',
   'my-page',
+  'sign-in',
 ]
 
 const CHANGE_URL = [
