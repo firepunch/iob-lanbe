@@ -6,7 +6,7 @@ import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 const SignInPasswordChange = ({
@@ -14,11 +14,9 @@ const SignInPasswordChange = ({
 }: {
   params: { lang: ValidLocale; },
 }) => {
-  const params = useParams()
+  const params = useSearchParams()
   const { t } = useTranslation(lang, 'password')
   const [message, setMessage] = useState<TStringObj>()
-
-  console.log(params)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,8 +38,8 @@ const SignInPasswordChange = ({
 
     const result = await updatePassword({
       ...formProps,
-      key: params.key,
-      email: params.login,
+      key: params.get('key'),
+      email: params.get('email'),
     })
     setMessage({ info: t(result) })
   }
@@ -52,16 +50,22 @@ const SignInPasswordChange = ({
         <h2>{t('h2_change')}</h2>
 
         <form className="email-pw-wrap" onSubmit={handleSubmit}>
-          {params.login && (
-            <p>{params.login}</p>
-          )}
+          <InputField
+            readOnly
+            type="email"
+            name="email"
+            defaultValue={params.get('email') || ''}
+            label={t('email')}
+          />
 
           <InputField
             isRequired
+            className="pw-field"
             type="password"
             name="newPassword"
             label={t('newPassword')}
             placeholder={t('password_required')}
+            description={t('password_rule')}
             errorMessage={message?.error}
             onResetError={() => (
               setMessage({ error: undefined })
