@@ -29,7 +29,6 @@ export default function Category({
     postSlug: decodeURIComponent(content_slug), 
     userId: user?.databaseId,
   })
-  const contentId = post?.databaseId || 0
   const META_KEY = `post_${lang}`
 
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function Category({
 
       fetchNotes({
         user_id: user?.databaseId,
-        post_id: contentId,
+        post_id: post?.databaseId,
       }).then(result => {
         updateNotes(result)
       })
@@ -64,14 +63,21 @@ export default function Category({
   }, [user])
 
   useEffect(() => {
-    if (contentId) {
+    if (post?.databaseId) {
       updateCountView({
         user_id: user?.databaseId,
-        content_id: contentId,
+        content_id: post?.databaseId,
         type: META_KEY as MetaKey,
       })
+
+      fetchNotes({
+        user_id: user?.databaseId,
+        post_id: post?.databaseId,
+      }).then(result => {
+        updateNotes(result)
+      })
     }
-  }, [contentId])
+  }, [post])
 
   const handleReload = async () => {
     const postRes = await getContentBySlug(fetchParams)
@@ -87,7 +93,7 @@ export default function Category({
   const handleReloadNotes = async () => {
     const result = await fetchNotes({
       user_id: user?.databaseId,
-      post_id: contentId,
+      post_id: post?.databaseId,
     })
     updateNotes(result) 
   }
@@ -143,7 +149,7 @@ export default function Category({
             <PostOptions
               isSaved={post.lanbeContent.is_save}
               metaKey={META_KEY}
-              contentId={contentId}
+              contentId={post?.databaseId}
               onFontSize={handleFontSize}
               onFetchData={handleReload}
             />
@@ -160,7 +166,7 @@ export default function Category({
                   isBlack
                   isSaved={post?.lanbeContent?.is_save}
                   metaKey={META_KEY}
-                  contentId={contentId}
+                  contentId={post?.databaseId}
                   onFetchData={handleReload}
                 />
               </div>
@@ -187,7 +193,9 @@ export default function Category({
               <div className="idea-note-wrap">
                 {notes?.length < 4 && (
                   <IdeaNote 
+                    key="create-note"
                     type="edit" 
+                    content={undefined}
                     userId={user?.databaseId}
                     postId={post?.databaseId}
                     onReload={handleReloadNotes}

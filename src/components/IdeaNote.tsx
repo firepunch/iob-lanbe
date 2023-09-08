@@ -97,6 +97,7 @@ export default function IdeaNote ({
           post_id: postId,
           content: value,
         })
+        setValue('')
       }
       onReload()
     } catch (err) {
