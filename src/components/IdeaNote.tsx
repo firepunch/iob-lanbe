@@ -140,7 +140,23 @@ export default function IdeaNote ({
           )}
 
           <div className="footer">
-            <span />
+            <div>
+              <p className="title">
+                {postSlug ? (
+                  <Link href={`/${lang}/content/${postSlug}`}>
+                    {postTitle}
+                  </Link>
+                ) : (
+                  postTitle
+                )}
+              </p>
+
+              {updatedAt && (
+                <p className="date">
+                  {dateFormat(updatedAt, true)}
+                </p>
+              )}
+            </div>
             <button className="save-btn loading-btn" onClick={handleSave} disabled={isProcess}>
               <Spinner loading={isProcess} />
               {t.save}
@@ -154,7 +170,7 @@ export default function IdeaNote ({
           </p>
 
           <div className="footer">
-            <div >
+            <div>
               <p className="title">
                 {postSlug ? (
                   <Link href={`/${lang}/content/${postSlug}`}>

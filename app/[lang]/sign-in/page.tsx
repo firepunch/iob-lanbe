@@ -71,7 +71,7 @@ const SignIn = ({
       } else {
         updateUser(result?.user)
         setStorageData(AUTH_TOKEN, result, isRemember)
-        router.push(`/${lang}`)
+        router.back()
       }
     } catch (err) {
       console.error(err)
