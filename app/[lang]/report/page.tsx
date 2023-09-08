@@ -7,7 +7,8 @@ import useIsMobile from '@/hooks/useMobile'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { getUserId, sort2variables } from '@/utils/lib'
+import useUserState from '@/stores/userStore'
+import { sort2variables } from '@/utils/lib'
 import { useEffect, useState } from 'react'
 
 const GRID_CARD_NUMBER = 6
@@ -23,14 +24,14 @@ export default function Reports({
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const { user } = useUserState(state => state)
   const { reports, updateReports } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'report')
   const isMobile = useIsMobile()
-  const userId = getUserId()
   const [fetchParams, setFetchParams] = useState({
     language: lang.toUpperCase(), 
-    userId,
+    userId: user.databaseId,
     ...initPagination,
     ...sort2variables('newest'),
   })
@@ -52,41 +53,24 @@ export default function Reports({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      ...sort2variables(`${sorter}_report`),
+      ...sort2variables(sorter),
     }))
   }
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        })
-      }
-
-      setFetchParams(prev => ({
-        ...prev,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  const handleReload = () => {
+    setFetchParams(prev => ({
+      ...prev,
+    }))
   }
 
   return (
     <>
       <section id="all-report-title">
         <div id="report-title-description">
-          <h2>{t('report_h2')}</h2>
-          <p>{t('report_intro-1')}<br/>{t('report_intro-2')}</p>
+          <h2>
+            I.O.B<br/>{t('report_h2')}
+          </h2>
+          <p>{t('report_intro-1')}{t('report_intro-2')}</p>
         </div>
 
         <div className="sort">
@@ -104,14 +88,9 @@ export default function Reports({
         <div id="all-reports-wrap">
           {reports?.edges?.map(({ node }) => (
             <ReportCard
-              key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
               {...node}
+              key={node.id}
+              onFetchData={handleReload}
             />
           ))}
         </div>

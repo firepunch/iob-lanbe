@@ -1,107 +1,85 @@
 'use client'
 
 import { getReportBySlug } from '@/api_gql'
-import { createWatchList, removeWatchList, updateCountDownload, updateCountView } from '@/api_wp'
-import { Bookmark, PostOptions, Tags } from '@/components'
+import { updateCountDownload, updateCountView } from '@/api_wp'
+import { Bookmark, ShareLinks, Tags } from '@/components'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import ShareImg from '@/imgs/share.png'
 import useContentState from '@/stores/contentStore'
-import { dateFormat, getAuthorInfo, getUser, isValidToken } from '@/utils/lib'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import { dateFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Report({
   params: { lang, report_slug },
 }: {
   params: { lang: ValidLocale; report_slug: string; },
 }) {
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { report, updateReport } = useContentState(state => state)
   const { t } = useTranslation(lang, 'report-detail')
-  const { userId, email } = getUser()
+  const [isOpenShare, setIsOpenShare] = useState(false)
 
   useEffect(() => {
     getReportBySlug({
       reportSlug: decodeURI(report_slug), 
-      userId,
-      email,
+      userId: user.databaseId,
+      email: user.email,
+      lang,
     }).then(result => {
       updateReport(result)
       updateCountView({
-        user_id: userId,
+        user_id: user.databaseId,
         content_id: result?.databaseId,
-        type: 'report',
+        lang,
       })
     })
-  }, [])
+  }, [user])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: databaseId,
-          user_id: userId,
-        })
-      }
-
-      const result = await getReportBySlug({
-        reportSlug: decodeURI(report_slug), 
-        userId,
-        email,
-      })
-      updateReport(result)
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  const handleReload = async () => {
+    const result = await getReportBySlug({
+      reportSlug: decodeURI(report_slug), 
+      userId: user.databaseId,
+      email: user.email,
+    })
+    updateReport(result)
   }
 
   const handleUpdateCount = async () => {
     await updateCountDownload({
-      user_id: userId,
+      user_id: user.databaseId,
       content_id: report?.databaseId,
-      type: 'report',
+      lang,
     })
   }
 
-  if (!report) {
-    return ''
+  if (!_hasHydrated || !report) {
+    return <div></div>
   }
 
   return (
     <>
-      <PostOptions
-        isSaved={report.lanbeContent.is_save}
-        onFontSize={() => {}} 
-        onToggleBookmark={() => (
-          handleToggleBookmark({
-            isSaved: report?.lanbeContent.is_save,
-            databaseId: report.databaseId,
-          })
-        )}
-      />
       <div className="iob-single-report">
         <section id="report-firstpage">
           <div id="report-firstpage-left">
             <div className="save-share">
               <Bookmark 
                 isSaved={report.lanbeContent.is_save}
-                onToggle={() => (
-                  handleToggleBookmark({ 
-                    isSaved: report.lanbeContent.is_save,
-                    databaseId: report.databaseId,
-                  })
-                )}
+                metaKey={`report_${lang}`}
+                contentId={report.databaseId}
+                onFetchData={handleReload}
               />
-              <Image src={ShareImg} alt="Share" />
+
+              <div className="share-button">
+                <Image src={ShareImg} alt="Share" onClick={() => setIsOpenShare(!isOpenShare)} />
+                {isOpenShare && (
+                  <ShareLinks onClose={() => setIsOpenShare(!isOpenShare)} />
+                )}
+              </div>
             </div>
 
             <h2>{report.title}</h2>
@@ -122,10 +100,12 @@ export default function Report({
                 <li>{getAuthorInfo(report.author)}</li>
                 <li>{dateFormat(report.date, true)}</li>
                 <li>
-                  {report.reportCategories.edges?.map(({ node }) => node.name).join(', ')}
+                  {report.reportCategories.edges?.length ?
+                    report.reportCategories.edges?.map(({ node }) => node.name).join(', ') : 
+                    '-'}
                 </li>
                 <li>
-                  {report.lanbeContent.pages}
+                  {report.lanbeContent?.pages}
                 </li>
               </ul>
             </div>
@@ -146,33 +126,37 @@ export default function Report({
             />
           )}
 
-          <div id="report-image-text1">
-            {report.lanbeContent?.secondImage && (
-              <Image 
-                src={report.lanbeContent.secondImage} 
-                alt="Report Image"
-                fill
-                sizes="100vw"
-              />
-            )}   
-            <div className="rit-text">
-              <p>{report.lanbeContent?.secondText}</p>
+          {(report.lanbeContent?.secondImage || report.lanbeContent?.secondText) && (
+            <div id="report-image-text1">
+              {report.lanbeContent?.secondImage && (
+                <Image 
+                  src={report.lanbeContent.secondImage} 
+                  alt="Report Image"
+                  fill
+                  sizes="100vw"
+                />
+              )}
+              <div className="rit-text">
+                <p>{report.lanbeContent?.secondText}</p>
+              </div>
             </div>
-          </div>
+          )}
 
-          <div id="report-image-text2">
-            <div className="rit-text">
-              <p>{report.lanbeContent?.thirdText}</p>
+          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdText) && (
+            <div id="report-image-text2">
+              <div className="rit-text">
+                <p>{report.lanbeContent?.thirdText}</p>
+              </div>
+              {report.lanbeContent?.thirdImage && (
+                <Image 
+                  src={report.lanbeContent.thirdText} 
+                  alt="Report Image"
+                  fill
+                  sizes="100vw"
+                />
+              )}   
             </div>
-            {report.lanbeContent?.thirdImage && (
-              <Image 
-                src={report.lanbeContent.thirdImage} 
-                alt="Report Image"
-                fill
-                sizes="100vw"
-              />
-            )}   
-          </div>
+          )}
         </section>
 
         {/* section 3: report price and cta */}
@@ -183,7 +167,7 @@ export default function Report({
             </div>
 
             <div className="report-cta">
-              {isValidToken() ? (
+              {user.databaseId ? (
                 <>
                   <p>{t('download_cta')}</p>
                   <Link 

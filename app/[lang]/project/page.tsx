@@ -88,7 +88,7 @@ export default function Search({
                 <div className="pd-wrap">
                   <div className="solution">
                     <Image src={MarketIcon} alt="Market Analysis" />
-                    <p>{t('market-analysis')}<br/> {t('analysis')}</p>
+                    <p>{t('market-analysis')}</p>
                   </div>
 
                   <div className="solution">
@@ -160,7 +160,7 @@ export default function Search({
     
             {/* market analysis */}
             <div className="service">
-              <h5>{t('market-analysis')}<br/>{t('analysis')}</h5>
+              <h5>{t('market-analysis')}</h5>
     
               <ul>
                 <li>{t('market-1')}</li>
@@ -219,7 +219,7 @@ export default function Search({
     
             {/* social media */}
             <div className="service">
-              <h5>{t('social')}<br/>Me{t('media')}dia</h5>
+              <h5>{t('social')}<br/>{t('media')}</h5>
               <ul>
                 <li>{t('socialmedia-1')}</li>
                 <li>{t('socialmedia-2')}</li>
@@ -279,12 +279,12 @@ export default function Search({
             </div>
     
             <div className="verticals">
-              <p>7</p>
+              <p>21</p>
               <p>{t('verticals')}</p>
             </div>
     
             <div className="partners">
-              <p>10</p>
+              <p>79</p>
               <p>{t('partners')}</p>
             </div>
           </div>
@@ -295,32 +295,32 @@ export default function Search({
             <div className="network-grid">
     
               <div className="network">
-                <p>00+</p>
+                <p>11+</p>
                 <p>{t('strategy')}</p>
               </div>
     
               <div className="network">
-                <p>00+</p>
+                <p>16+</p>
                 <p>{t('network-marketing')}</p>
               </div>
     
               <div className="network">
-                <p>00+</p>
+                <p>14+</p>
                 <p>{t('network-design')}</p>
               </div>
     
               <div className="network">
-                <p>00+</p>
+                <p>13+</p>
                 <p>{t('business')}<br/>{t('development')}</p>
               </div>
     
               <div className="network">
-                <p>00+</p>
+                <p>13+</p>
                 <p>{t('sales')}</p>
               </div>
     
               <div className="network">
-                <p>00+</p>
+                <p>12+</p>
                 <p>{t('engineering')}</p>
               </div>
             </div>

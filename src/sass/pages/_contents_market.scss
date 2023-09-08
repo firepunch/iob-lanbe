@@ -115,24 +115,6 @@
           display: none;
         }
       }
-
-      #categ-description {
-        p {
-          width: 45%;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  #subcateg-content-title {
-    #title-top {
-      #categ-description {
-        p {
-          width: 35%;
-        }
-      }
     }
   }
 }
@@ -142,20 +124,6 @@
     #title-top {
       #categ-description {
         p {
-          width: 40%;
-          font-size: $base-font-size;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 1400px) {
-  #subcateg-content-title {
-    #title-top {
-      #categ-description {
-        p {
-          width: 30%;
           font-size: $base-font-size;
         }
       }

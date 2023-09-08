@@ -1,7 +1,8 @@
 export const USER_QUERY = `
-query GetUser($input: ID!) {
-  user(id: $input, idType: USERNAME) {
-    wooSessionToken
+query GetUser($userId: ID!) {
+  user(id: $userId, idType: DATABASE_ID) {
+    name
+    email
   }
 }
 `

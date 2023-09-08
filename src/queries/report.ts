@@ -1,6 +1,7 @@
 export const REPORTS_QUERY = `
 query AllReports(
   $language: LanguageCodeFilterEnum!, 
+  $lang: String = "en", 
   $userId: Float = 0, 
   $first: Int = 100, 
   $last: Int,
@@ -49,7 +50,7 @@ query AllReports(
             sourceUrl
           }
         }
-        lanbeContent(user_id: $userId, type: "report") {
+        lanbeContent(user_id: $userId, type: "report", lang: $lang) {
           is_save
           country
           pages
@@ -76,7 +77,11 @@ query AllReports(
 `
 
 export const REPORT_QUERY = `
-query reportBySlug($reportSlug: ID!, $userId: Float) {
+query reportBySlug(
+  $lang: String = "en", 
+  $reportSlug: ID!, 
+  $userId: Float,
+) {
   report(id: $reportSlug, idType: URI) {
     id
     databaseId
@@ -109,7 +114,7 @@ query reportBySlug($reportSlug: ID!, $userId: Float) {
         altText
       }
     }
-    lanbeContent(user_id: $userId) {
+    lanbeContent(user_id: $userId, type: "report", lang: $lang) {
       is_save
       pages
       downloadFile

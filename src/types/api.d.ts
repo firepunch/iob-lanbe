@@ -1,3 +1,6 @@
+import { Tokens } from '@/stores/userStore'
+import { IUser } from './store'
+
 export interface ICreateUser {
   clientMutationId: string
   username: string
@@ -7,11 +10,11 @@ export interface ICreateUser {
 
 export interface IFetchWatchList {
   user_id: number
-  type: 'post' | 'report'
+  type: MetaKey
 }
 
 export interface IBodyWatchList {
-  type: 'post' | 'report'
+  type: string
   content_id: number
   user_id: number
 }
@@ -21,10 +24,13 @@ export interface IFetchNotes {
   post_id?: number
 }
 
+export type MetaKey = 'post_en' | 'post_ko' | 'report_en' | 'report_ko'
+
 export interface ICountData {
   user_id: number
   content_id?: number
-  type?: 'post' | 'report'
+  lang?: 'en' | 'ko'
+  type?: MetaKey
 }
 
 export interface ICreateNote {

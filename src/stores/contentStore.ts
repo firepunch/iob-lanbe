@@ -1,5 +1,7 @@
 import { IPost, IPosts, IReport, IReports, ISearchResult } from '@/types/store'
+import { getUniqueEdges } from '@/utils/lib'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export const initPageInfo = {
   initTotal: 0,
@@ -9,38 +11,97 @@ export const initPageInfo = {
   startCursor: undefined,
   endCursor: undefined,
 }
-interface ContentState {
+interface IContentState {
+  _hasHydrated: boolean
+  recommend: IPosts,
   posts: IPosts,
   post?: IPost,
   report?: IReport,
   reports: IReports,
-  recommend: { node: IPost }[],
   notes: any[],
   searchResult?: ISearchResult,
+  updateRecommend: (posts: IPosts) => void
   updatePosts: (posts: IPosts) => void
   updatePost: (post: IPost) => void
   updateReport: (report: IReport) => void
   updateReports: (reports: IReports) => void
-  updateRecommend: (posts: { node: IPost }[]) => void
   updateNotes: (notes: any[]) => void
   updateSearchResult: (result: ISearchResult) => void
+  mergeSearchResult: (result: {
+    posts: IPosts
+    reports: IReports
+  }) => void
+  setHasHydrated: (state: boolean) => void
 }
 
-const useContentState = create<ContentState>((set) => ({
+export const INIT_CONTENT_STATE = {
+  _hasHydrated: false,
+  recommend: { edges: [], pageInfo: initPageInfo },
   posts: { edges: [], pageInfo: initPageInfo },
-  recommend: [],
   post: undefined,
   report: undefined,
   reports: { edges: [], pageInfo: initPageInfo },
   notes: [],
   searchResult: undefined,
-  updatePosts: (posts) => set({ posts }), 
-  updateRecommend: (recommend) => set({ recommend }),
-  updatePost: (post) => set({ post }),
-  updateReport: (report) => set({ report }),
-  updateReports: (reports) => set({ reports }),
-  updateNotes: (notes) => set({ notes }),
-  updateSearchResult: (searchResult) => set({ searchResult }),
-}))
+}
+
+const useContentState = create<IContentState>()(
+  persist(
+    (set) => ({
+      ...INIT_CONTENT_STATE,
+      updateRecommend: (recommend) => set({ recommend }),
+      updatePosts: (posts) => set({ posts }), 
+      updatePost: (post) => set({ post }),
+      updateReport: (report) => set({ report }),
+      updateReports: (reports) => set({ reports }),
+      updateNotes: (notes) => set({ notes }),
+      updateSearchResult: (searchResult) => set({ searchResult }),
+      mergeSearchResult: (searchResult) => {
+        set((prev) => {
+          let result = {
+            posts: searchResult.posts?.edges,
+            reports: searchResult.reports?.edges,
+          }
+          console.log([
+            ...searchResult?.posts?.edges || [], 
+            ...prev.searchResult?.posts || [],
+          ])
+
+          if (prev.searchResult?.posts) {
+            result = {
+              posts: getUniqueEdges(
+                [
+                  ...result?.posts || [], 
+                  ...prev.searchResult?.posts || [],
+                ],
+              ),
+              reports: getUniqueEdges(
+                [
+                  ...result?.reports || [], 
+                  ...prev.searchResult?.reports || [],
+                ],
+              ),
+            }
+          } 
+
+          return {
+            searchResult: result,
+          }
+        })
+      },
+      setHasHydrated: (state: boolean) => {
+        set({
+          _hasHydrated: state,
+        })
+      },
+    }),
+    {
+      name: 'content-storage',
+      onRehydrateStorage: () => (state: IContentState) => {
+        state.setHasHydrated(true)
+      },
+    }
+  )
+)
 
 export default useContentState

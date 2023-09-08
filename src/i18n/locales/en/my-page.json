@@ -8,6 +8,7 @@
 
   "hi": "Hi, ",
   "member_since": "Member since ",
+  "logout": "Logout",
 
   "country": "Country",
   "category": "Category",
@@ -52,14 +53,18 @@
   "new_email": "New Email",
   "email_placeholder": "Please enter your job email.",
   "new_email_placeholder": "Please enter your new email.",
+  "new_email_rule": "If you change this we will send you an email at your new address to confirm it. The new address will not become active until confirmed.",
   "password": "Password",
   "new_password": "New Password",
-  "password_placeholder": "Please enter your job password.",
+  "new_password_placeholder": "Please enter your new password.",
   "password_rule": "Must be 8-12 characters long and contain at least one number and one symbol.",
   "newsletter": "I would like to subscribe to I.O.B’s newsletter. (Optional)",
   "marketing": "I would like to receive marketing emails and offers. (Optional)",
   
+  "email_duplicate_error": "Sorry, that email address is already used.",
   "password_rule_error": "Your password does not meet the requirements.",
   "function_required": "Function is required",
-  "country_required": "Country is required"
+  "country_required": "Country is required",
+  "updated_userinfo_success": "User information updated successfully.",
+  "updated_userinfo_fail": "User information update failed."
 }

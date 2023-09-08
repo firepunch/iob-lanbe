@@ -1,4 +1,3 @@
-import { IUser } from '@/types/store'
 import { format } from 'date-fns'
 
 export const objectToGetParams = (object: {
@@ -20,13 +19,6 @@ export const generateRandomString = () => (
 )
 
 export const AUTH_TOKEN = 'IOB_TOKENS'
-export const setStorageData = (key: string, data: string | object, isRemember = false) => {
-  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
-
-  isRemember ?
-    sessionStorage.setItem(key, JSON.stringify(data)) :
-    localStorage.setItem(key, JSON.stringify(data))
-}
 
 type Tokens = {
   authToken?: string
@@ -39,6 +31,14 @@ type Tokens = {
 
 interface IGetStorageData {
   (key: string): [undefined, undefined] | [Tokens, boolean]
+}
+
+export const setStorageData = (key: string, data: string | object, isRemember = false) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) return
+
+  isRemember ?
+    sessionStorage.setItem(key, JSON.stringify(data)) :
+    localStorage.setItem(key, JSON.stringify(data))
 }
 
 export const getStorageData:IGetStorageData = (key: string) => {
@@ -55,10 +55,12 @@ export const getStorageData:IGetStorageData = (key: string) => {
   return [JSON.parse(item), Boolean(rememberData)]
 }
 
-function remove_data(key) {
-  if (!window.localStorage || !window.JSON || !key) {
+export const removeStorageData = (key: string) => {
+  if (typeof window == 'undefined' || !window.localStorage || !window.sessionStorage || !window.JSON || !key) {
     return
   }
+
+  sessionStorage.removeItem(key)
   localStorage.removeItem(key)
 }
 
@@ -80,42 +82,11 @@ export const getAuthorInfo = (author) => {
   return `${name} | ${roles.edges?.node.id}`
 }
 
-export const isValidToken = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  const isValid = userData?.authToken && userData?.user?.databaseId
-
-  return Boolean(isValid)
-}
-
-export const isValidUser = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  const isValid = userData?.authToken && userData?.user?.databaseId
-
-  return { isValid: Boolean(isValid), user: userData?.user as IUser }
-}
-
-export const getUserId = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  return userData?.user?.databaseId || 0
-}
-
-export const getUser = () => {
-  const [userData] = getStorageData(AUTH_TOKEN)
-  
-  return {
-    userId: userData?.user?.databaseId || 0,
-    email: userData?.user?.email || '',
-  }
-}
-
 export const sort2variables = (type: string) => {
   const map = {
     newest: { field: 'DATE', order: 'DESC' },
     oldest: { field: 'DATE', order: 'ASC' },
     most_viewed: { field: 'VIEW_COUNTS', order: 'DESC' },
-    newest_report: { field: 'DATE', order: 'DESC' },
-    oldest_report: { field: 'DATE', order: 'ASC' },
-    most_viewed_report: { field: 'VIEW_COUNTS', order: 'ASC' },
   }
 
   return map[type] || map.newest
@@ -136,7 +107,56 @@ export const getCountry = (categories) => {
 }
 
 export const getUniqueArr = (arr) => (
-  arr.filter((item, pos, self) => (
-    self.indexOf(item) === pos
+  arr.filter((item, index, self) => (
+    self.indexOf(item) === index
   ))
 )
+
+export const getUniqueEdges = (arr) => {
+  return arr.filter((item, index, self) => (
+    index === self.findIndex((t) => (
+      t['node']['databaseId'] === item['node']['databaseId']
+    ))
+  ))
+}
+
+export const formatPostTaxQuery = (
+  categories: { terms: string[], field: string },
+  countries: string[],
+) => { 
+  const taxArray: any[] = []
+  if (categories?.terms?.length) {
+    taxArray.push({
+      ...categories,
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+    })
+  }
+  if (countries?.length) {
+    taxArray.push({
+      terms: countries,
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+      field: 'SLUG',
+    })
+  }
+  return { relation: 'AND', taxArray }
+}
+
+export const formatSearchTaxQuery = (keyword: string) => {
+  let taxArray: any[] = []
+  if (keyword) {
+    taxArray = [{
+      terms: [keyword],
+      taxonomy: 'CATEGORY',
+      operator: 'IN',
+      field: 'NAME',
+    }, {
+      terms: [keyword],
+      taxonomy: 'TAG',
+      operator: 'IN',
+      field: 'NAME',
+    }]
+  }
+  return { relation: 'OR', taxArray }
+}

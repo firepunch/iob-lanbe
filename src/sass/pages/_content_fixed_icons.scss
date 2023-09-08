@@ -10,7 +10,8 @@
   left: 85%;
 
   .buttons-wrap {
-    button {
+    & > button,
+    .share-button > button {
       width: 2.5rem;
       height: 2.5rem;
       @include flex-center;
@@ -31,56 +32,6 @@
       }
     }
 
-    .share-button {
-      position: relative;
-
-      .share-menu {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 3rem;
-        flex-direction: column;
-        padding: rem(24) rem(24);
-        background-color: $black;
-        color: $white;
-        border: 1px solid $black;
-        border-radius: 1rem 0 1rem 1rem;
-
-        button {
-          // reset style
-          height: auto;
-          margin: 0;
-          cursor: pointer;
-          background-color: $black;
-          color: $white;
-        }
-
-        .share-link {
-          width: rem(240);
-          font-size: 1rem;
-          font-weight: 600;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: rem(10) rem(6) rem(3);
-          border-bottom: 2px solid $white;
-
-          svg {
-            width: rem(20);
-            height: rem(20);
-          }
-
-          &:first-child {
-            padding-top: 0;
-          }
-        }
-
-        &.show {
-          display: flex;
-        }
-      }
-    }
-
     // 추가
     .bookmark-button {
       img {
@@ -92,6 +43,53 @@
       p {
         font-size: 1.25rem;
         font-weight: $bold-font-weight;
+      }
+    }
+  }
+}
+
+.share-button {
+  position: relative;
+
+  .share-menu {
+    position: absolute;
+    top: 0;
+    right: 3rem;
+    flex-direction: column;
+    padding: rem(24) rem(24);
+    background-color: $black;
+    color: $white;
+    border: 1px solid $black;
+    border-radius: 1rem 0 1rem 1rem;
+
+    button {
+      // reset style
+      height: auto;
+      margin: 0;
+      border: 0;
+      cursor: pointer;
+      background-color: $black;
+      color: $white;
+    }
+
+    .share-link {
+      display: flex;
+      width: rem(240);
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: rem(10) rem(6) rem(3);
+      border-bottom: 2px solid $white;
+
+      svg {
+        width: rem(20);
+        height: rem(20);
+      }
+
+      &:first-child {
+        padding-top: 0;
       }
     }
   }

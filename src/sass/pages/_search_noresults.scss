@@ -98,15 +98,18 @@
           margin-left: 1rem;
         }
 
-        input[type="text"] {
+        input,
+        textarea {
           height: 10rem;
           border: 0.075rem solid $black;
           border-radius: 1.5rem;
           position: relative;
           outline: none;
+          padding: rem(16);
         }
 
-        input[type="text"]::placeholder {
+        input::placeholder,
+        textarea::placeholder {
           width: 60%;
           overflow: visible;
           position: absolute;
@@ -164,7 +167,7 @@
       .sum-message-us {
         form,
         .field {
-          input {
+          textarea {
             height: 12.5rem;
           }
         }

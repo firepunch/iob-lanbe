@@ -1,15 +1,15 @@
 'use client'
 
 import { getAllPosts, getAllReports } from '@/api_gql'
-import { createWatchList, removeWatchList } from '@/api_wp'
 import { Icons, NavigationWidget, PostCard, ReportCard } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { getUserId } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import useStore from '@/hooks/useStore'
 
 import BrandDesignIcon from '@/imgs/branddesign.jpg'
 import CrmIcon from '@/imgs/crm.jpg'
@@ -33,69 +33,54 @@ export default function Home({
 }: {
   params: { lang: ValidLocale; },
 }) {
-  const { t } = useTranslation(lang, 'home')
-  const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
   const sectionRefs = useRef({})
-  const userId = getUserId()
+  const { t } = useTranslation(lang, 'home')
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const { posts, reports, updatePosts, updateReports } = useContentState(state => state)
+  const [fetchParams, setFetchParams] = useState({
+    lang,
+    language: lang.toUpperCase(), 
+    userId: user.databaseId,
+    first: 4,
+  })
 
   useEffect(() => {
-    getAllPosts({
-      language: lang.toUpperCase(), 
-      userId,
-      first: 4,
-    }).then(result => {
+    getAllPosts(fetchParams).then(result => {
       updatePosts(result)
     })
 
     getAllReports({
-      language: lang.toUpperCase(), 
-      userId,
+      ...fetchParams,
       first: 3,
     }).then(result => (
       updateReports(result)
     ))
-  }, [])
+  }, [fetchParams])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId, type }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type,
-          content_id: databaseId,
-          user_id: userId,
-        })
-      } else {
-        await createWatchList({
-          type,
-          content_id: databaseId,
-          user_id: userId,
-        })
-      }
+  useEffect(() => {
+    if (user?.databaseId !== 0) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+    }
+  }, [user])
 
-      if (type === 'post') {
-        const result = await getAllPosts({
-          language: lang.toUpperCase(), 
-          userId,
-          first: 4,
-        })
-        updatePosts(result)
-      } else if (type === 'report') {
-        const result = await getAllReports({
-          language: lang.toUpperCase(), 
-          userId,
-          first: 3,
-        })
-        updateReports(result)
-      }
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
+  const handleFetchData = async (type: 'post' | 'report') => {
+    if (type === 'post') {
+      const result = await getAllPosts(fetchParams)
+      updatePosts(result)
+    } else if (type === 'report') {
+      const result = await getAllReports({
+        ...fetchParams,
+        first: 3,
+      })
+      updateReports(result)
     }
   }
 
   return (
     <>
-      {/* section 1: Welcome */}
       <section 
         id={SECTION_IDS.welcome}
         ref={(el) => (sectionRefs.current[SECTION_IDS.welcome] = el)}
@@ -169,19 +154,15 @@ export default function Home({
           <h3>{t('latest')}</h3>
 
           <div className="iob-latest-content">
-            {posts?.edges?.map(({ node }) => (
-              <PostCard
-                key={node.id}
-                onToggleBookmark={() => (
-                  handleToggleBookmark({
-                    type: 'post',
-                    isSaved: node.lanbeContent.is_save,
-                    databaseId: node.databaseId,
-                  })
-                )}
-                {...node}
-              />
-            ))}
+            {_hasHydrated && (
+              posts?.edges?.map(({ node }) => (
+                <PostCard
+                  {...node}
+                  key={node.id}
+                  onFetchData={() => handleFetchData('post')}
+                />
+              ))
+            )}
           </div>
 
           <Link href={{ pathname: `/${lang}/category` }} className="content-cta-mobile">
@@ -215,19 +196,15 @@ export default function Home({
           <h3>{t('latest')}</h3>
 
           <div className="iob-latest-report">
-            {reports?.edges?.map(({ node }) => (
-              <ReportCard
-                key={node.id}
-                onToggleBookmark={() => (
-                  handleToggleBookmark({
-                    type: 'report',
-                    isSaved: node.lanbeContent.is_save,
-                    databaseId: node.databaseId,
-                  })
-                )}
-                {...node}
-              />
-            ))}
+            {_hasHydrated && (
+              reports?.edges?.map(({ node }) => (
+                <ReportCard
+                  {...node}
+                  key={node.id}
+                  onFetchData={() => handleFetchData('report')}
+                />
+              ))
+            )}
           </div>
 
           <Link href={{ pathname: `/${lang}/report` }} className="report-cta-mobile">

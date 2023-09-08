@@ -12,11 +12,23 @@ main #default-content #default-title .filters-wrap button {
 #category-filter {
   width: 18rem;
   height: 16rem;
+  background-color: $white;
+  border: 1px solid $black;
+  border-radius: 1rem;
 
   position: absolute;
-  top: 2rem;
+  top: rem(45);
   left: 0;
   z-index: 10;
+
+  .arrow-top {
+    position: absolute;
+    top: -13px;
+    left: rem(100);
+    width: 20px;
+    height: 26px;
+    background-color: black;
+  }
 
   .speech-bubble {
     width: 100%;
@@ -88,6 +100,12 @@ main #default-content #default-title .filters-wrap button {
         color: #868686;
       }
     }
+  }
+}
+
+.country-category #category-filter.country-filter {
+  .arrow-top {
+    left: rem(25);
   }
 }
 

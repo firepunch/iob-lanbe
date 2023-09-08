@@ -1,145 +1,119 @@
 'use client'
 
-import { getContentBySlug, getContents } from '@/api_gql'
+import { getAllPosts, getContentBySlug, getContents } from '@/api_gql'
 import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
-import { Bookmark, Icons, ContentWall, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
+import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
-import { dateEnFormat, getAuthorInfo, getCountry, getUserId } from '@/utils/lib'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import { dateEnFormat, getAuthorInfo, getCountry } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import useStore from '@/hooks/useStore'
+import { MetaKey } from '@/types/api'
 
 export default function Category({
   params: { lang, content_slug },
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
-  const userId = getUserId()
-  const contentId = post?.databaseId
+  const [fetchParams, setFetchParams] = useState({
+    lang,
+    language: lang.toUpperCase(),
+    postSlug: decodeURIComponent(content_slug), 
+    userId: user?.databaseId,
+  })
+  const META_KEY = `post_${lang}`
 
   useEffect(() => {
-    getContentBySlug(decodeURIComponent(content_slug), userId).then(result => (
+    getContentBySlug({
+      ...fetchParams,
+    }).then(result => (
       updatePost(result)
     ))
 
-    getContents(lang.toUpperCase(), 3).then(result => (
+    getAllPosts({
+      ...fetchParams,
+      first: 3,
+    }).then(result => (
       updateRecommend(result)
     ))
-  }, [])
+  }, [fetchParams])
 
   useEffect(() => {
-    if (contentId) {
+    if (user?.databaseId !== 0) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+
       fetchNotes({
-        user_id: userId,
-        post_id: contentId,
+        user_id: user?.databaseId,
+        post_id: post?.databaseId,
       }).then(result => {
         updateNotes(result)
       })
+    }
+  }, [user])
 
+  useEffect(() => {
+    if (post?.databaseId) {
       updateCountView({
-        user_id: userId,
-        content_id: contentId,
-        type: 'post',
+        user_id: user?.databaseId,
+        content_id: post?.databaseId,
+        type: META_KEY as MetaKey,
+      })
+
+      fetchNotes({
+        user_id: user?.databaseId,
+        post_id: post?.databaseId,
+      }).then(result => {
+        updateNotes(result)
       })
     }
-  }, [post?.id])
+  }, [post])
 
-  const handleToggleBookmark = async ({ isSaved, type }) => {
-    if (!contentId) return
+  const handleReload = async () => {
+    const postRes = await getContentBySlug(fetchParams)
+    const recommendRes = await getAllPosts({
+      ...fetchParams,
+      first: 3,
+    })
 
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'report',
-          content_id: contentId,
-          user_id: userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'report',
-          content_id: contentId,
-          user_id: userId,
-        })
-      }
-
-      if (type === 'post') {
-        const result = await getContentBySlug(decodeURIComponent(content_slug), userId)
-        updatePost(result)
-      } else if (type === 'recommend') {
-        const result = await getContents(lang.toUpperCase(), 3)
-        updateRecommend(result)
-      }
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+    updatePost(postRes)
+    updateRecommend(recommendRes)
   }
   
+  const handleReloadNotes = async () => {
+    const result = await fetchNotes({
+      user_id: user?.databaseId,
+      post_id: post?.databaseId,
+    })
+    updateNotes(result) 
+  }
+
   const handleFontSize = () => {
     setIsZoomed(() => !isZoomed)
   }
 
-  const handleCreateNote = async (content: string) => {
-    if (!contentId) return
-
-    try {
-      await createNote({
-        user_id: userId,
-        post_id: contentId,
-        content,
-      })
-      const result = await fetchNotes({
-        user_id: userId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
+  if (!_hasHydrated) {
+    return <div></div>
   }
 
-  const handleUpdateNote = async (noteId: number, content: string) => {
-    try {
-      await updateNote({
-        note_id: noteId,
-        content,
-      })
-      const result = await fetchNotes({
-        user_id: userId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const handleDeleteNote = async (noteId: number) => {
-    try {
-      await deleteNote({ 
-        note_id: noteId,
-      })
-      const result = await fetchNotes({
-        user_id: userId,
-        post_id: contentId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  const FIRST_IMAGE = '<figure class=\"wp-block-image'
 
   return (
-    <div className="iob-single-content">
+    <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
       {post ? (
         <>
-          <section id="content-title-page">
-            <div id="top-title">
+          <section id="top" className="content-title-page">
+            <div className="top-title">
               <div className="content-tags">
                 {post.categories?.edges?.map(({ node }) => (
                   node.parentId && node.parent.node.name !== 'Country' && (
@@ -151,7 +125,9 @@ export default function Category({
                 )}
               </div>
 
-              <h2>{post.lanbeContent.subTitle || post.title}</h2>
+              <h2 className="title">
+                {post.lanbeContent.subTitle || post.title}
+              </h2>
 
               <div className="content-location">
                 <Icons type="location" />
@@ -172,13 +148,10 @@ export default function Category({
           <section id="main-content">
             <PostOptions
               isSaved={post.lanbeContent.is_save}
-              onFontSize={handleFontSize} 
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: post?.lanbeContent.is_save,
-                  type: 'post',
-                })
-              )}
+              metaKey={META_KEY}
+              contentId={post?.databaseId}
+              onFontSize={handleFontSize}
+              onFetchData={handleReload}
             />
 
             {/* content details: title, author, tags, date, etc. */}
@@ -192,12 +165,9 @@ export default function Category({
                 <Bookmark 
                   isBlack
                   isSaved={post?.lanbeContent?.is_save}
-                  onToggle={() => (
-                    handleToggleBookmark({
-                      isSaved: post?.lanbeContent.is_save,
-                      type: 'post',
-                    })
-                  )}
+                  metaKey={META_KEY}
+                  contentId={post?.databaseId}
+                  onFetchData={handleReload}
                 />
               </div>
 
@@ -207,35 +177,39 @@ export default function Category({
               </div>
             </div>
 
-            {!userId && (
-              <ContentWall lang={lang} t={t} />
-            )}
             <div
               className={`content-article ${isZoomed ? 'zoomed' : ''}`}
-              dangerouslySetInnerHTML={{ __html: post.content }} 
+              dangerouslySetInnerHTML={{ __html: user?.databaseId ? post.content : post.content.split(FIRST_IMAGE)[0].replace(FIRST_IMAGE, '') }} 
             />
+
+            {!user?.databaseId && (
+              <ContentWall lang={lang} t={t} />
+            )}
           </section>
 
-          {userId ? (
+          {user?.databaseId ? (
             <section id="idea-notes">
               <h5>{t('idea_h5')}</h5>
               <div className="idea-note-wrap">
+                {notes?.length < 4 && (
+                  <IdeaNote 
+                    key="create-note"
+                    type="edit" 
+                    content={undefined}
+                    userId={user?.databaseId}
+                    postId={post?.databaseId}
+                    onReload={handleReloadNotes}
+                  />
+                )}
                 {notes?.map(item => (
                   <IdeaNote
                     key={item.id}
+                    noteId={item.id}
                     type="view"
-                    lang={lang}
-                    onSubmit={value => handleUpdateNote(item.id, value)}
-                    onDelete={() => handleDeleteNote(item.id)}
+                    onReload={handleReloadNotes}
                     {...item}
                   />
                 ))}
-                {notes?.length === 0 && (
-                  <IdeaNote type="edit" lang={lang} content={undefined} onSubmit={handleCreateNote} />
-                )}
-                {notes?.length < 4 && (
-                  <IdeaNote type="add" lang={lang} onSubmit={handleCreateNote} />
-                )}
               </div>
             </section>
           ) : null}
@@ -258,16 +232,11 @@ export default function Category({
         </div>
 
         <div className="recommended-content-wrap">
-          {recommend?.map(({ node }) => (
+          {recommend?.edges?.map(({ node }) => (
             <PostCard 
               {...node}
               key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  type:'recommend',
-                })
-              )}
+              onFetchData={handleReload}
             />
           ))}
         </div>

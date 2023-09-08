@@ -2,19 +2,25 @@ import { IReport } from '@/types/store'
 import Image from 'next/image'
 import Link from 'next/link'
 import Bookmark from '../Bookmark'
+import { useParams } from 'next/navigation'
+import { ValidLocale } from '@/types'
 
 interface ReportCardProps extends IReport {
-  onToggleBookmark: () => void;
+  onFetchData: (ids?: string[]) => void
 }
 
 export const ReportCard = ({
   featuredImage,
+  databaseId,
   slug,
   title,
   excerpt,
-  lanbeContent,
-  onToggleBookmark,
+  lanbeContent: { is_save },
+  onFetchData,
 }: ReportCardProps) => {
+  const params = useParams()
+  const lang = params?.lang || 'en' as ValidLocale
+
   return (
     <div className="indiv-report i-r-1">
       <Link href={`/report/${encodeURIComponent(slug)}`}>
@@ -29,8 +35,10 @@ export const ReportCard = ({
             />
           ) : null}
           <Bookmark
-            isSaved={lanbeContent?.is_save} 
-            onToggle={onToggleBookmark}
+            isSaved={is_save} 
+            metaKey={`report_${lang}`}
+            contentId={databaseId}
+            onFetchData={onFetchData}
           />
         </div>
         <p className="indiv-report-title">

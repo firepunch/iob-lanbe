@@ -2,7 +2,6 @@
 
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import { isValidUser } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -16,32 +15,29 @@ import useUserState from '@/stores/userStore'
 
 export default function Header({
   lang,
+  openMenu,
+  onOpenMenu,
 }: {
   lang: ValidLocale
+  openMenu?: string
+  onOpenMenu: (menu?: string) => void
 }) {
   const { t: ct } =  useTranslation(lang, 'category-page')
   const { t } = useTranslation(lang, 'layout')
-  const { user, updateUser } = useUserState(state => state)
-  const { isValid, user: storageUser } = isValidUser()
-  const [openSearchWall, setOpenSearchWall] = useState<boolean>(false)
-  const [isUser, setIsUser] = useState<boolean>(false)
+  const { user } = useUserState(state => state)
+  const [isUser, setIsUser] = useState(false)
 
   useEffect(() => {
-    if (storageUser) updateUser(storageUser)
-  }, [])
-
-  useEffect(() => {
-    setIsUser(Boolean(isValid || user))
-  }, [isValid, user])
+    setIsUser(Boolean(user.databaseId))
+  }, [user.databaseId])
 
   return (
     <header>
       {/* mobile version change language */}
-      <LanguageSwitcher isSimple lang={lang} className="language-mobile" />
-      {/* //mobile version change language */}
+      <LanguageSwitcher isSimple lang={lang} />
 
       {/* web version nav */}
-      <h1>
+      <h1 onClick={() => onOpenMenu()}>
         <Link href="/">I.O.B</Link>
       </h1>
 
@@ -139,7 +135,7 @@ export default function Header({
       <nav className="right-nav">
         <ul>
           <li>
-            <span className="search-link" onClick={() => setOpenSearchWall(true)}>
+            <span className="search-link" onClick={() => onOpenMenu('search')}>
               <Image src={SearchImg} alt="Search" />
               {t('h_search')}
             </span>
@@ -163,10 +159,10 @@ export default function Header({
       </nav>
       {/* //web version nav */}
 
-      <HamburgerMenu lang={lang} />
+      <HamburgerMenu lang={lang} openMenu={openMenu} onOpenMenu={onOpenMenu} />
 
-      {openSearchWall && (
-        <SearchWall lang={lang} onClose={() => setOpenSearchWall(false)} />
+      {openMenu === 'search' && (
+        <SearchWall lang={lang} onClose={() => onOpenMenu()} />
       )}
     </header>
   )

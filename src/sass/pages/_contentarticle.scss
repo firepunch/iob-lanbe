@@ -1,66 +1,67 @@
+.iob-single-content.guest-user {
+  #content-fixed-icons .buttons-wrap {
+    display: none;
+  }
+}
+
 // content title page
-#content-title-page {
+.content-title-page {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: rem(100);
 
-  #top-title {
-    width: 100%;
-    height: 12rem;
-    position: relative;
+  .top-title {
+    @include flex-center;
+    flex-direction: column;
+    margin-bottom: rem(20);
 
-    // 콘텐츠에만 적용되는 tag는 일반 tag 컴포넌트와 다르니, 이 파일에서 바로 작업했습니다!
-    .content-tags {
-      width: 60%;
-      margin: auto;
-      @include flex-center;
-      position: absolute;
-      @include absolute-center;
-      bottom: 0;
-
-      .ct {
-        width: fit-content;
-        // padding: 0 .85rem;
-        margin: 0.25rem;
-        border: 1px solid $black;
-        border-radius: 10rem;
-
-        p:nth-child(1) {
-          font-size: 0.65rem;
-          text-align: center;
-          margin: 0.25rem;
-          margin-top: 0.5rem;
-        }
-
-        p:nth-child(2) {
-          font-size: $smaller-font-size;
-          font-weight: 600;
-          text-align: center;
-          margin: 0 1.5rem;
-          margin-top: -0.3rem;
-          margin-bottom: 0.5rem;
-        }
-      }
+    h2,
+    p {
+      margin: 0;
     }
 
-    h2 {
-      width: 80%;
-      text-align: center;
-      position: absolute;
-      @include absolute-center;
-      top: 20%;
+    .content-tags {
+      order: 3;
+    }
+
+    .title {
+      margin-bottom: rem(4);
     }
 
     .content-location {
-      width: max-content;
+      margin-bottom: rem(34);
+    }
+  }
+
+  .content-tags {
+    @include flex-center;
+
+    .ct {
       @include flex-center;
+      flex-direction: column;
+      width: fit-content;
+      padding: 0.5rem 0.8rem 0.3rem;
+      margin: 0.25rem;
+      border: 1px solid $black;
+      border-radius: 10rem;
 
-      position: absolute;
-      @include absolute-center;
-      top: 45%;
-
-      img {
-        @include icon-size;
+      p:nth-child(1) {
+        font-size: 0.65rem;
+        margin-bottom: rem(4);
       }
+
+      p:nth-child(2) {
+        font-size: $smaller-font-size;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .content-location {
+    width: max-content;
+    @include flex-center;
+
+    img {
+      @include icon-size;
     }
   }
 
@@ -116,6 +117,61 @@
       p:nth-child(2) {
         font-size: 0.75rem;
         color: #b0b0b0;
+      }
+    }
+  }
+
+  .signin-wall,
+  .signin-wall .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signin-wall {
+    width: 100%;
+    padding: rem(24) rem(33);
+    margin-top: rem(38);
+    background-color: $white;
+    border-top: 1px solid $black;
+    border-bottom: 1px solid $black;
+
+    p {
+      text-align: center;
+      margin-bottom: rem(30);
+
+      &.desc {
+        font-size: rem(14);
+        margin: 0 rem(40) rem(34);
+      }
+
+      span {
+        background-color: $lime;
+        font-size: rem(18);
+        font-weight: bold;
+      }
+    }
+
+    .button-wrapper {
+      width: 100%;
+
+      a {
+        @include mobile-button-style($black);
+        margin: 0 0 rem(12);
+
+        &.black {
+          background-color: $black;
+          color: $white;
+        }
+      }
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+
+        a.black {
+          margin-left: rem(24);
+        }
       }
     }
   }
@@ -482,39 +538,6 @@
     text-align: center;
     font-family: $secondary-font;
   }
-
-  .idea-note-wrap {
-    display: grid;
-
-    // mobile first
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-
-    .ideanote {
-      @include ideanote;
-    }
-
-    // .ideanote {
-    //     width: 16rem;
-    //     height: 16rem;
-    //     margin: auto;
-    //     margin-bottom: 2rem;
-    //     position: relative;
-
-    //     .note-bg {
-    //       width: 100%;
-    //     }
-
-    //     .ideanote-input {
-    //         width: auto;
-    //         background-color: transparent;
-    //         border: none;
-    //         outline: none;
-    //         margin: 0;
-    //         resize: none;
-    //     }
-    // }
-  }
 }
 
 // recommended content
@@ -583,44 +606,28 @@
       }
     }
   }
-
-  #idea-notes {
-    .idea-note-wrap {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-
-      // .ideanote {
-      //     width: 15rem;
-
-      //     .note {
-      //         width: 15rem;
-      //         height: 15rem;
-      //     }
-      // }
-
-      // .ideanote {
-      //     margin-bottom: 0;
-      //     margin: 0 .5rem;
-
-      //     .ideanote-input {
-      //         font-size: .75rem;
-      //     }
-      // }
-    }
-  }
 }
 
 @media (min-width: 768px) {
-  #main-content {
-    // #content-details,
-    // .content-article,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 55%;
-    // }
+  .content-title-page .top-title {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 rem(35) rem(20);
 
+    .content-tags {
+      order: 0;
+    }
+
+    .title {
+      font-size: $large-font-size;
+    }
+
+    .content-location {
+      margin-bottom: 0;
+    }
+  }
+
+  #main-content {
     .content-article {
       margin: auto;
     }
@@ -698,10 +705,6 @@
 
   #idea-notes {
     width: 70%;
-
-    .idea-note-wrap {
-      row-gap: 2rem;
-    }
   }
 
   #recommended-content {
@@ -715,6 +718,7 @@
       .recommended-web-cta {
         display: block;
         @include see-all-button-small($black);
+        width: max-content;
       }
     }
 
@@ -725,25 +729,6 @@
 }
 
 @media (min-width: 992px) {
-  #content-title-page {
-    #top-title {
-      .content-tags {
-        // left: 12.5%;
-        left: 8.5rem;
-      }
-
-      h2 {
-        top: 65%;
-        font-size: $large-font-size;
-      }
-
-      .content-location {
-        left: 90%;
-        top: 85%;
-      }
-    }
-  }
-
   #idea-notes {
     width: 50%;
     padding-bottom: 5rem;
@@ -751,28 +736,7 @@
 }
 
 @media (min-width: 1200px) {
-  #content-title-page {
-    #top-title {
-      left: 2rem;
-      // .content-tags {
-      //     left: 8%;
-      // }
-
-      .content-location {
-        left: 92%;
-      }
-    }
-  }
-
   #main-content {
-    // #content-details,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 45%;
-    // }
-
     #main-body-1 {
       figure {
         img {
@@ -789,32 +753,7 @@
 }
 
 @media (min-width: 1400px) {
-  #content-title-page {
-    #top-title {
-      .content-tags {
-        left: 7%;
-      }
-
-      .content-location {
-        left: 93%;
-      }
-    }
-
-    // #content-thumbnail-img {
-    //     height: 45rem;
-    // }
-  }
-
   #main-content {
-    // #content-details,
-    // #intro-whyitmatters,
-    // #main-body-1,
-    // #main-body-2,
-    // #main-body-3 {
-    //     width: 35%;
-    // }
-
-    // wp
     #content-details {
       width: 35%;
     }
@@ -854,27 +793,5 @@
   #idea-notes {
     width: 50%;
     padding-bottom: 3.5rem;
-
-    .idea-note-wrap {
-      width: 80%;
-      margin: auto;
-
-      .ideanote {
-        width: 17rem;
-        height: 17rem;
-        gap: 3rem;
-
-        .note {
-          width: 17rem;
-          height: 17rem;
-        }
-      }
-
-      // .idea-note-1,
-      // .add-idea-note {
-      //     width: 20rem;
-      //     height: 20rem;
-      // }
-    }
   }
 }

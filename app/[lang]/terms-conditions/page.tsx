@@ -1,7 +1,5 @@
-import { ValidLocale } from '@/i18n/settings'
 import { getTranslation } from '@/i18n/index'
-import Link from 'next/link'
-import Icons from '@/components/Icons'
+import { ValidLocale } from '@/i18n/settings'
 
 export default async function TermsConditions({
   params: { lang },
@@ -349,18 +347,6 @@ export default async function TermsConditions({
           <li>
             {t('article13-3')}
           </li>
-          <li>
-            {t('article13-4')}
-          </li>
-          <li>
-            {t('article13-5')}
-          </li>
-          <li>
-            {t('article13-6')}
-          </li>
-          <li>
-            {t('article13-7')}
-          </li>
         </ol>
 
         <h3>
@@ -395,9 +381,6 @@ export default async function TermsConditions({
           </li>
           <li>
             {t('article15-4')}
-          </li>
-          <li>
-            {t('article15-5')}
           </li>
         </ol>
 

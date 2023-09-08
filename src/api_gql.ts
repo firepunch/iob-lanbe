@@ -4,7 +4,7 @@ import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
 import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
 import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
-import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY } from '@/queries/users'
+import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
 import PRODUCT_BY_SAVED from './queries/productBySaved'
 import { REPORTS_QUERY, REPORT_QUERY } from './queries/report'
 import SEARCH_QUERY from './queries/search'
@@ -102,15 +102,15 @@ export async function getReportBySlug(variables) {
 
 export async function getContents(language, first = 10) {
   const data = await fetchAPI(POSTS_QUERY, {
-    variables: { language, first },
+    variables: { language, first, lang: language.toLowerCase() },
   })
 
   return data.posts.edges
 }
 
-export async function getContentBySlug(postSlug, userId) {
+export async function getContentBySlug(variables) {
   const data = await fetchAPI(POST_BY_SLUG_QUERY, {
-    variables: { postSlug, userId },
+    variables,
   })
 
   return data.post
@@ -149,6 +149,13 @@ export async function createUser(input) {
     variables: { input },
   })
   return data.registerUser
+}
+
+export async function authUser(userId: number) {
+  const data = await fetchAPI(USER_QUERY, {
+    variables: { userId },
+  })
+  return data.user
 }
 
 export async function loginUser(input: ILoginUser) {

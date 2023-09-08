@@ -54,6 +54,8 @@ const SignIn = ({
       const result = await loginUser({ username, password })
   
       if ( result?.error ) {
+        console.log(result?.error)
+       
         if (result?.error === 'invalid_email') {
           setErrorMessages({
             username: t('email_incorrect'),
@@ -63,11 +65,13 @@ const SignIn = ({
           setErrorMessages({
             password: t('password_incorrect'),
           })
+        } else if (result?.error === 'alg_wc_ev_email_verified_error') {
+          alert(t('email_verified'))
         }
       } else {
         updateUser(result?.user)
         setStorageData(AUTH_TOKEN, result, isRemember)
-        router.push(`/${lang}`)
+        router.back()
       }
     } catch (err) {
       console.error(err)

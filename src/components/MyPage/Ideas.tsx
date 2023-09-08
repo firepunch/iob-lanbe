@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { deleteNote, fetchNotes, updateNote } from '@/api_wp'
 import IdeaNote from '../IdeaNote'
+import useUserState from '@/stores/userStore'
 
 export default function Ideas({
   t,
@@ -19,43 +20,16 @@ export default function Ideas({
   userId: number
 }) {
   const { notes, updateNotes } = useContentState(state => state)
+  const handleReload = async () => {
+    const result = await fetchNotes({
+      user_id: userId,
+    })
+    updateNotes(result)
+  }
 
   useEffect(() => {
-    fetchNotes({
-      user_id: userId,
-    }).then(result => {
-      updateNotes(result)
-    })
+    handleReload()
   }, [])
-
-  const handleUpdateNote = async (noteId: number, content: string) => {
-    try {
-      await updateNote({
-        note_id: noteId,
-        content,
-      })
-      const result = await fetchNotes({
-        user_id: userId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const handleDeleteNote = async (noteId: number) => {
-    try {
-      await deleteNote({ 
-        note_id: noteId,
-      })
-      const result = await fetchNotes({
-        user_id: userId,
-      })
-      updateNotes(result)
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   return (
     <>
@@ -67,12 +41,12 @@ export default function Ideas({
         <section className="ideanotes-designs">
           {notes.map(item => (
             <IdeaNote
-              key={item.id}
-              type="view"
-              lang={lang}
-              onSubmit={value => handleUpdateNote(item.id, value)}
-              onDelete={() => handleDeleteNote(item.id)}
               {...item}
+              type="view"
+              key={item.id}
+              noteId={item.id}
+              userId={userId}
+              onReload={handleReload}
             />
           ))}
         </section>

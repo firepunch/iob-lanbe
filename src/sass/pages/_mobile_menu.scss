@@ -1,4 +1,4 @@
-#mobile-menu {
+.mobile-menu-wrapper {
   // width: auto;
   width: 100%;
   height: 120vh;
@@ -12,6 +12,10 @@
   left: 0;
   right: rem(17);
   background: #fff;
+
+  .mobile-menu {
+    margin: auto;
+  }
 
   #mm-about-us,
   #mm-content,
@@ -73,14 +77,14 @@
   }
 }
 
-@media (min-width: 768px) {
-  #mobile-menu {
+@media (min-width: 576px) {
+  .mobile-menu {
     width: 60%;
   }
 }
 
 @media (min-width: 992px) {
-  #mobile-menu {
+  .mobile-menu-wrapper {
     display: none;
   }
 }

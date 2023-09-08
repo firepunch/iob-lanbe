@@ -4,11 +4,14 @@ import { getPosts } from '@/api_gql'
 import { createWatchList, removeWatchList } from '@/api_wp'
 import { CountryFilter, Icons, Pagination, PostCard, Select } from '@/components'
 import useIsMobile from '@/hooks/useMobile'
+import useOutsideClick from '@/hooks/useOutsideClick'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import useContentState from '@/stores/contentStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { ValidLocale } from '@/types'
 import { CATEGORY_IDS } from '@/utils/constants'
-import { getUserId, sort2variables } from '@/utils/lib'
+import { formatPostTaxQuery, sort2variables } from '@/utils/lib'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -35,26 +38,36 @@ export default function Category({
   params: { lang: ValidLocale }
 }) {
   const searchParams = useSearchParams()
+  const isMobile = useIsMobile()
+  const [isClickedOutside] = useOutsideClick(['filters'])
+  const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { posts, updatePosts } = useContentState(state => state)
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'category-page')
-  const isMobile = useIsMobile()
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
     cateName: searchParams.get('name') || '',
     countries: [],
+    lang,
     language: lang.toUpperCase(), 
-    userId: getUserId(),
+    userId: user.databaseId,
     ...initPagination,
     ...sort2variables('newest'),
   })
 
   useEffect(() => {
+    const taxQuery = formatPostTaxQuery(
+      {
+        terms: fetchParams.cateName === '' ? [] : [fetchParams.cateName],
+        field: 'NAME',
+      },
+      fetchParams.countries,
+    )
+
     getPosts({
       ...fetchParams,
-      categoryName: fetchParams?.countries?.join(','),
+      taxQuery,
     }).then(result => {
       const isFirstPage = fetchParams.first === GRID_CARD_NUMBER && fetchParams.after === null
       updatePosts({
@@ -68,12 +81,34 @@ export default function Category({
   }, [fetchParams])
 
   useEffect(() => {
-    setFetchParams(prev => ({
-      ...prev,
-      categoryId: CATEGORY_IDS[lang]?.[searchParams.get('name') as string] || 0,
-      cateName: searchParams.get('name') || '',
-    }))
+    const newCateName = searchParams.get('name') || ''
+
+    if (newCateName !== fetchParams.cateName) {
+      setFetchParams(prev => ({
+        ...prev,
+        cateName: newCateName,
+      }))
+    }
   }, [searchParams])
+
+  useEffect(() => {
+    if (user.databaseId !== fetchParams.userId) {
+      setFetchParams(prev => ({
+        ...prev,
+        userId: user.databaseId,
+      }))
+    }
+  }, [user])
+
+  useEffect(() => {
+    
+  }, [])
+
+  useEffect(() => {
+    if (isClickedOutside) {
+      setIsOpenFilter(false)
+    }
+  }, [isClickedOutside])
 
   const handleSorter = (sorter) => {
     setFetchParams(prev => ({
@@ -87,7 +122,6 @@ export default function Category({
     setFetchParams(prev => ({
       ...prev,
       ...initPagination,
-      categoryId: CATEGORY_IDS[lang]?.[categoryName] || 0,
       cateName: categoryName,
     }))
   }
@@ -104,35 +138,21 @@ export default function Category({
     setIsOpenCategory(!isOpenCategory)
     setIsOpenFilter(false)
   }
+
   const handleClickAll = () => {
     handleCategory('')
     handleCountry([])
     setIsOpenFilter(false)
   }
   
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      if (isSaved) {
-        await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: fetchParams.userId,
-        })
-      } else {
-        await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: fetchParams.userId,
-        })
-      }
+  const handleReload = () => {
+    setFetchParams(prev => ({
+      ...prev,
+    }))
+  }
 
-      setFetchParams(prev => ({
-        ...prev,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
-    }
+  if (!_hasHydrated){
+    return <div></div>
   }
 
   return (
@@ -221,7 +241,7 @@ export default function Category({
           )}
 
           <div id="filters-sorting">
-            <div className="filters">
+            <section id="filters" className="filters">
               <span 
                 className={
                   `all-button ${
@@ -246,7 +266,7 @@ export default function Category({
                   onChange={handleCountry}
                 />
               )}
-            </div>
+            </section>
 
             <div className="sort">
               <label htmlFor="sortby">
@@ -267,14 +287,9 @@ export default function Category({
         <div id="all-contents-wrap">
           {posts?.edges?.map(({ node }) => (
             <PostCard
-              key={node.databaseId}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
               {...node}
+              key={node.databaseId}
+              onFetchData={handleReload}
             />
           ))}
         </div>

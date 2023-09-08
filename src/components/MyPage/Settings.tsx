@@ -6,6 +6,7 @@ import { TI18N, TStringObj } from '@/types'
 import { useEffect, useState } from 'react'
 import InputField from '../InputField'
 import SelectField from '../SelectField'
+import Spinner from '../Spinner'
 
 export default function Settings({
   t,
@@ -18,6 +19,8 @@ export default function Settings({
 }) {
   const { userInfo, updateUserInfo } = useUserState(state => state)
   const [errorMessages, setErrorMessages] = useState<TStringObj>()
+  const [infoMessage, setInfoMessage] = useState<string>()
+  const [isProcess, setIsProcess] = useState<boolean>(false)
 
   useEffect(() => {
     if (userId) {
@@ -36,15 +39,17 @@ export default function Settings({
     const regex = /(?=.*?[a-z])(?=.*?[0-9])(?=.*?[$-/:-?{-~!"^_`\[\]]).{8}/gi
     const pwFound = (formProps?.newPassword as string)?.match(regex)
 
-    if (!pwFound) {
+    if (formProps?.newPassword && !pwFound) {
+      setInfoMessage(undefined)
       setErrorMessages(prev => ({
         ...prev,
-        password: t('password_rule_error'),
+        newPassword: t('password_rule_error'),
       }))
       return
-    }
+    } 
 
     if (formProps?.userFunction === 'Default') {
+      setInfoMessage(undefined)
       setErrorMessages(prev => ({
         ...prev,
         userFunction: t('function_required'),
@@ -53,6 +58,7 @@ export default function Settings({
     }
 
     if (formProps?.country === 'Default') {
+      setInfoMessage(undefined)
       setErrorMessages(prev => ({
         ...prev,
         country: t('country_required'),
@@ -61,17 +67,35 @@ export default function Settings({
     }
 
     try {
-      await updateWPUser({
+      setIsProcess(true)
+
+      const result = await updateWPUser({
         ...formProps,
         user_id: userId,
         username: formProps.email,
       })
-      alert('수정 성공')
-      // TODO Update user
+
+      if (result.message === 'Sorry, that email address is already used!') {
+        setErrorMessages(prev => ({
+          ...prev,
+          newEmail: t('email_duplicate_error'),
+        }))
+      } else if (result.message) {
+        setInfoMessage(result.message)
+      } else {
+        setInfoMessage(t('updated_userinfo_success'))
+        setErrorMessages({})
+      }
     } catch (err) {
       console.error(err)
-      alert('수정 실패')
+      setInfoMessage(t('updated_userinfo_fail'))
     }
+
+    setIsProcess(false)
+  }
+
+  if (!userInfo) {
+    return <div></div>
   }
 
   return (
@@ -92,7 +116,7 @@ export default function Settings({
                   isRequired
                   name="firstName"
                   label={t('first_name')}
-                  defaultValue={userInfo?.display_name?.split(' ')[0]}
+                  defaultValue={userInfo?.first_name}
                   errorMessage={errorMessages?.firstName}
                 />
             
@@ -100,7 +124,7 @@ export default function Settings({
                   isRequired
                   name="lastName"
                   label={t('last_name')}
-                  defaultValue={userInfo?.display_name?.split(' ')[1]}
+                  defaultValue={userInfo?.last_name}
                   errorMessage={errorMessages?.lastName}
                 />
               </div>
@@ -184,11 +208,19 @@ export default function Settings({
                 />
                                 
                 <InputField
+                  className="new-email-field"
                   type="email"
                   name="newEmail"
                   label={t('new_email')}
                   placeholder={t('new_email_placeholder')}
+                  description={t('new_email_rule')}
                   errorMessage={errorMessages?.newEmail}
+                  onResetError={() => (
+                    setErrorMessages(prev => ({
+                      ...prev,
+                      newEmail: undefined,
+                    }))
+                  )}
                 />
               </div>
 
@@ -199,13 +231,13 @@ export default function Settings({
                   type="password"
                   name="newPassword"
                   label={t('new_password')}
-                  placeholder={t('password_placeholder')}
+                  placeholder={t('new_password_placeholder')}
                   description={t('password_rule')}
                   errorMessage={errorMessages?.newPassword}
                   onResetError={() => (
                     setErrorMessages(prev => ({
                       ...prev,
-                      password: undefined,
+                      newPassword: undefined,
                     }))
                   )}
                 />
@@ -218,22 +250,36 @@ export default function Settings({
             <h3>{t('email-notify')}</h3>
 
             <div className="newsletter-checkbox">
-              <input type="checkbox" id="newsletter" name="newsletterChk" defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} />
+              <input 
+                type="checkbox" 
+                id="newsletter" 
+                name="newsletterChk" 
+                defaultChecked={userInfo?.newsletterChk === 'yes' ? true : false} 
+              />
               <label htmlFor="newsletter">
                 {t('newsletter')}
               </label>
             </div>
 
             <div className="marketing-checkbox">
-              <input type="checkbox" id="marketing" name="marketingChk" defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} />
+              <input 
+                type="checkbox" 
+                id="marketing" 
+                name="marketingChk" 
+                defaultChecked={userInfo?.marketingChk === 'yes' ? true : false} 
+              />
               <label htmlFor="marketing">
                 {t('marketing')}  
               </label>
             </div>
           </div>
 
+          <p>{infoMessage}</p>
           <div className="save-button">
-            <button type="submit">{t('save')}</button>
+            <button type="submit" disabled={isProcess}>
+              <Spinner loading={isProcess} />
+              {t('save')}
+            </button>
           </div>
                     
         </div>

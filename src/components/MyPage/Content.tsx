@@ -1,20 +1,23 @@
 'use client'
  
 import { getPosts } from '@/api_gql'
-import { createWatchList, fetchCountContent, fetchWatchList, removeWatchList } from '@/api_wp'
+import { fetchCountContent, fetchWatchList } from '@/api_wp'
+import useOutsideClick from '@/hooks/useOutsideClick'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
-import useUserState from '@/stores/userStore'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { TI18N, ValidLocale } from '@/types'
+import { formatPostTaxQuery } from '@/utils/lib'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import CategoryFilter from '../CategoryFilter'
 import CountryFilter from '../CountryFilter'
 import Icons from '../Icons'
 import { PostCard } from '../PostCard'
-import { IPost } from '@/types/store'
 
 interface IFetchParams {
   language: string
+  lang: string
   userId: number
   savedIn?: string[]
   readIn?: string[]
@@ -29,25 +32,27 @@ export default function Content({
 }: {
   t: TI18N
   lang: ValidLocale
-  userId: number
+  userId:number
 }) {
   const { t: ct } = useTranslation(lang, 'common')
-  const { bookmark, read, updateBookmarkPost, updateReadPost } = useUserState(state => state)
+  const { bookmark, read, updateBookmarkPost, updateReadPost } = useStore(useUserState, state => state, INIT_USER_STATE)
+  const [isClickedOutside] = useOutsideClick(['filters'])
   const [clickedType, setClickedType] = useState<'saved'|'read'>('saved')
   const [openCountry, setOpenCountry] = useState<boolean>(false)
   const [openCategory, setOpenCategory] = useState<boolean>(false)
   const [fetchParams, setFetchParams] = useState<IFetchParams>({
     language: lang.toUpperCase(),
+    lang: lang,
     savedIn: undefined,
     readIn: undefined,
     categories: [],
     countries: [],
-    userId,
+    userId: userId,
   })
 
   useEffect(() => {
     fetchWatchList({
-      type: 'post',
+      type: `post_${lang}`,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -57,7 +62,7 @@ export default function Content({
     })
     
     fetchCountContent({
-      type: 'post',
+      type: `post_${lang}`,
       user_id: userId,
     }).then(result => {
       setFetchParams(prev => ({
@@ -68,10 +73,18 @@ export default function Content({
   }, [])
 
   useEffect(() => {
+    const taxQuery = formatPostTaxQuery(
+      {
+        terms: fetchParams.categories,
+        field: 'SLUG',
+      },
+      fetchParams.countries,
+    )
+
     if (fetchParams.savedIn !== undefined) {
       getPosts({
         ...fetchParams,
-        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        taxQuery,
         in: fetchParams.savedIn,
       }).then(result => (
         updateBookmarkPost(result?.edges)
@@ -80,7 +93,7 @@ export default function Content({
     if (fetchParams.readIn !== undefined) {
       getPosts({
         ...fetchParams,
-        categoryName: [...fetchParams.categories, ...fetchParams.countries].join(','),
+        taxQuery,
         in: fetchParams.readIn,
       }).then(result => (
         updateReadPost(result?.edges)
@@ -88,31 +101,18 @@ export default function Content({
     }
   }, [fetchParams])
 
-  const handleToggleBookmark = async ({ isSaved, databaseId }) => {
-    try {
-      let result = { ids: [] }
-      if (isSaved) {
-        result = await removeWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      } else {
-        result = await createWatchList({
-          type: 'post',
-          content_id: databaseId,
-          user_id: userId,
-        }) 
-      }
-
-      setFetchParams(prev => ({
-        ...prev,
-        savedIn: result?.ids,
-      }))
-    } catch (err) {
-      console.log(err)
-      alert('저장 실패')
+  useEffect(() => {
+    if (isClickedOutside) {
+      setOpenCountry(false)
+      setOpenCategory(false)
     }
+  }, [isClickedOutside])
+
+  const handleFetchData = async (ids?: string[]) => {
+    setFetchParams(prev => ({
+      ...prev,
+      savedIn: ids,
+    }))
   }
   
   const handleCategory = (categories) => {
@@ -149,7 +149,7 @@ export default function Content({
         <h2>{t('content').toUpperCase()}</h2>
 
         <div className="filters-wrap">
-          <div className="country-category">
+          <section id="filters" className="country-category">
             <button 
               className={`${(openCountry || fetchParams.countries?.length) ? 'black-button' : ''}`}
               onClick={handleToggleCountry}
@@ -157,7 +157,7 @@ export default function Content({
               {t('country')}
             </button>
             <button 
-              className={`${(openCategory || fetchParams.countries?.length) ? 'black-button' : ''}`}
+              className={`${(openCategory || fetchParams.categories?.length) ? 'black-button' : ''}`}
               onClick={handleToggleCategory}
             >
               {t('category')}
@@ -178,37 +178,32 @@ export default function Content({
                 onChange={handleCategory}
               />
             )}
-          </div>
+          </section>
 
           <div className="saved-read">
             <button 
               className={`${clickedType === 'saved' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('saved')}
             >
-              {t('saved')} {`(${bookmark?.post?.length || 0})`}
+              {t('saved')} {`(${fetchParams?.savedIn?.length || 0})`}
             </button>
             <button 
               className={`${clickedType === 'read' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('read')}
             >
-              {t('read')} {`(${read?.post?.length || 0})`}
+              {t('read')} {`(${fetchParams?.readIn?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
 
-      {(clickedType === 'saved' ? bookmark : read)?.post?.length ? (
+      {fetchParams?.[clickedType === 'saved' ? 'savedIn' : 'readIn']?.length ? (
         <div id="saved-content">
           {(clickedType === 'saved' ? bookmark : read)?.post?.map(({ node }) => (
             <PostCard
               {...node}
               key={node.id}
-              onToggleBookmark={() => (
-                handleToggleBookmark({
-                  isSaved: node.lanbeContent.is_save,
-                  databaseId: node.databaseId,
-                })
-              )}
+              onFetchData={handleFetchData}
             />
           ))}
         </div>

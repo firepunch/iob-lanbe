@@ -15,8 +15,13 @@
   "message_placeholder": "How may we help you?",
   "send": "Send",
   
+  "no_result_post_1": "No results related to ",
+  "no_result_post_2": " were found in our contents collection.",
+  "no_result_report_1": "No results related to ",
+  "no_result_report_2": " were found in our reports collection.",
+
   "try_again_1": "Please try a new ",
-  "try_again_2": "search",
+  "try_again_2": "search,",
   "try_again_3": "check our recommended contents below, or send us a message!",
   "recommended": "Recommended Keywords",
   "keywords-row1": [{

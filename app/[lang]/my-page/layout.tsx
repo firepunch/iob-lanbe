@@ -3,18 +3,19 @@
 import { MyPageContent, MyPageIdeas, MyPageReport, MyPageSettings } from '@/components'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/i18n/client'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { ValidLocale } from '@/types'
+import { AUTH_TOKEN, dateEnFormat, removeStorageData } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation'
+import useStore from '@/hooks/useStore'
 
 import ContentIcon from '@/imgs/content_icon.png'
 import IdeasIcon from '@/imgs/ideas_icon.png'
-import PaymentIcon from '@/imgs/payment_icon.png'
 import ReportIcon from '@/imgs/report_icon.png'
 import SettingsIcon from '@/imgs/settings_icon.png'
-import { dateEnFormat, getUser } from '@/utils/lib'
-import useUserState from '@/stores/userStore'
+import LogoutIcon from '@/imgs/logout.png'
 
 const TAB_MAP = {
   content: 'content',
@@ -29,11 +30,21 @@ const Layout = ({
 }: {
   params: { lang: ValidLocale },
 }) => {
+  const router = useRouter()
+  const segment = useSelectedLayoutSegment()
   const { t: ct } = useTranslation(lang, 'common')
   const { t } = useTranslation(lang, 'my-page')
-  const segment = useSelectedLayoutSegment()
-  const { userId } = getUser()
-  const user = useUserState(state => state.user)
+  const { _hasHydrated, user, resetUser } = useStore(useUserState, state => state, INIT_USER_STATE)
+
+  const handleLogout = () => {
+    router.replace(`/${lang}/sign-in`)
+    removeStorageData(AUTH_TOKEN)
+    resetUser()
+  }
+
+  if (!_hasHydrated) {
+    return <div></div>
+  }
 
   return (
     <div id="beige-bg-wrap">
@@ -62,14 +73,19 @@ const Layout = ({
               <Image src={SettingsIcon} alt="Settings"/>
               <p>{t(TAB_MAP.settings)}</p>
             </Link>
+
+            <button className="logout-button" onClick={handleLogout}>
+              <Image src={LogoutIcon} alt="Logout"/>
+              <p>{t('logout')}</p>
+            </button>
           </div>
         </div>
       </div>
       <section id="default-content">
-        {segment === TAB_MAP.content && <MyPageContent t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.report && <MyPageReport t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={userId} />}
-        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} userId={userId} />}
+        {segment === TAB_MAP.content && <MyPageContent t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.report && <MyPageReport t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.ideas && <MyPageIdeas t={t} lang={lang} userId={user.databaseId} />}
+        {segment === TAB_MAP.settings && <MyPageSettings t={t} ct={ct} userId={user.databaseId} />}
       </section>
     </div>
   )

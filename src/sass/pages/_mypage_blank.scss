@@ -3,13 +3,6 @@
 
   header {
     color: $white;
-
-    .language-mobile,
-    .hamburger-mobile {
-      img {
-        filter: invert(0);
-      }
-    }
   }
 }
 
@@ -66,12 +59,16 @@ main {
           background-color: transparent;
           border: none;
           border-right: 0.05rem solid #ababab;
-
           @include flex-column;
           align-items: center;
 
+          &:last-child {
+            border-right: 0;
+          }
+
           img {
             @include icon-size;
+            margin-right: 0;
           }
 
           p {
@@ -165,23 +162,20 @@ main {
 
 @media (min-width: 992px) {
   #beige-bg-wrap {
+    display: flex;
+
     header {
       @include bg-color($beige);
 
       color: $black;
-
-      .language-mobile,
-      .hamburger-mobile {
-        img {
-          filter: invert(100%);
-        }
-      }
     }
   }
 
   main {
     #mypage-aside {
       width: 25%;
+      height: rem(400);
+      margin-bottom: 2rem;
       position: sticky;
       top: 5rem;
       left: 1.75rem;
@@ -205,7 +199,8 @@ main {
           flex-direction: column;
           margin-top: 8.5rem;
 
-          a {
+          a,
+          button {
             width: 100%;
             height: 2.5rem;
             margin: 0.25rem 0;

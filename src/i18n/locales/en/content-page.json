@@ -4,12 +4,13 @@
   "see_all": "See all",
 
   "wall_h3": "HOLD ON!",
-  "wall_p1": "To continue reading, please create a ",
-  "wall_keyword1": "free account",
+  "wall_p1": "To continue reading, please ",
+  "wall_keyword1": "create a free account",
   "wall_p2": " or ",
   "wall_keyword2": "sign in",
   "wall_p3": ".",
-  "wall_desc": "Create a free account and gain full access to our free content, receive newsletters, and more.",
+  "wall_desc1": "Create a free account and gain full access to our free content, ",
+  "wall_desc2": "receive newsletters, and more.",
   "wall_signup": "Create free account",
   "wall_signin": "Sign in"
 }

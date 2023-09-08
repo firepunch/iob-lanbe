@@ -13,5 +13,6 @@
   "email_required": "Email is required",
   "password_required": "Email is required",
   "email_incorrect": "Your email is incorrect.",
-  "password_incorrect": "Your password is incorrect."
+  "password_incorrect": "Your password is incorrect.",
+  "email_verified": "Please verify your email."
 }

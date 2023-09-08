@@ -13,5 +13,6 @@
   "email_required": "이메일 주소를 입력해주세요.",
   "password_required": "비밀번호를 입력해주세요.",
   "email_incorrect": "이메일 주소가 정확하지 않습니다.",
-  "password_incorrect": "비밀번호가 정확하지 않습니다."
+  "password_incorrect": "비밀번호가 정확하지 않습니다.",
+  "email_verified": "이메일 주소를 인증해주세요."
 }

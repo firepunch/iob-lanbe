@@ -38,9 +38,9 @@
     .country::after {
       content: "";
       display: block;
-      width: 70%;
+      width: 100%;
       height: 1px;
-      margin: 0.5rem 1rem;
+      margin: 0.5rem 0.4rem;
       background-color: $black;
     }
   }

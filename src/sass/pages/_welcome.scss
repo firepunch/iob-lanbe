@@ -1,34 +1,39 @@
 #welcome-main {
-    width: 100%;
-    height: 100vh;
-    background: url(~/public/imgs/welcome_main.jpg);
-    @include background(60%);
+  width: 100%;
+  height: calc(100vh + 3rem);
+  background: url(~/public/imgs/welcome_main.jpg);
+  @include background(60%);
+  background-size: cover;
+  margin-top: -3rem;
 
-    position: relative;
-    top: 0;
-    left: 0;
+  .welcome-text {
+    width: 80%;
+    height: 100%;
+    @include flex-center();
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+    font-size: $h1-font-size;
+    font-weight: $bold-font-weight;
+    color: $white;
 
-    p {
-        width: 50%;
-        text-align: center;
-        font-weight: $bold-font-weight;
-        color: $white;
-
-        @include absolute-center;
-        top: 47.5%;
+    .email {
+      font-size: 1rem;
+      font-weight: $regular-font-weight;
     }
+  }
 }
 
 @media (min-width: 992px) {
-    #transparent-bg-nav {
-        header {
-            background-color: transparent;
-        }
+  #transparent-bg-nav {
+    header {
+      background-color: transparent;
     }
+  }
 
-    #welcome-main {
-        p {
-            font-size: $h1-font-size;
-        }
+  #welcome-main {
+    p {
+      font-size: $h1-font-size;
     }
+  }
 }

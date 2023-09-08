@@ -1,3 +1,13 @@
 img {
   height: auto;
 }
+
+button {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .mobile-br {
+    display: none;
+  }
+}

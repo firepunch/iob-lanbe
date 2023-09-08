@@ -1,3 +1,16 @@
 {
-  "login_wall": "To continue reading, create a free account or log in."
+  "idea_h5": "아이디어가 떠올랐나요?",
+  "recommend_h2": "추천",
+  "see_all": "모든 콘텐츠",
+
+  "wall_h3": "앗!",
+  "wall_p1": "글을 계속 읽고 싶으시다면 ",
+  "wall_keyword1": "회원가입",
+  "wall_p2": " 또는 ",
+  "wall_keyword2": "로그인",
+  "wall_p3": "을 해주세요.",
+  "wall_desc1": "계정을 만들어서 더 많은 글을 읽어보고, 뉴스레터도 구독해보세요.",
+  "wall_desc2": "더 많은 정보를 얻을 수 있습니다.",
+  "wall_signup": "계정 생성하기",
+  "wall_signin": "로그인하기"
 }
