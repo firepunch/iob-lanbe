@@ -30,7 +30,11 @@ export default function LocaleLayout({
   params: { lang: ValidLocale }
 }) {
   const pathName = usePathname()
-  const page = DESIGN_PAGE.find(item => pathName.includes(item))
+  const page = DESIGN_PAGE.find(item => (
+    item === 'sign-in' ? 
+      pathName.includes(item) && !pathName.includes('password') : 
+      pathName.includes(item)
+  ))
   const { user, updateUser } = useUserState(state => state)
   const [storageUser] = getStorageData(AUTH_TOKEN)
   const [openMenu, setOpenMenu] = useState<'search' | undefined>()

@@ -56,7 +56,11 @@ export default function LanguageSwitcher({
     <Link href={redirectedPathName(otherLocale)} className="language-link">
       <Image 
         src={
-          WHITE_ICONS.find(item => pathName.includes(item)) ?
+          WHITE_ICONS.find(item => (
+            item === 'sign-in' ? 
+              pathName.includes(item) && !pathName.includes('password') : 
+              pathName.includes(item)
+          )) ?
             LangWhiteImg :
             LangBlackImg
         }

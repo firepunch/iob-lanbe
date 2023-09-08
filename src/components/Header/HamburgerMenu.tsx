@@ -53,7 +53,11 @@ export default function HamburgerMenu({
       >
         <Image 
           src={
-            WHITE_ICONS.find(item => pathName.includes(item)) ?
+            WHITE_ICONS.find(item => (
+              item === 'sign-in' ? 
+                pathName.includes(item) && !pathName.includes('password') : 
+                pathName.includes(item)
+            )) ?
               HamburgerWhiteImg :
               HamburgerBlackImg
           } 
