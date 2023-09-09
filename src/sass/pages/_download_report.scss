@@ -1,0 +1,94 @@
+#report-download {
+  width: 100%;
+  height: 100vh;
+  margin-bottom: 50vw;
+  position: relative;
+
+  #report-titlepage-image {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .download-link {
+    cursor: pointer;
+
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    @include mobile-button-style($white);
+    width: 80%;
+    background-color: transparent;
+    color: $white;
+    border: 3px solid $white;
+  }
+
+  .download-text {
+    width: 80%;
+    color: $white;
+    border-top: 3px solid $white;
+
+    position: absolute;
+    z-index: 9;
+    top: 40%;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 576px) {
+  #report-download {
+    margin-bottom: 25vw;
+
+    #report-titlepage-image {
+      img {
+        transform: translateY(-25%);
+      }
+    }
+
+    .download-link {
+      top: 35%;
+    }
+
+    .download-text {
+      top: 50%;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #report-download {
+    .download-link {
+      width: 50%;
+    }
+
+    .download-text {
+      width: 50%;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  #report-download {
+    margin-bottom: 10vw;
+
+    .download-link {
+      width: 30%;
+    }
+
+    .download-text {
+      width: 30%;
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 import { getReportBySlug } from '@/api_gql'
 import { updateCountDownload, updateCountView } from '@/api_wp'
-import { Bookmark, ShareLinks, Tags } from '@/components'
+import { Bookmark, DownloadWall, ShareLinks, Tags } from '@/components'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -153,14 +153,14 @@ export default function Report({
             </div>
           )}
 
-          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdText) && (
+          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdImage) && (
             <div id="report-image-text2">
               <div className="rit-text">
                 <p>{report.lanbeContent?.thirdText}</p>
               </div>
               {report.lanbeContent?.thirdImage && (
                 <Image 
-                  src={report.lanbeContent.thirdText} 
+                  src={report.lanbeContent.thirdImage} 
                   alt="Report Image"
                   fill
                   sizes="100vw"
@@ -170,37 +170,29 @@ export default function Report({
           )}
         </section>
 
-        {/* section 3: report price and cta */}
-        <section id="report-price-cta">
-          <div id="report-price-cta-wrap">
-            <div className="report-title">
-              <h4>{report.title}</h4>
+        {user.databaseId ? (
+          <DownloadWall 
+            t={t}
+            bgImage={report.lanbeContent?.thirdImage}
+            downloadLink={report.lanbeContent?.downloadFile}
+            onDownload={handleUpdateCount}
+          />
+        ) : (
+          <section id="report-price-cta">
+            <div id="report-price-cta-wrap">
+              <div className="report-title">
+                <h4>{report.title}</h4>
+              </div>
+              <div className="report-cta">
+                <p>{t('sign_in_cta')}</p>
+                <Link href={`/${lang}/sign-in`}>
+                  {t('sign_in')}
+                </Link>
+              </div>
             </div>
-
-            <div className="report-cta">
-              {user.databaseId ? (
-                <>
-                  <p>{t('download_cta')}</p>
-                  <Link 
-                    href={report.lanbeContent?.downloadFile || ''} 
-                    className="cta-link" 
-                    target="_blank"
-                    onClick={handleUpdateCount}
-                  >
-                    {t('download')}
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <p>{t('sign_in_cta')}</p>
-                  <Link href={`/${lang}/sign-in`}>
-                    {t('sign_in')}
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
+       
       </div>
     </>
   )
