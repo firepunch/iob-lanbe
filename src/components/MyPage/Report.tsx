@@ -62,7 +62,9 @@ export default function Report({
     if (fetchParams.savedIn !== undefined) {
       getAllReports({
         ...fetchParams,
-        in: fetchParams.savedIn,
+        in: fetchParams.savedIn?.length === 0 ?
+          ['0'] :
+          fetchParams.savedIn,
       }).then(result => (
         updateBookmarkReport(result?.edges)
       ))
@@ -70,7 +72,9 @@ export default function Report({
     if (fetchParams.downloadIn !== undefined) {
       getAllReports({
         ...fetchParams,
-        in: fetchParams.downloadIn,
+        in: fetchParams.downloadIn?.length === 0 ?
+          ['0'] :
+          fetchParams.downloadIn,
       }).then(result => (
         updateDownloadedReport(result?.edges)
       ))

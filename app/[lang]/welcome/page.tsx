@@ -1,5 +1,6 @@
 'use client'
 
+import withNoAuth from '@/hocs/withNoAuth'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -26,4 +27,4 @@ const Welcome = ({
   )
 }
 
-export default Welcome
+export default withNoAuth(Welcome)

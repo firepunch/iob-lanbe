@@ -88,4 +88,4 @@ const SignInPasswordChange = ({
   )
 }
 
-export default withNoAuth(SignInPasswordChange)
+export default SignInPasswordChange

@@ -3,6 +3,7 @@
 import { getAllPosts, getSearchResults } from '@/api_gql'
 import { sendSearchRequestForm } from '@/api_wp'
 import { PostCard, ReportCard, SearchRequestForm } from '@/components'
+import SearchWall from '@/components/SearchWall'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -20,6 +21,7 @@ export default function Search({
   const { searchResult, recommend, mergeSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
   const totalLength = (searchResult?.posts?.length || 0) + (searchResult?.reports?.length || 0)
+  const [showSearchWall, setShowSearchWall] = useState(false)
   const [fetchParams, setFetchParams] = useState({
     lang,
     language: lang.toUpperCase(),
@@ -94,18 +96,37 @@ export default function Search({
   
   return (
     <>
+      {showSearchWall && (
+        <SearchWall lang={lang} onClose={() => setShowSearchWall(false)} />
+      )}
+
       <section className={`search-result-text ${Boolean(totalLength) ? '' : 'search-noresult-text'}`}>
         {lang === 'en' ? (
           <p>{totalLength}{t('results_for')}{`'${fetchParams.keyword}'`}</p>
         ) : (
-          <p>{`'${fetchParams.keyword}'`}{t('results_for')}{totalLength}{t('results_len')}</p>
+          <p>{`'${fetchParams.keyword}'`}{t('results_for')}{totalLength}{t('results_for2')}</p>
         )}
 
         {totalLength === 0 && (
           <p className="no-result-notice">
-            {t('try_again_1')}
-            <span>{t('try_again_2')}</span><br />
-            {t('try_again_3')}
+            {lang === 'en' ? (
+              <>
+                {t('try_again_1')}
+                <span className="search" onClick={() => setShowSearchWall(true)}>
+                  {t('try_again_2')}
+                </span><br />
+                {t('try_again_3')}
+              </>
+            ) : (
+              <>
+                {t('try_again_1')}
+                <span className="search" onClick={() => setShowSearchWall(true)}>
+                  {t('try_again_2')}
+                </span>
+                {t('try_again_3')}<br />
+                {t('try_again_4')}
+              </>
+            )}
           </p>
         )}
       </section>

@@ -44,6 +44,15 @@ export default function Category({
     }).then(result => (
       updateRecommend(result)
     ))
+
+    if (user?.databaseId !== 0) {
+      fetchNotes({
+        user_id: user?.databaseId,
+        post_id: post?.databaseId,
+      }).then(result => {
+        updateNotes(result)
+      })
+    }
   }, [fetchParams])
 
   useEffect(() => {
@@ -52,13 +61,6 @@ export default function Category({
         ...prev,
         userId: user.databaseId,
       }))
-
-      fetchNotes({
-        user_id: user?.databaseId,
-        post_id: post?.databaseId,
-      }).then(result => {
-        updateNotes(result)
-      })
     }
   }, [user])
 
@@ -68,13 +70,6 @@ export default function Category({
         user_id: user?.databaseId,
         content_id: post?.databaseId,
         type: META_KEY as MetaKey,
-      })
-
-      fetchNotes({
-        user_id: user?.databaseId,
-        post_id: post?.databaseId,
-      }).then(result => {
-        updateNotes(result)
       })
     }
   }, [post])
@@ -106,7 +101,7 @@ export default function Category({
     return <div></div>
   }
 
-  const FIRST_IMAGE = '<figure class=\"wp-block-image'
+  const FIRST_IMAGE = '<h4 class=\"wp-block-heading\"><strong>'
 
   return (
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
@@ -179,10 +174,14 @@ export default function Category({
 
             <div
               className={`content-article ${isZoomed ? 'zoomed' : ''}`}
-              dangerouslySetInnerHTML={{ __html: user?.databaseId ? post.content : post.content.split(FIRST_IMAGE)[0].replace(FIRST_IMAGE, '') }} 
+              dangerouslySetInnerHTML={{ 
+                __html: user?.databaseId === 0 ? 
+                  post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE :
+                  post.content,
+              }} 
             />
 
-            {!user?.databaseId && (
+            {user?.databaseId === 0 && (
               <ContentWall lang={lang} t={t} />
             )}
           </section>
@@ -215,9 +214,7 @@ export default function Category({
           ) : null}
         </>
       ) : (
-        <div id="idea-notes">
-          <h2>Loading</h2>
-        </div>
+        null
       )}
 
       {/* recommended content */}

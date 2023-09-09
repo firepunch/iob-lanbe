@@ -13,6 +13,7 @@ main #default-content #default-title .filters-wrap button {
   width: 18rem;
   height: 16rem;
   background-color: $white;
+  color: $black;
   border: 1px solid $black;
   border-radius: 1rem;
 
@@ -23,11 +24,15 @@ main #default-content #default-title .filters-wrap button {
 
   .arrow-top {
     position: absolute;
-    top: -13px;
-    left: rem(100);
+    top: -21px;
+    left: rem(75);
     width: 20px;
     height: 26px;
-    background-color: black;
+
+    background: url(~/public/imgs/bubble-triangle.png);
+    @include background(50%);
+    background-size: contain;
+    z-index: 9;
   }
 
   .speech-bubble {
@@ -105,7 +110,7 @@ main #default-content #default-title .filters-wrap button {
 
 .country-category #category-filter.country-filter {
   .arrow-top {
-    left: rem(25);
+    left: rem(10);
   }
 }
 

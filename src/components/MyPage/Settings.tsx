@@ -90,6 +90,9 @@ export default function Settings({
       } else {
         setInfoMessage(t('updated_userinfo_success'))
         setErrorMessages({})
+        fetchUser(userId).then(result => (
+          updateUserInfo(result.data.user_data)
+        ))
       }
     } catch (err) {
       console.error(err)
@@ -218,7 +221,6 @@ export default function Settings({
                   name="newEmail"
                   label={t('new_email')}
                   placeholder={t('new_email_placeholder')}
-                  description={t('new_email_rule')}
                   errorMessage={errorMessages?.newEmail}
                   onResetError={() => (
                     setErrorMessages(prev => ({
@@ -265,7 +267,6 @@ export default function Settings({
                 {t('newsletter')}
               </label>
             </div>
-
             <div className="marketing-checkbox">
               <input 
                 type="checkbox" 

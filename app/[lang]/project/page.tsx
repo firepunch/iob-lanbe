@@ -48,17 +48,17 @@ export default function Search({
       </section>
       {/* //section 1: first page */}
 
-      {/* fixed icon: inquire */}
-      <div id="project-inquire">
-        <a href="#project-inquiry-form" className="inquire-button">
-          <p>{t('inquire')}</p>
-          <Icons type={'arrowBlackDown'} />
-        </a>
-      </div>
-      {/* //fixed icon: inquire */}
-
       {/* section 2: main body */}
       <section id="project-main-body">
+
+        {/* fixed icon: inquire */}
+        <div id="project-inquire">
+          <a href="#project-inquiry-form" className="inquire-button">
+            <p>{t('inquire')}</p>
+            <Icons type={'arrowBlackDown'} />
+          </a>
+        </div>
+        {/* //fixed icon: inquire */}
 
         {/* first intro text */}
         <div id="proj-intro">

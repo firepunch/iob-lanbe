@@ -1,3 +1,10 @@
+.iob-sign-in {
+  header,
+  footer {
+    display: none;
+  }
+}
+
 .iob-sign-in,
 .iob-project,
 .iob-about {
@@ -9,6 +16,9 @@
   }
 
   @media (min-width: 992px) {
+    header {
+      color: $white;
+    }
     .search-link img {
       filter: invert(100);
     }
