@@ -14,6 +14,7 @@ const nextConfig = {
   images: {
     domains: [
       process.env.WORDPRESS_API_URL?.match(/(?!(w+)\.)\w*-(?:\w+\.)+\w+/)?.[0] || process.env.WORDPRESS_API_URL, // Valid WP Image domain.
+      'api.iob.team',
       'iob.team',
       'staging-b50d-iobteam.wpcomstaging.com',
       'i0.wp.com',
