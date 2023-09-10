@@ -4,9 +4,8 @@
   }
 }
 
-.iob-sign-in,
-.iob-project,
-.iob-about {
+.iob-sign-in {
+  // M: White / P: Black
   header {
     background-color: transparent;
     h1 a {
@@ -24,8 +23,7 @@
   }
 }
 
-.iob-my-page,
-.iob-welcome {
+.iob-my-page {
   header h1 {
     color: $white;
   }
@@ -39,6 +37,51 @@
       }
 
       .language-icon {
+        filter: invert(100);
+      }
+    }
+  }
+}
+
+.iob-about,
+.iob-welcome,
+.iob-project {
+  // All white
+  header {
+    background-color: transparent;
+
+    h1,
+    .center-nav,
+    .right-nav {
+      color: $white;
+      transition: all 0.3s ease-in;
+
+      .language-link img {
+        transition: all 0.3s ease-in;
+      }
+    }
+
+    @media (min-width: 992px) {
+      img:not(.language-icon, .see-all-arrow) {
+        filter: invert(100);
+        transition: all 0.3s ease-in;
+      }
+    }
+  }
+
+  &.iob-scroll {
+    h1,
+    .center-nav,
+    .right-nav {
+      color: $black;
+    }
+
+    @media (min-width: 992px) {
+      header img:not(.see-all-arrow) {
+        filter: none;
+      }
+
+      .right-nav .language-link img {
         filter: invert(100);
       }
     }

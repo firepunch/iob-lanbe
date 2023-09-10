@@ -8,6 +8,8 @@ import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import HtmlHead from './head'
+import useHasScroll from '@/hooks/useScroll'
+import classNames from 'classnames'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -40,6 +42,7 @@ export default function LocaleLayout({
   const { user, updateUser } = useUserState(state => state)
   const [storageUser] = getStorageData(AUTH_TOKEN)
   const [openMenu, setOpenMenu] = useState<'search' | undefined>()
+  const hasScroll = useHasScroll()
 
   useEffect(( ) => {
     if (storageUser && !user) {
@@ -52,7 +55,13 @@ export default function LocaleLayout({
   return (
     <html lang={lang}>
       <HtmlHead />
-      <body className={`iob-${lang} ${page ? `iob-${page}` : ''} ${openMenu ? `iob-open` : ''}`}>
+      <body className={(
+        classNames(`iob-${lang}`, {
+          [`iob-${page}`]: page,
+          ['iob-open']: openMenu,
+          ['iob-scroll']: hasScroll,
+        })
+      )}>
         {
           SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
             <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :
