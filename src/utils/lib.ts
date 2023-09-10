@@ -75,7 +75,7 @@ export const dateEnFormat = (rcvDate?: string) => (
 export const getAuthorInfo = (author) => {
   if (!author) return ''
 
-  const name = author.node.name
+  const name = author.node.name?.replace('&amp;', '&')
   const roles = author.node.roles
   if (!roles) return name
   

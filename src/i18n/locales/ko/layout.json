@@ -21,13 +21,13 @@
   "f_address": "서울 강남구 논현로 149길 67-7 명은빌딩 3층",
   "f_building": " 사업자 등록 번호 : 569-81-03354",
   "f_ceo": "대표이사 : 손준하",
-  "f_content": "I.O.B 콘텐츠",
-  "f_report": "I.O.B 리포트",
-  "f_project": "I.O.B 프로젝트",
+  "f_content": "I.O.B Content",
+  "f_report": "I.O.B Report",
+  "f_project": "I.O.B Project",
   "f_linkedin": "LinkedIn",
-  "f_privacy-policy": "개인 정보 보호 정책",
-  "f_terms-conditions": "이용 약관",
-  "f_cookie-policy": "쿠키 정책",
+  "f_privacy-policy": "개인정보처리방침",
+  "f_terms-conditions": "이용약관",
+  "f_cookie-policy": "쿠키 사용 방식",
 
   "form_signup":"I.O.B에 가입하고 뉴스레터를 받아보세요."
 }

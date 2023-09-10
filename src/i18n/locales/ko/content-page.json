@@ -3,14 +3,14 @@
   "recommend_h2": "추천",
   "see_all": "모든 콘텐츠",
 
-  "wall_h3": "앗!",
-  "wall_p1": "글을 계속 읽고 싶으시다면 ",
-  "wall_keyword1": "회원가입",
-  "wall_p2": " 또는 ",
+  "wall_h3": "이 콘텐츠를 읽고 싶으신가요?",
+  "wall_p1": "콘텐츠를 읽기 위해 ",
+  "wall_keyword1": "무료 회원 가입",
+  "wall_p2": " 하고 ",
   "wall_keyword2": "로그인",
   "wall_p3": "을 해주세요.",
-  "wall_desc1": "계정을 만들어서 더 많은 글을 읽어보고, 뉴스레터도 구독해보세요.",
-  "wall_desc2": "더 많은 정보를 얻을 수 있습니다.",
-  "wall_signup": "계정 생성하기",
-  "wall_signin": "로그인하기"
+  "wall_desc1": "회원 가입 시 모든 콘텐츠를 무료로 읽을 수 있고,",
+  "wall_desc2": "뉴스레터를 받아 볼 수 있습니다.",
+  "wall_signup": "회원 가입",
+  "wall_signin": "로그인"
 }

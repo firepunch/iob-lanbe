@@ -2,6 +2,35 @@
 .iob-single-report {
   overflow-x: hidden;
 
+  .content-tags {
+    @include flex-center;
+    justify-content: flex-start;
+
+    p {
+      margin: 0;
+    }
+
+    .ct {
+      @include flex-center;
+      flex-direction: column;
+      width: fit-content;
+      padding: 0.5rem 0.8rem 0.3rem;
+      margin: 0.25rem;
+      border: 1px solid $black;
+      border-radius: 10rem;
+
+      p:nth-child(1) {
+        font-size: 0.65rem;
+        margin-bottom: rem(4);
+      }
+
+      p:nth-child(2) {
+        font-size: $smaller-font-size;
+        font-weight: 600;
+      }
+    }
+  }
+
   div {
     .wp-block-heading {
       margin-left: 1.5rem;

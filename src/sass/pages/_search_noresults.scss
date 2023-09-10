@@ -17,10 +17,11 @@
   p:nth-child(2) {
     top: 50%;
     font-size: $smaller-font-size;
+  }
 
-    a {
-      text-decoration: underline;
-    }
+  .search {
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 
@@ -131,7 +132,7 @@
 @media (min-width: 576px) {
   .search-noresult-text {
     p:nth-child(2) {
-      width: 45%;
+      width: max-content;
     }
   }
 

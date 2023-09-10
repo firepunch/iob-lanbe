@@ -1,6 +1,6 @@
 {
-  "results_for": " 검색결과 ",
-  "results_len": "개",
+  "results_for": "에 대한 ",
+  "results_for2": "의 검색 결과",
   "content": "콘텐츠",
   "report": "리포트",
   "recommend": "추천 콘텐츠",
@@ -23,7 +23,8 @@
 
   "try_again_1": "다른 키워드로 ",
   "try_again_2": "검색",
-  "try_again_3": "또는 저희에게 원하시는 콘텐츠를 알려주세요!",
+  "try_again_3": "을 시도해보세요.",
+  "try_again_4": "또는 아래 추천 콘텐츠를 확인하거나, 저희에게 찾고 있는 콘텐츠를 알려주세요.",
   "recommended": "추천 키워드",
   "keywords-row1": [{
     "label": "인도네시아",

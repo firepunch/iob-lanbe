@@ -37,7 +37,7 @@ export default function LanguageSwitcher({
     const segments = pathName.split('/')
     segments[1] = locale
 
-    if (segments.length !== 4 && CHANGE_URL.find(item => pathName.includes(item))) {
+    if ((!pathName.includes('my-page/report') && segments.length !== 4) && CHANGE_URL.find(item => pathName.includes(item))) {
       let targetIdx = segments.length - 1
       let origin = segments[segments.length - 1]
       if (origin === '' ) {

@@ -34,6 +34,7 @@
 
 @import "pages/allreports";
 @import "pages/report_beforesignin";
+@import "pages/download_report";
 
 @import "pages/signin";
 @import "pages/signin_error";
@@ -51,9 +52,9 @@
 @import "pages/privacypolicy";
 @import "pages/termsandconditions";
 
-@import "pages/payment_report";
-@import "pages/payment_complete";
-@import "pages/payment_modal";
+// @import "pages/payment_report";
+// @import "pages/payment_complete";
+// @import "pages/payment_modal";
 
 @import "pages/mobile_menu";
 @import "pages/category_filter";

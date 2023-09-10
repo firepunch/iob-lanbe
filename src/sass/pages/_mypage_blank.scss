@@ -102,8 +102,8 @@ main {
       .filters-wrap {
         border-top: 0.35rem solid $black;
         padding-top: 1rem;
-
-        display: flex;
+        @include flex-center;
+        justify-content: space-between;
 
         .country-category {
           position: relative;
