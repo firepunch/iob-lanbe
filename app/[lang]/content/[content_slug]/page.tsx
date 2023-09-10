@@ -61,6 +61,13 @@ export default function Category({
         ...prev,
         userId: user.databaseId,
       }))
+
+      fetchNotes({
+        user_id: user?.databaseId,
+        post_id: post?.databaseId,
+      }).then(result => {
+        updateNotes(result)
+      })
     }
   }, [user])
 

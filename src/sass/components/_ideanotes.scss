@@ -127,10 +127,10 @@
   @include flex-center;
   gap: 0.5rem;
   flex-direction: column;
+  padding: rem(15) rem(20);
   margin: auto;
 
   width: rem(220);
-  height: rem(100);
   background-color: $white;
   border: 1px solid $black;
   border-top-left-radius: 1rem;
@@ -144,7 +144,6 @@
 
   .buttons-wrap {
     width: 100%;
-    padding: 0 rem(14);
     @include flex-spacebetween;
     gap: rem(8);
 
