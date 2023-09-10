@@ -23,7 +23,7 @@ export default function DownloadWall({
       {/* <!-- 배경은 워드프레스에서 직접 추가 가능하게 --> */}
       <div id="report-titlepage-image">
         <Image 
-          src={bgImage || SampleBg} 
+          src={bgImage !== '' ? bgImage : SampleBg} 
           alt="Report Image"
           fill
           sizes="100vw"
