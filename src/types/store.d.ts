@@ -145,6 +145,7 @@ export interface IDownload {
 
 export interface ISearchResult {
   keyword: string
+  total: number
   posts: { node: IPost }[]
   reports:{ node: IReport }[]
 }
