@@ -5,6 +5,7 @@ query postBySlug($postSlug: ID!, $userId: Float, $lang: String) {
     databaseId
     title
     uri
+    slug
     date
     content
     excerpt(format: RAW)

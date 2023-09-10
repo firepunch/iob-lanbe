@@ -5,7 +5,7 @@ import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, u
 import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import useContentState from '@/stores/contentStore'
+import useContentState, { INIT_CONTENT_STATE } from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { dateEnFormat, getAuthorInfo, getCountry } from '@/utils/lib'
 import Image from 'next/image'
@@ -14,72 +14,74 @@ import { useEffect, useState } from 'react'
 import useStore from '@/hooks/useStore'
 import { MetaKey } from '@/types/api'
 
+const FIRST_IMAGE = '<h4 class=\"wp-block-heading\"><strong>'
 export default function Category({
-  params: { lang, content_slug },
+  params,
 }: {
   params: { lang: ValidLocale; content_slug: string; },
 }) {
+  const { lang, content_slug } = params
   const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { post, recommend, notes, updatePost, updateRecommend, updateNotes } = useContentState(state => state)
   const { t } = useTranslation(lang, 'content-page')
   const [isZoomed, setIsZoomed] = useState(false)
+  const [META_KEY, set_META_KEY] = useState(`post_${lang}`)
   const [fetchParams, setFetchParams] = useState({
     lang,
     language: lang.toUpperCase(),
     postSlug: decodeURIComponent(content_slug), 
     userId: user?.databaseId,
   })
-  const META_KEY = `post_${lang}`
 
   useEffect(() => {
-    getContentBySlug({
-      ...fetchParams,
-    }).then(result => (
-      updatePost(result)
-    ))
-
-    getAllPosts({
-      ...fetchParams,
-      first: 3,
-    }).then(result => (
-      updateRecommend(result)
-    ))
-
-    if (user?.databaseId !== 0) {
-      fetchNotes({
-        user_id: user?.databaseId,
-        post_id: post?.databaseId,
+    if (fetchParams.userId ===  user?.databaseId)  {
+      getContentBySlug({
+        ...fetchParams,
       }).then(result => {
-        updateNotes(result)
+        const contentId = result?.databaseId
+        updatePost(result)
+
+        updateCountView({
+          user_id: user?.databaseId,
+          content_id: contentId,
+          type: META_KEY as MetaKey,
+        })
+      
+        if (user?.databaseId !== 0) {
+          fetchNotes({
+            user_id: user?.databaseId,
+            post_id: contentId,
+          }).then(result => {
+            updateNotes(result)
+          })
+        }
       })
+
+      getAllPosts({
+        ...fetchParams,
+        first: 3,
+      }).then(result => (
+        updateRecommend(result)
+      ))
     }
   }, [fetchParams])
 
   useEffect(() => {
-    if (user?.databaseId !== 0) {
-      setFetchParams(prev => ({
-        ...prev,
-        userId: user.databaseId,
-      }))
-
-      fetchNotes({
-        user_id: user?.databaseId,
-        post_id: post?.databaseId,
-      }).then(result => {
-        updateNotes(result)
-      })
-    }
-  }, [user])
+    set_META_KEY(`post_${params.lang}`)
+    setFetchParams(prev => ({
+      ...prev,
+      lang: params.lang,
+      language: params.lang.toUpperCase(),
+      postSlug: decodeURIComponent(params.content_slug), 
+    }))
+  }, [params.lang, params.content_slug])
 
   useEffect(() => {
-    if (post?.databaseId) {
-      updateCountView({
-        user_id: user?.databaseId,
-        content_id: post?.databaseId,
-        type: META_KEY as MetaKey,
-      })
-    }
-  }, [post])
+    setFetchParams(prev => ({
+      ...prev,
+      userId: user?.databaseId,
+    }))
+  }, [user])
 
   const handleReload = async () => {
     const postRes = await getContentBySlug(fetchParams)
@@ -104,11 +106,9 @@ export default function Category({
     setIsZoomed(() => !isZoomed)
   }
 
-  if (!_hasHydrated) {
+  if ((post?.slug !== fetchParams.postSlug) || !_hasHydrated) {
     return <div></div>
   }
-
-  const FIRST_IMAGE = '<h4 class=\"wp-block-heading\"><strong>'
 
   return (
     <div className={`iob-single-content ${user?.databaseId ? '' : 'guest-user'}`}>
