@@ -7,6 +7,7 @@ import { IResponseUser } from '@/types/store'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import HtmlHead from './head'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -50,7 +51,7 @@ export default function LocaleLayout({
   
   return (
     <html lang={lang}>
-      <head />
+      <HtmlHead />
       <body className={`iob-${lang} ${page ? `iob-${page}` : ''} ${openMenu ? `iob-open` : ''}`}>
         {
           SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?

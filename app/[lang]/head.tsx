@@ -1,11 +1,9 @@
-export default async function Head() {
+export default async function HtmlHead() {
   return (
-    <>
+    <head>
       <title>Ideas on board</title>
-      <meta
-        name="description"
-        content="A playground to explore new Next.js 13 app directory features such as nested layouts, instant loading states, streaming, and component level data fetching."
-      />
-    </>
+      <meta name="description" content="Find your business opportunity" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    </head>
   )
 }
