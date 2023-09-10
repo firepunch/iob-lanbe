@@ -109,8 +109,8 @@ export default function Report({
                 <li>{getAuthorInfo(report.author)}</li>
                 <li>{dateFormat(report.date, true)}</li>
                 <li>
-                  {report.reportCategories.edges?.length ?
-                    report.reportCategories.edges?.filter(({ node }) => (
+                  {report.reportCategories?.edges?.length ?
+                    report.reportCategories?.edges?.filter(({ node }) => (
                       node.parent.node.name !== 'Country'
                     ))?.map(({ node }) => node.name).join(', ') : 
                     '-'}
@@ -127,53 +127,10 @@ export default function Report({
           </div>
         </section>
 
-        <section id="report-snippets">
-          {report.lanbeContent?.firstImage && (
-            <Image 
-              src={report.lanbeContent.firstImage} 
-              alt="Report Image"
-              fill
-              sizes="100vw"
-            />
-          )}
-
-          {(report.lanbeContent?.secondImage || report.lanbeContent?.secondText) && (
-            <div id="report-image-text1">
-              {report.lanbeContent?.secondImage && (
-                <Image 
-                  src={report.lanbeContent.secondImage} 
-                  alt="Report Image"
-                  fill
-                  sizes="100vw"
-                />
-              )}
-              <div className="rit-text">
-                <p>{report.lanbeContent?.secondText}</p>
-              </div>
-            </div>
-          )}
-
-          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdImage) && (
-            <div id="report-image-text2">
-              <div className="rit-text">
-                <p>{report.lanbeContent?.thirdText}</p>
-              </div>
-              {report.lanbeContent?.thirdImage && (
-                <Image 
-                  src={report.lanbeContent.thirdImage} 
-                  alt="Report Image"
-                  fill
-                  sizes="100vw"
-                />
-              )}   
-            </div>
-          )}
-        </section>
-
         {user.databaseId ? (
           <DownloadWall 
             t={t}
-            bgImage={report.lanbeContent?.thirdImage}
+            bgImage={report.featuredImage?.node?.sourceUrl}
             downloadLink={report.lanbeContent?.downloadFile}
             onDownload={handleUpdateCount}
           />
