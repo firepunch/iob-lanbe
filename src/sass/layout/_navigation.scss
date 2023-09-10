@@ -55,10 +55,12 @@
     .right-nav {
       color: $white;
       transition: all 0.3s ease-in;
+    }
 
-      .language-link img {
-        transition: all 0.3s ease-in;
-      }
+    .language-icon,
+    .hamburger-mobile img,
+    .language-link img {
+      transition: all 0.3s ease-in;
     }
 
     @media (min-width: 992px) {
@@ -74,6 +76,11 @@
     .center-nav,
     .right-nav {
       color: $black;
+    }
+
+    .language-icon,
+    .hamburger-mobile img {
+      filter: invert(100);
     }
 
     @media (min-width: 992px) {
