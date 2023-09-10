@@ -1,4 +1,4 @@
-export default async function HtmlHead() {
+export default function HtmlHead() {
   return (
     <head>
       <title>Ideas on board</title>
