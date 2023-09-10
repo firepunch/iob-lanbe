@@ -16,6 +16,11 @@
   "message_placeholder": "내용을 입력해주세요.",
   "send": "전송",
 
+  "search_inquiry": "콘텐츠 문의",
+  "thanks1": "문의 내용이 전달되었습니다",
+  "thanks2": "빠른 시일 안에 연락드리도록 하겠습니다.",
+  "back_home": "Back to homepage",
+
   "no_result_post_1": "IOB 콘텐츠 중 ",
   "no_result_post_2": " 관련된 결과를 찾을 수 없습니다.",
   "no_result_report_1": "IOB 리포트 중 ",
