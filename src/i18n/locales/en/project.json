@@ -97,5 +97,10 @@
   "contact-placeholder": "Please enter your contact number.",
   "message": "Message",
   "message-placeholder": "Please provide a brief overview of your project and the support you need from us.",
-  "send": "Send"
+  "send": "Send",
+
+  "project_inquiry": "PROJECT INQUIRY",
+  "thanks1": "Thank you for reaching out!",
+  "thanks2": "We will be in touch with you soon.",
+  "back_home": "Back to homepage"
 }
