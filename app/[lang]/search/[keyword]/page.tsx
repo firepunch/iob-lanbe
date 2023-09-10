@@ -45,7 +45,7 @@ export default function Search({
   useEffect(() => {
     getSearchResults({
       ...fetchParams,
-      taxQuery: formatSearchTaxQuery(fetchParams.keyword),
+      taxQuery: formatSearchTaxQuery(fetchParams.keyword, lang),
       keyword: '',
     }).then(taxResult => {
       mergeSearchResult(taxResult, keyword)
