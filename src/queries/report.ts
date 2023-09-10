@@ -114,6 +114,19 @@ query reportBySlug(
         altText
       }
     }
+    lanbeReportFields {
+      pages
+      whtItMatters
+      downloadFile {
+        id
+        link
+        fileSize
+      }
+      thirdImage {
+        id
+        link
+      }
+    }
     lanbeContent(user_id: $userId, type: "report", lang: $lang) {
       is_save
       pages

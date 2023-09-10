@@ -116,22 +116,22 @@ export default function Report({
                     '-'}
                 </li>
                 <li>
-                  {report.lanbeContent?.pages}
+                  {report.lanbeReportFields?.pages}
                 </li>
               </ul>
             </div>
           </div>
           <div id="report-firstpage-right">
             <h4>Why it matters?</h4>
-            <p>{report.lanbeContent?.whyItMatters}</p>
+            <p>{report.lanbeReportFields?.whtItMatters}</p>
           </div>
         </section>
 
         {user.databaseId ? (
           <DownloadWall 
             t={t}
-            bgImage={report.lanbeContent?.thirdImage || report.featuredImage?.node?.sourceUrl || ''}
-            downloadLink={report.lanbeContent?.downloadFile}
+            bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
+            downloadLink={report.lanbeReportFields?.downloadFile?.link}
             onDownload={handleUpdateCount}
           />
         ) : (
