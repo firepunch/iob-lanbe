@@ -130,7 +130,7 @@ export default function Report({
         {user.databaseId ? (
           <DownloadWall 
             t={t}
-            bgImage={report.featuredImage?.node?.sourceUrl}
+            bgImage={report.lanbeContent?.thirdImage || report.featuredImage?.node?.sourceUrl || ''}
             downloadLink={report.lanbeContent?.downloadFile}
             onDownload={handleUpdateCount}
           />
