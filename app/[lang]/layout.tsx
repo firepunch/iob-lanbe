@@ -14,6 +14,7 @@ const SIMPLE_HEADER_MAP = [
 ]
 
 const DESIGN_PAGE = [
+  'success',
   'about',
   'project',
   'welcome',

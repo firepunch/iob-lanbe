@@ -111,5 +111,10 @@
   "contact-placeholder": "전화번호를 입력해주세요.",
   "message": "문의 사항",
   "message-placeholder": "궁금한 점, 도움이 필요한 점 또는 요청하고자 하는 업무에 대한 간략한 소개를 입력해주세요.",
-  "send": "전달하기"
+  "send": "전달하기",
+
+  "project_inquiry": "프로젝트 문의",
+  "thanks1": "문의 내용이 전달되었습니다",
+  "thanks2": "빠른 시일 안에 연락드리도록 하겠습니다.",
+  "back_home": "홈페이지로 돌아가기"
   }

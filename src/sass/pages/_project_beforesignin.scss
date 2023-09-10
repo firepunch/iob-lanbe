@@ -699,3 +699,34 @@
     width: 50%;
   }
 }
+
+// Project Success
+.project-success,
+.content {
+  width: 100%;
+  @include flex-center;
+  flex-direction: column;
+  padding: rem(50) rem(28) 0;
+
+  .h2 {
+    width: 100%;
+    padding-bottom: rem(12);
+    border-bottom: 3px solid $black;
+  }
+
+  .content {
+    max-width: rem(780);
+  }
+
+  .check-icon {
+    margin: rem(65) 0 rem(30);
+  }
+
+  .thanks2 {
+    margin: 0 0 rem(76);
+  }
+
+  .home-link {
+    text-decoration: underline;
+  }
+}

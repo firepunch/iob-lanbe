@@ -18,7 +18,7 @@ import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
 
-export default function Search({
+export default function Project({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
@@ -284,7 +284,7 @@ export default function Search({
             </div>
     
             <div className="partners">
-              <p>79</p>
+              <p>14</p>
               <p>{t('partners')}</p>
             </div>
           </div>
