@@ -10,6 +10,7 @@ import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { formatSearchTaxQuery } from '@/utils/lib'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 export default function Search({
@@ -17,6 +18,7 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
+  const router = useRouter()
   const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { searchResult, recommend, mergeSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
@@ -85,6 +87,7 @@ export default function Search({
     try {
       const formData = new FormData(e.currentTarget)
       await sendSearchRequestForm(formData)
+      router.replace(`/${lang}/search/success`)
     } catch (error) {
       console.error(error)
     }
