@@ -57,7 +57,7 @@ export default function Report({
     })
   }
 
-  if (!_hasHydrated || !report) {
+  if ((report?.slug !== decodeURI(report_slug)) || !_hasHydrated) {
     return <div></div>
   }
 

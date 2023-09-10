@@ -87,6 +87,7 @@ query reportBySlug(
     databaseId
     title
     uri
+    slug
     date
     content
     excerpt(format: RAW)
