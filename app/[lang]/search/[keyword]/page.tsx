@@ -10,7 +10,7 @@ import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { formatSearchTaxQuery } from '@/utils/lib'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function Search({
