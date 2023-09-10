@@ -17,12 +17,14 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
+import { useRouter } from 'next/navigation'
 
 export default function Project({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const router = useRouter()
   const { t } = useTranslation(lang, 'project')
   const [errorCode, setErrorCode] = useState()
 
@@ -31,8 +33,8 @@ export default function Project({
 
     try {
       const formData = new FormData(e.currentTarget)
-      const { code } = await ProjectInquiry(formData)
-      setErrorCode(code)
+      await ProjectInquiry(formData)
+      router.replace(`/${lang}/project/success`)
     } catch (error) {
       console.error('error: ', error)
     }
