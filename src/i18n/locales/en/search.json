@@ -15,6 +15,11 @@
   "message_placeholder": "How may we help you?",
   "send": "Send",
   
+  "search_inquiry": "콘텐츠 문의",
+  "thanks1": "Thank you for reaching out!",
+  "thanks2": "We will be in touch with you soon.",
+  "back_home": "Back to homepage",
+
   "no_result_post_1": "No results related to ",
   "no_result_post_2": " were found in our contents collection.",
   "no_result_report_1": "No results related to ",

@@ -701,12 +701,11 @@
 }
 
 // Project Success
-.project-success,
-.content {
+.project-success {
   width: 100%;
   @include flex-center;
   flex-direction: column;
-  padding: rem(50) rem(28) 0;
+  padding: rem(136) rem(28) 0;
 
   .h2 {
     width: 100%;
@@ -716,10 +715,11 @@
 
   .content {
     max-width: rem(780);
+    text-align: center;
   }
 
   .check-icon {
-    margin: rem(65) 0 rem(30);
+    margin: rem(65) auto rem(30);
   }
 
   .thanks2 {
@@ -728,5 +728,9 @@
 
   .home-link {
     text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    padding-top: rem(140);
   }
 }
