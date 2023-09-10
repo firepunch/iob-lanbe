@@ -9,7 +9,7 @@ import SampleBg from '@/imgs/thumbnail_sample3.jpg'
 export default function DownloadWall({
   t,
   bgImage,
-  downloadLink,
+  downloadLink = '',
   onDownload,
 }: {
   t: TI18N

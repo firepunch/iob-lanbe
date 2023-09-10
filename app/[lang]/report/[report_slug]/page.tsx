@@ -131,7 +131,7 @@ export default function Report({
           <DownloadWall 
             t={t}
             bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
-            downloadLink={report.lanbeReportFields?.downloadFile?.link}
+            downloadLink={report.lanbeReportFields?.downloadFile?.link || ''}
             onDownload={handleUpdateCount}
           />
         ) : (
