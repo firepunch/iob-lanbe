@@ -59,8 +59,8 @@ export default function Category({
   useEffect(() => {
     const taxQuery = formatPostTaxQuery(
       {
-        terms: fetchParams.cateName === '' ? [] : [fetchParams.cateName],
-        field: 'NAME',
+        terms: fetchParams.cateName === '' ? [] : [`${fetchParams.cateName.toLowerCase()}-${lang}`],
+        field: 'SLUG',
       },
       fetchParams.countries,
     )
