@@ -7,10 +7,8 @@ import { IResponseUser } from '@/types/store'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import HtmlHead from './head'
 import useHasScroll from '@/hooks/useScroll'
 import classNames from 'classnames'
-import type { Metadata } from 'next'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -26,12 +24,6 @@ const DESIGN_PAGE = [
   'sign-up',
   'my-page',
 ]
-
-export const metadata: Metadata = {
-  title: 'Ideas on board',
-  description: 'Find your business opportunity',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-}
 
 export default function LocaleLayout({
   children,
@@ -61,7 +53,6 @@ export default function LocaleLayout({
   
   return (
     <html lang={lang}>
-      <HtmlHead />
       <body className={(
         classNames(`iob-${lang}`, {
           [`iob-${page}`]: page,
