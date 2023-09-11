@@ -57,7 +57,7 @@ export default function Report({
     })
   }
 
-  if (!_hasHydrated || !report) {
+  if ((report?.slug !== decodeURI(report_slug)) || !_hasHydrated) {
     return <div></div>
   }
 
@@ -116,39 +116,25 @@ export default function Report({
                     '-'}
                 </li>
                 <li>
-                  {report.lanbeContent?.pages}
+                  {report.lanbeReportFields?.pages}
                 </li>
               </ul>
             </div>
           </div>
           <div id="report-firstpage-right">
             <h4>Why it matters?</h4>
-            <p>{report.lanbeContent?.whyItMatters}</p>
+            <p>{report.lanbeReportFields?.whtItMatters}</p>
           </div>
         </section>
 
-        {user.databaseId ? (
-          <DownloadWall 
-            t={t}
-            bgImage={report.lanbeContent?.thirdImage || report.featuredImage?.node?.sourceUrl || ''}
-            downloadLink={report.lanbeContent?.downloadFile}
-            onDownload={handleUpdateCount}
-          />
-        ) : (
-          <section id="report-price-cta">
-            <div id="report-price-cta-wrap">
-              <div className="report-title">
-                <h4>{report.title}</h4>
-              </div>
-              <div className="report-cta">
-                <p>{t('sign_in_cta')}</p>
-                <Link href={`/${lang}/sign-in`}>
-                  {t('sign_in')}
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+        <DownloadWall 
+          lang={lang}
+          t={t}
+          userId={user.databaseId}
+          bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
+          downloadLink={report.lanbeReportFields?.downloadFile?.link || ''}
+          onDownload={handleUpdateCount}
+        />
        
       </div>
     </>

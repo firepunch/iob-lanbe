@@ -64,7 +64,7 @@ export default function Project({
 
         {/* first intro text */}
         <div id="proj-intro">
-          <h3>{t('proj-intro-1')}<br/>{t('proj-intro-1-1')}</h3>
+          <h3>{t('proj-intro-1')}{t('proj-intro-1-1')}</h3>
           <p>{t('proj-intro-2')}</p>
           <p>{t('proj-intro-3')}</p>
         </div>
@@ -313,7 +313,7 @@ export default function Project({
     
               <div className="network">
                 <p>13+</p>
-                <p>{t('business')}<br/>{t('development')}</p>
+                <p>{t('business')}{t('development')}</p>
               </div>
     
               <div className="network">
@@ -334,11 +334,7 @@ export default function Project({
       {/* //section 2: main body */}
 
       {/* project inquiry */}
-      <ProjectForm
-        t={t} 
-        errorCode={errorCode}
-        onSubmit={handleSubmit} 
-      />
+      <ProjectForm t={t} onSubmit={handleSubmit} />
     </>
   )
 }

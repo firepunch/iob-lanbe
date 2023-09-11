@@ -34,7 +34,7 @@ export default async function TermsConditions({
           {t('article2-1')}
         </p>
 
-        <ol>
+        <ol className="number-list">
           <li>
             {t('article2-2')}
           </li>

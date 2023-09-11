@@ -59,31 +59,33 @@ const useContentState = create<IContentState>()(
       updateReports: (reports) => set({ reports }),
       updateNotes: (notes) => set({ notes }),
       updateSearchResult: (searchResult) => set({ searchResult }),
-      mergeSearchResult: (searchResult, keyword) => {
+      mergeSearchResult: (searchResult, paramsKeyword) => {
         set((prev) => {
+          // 다른 검색어로 검색했을 때는 한개(taxResult)의 값만 있음
           let result = {
-            keyword,
+            keyword: paramsKeyword,
             posts: searchResult.posts?.edges,
             reports: searchResult.reports?.edges,
+            total: searchResult.posts?.edges?.length + searchResult.reports?.edges?.length,
           }
 
-          if (prev.searchResult?.keyword !== keyword) {
-            result = {
-              keyword,
-              posts: getUniqueEdges(
-                [
-                  ...result?.posts || [], 
-                  ...prev.searchResult?.posts || [],
-                ],
-              ),
-              reports: getUniqueEdges(
-                [
-                  ...result?.reports || [], 
-                  ...prev.searchResult?.reports || [],
-                ],
-              ),
-            }
-          } 
+          if (prev.searchResult?.keyword === paramsKeyword) {
+            // 스토어의 검색어와 같을 때 병합시킴
+            result.keyword = paramsKeyword
+            result.posts = getUniqueEdges(
+              [
+                ...result?.posts || [], 
+                ...prev.searchResult?.posts || [],
+              ],
+            )
+            result.reports = getUniqueEdges(
+              [
+                ...result?.reports || [], 
+                ...prev.searchResult?.reports || [],
+              ],
+            )
+            result.total = result.posts?.length + result?.reports?.length
+          }
 
           return {
             searchResult: result,

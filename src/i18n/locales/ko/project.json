@@ -2,7 +2,7 @@
   "iob-project": "I.O.B PROJECT",
   "firstpage": "GROW YOUR IDEAS WITH US.",
   "inquire": "문의하기",
-  "proj-intro-1": "우리는 동남아 시장에 최적화된 사업 및 브랜드 전략을 기업에게 제공하며,",
+  "proj-intro-1": "우리는 동남아 시장에 최적화된 사업 및 브랜드 전략을 기업에게 제공하며, ",
   "proj-intro-1-1": "디자인, 기술, 마케팅을 통해 동남아 시장에서 앞서가는 성공 사례를 만들어 냅니다.",
   "proj-intro-2": "동남아에는 꾸준히 디지털 기술이 확산되고 있습니다. 디지털 채널은 고객 커뮤니케이션과 서비스/제품 판매의 핵심 채널로 자리잡고 있습니다.",
   "proj-intro-3": "I.O.B는 디지털 채널에 집중하여 고객 유치 및 매출 증대를 위한 프로젝트를 수행합니다. 기업의 지속 가능한 성장을 위해, 프로젝트 과정에서 데이터 수집 및 분석 인프라를 마련하고 데이터 기반의 의사 결정을 제공합니다.",
@@ -89,16 +89,16 @@
   "partners": "파트너사",
 
   "iob-expert-network": "I.O.B 의 전문가 네트워크",
-  "business": "사업",
-  "development": "개발",
+  "business": "사업 개발",
+  "development": "",
   "sales": "영업",
   "engineering": "개발",
   "network-marketing": "마케팅",
   "network-design": "디자인",
 
 
-  "project": "프로젝트",
-  "inquiry": "문의",
+  "project": "프로젝트 문의",
+  "inquiry": "",
   "first-name": "이름",
   "last-name": "성",
   "organization": "회사명",
@@ -110,7 +110,7 @@
   "contact": "전화번호",
   "contact-placeholder": "전화번호를 입력해주세요.",
   "message": "문의 사항",
-  "message-placeholder": "궁금한 점, 도움이 필요한 점 또는 요청하고자 하는 업무에 대한 간략한 소개를 입력해주세요.",
+  "message-placeholder": "문의 사항이나 요청 사항을 입력해주세요.",
   "send": "전달하기",
 
   "project_inquiry": "프로젝트 문의",

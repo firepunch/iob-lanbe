@@ -1,54 +1,54 @@
 // see-all-button small, for web
 @mixin see-all-button-small($bordercolor) {
-    width: 7rem;
-    height: 2rem;
-    padding: 0 1rem;
-    border: 1px solid $bordercolor;
-    border-radius: 10rem;
-    cursor: pointer;
+  width: max-content;
+  height: 2rem;
+  padding: 0 1rem;
+  border: 1px solid $bordercolor;
+  border-radius: 10rem;
+  cursor: pointer;
 
-    @include flex-center;
+  @include flex-center;
 
-    img {
-        @include icon-size;
-    }
+  img {
+    @include icon-size;
+  }
 }
 
 // homepage 첫화면 cta
 @mixin fp-cta {
-    width: 90%;
-    margin: 1rem auto;
-    height: 3rem;
+  width: 90%;
+  margin: 1rem auto;
+  height: 3rem;
 
-    border: 1px solid $white;
-    color: $white;
-    border-radius: 10rem;
+  border: 1px solid $white;
+  color: $white;
+  border-radius: 10rem;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    p {
-        margin: auto;
-    }
+  p {
+    margin: auto;
+  }
 
-    img {
-        margin-left: .65rem;
-    }
+  img {
+    margin-left: 0.65rem;
+  }
 }
 
 // mobile full-width buttons
 @mixin mobile-button-style($border) {
-    width: 100%;
-    height: 3rem;
-    margin: 1rem 0;
+  width: 100%;
+  height: 3rem;
+  margin: 1rem 0;
 
-    border: 1px solid $border;
-    border-radius: 10rem;
-    font-weight: $bold-font-weight;
+  border: 1px solid $border;
+  border-radius: 10rem;
+  font-weight: $bold-font-weight;
 
-    @include flex-center;
+  @include flex-center;
 
-    img {
-        @include icon-size;
-    }
+  img {
+    @include icon-size;
+  }
 }

@@ -85,7 +85,7 @@ export default function Content({
       getPosts({
         ...fetchParams,
         taxQuery,
-        in: fetchParams.savedIn,
+        in: fetchParams.savedIn.length ? fetchParams.savedIn :  ['0'],
       }).then(result => (
         updateBookmarkPost(result?.edges)
       ))
@@ -94,7 +94,7 @@ export default function Content({
       getPosts({
         ...fetchParams,
         taxQuery,
-        in: fetchParams.readIn,
+        in: fetchParams.readIn.length ? fetchParams.savedIn :  ['0'],
       }).then(result => (
         updateReadPost(result?.edges)
       ))
@@ -185,19 +185,19 @@ export default function Content({
               className={`${clickedType === 'saved' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('saved')}
             >
-              {t('saved')} {`(${fetchParams?.savedIn?.length || 0})`}
+              {t('saved')} {`(${bookmark?.post?.length || 0})`}
             </button>
             <button 
               className={`${clickedType === 'read' ? 'black-button' : '' }`}
               onClick={() => handleClickedType('read')}
             >
-              {t('read')} {`(${fetchParams?.readIn?.length || 0})`}
+              {t('read')} {`(${read?.post?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
 
-      {fetchParams?.[clickedType === 'saved' ? 'savedIn' : 'readIn']?.length ? (
+      {(clickedType === 'saved' ? bookmark : read)?.post?.length ? (
         <div id="saved-content">
           {(clickedType === 'saved' ? bookmark : read)?.post?.map(({ node }) => (
             <PostCard

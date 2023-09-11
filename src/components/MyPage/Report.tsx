@@ -62,9 +62,7 @@ export default function Report({
     if (fetchParams.savedIn !== undefined) {
       getAllReports({
         ...fetchParams,
-        in: fetchParams.savedIn?.length === 0 ?
-          ['0'] :
-          fetchParams.savedIn,
+        in: fetchParams.savedIn.length ? fetchParams.savedIn :  ['0'],
       }).then(result => (
         updateBookmarkReport(result?.edges)
       ))
@@ -72,9 +70,7 @@ export default function Report({
     if (fetchParams.downloadIn !== undefined) {
       getAllReports({
         ...fetchParams,
-        in: fetchParams.downloadIn?.length === 0 ?
-          ['0'] :
-          fetchParams.downloadIn,
+        in: fetchParams.downloadIn.length ? fetchParams.downloadIn :  ['0'],
       }).then(result => (
         updateDownloadedReport(result?.edges)
       ))
@@ -106,19 +102,19 @@ export default function Report({
               className={`${clickedType === 'saved' ? 'black-button' : ''}`}
               onClick={() => handleClickedType('saved')}
             >
-              {t('saved')} {`(${fetchParams?.savedIn?.length || 0})`}
+              {t('saved')} {`(${bookmark?.report?.length || 0})`}
             </button>
             <button
               className={`${clickedType === 'download' ? 'black-button' : ''}`}
               onClick={() => handleClickedType('download')}
             >
-              {t('download')} {`(${fetchParams?.downloadIn?.length || 0})`}
+              {t('download')} {`(${read?.report?.length || 0})`}
             </button>
           </div>
         </div>
       </div>
       
-      {fetchParams?.[clickedType === 'saved' ? 'savedIn' : 'downloadIn']?.length ? (
+      {(clickedType === 'saved' ? bookmark : read)?.report?.length ? (
         <div id="saved-content">
           {(clickedType === 'saved' ? bookmark : read)?.report?.map(({ node }) => (
             <ReportCard

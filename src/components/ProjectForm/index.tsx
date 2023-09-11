@@ -4,22 +4,19 @@ import { TI18N } from '@/types'
 
 interface ProjectFormProps {
   t: TI18N;
-  errorCode?: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   children?: React.ReactNode;
 }
 
 export default function ProjectForm ({
   t,
-  errorCode,
   onSubmit,
   children,
-  ...props
 }: ProjectFormProps) {
 
   return (
     <section id="project-inquiry-form">
-      <h2>{t('project')}<br/>{t('inquiry')}</h2>
+      <h2>{t('project')}{t('inquiry')}</h2>
 
       <form onSubmit={onSubmit}>
         <div id="pi-form-wrap">

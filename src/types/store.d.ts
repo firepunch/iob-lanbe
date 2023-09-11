@@ -36,6 +36,19 @@ export type ILanbeContent = {
   thirdImage: string
 }
 
+export type ILanbeReportFields = {
+  pages: number
+  whtItMatters: string
+  downloadFile: {
+    id: string
+    link: string
+    fileSize: number
+  }
+  thirdImage: {
+    id: string
+    link: string
+  }
+}
 export interface IPost {
   id: number
   databaseId: number
@@ -48,6 +61,7 @@ export interface IPost {
   featured_image_url?: string
   featuredImage?: IFeaturedImage
   tags: ITags
+  lanbeReportFields: ILanbeReportFields
   lanbeContent: ILanbeContent
   translations: {
     slug: string
@@ -145,6 +159,7 @@ export interface IDownload {
 
 export interface ISearchResult {
   keyword: string
+  total: number
   posts: { node: IPost }[]
   reports:{ node: IReport }[]
 }
