@@ -17,6 +17,10 @@
   margin: auto;
   margin-top: 3rem;
 
+  .number-list li {
+    list-style: decimal;
+  }
+
   p {
     line-height: 1.5rem;
     margin-bottom: 1.5rem;
