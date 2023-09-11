@@ -45,7 +45,7 @@ export default function LanguageSwitcher({
         origin = segments[targetIdx]
       }
 
-      const contentSlug = pathName.includes('contents') ? post?.translations?.[0]?.slug : report?.translations?.[0]?.slug
+      const contentSlug = pathName.includes('content') ? post?.translations?.[0]?.slug : report?.translations?.[0]?.slug
       segments[targetIdx] = contentSlug || origin
     }
 
