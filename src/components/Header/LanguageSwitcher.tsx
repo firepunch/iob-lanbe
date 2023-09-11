@@ -18,7 +18,7 @@ const WHITE_ICONS = [
 ]
 
 const CHANGE_URL = [
-  'contents',
+  'content',
   'report',
 ]
 
