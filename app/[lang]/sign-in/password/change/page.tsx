@@ -2,6 +2,7 @@
 
 import { updatePassword } from '@/api_wp'
 import { InputField } from '@/components'
+import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
 import Link from 'next/link'
@@ -87,4 +88,4 @@ const SignInPasswordChange = ({
   )
 }
 
-export default SignInPasswordChange
+export default withNoAuth(SignInPasswordChange)
