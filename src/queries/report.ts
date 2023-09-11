@@ -87,6 +87,7 @@ query reportBySlug(
     databaseId
     title
     uri
+    slug
     date
     content
     excerpt(format: RAW)
@@ -112,6 +113,19 @@ query reportBySlug(
       node {
         sourceUrl
         altText
+      }
+    }
+    lanbeReportFields {
+      pages
+      whtItMatters
+      downloadFile {
+        id
+        link
+        fileSize
+      }
+      thirdImage {
+        id
+        link
       }
     }
     lanbeContent(user_id: $userId, type: "report", lang: $lang) {

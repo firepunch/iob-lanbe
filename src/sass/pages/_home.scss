@@ -109,6 +109,7 @@ header {
     .iob-project-info {
       width: 100%;
       border-top: 3px solid #000;
+      word-break: keep-all;
 
       .description {
         font-size: $smaller-font-size;
@@ -360,6 +361,10 @@ aside {
     margin-left: 20%;
 
     .firstpage-title {
+      .iob-project-info {
+        gap: 1rem;
+      }
+
       .iob-content-info,
       .iob-report-info,
       .iob-project-info {
@@ -385,6 +390,11 @@ aside {
           img {
             filter: invert(100%);
           }
+        }
+
+        .cta-web-proj.project-cta-mobile {
+          margin: 0;
+          font-weight: $regular-font-weight;
         }
       }
     }

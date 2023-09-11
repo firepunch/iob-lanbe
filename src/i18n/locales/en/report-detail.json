@@ -3,13 +3,9 @@
   "date": "Date:",
   "category": "Category:",
   "pages": "Pages:",
-  "price": "Price:",
-  "total": "Total",
   
   "sign_in": "Sign in",
-  "sign_in_cta": "Please sign in to complete the payment.",
-  "pay_now": "Pay now",
-  "pay_now_cta": "Pay now to download the report.",
+  "sign_in_cta": "Please sign in to download this report.",
   "download": "Download PDF",
   "download_cta": "NOTE: You can re-download the report without any time limit until you decide to withdraw your membership. There is no expiration date."
 }

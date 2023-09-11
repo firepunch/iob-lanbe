@@ -25,6 +25,11 @@ body {
   &.iob-open {
     overflow: hidden;
   }
+
+  input,
+  textarea {
+    font-family: $primary-font;
+  }
 }
 
 a {

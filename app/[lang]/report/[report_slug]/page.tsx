@@ -57,7 +57,7 @@ export default function Report({
     })
   }
 
-  if (!_hasHydrated || !report) {
+  if ((report?.slug !== decodeURI(report_slug)) || !_hasHydrated) {
     return <div></div>
   }
 
@@ -109,89 +109,32 @@ export default function Report({
                 <li>{getAuthorInfo(report.author)}</li>
                 <li>{dateFormat(report.date, true)}</li>
                 <li>
-                  {report.reportCategories.edges?.length ?
-                    report.reportCategories.edges?.filter(({ node }) => (
+                  {report.reportCategories?.edges?.length ?
+                    report.reportCategories?.edges?.filter(({ node }) => (
                       node.parent.node.name !== 'Country'
                     ))?.map(({ node }) => node.name).join(', ') : 
                     '-'}
                 </li>
                 <li>
-                  {report.lanbeContent?.pages}
+                  {report.lanbeReportFields?.pages}
                 </li>
               </ul>
             </div>
           </div>
           <div id="report-firstpage-right">
             <h4>Why it matters?</h4>
-            <p>{report.lanbeContent?.whyItMatters}</p>
+            <p>{report.lanbeReportFields?.whtItMatters}</p>
           </div>
         </section>
 
-        <section id="report-snippets">
-          {report.lanbeContent?.firstImage && (
-            <Image 
-              src={report.lanbeContent.firstImage} 
-              alt="Report Image"
-              fill
-              sizes="100vw"
-            />
-          )}
-
-          {(report.lanbeContent?.secondImage || report.lanbeContent?.secondText) && (
-            <div id="report-image-text1">
-              {report.lanbeContent?.secondImage && (
-                <Image 
-                  src={report.lanbeContent.secondImage} 
-                  alt="Report Image"
-                  fill
-                  sizes="100vw"
-                />
-              )}
-              <div className="rit-text">
-                <p>{report.lanbeContent?.secondText}</p>
-              </div>
-            </div>
-          )}
-
-          {(report.lanbeContent?.thirdText || report.lanbeContent?.thirdImage) && (
-            <div id="report-image-text2">
-              <div className="rit-text">
-                <p>{report.lanbeContent?.thirdText}</p>
-              </div>
-              {report.lanbeContent?.thirdImage && (
-                <Image 
-                  src={report.lanbeContent.thirdImage} 
-                  alt="Report Image"
-                  fill
-                  sizes="100vw"
-                />
-              )}   
-            </div>
-          )}
-        </section>
-
-        {user.databaseId ? (
-          <DownloadWall 
-            t={t}
-            bgImage={report.lanbeContent?.thirdImage}
-            downloadLink={report.lanbeContent?.downloadFile}
-            onDownload={handleUpdateCount}
-          />
-        ) : (
-          <section id="report-price-cta">
-            <div id="report-price-cta-wrap">
-              <div className="report-title">
-                <h4>{report.title}</h4>
-              </div>
-              <div className="report-cta">
-                <p>{t('sign_in_cta')}</p>
-                <Link href={`/${lang}/sign-in`}>
-                  {t('sign_in')}
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+        <DownloadWall 
+          lang={lang}
+          t={t}
+          userId={user.databaseId}
+          bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
+          downloadLink={report.lanbeReportFields?.downloadFile?.link || ''}
+          onDownload={handleUpdateCount}
+        />
        
       </div>
     </>

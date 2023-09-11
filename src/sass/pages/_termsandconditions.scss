@@ -1,54 +1,58 @@
 #tc-title {
-    width: 85%;
-    margin: auto;
-    margin-top: 8.5rem;
-    border-bottom: .35rem solid $black;
+  width: 85%;
+  margin: auto;
+  margin-top: 8.5rem;
+  border-bottom: 0.35rem solid $black;
 
-    h2 {
-        width: 80%;
-        margin: .85rem 0;
-        // font-size: 1.15rem;
-        font-family: $secondary-font;
-    }    
+  h2 {
+    width: 80%;
+    margin: 0.85rem 0;
+    // font-size: 1.15rem;
+    font-family: $secondary-font;
+  }
 }
 
 #terms-and-conditions {
-    width: 85%;
-    margin: auto;
-    margin-top: 3rem;
-    
-    p {
-        line-height: 1.5rem;
-        margin-bottom: 1.5rem;
+  width: 85%;
+  margin: auto;
+  margin-top: 3rem;
+
+  .number-list li {
+    list-style: decimal;
+  }
+
+  p {
+    line-height: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    margin-top: 2.5rem;
+  }
+
+  ol {
+    padding: 0;
+
+    li {
+      line-height: 1.5rem;
+      margin: 0.5rem 0;
+      margin-left: 2rem;
+      list-style-type: "- ";
     }
 
-    h3 {
-        margin-top: 2.5rem;
+    .nested-list {
+      margin: 2rem 0;
+
+      li {
+        font-size: 0.9rem;
+      }
     }
-
-    ol {
-        padding: 0;
-
-        li {
-            line-height: 1.5rem;
-            margin: .5rem 0;
-            margin-left: 2rem;
-            list-style-type: decimal;     
-        }
-
-        .nested-list {
-            margin: 2rem 0;
-
-            li {
-                font-size: .9rem;
-            }
-        }
-    }
+  }
 }
 
 @media (min-width: 992px) {
-    #terms-and-conditions {
-        width: 70%;
-        margin-top: 5rem;
-    }
+  #terms-and-conditions {
+    width: 70%;
+    margin-top: 5rem;
+  }
 }

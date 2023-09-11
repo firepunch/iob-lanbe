@@ -27,35 +27,29 @@ export default async function PrivacyPolicy({
 
         <p>{t('privacy-policies-4')}</p>
 
-        <p>
-          <b>{t('privacy-policies-5')}</b><br/>
-          {t('privacy-policies-6')}<br/> 
-          {t('privacy-policies-7')}
-        </p>
+        <ul>
+          <li className="list-title">{t('privacy-policies-5')}</li>
+          <li>{t('privacy-policies-6')}</li>
+          <li>{t('privacy-policies-7')}</li>
+        </ul>
 
-        <p>
-          <b>{t('privacy-policies-8')}</b><br/>
-          {t('privacy-policies-9')}<br/> 
-          {t('privacy-policies-10')}
-        </p>
+        <ul>
+          <li className="list-title">{t('privacy-policies-11')}</li>
+          <li>{t('privacy-policies-12')}</li>
+          <li>{t('privacy-policies-13')}</li>
+        </ul>
 
-        <p>
-          <b>{t('privacy-policies-11')}</b><br/>
-          {t('privacy-policies-12')}<br/> 
-          {t('privacy-policies-13')}
-        </p>
+        <ul>
+          <li className="list-title">{t('privacy-policies-14')}</li>
+          <li>{t('privacy-policies-15')}</li>
+          <li>{t('privacy-policies-16')}</li>
+        </ul>
 
-        <p>
-          <b>{t('privacy-policies-14')}</b><br/>
-          {t('privacy-policies-15')}<br/> 
-          {t('privacy-policies-16')}
-        </p>
-
-        <p>
-          <b>{t('privacy-policies-17')}</b><br/>
-          {t('privacy-policies-18')}<br/> 
-          {t('privacy-policies-19')}
-        </p>
+        <ul>
+          <li className="list-title">{t('privacy-policies-17')}</li>
+          <li>{t('privacy-policies-18')}</li>
+          <li>{t('privacy-policies-19')}</li>
+        </ul>
 
         <p>
           {t('privacy-policies-20')}
@@ -74,8 +68,6 @@ export default async function PrivacyPolicy({
             <b>{t('list-title-1')}</b>
           </li>
           <li>{t('list-title-1-2')}</li>
-          <li>{t('list-title-1-3')}</li>
-          <li>{t('list-title-1-4')}</li>
           <li>{t('list-title-1-5')}</li>
           <li>{t('list-title-1-6')}</li>
         </ul>
@@ -164,9 +156,6 @@ export default async function PrivacyPolicy({
         </p>
 
         <p>
-          {t('personal-14')}           
-        </p>
-        <p>
           {t('personal-15')}
         </p>
 
@@ -179,15 +168,10 @@ export default async function PrivacyPolicy({
         </p>
 
         <h3>
-          {t('cookie-policy')}
+          {t('personal-18-0')}
         </h3>
 
-        <p>
-          {t('personal-18')}
-          <Link href={{ pathname: `/${lang}/cookie-policy` }} >
-            {t('cookie-link')}
-          </Link>
-        </p>
+        <p>{t('personal-18')}</p>
 
         <p>
           {t('cookie-policy-1')}   
@@ -214,7 +198,11 @@ export default async function PrivacyPolicy({
         </p>
 
         <p>
-          {t('cookie-policy-7')}   
+          {t('cookie-policy-7')}
+          <Link href={{ pathname: `/${lang}/cookie-policy` }} >
+            {t('cookie-policy-link')}
+          </Link>
+          {t('cookie-policy-7-2')}
         </p>
 
 
@@ -263,13 +251,7 @@ export default async function PrivacyPolicy({
             {t('retention-7')}   
           </li>
           <li>
-            {t('retention-8')} 
-          </li>
-          <li>
             {t('retention-9')}   
-          </li>
-          <li>
-            {t('retention-10')}   
           </li>
           <li>
             {t('retention-11')}   
@@ -337,42 +319,46 @@ export default async function PrivacyPolicy({
 
         <p>{t('notification-dash')}</p>
 
-        <p> {t('manager')}</p>
-        <p> {t('manager-1')}</p>
-        <p> {t('manager-2')}</p>
-        <p> {t('manager-3')}</p>
+        {lang === 'ko' && (
+          <>
+            <ul>
+              <li className="list-title">{t('manager')}</li>
+              <li>{t('manager-1')}</li>
+              <li>{t('manager-2')}</li>
+              <li>{t('manager-3')}</li>
+            </ul>
 
-        <p>{t('notification-dash')}</p>
+            <p>{t('notification-dash')}</p>
         
-        <p> {t('organization')}</p>
-        <ul>
-          <li>
-            {t('organization-1')}
-            <Link href={{ pathname: `http://www.118.or.kr` }} >
+            <ul>
+              <li className="list-title">{t('organization')}</li>
+              <li>
+                {t('organization-1')}
+                <Link href={{ pathname: `http://www.118.or.kr` }} >
             http://www.118.or.kr
-            </Link>
-          </li>
-          <li>
-            {t('organization-2')}
-            <Link href={{ pathname: `http://cyberbureau.police.go.kr` }} >
+                </Link>
+              </li>
+              <li>
+                {t('organization-2')}
+                <Link href={{ pathname: `http://cyberbureau.police.go.kr` }} >
                 http://cyberbureau.police.go.kr
-            </Link>
-          </li>
-          <li>
-            {t('organization-3')}
-            <Link href={{ pathname: `http://www.spo.go.kr` }} >
+                </Link>
+              </li>
+              <li>
+                {t('organization-3')}
+                <Link href={{ pathname: `http://www.spo.go.kr` }} >
                 http://www.spo.go.kr
-            </Link>
-          </li>
-        </ul>
+                </Link>
+              </li>
+            </ul>
+            <p>{t('notification-dash')}</p>
+          </>  
+        )}
 
-        <p>{t('notification-dash')}</p>
         <p>{t('date')}</p>
 
 
       </section>
-      {/* //section: privacy policies */}
-
     </>
   )
 }

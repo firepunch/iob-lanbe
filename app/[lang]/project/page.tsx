@@ -17,12 +17,14 @@ import MarketIcon from '@/imgs/marketanalysis.jpg'
 import SocialmediaIcon from '@/imgs/socialmedia.jpg'
 import StrategyIcon from '@/imgs/strategy.jpg'
 import UiUxIcon from '@/imgs/uiux.jpg'
+import { useRouter } from 'next/navigation'
 
-export default function Search({
+export default function Project({
   params: { lang },
 }: {
   params: { lang: ValidLocale; },
 }) {
+  const router = useRouter()
   const { t } = useTranslation(lang, 'project')
   const [errorCode, setErrorCode] = useState()
 
@@ -31,8 +33,8 @@ export default function Search({
 
     try {
       const formData = new FormData(e.currentTarget)
-      const { code } = await ProjectInquiry(formData)
-      setErrorCode(code)
+      await ProjectInquiry(formData)
+      router.replace(`/${lang}/project/success`)
     } catch (error) {
       console.error('error: ', error)
     }
@@ -62,7 +64,7 @@ export default function Search({
 
         {/* first intro text */}
         <div id="proj-intro">
-          <h3>{t('proj-intro-1')}<br/>{t('proj-intro-1-1')}</h3>
+          <h3>{t('proj-intro-1')}{t('proj-intro-1-1')}</h3>
           <p>{t('proj-intro-2')}</p>
           <p>{t('proj-intro-3')}</p>
         </div>
@@ -284,7 +286,7 @@ export default function Search({
             </div>
     
             <div className="partners">
-              <p>79</p>
+              <p>14</p>
               <p>{t('partners')}</p>
             </div>
           </div>
@@ -311,7 +313,7 @@ export default function Search({
     
               <div className="network">
                 <p>13+</p>
-                <p>{t('business')}<br/>{t('development')}</p>
+                <p>{t('business')}{t('development')}</p>
               </div>
     
               <div className="network">
@@ -332,11 +334,7 @@ export default function Search({
       {/* //section 2: main body */}
 
       {/* project inquiry */}
-      <ProjectForm
-        t={t} 
-        errorCode={errorCode}
-        onSubmit={handleSubmit} 
-      />
+      <ProjectForm t={t} onSubmit={handleSubmit} />
     </>
   )
 }

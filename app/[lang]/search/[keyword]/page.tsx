@@ -10,6 +10,7 @@ import { ValidLocale } from '@/i18n/settings'
 import useContentState from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { formatSearchTaxQuery } from '@/utils/lib'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function Search({
@@ -17,10 +18,10 @@ export default function Search({
 }: {
   params: { lang: ValidLocale; keyword: string },
 }) {
+  const router = useRouter()
   const { _hasHydrated, user } = useStore(useUserState, state => state, INIT_USER_STATE)
   const { searchResult, recommend, mergeSearchResult, updateRecommend } = useContentState(state => state)
   const { t } = useTranslation(lang, 'search')
-  const totalLength = (searchResult?.posts?.length || 0) + (searchResult?.reports?.length || 0)
   const [showSearchWall, setShowSearchWall] = useState(false)
   const [fetchParams, setFetchParams] = useState({
     lang,
@@ -41,36 +42,32 @@ export default function Search({
   }, [])
 
   useEffect(() => {
-    getSearchResults({
-      ...fetchParams,
-      taxQuery: formatSearchTaxQuery(fetchParams.keyword),
-      keyword: '',
-    }).then(taxResult => {
-      mergeSearchResult(taxResult, keyword)
-    })
+    if (fetchParams.keyword !== '') {
+      getSearchResults({
+        ...fetchParams,
+        taxQuery: formatSearchTaxQuery(fetchParams.keyword, lang),
+        keyword: '',
+      }).then(taxResult => {
+        mergeSearchResult(taxResult, keyword)
+      })
 
-    getSearchResults({
-      ...fetchParams,
-    }).then(keyResult => {
-      mergeSearchResult(keyResult, keyword)
-    })
-  }, [fetchParams.keyword])
+      getSearchResults({
+        ...fetchParams,
+      }).then(keyResult => {
+        mergeSearchResult(keyResult, keyword)
+      })
+    }
+  }, [fetchParams])
   
   useEffect(() => {
-    if (user?.databaseId !== 0) {
+    if (keyword !== '' && user?.databaseId !== 0) {
       setFetchParams(prev => ({
         ...prev,
         userId: user.databaseId,
+        keyword: decodeURIComponent(keyword),
       }))
     }
-  }, [user])
-
-  useEffect(() => {
-    setFetchParams(prev => ({
-      ...prev,
-      keyword: decodeURIComponent(keyword),
-    }))
-  }, [keyword])
+  }, [user, keyword])
 
   const handleReload = async () => {
     setFetchParams(prev => ({
@@ -85,12 +82,16 @@ export default function Search({
     try {
       const formData = new FormData(e.currentTarget)
       await sendSearchRequestForm(formData)
+      router.replace(`/${lang}/search/success`)
     } catch (error) {
       console.error(error)
     }
   }
 
-  if ((!searchResult?.keyword && searchResult?.keyword !== fetchParams?.keyword) || !_hasHydrated) {
+  if (
+    (!searchResult?.keyword && searchResult?.keyword !== fetchParams?.keyword) || 
+    !_hasHydrated
+  ) {
     return <div></div>
   }
   
@@ -100,14 +101,14 @@ export default function Search({
         <SearchWall lang={lang} onClose={() => setShowSearchWall(false)} />
       )}
 
-      <section className={`search-result-text ${Boolean(totalLength) ? '' : 'search-noresult-text'}`}>
+      <section className={`search-result-text ${Boolean(searchResult.total) ? '' : 'search-noresult-text'}`}>
         {lang === 'en' ? (
-          <p>{totalLength}{t('results_for')}{`'${fetchParams.keyword}'`}</p>
+          <p>{searchResult.total}{t('results_for')}{`'${fetchParams.keyword}'`}</p>
         ) : (
-          <p>{`'${fetchParams.keyword}'`}{t('results_for')}{totalLength}{t('results_for2')}</p>
+          <p>{`'${fetchParams.keyword}'`}{t('results_for')}{searchResult.total}{t('results_for2')}</p>
         )}
 
-        {totalLength === 0 && (
+        {searchResult.total === 0 && (
           <p className="no-result-notice">
             {lang === 'en' ? (
               <>
@@ -131,7 +132,7 @@ export default function Search({
         )}
       </section>
 
-      {totalLength !== 0  ? (
+      {searchResult.total !== 0  ? (
         <>
           <section id="search-result-contents">
             <div className="sr-content-title">

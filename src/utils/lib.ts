@@ -143,19 +143,19 @@ export const formatPostTaxQuery = (
   return { relation: 'AND', taxArray }
 }
 
-export const formatSearchTaxQuery = (keyword: string) => {
+export const formatSearchTaxQuery = (keyword: string, lang:string) => {
   let taxArray: any[] = []
   if (keyword) {
     taxArray = [{
-      terms: [keyword],
+      terms: [keyword.toLowerCase().replaceAll(' ', '-') + `-${lang}`],
       taxonomy: 'CATEGORY',
       operator: 'IN',
-      field: 'NAME',
+      field: 'SLUG',
     }, {
-      terms: [keyword],
+      terms: [keyword.toLowerCase().replaceAll(' ', '-') + `-${lang}`],
       taxonomy: 'TAG',
       operator: 'IN',
-      field: 'NAME',
+      field: 'SLUG',
     }]
   }
   return { relation: 'OR', taxArray }

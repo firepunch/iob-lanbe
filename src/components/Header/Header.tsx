@@ -59,7 +59,7 @@ export default function Header({
                 <p>{t('content_intro')}</p>
 
                 <Link href={`/${lang}/category`}>
-                  <Icons type="arrowWhite" />
+                  <Icons type="arrowWhite" className="see-all-arrow"/>
                   {t('content_see_all')}
                 </Link>
               </div>

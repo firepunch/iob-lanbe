@@ -230,7 +230,7 @@ export default function Home({
               {t('project-desc')}
             </p>
 
-            <Link href={{ pathname: `/${lang}/project` }} className="cta-web-proj">
+            <Link href={{ pathname: `/${lang}/project` }} className="cta-web-proj project-cta-mobile">
               <Icons type="arrowBlack" />
               <p>{t('see-details')}</p>
             </Link>
