@@ -127,28 +127,14 @@ export default function Report({
           </div>
         </section>
 
-        {user.databaseId ? (
-          <DownloadWall 
-            t={t}
-            bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
-            downloadLink={report.lanbeReportFields?.downloadFile?.link || ''}
-            onDownload={handleUpdateCount}
-          />
-        ) : (
-          <section id="report-price-cta">
-            <div id="report-price-cta-wrap">
-              <div className="report-title">
-                <h4>{report.title}</h4>
-              </div>
-              <div className="report-cta">
-                <p>{t('sign_in_cta')}</p>
-                <Link href={`/${lang}/sign-in`}>
-                  {t('sign_in')}
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
+        <DownloadWall 
+          lang={lang}
+          t={t}
+          userId={user.databaseId}
+          bgImage={report.lanbeReportFields?.thirdImage?.link || report.featuredImage?.node?.sourceUrl || ''}
+          downloadLink={report.lanbeReportFields?.downloadFile?.link || ''}
+          onDownload={handleUpdateCount}
+        />
        
       </div>
     </>
