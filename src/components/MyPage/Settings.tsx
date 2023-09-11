@@ -87,6 +87,7 @@ export default function Settings({
         }))
       } else if (result.message) {
         setInfoMessage(result.message)
+        setErrorMessages({})
       } else {
         setInfoMessage(t('updated_userinfo_success'))
         setErrorMessages({})
