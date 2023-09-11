@@ -46,33 +46,7 @@ $bold-font-weight: 600;
 }
 
 .iob-ko {
-  #main-content {
+  .content-article {
     line-height: 1.85rem;
-  }
-}
-
-#main-content {
-  line-height: 1.5rem;
-
-  h2 {
-    font-size: $large-font-size;
-    // 2.25rem
-  }
-
-  strong {
-    font-size: 1.15rem;
-    margin: 2rem 0;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  h5 {
-    font-size: 1.25rem;
-  }
-
-  mark {
-    background-color: $lime;
   }
 }

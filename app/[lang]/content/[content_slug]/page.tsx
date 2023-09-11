@@ -148,14 +148,6 @@ export default function Category({
             )}
           </section>
           <section id="main-content">
-            <PostOptions
-              isSaved={post.lanbeContent.is_save}
-              metaKey={META_KEY}
-              contentId={post?.databaseId}
-              onFontSize={handleFontSize}
-              onFetchData={handleReload}
-            />
-
             {/* content details: title, author, tags, date, etc. */}
             <div id="content-details">
               {post.tags?.edges && (
@@ -179,15 +171,23 @@ export default function Category({
               </div>
             </div>
 
-            <div
-              className={`content-article ${isZoomed ? 'zoomed' : ''}`}
-              dangerouslySetInnerHTML={{ 
-                __html: user?.databaseId === 0 ? 
-                  post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
+            <div className={`content-article ${isZoomed ? 'zoomed' : ''}`}>
+              <PostOptions
+                isSaved={post.lanbeContent.is_save}
+                metaKey={META_KEY}
+                contentId={post?.databaseId}
+                onFontSize={handleFontSize}
+                onFetchData={handleReload}
+              />
+              <div
+                dangerouslySetInnerHTML={{ 
+                  __html: user?.databaseId === 0 ? 
+                    post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
                   post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE :
-                  post.content,
-              }} 
-            />
+                    post.content,
+                }} 
+              />
+            </div>
 
             {user?.databaseId === 0 && (
               <ContentWall lang={lang} t={t} />
