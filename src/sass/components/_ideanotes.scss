@@ -112,6 +112,8 @@
 
   .user-note {
     width: 100%;
+    height: rem(160);
+    overflow: scroll;
     line-height: 1.15rem;
     margin: 0;
   }
@@ -168,21 +170,15 @@
 */
 .idea-note-wrap {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  max-width: rem(950);
+  grid-template-columns: repeat(1, 18rem);
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
 
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 18rem);
     gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    row-gap: 2rem;
-  }
-
-  @media (min-width: 1400px) {
-    width: 80%;
-    margin: auto;
   }
 }
 
@@ -191,29 +187,34 @@
 */
 .ideanotes-designs {
   width: 100%;
+  max-width: rem(950);
   margin: 1rem auto;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1, 18rem);
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
 
   @media (min-width: 576px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 18rem);
     gap: 1rem;
   }
 
   @media (min-width: 768px) {
-    width: 90%;
     margin-top: rem(90);
   }
 
   @media (min-width: 992px) {
-    margin: 3rem;
+    margin-top: 3rem;
   }
 
-  @media (min-width: 1200px) {
-    width: 60%;
+  @media (min-width: 1300px) {
+    grid-template-columns: repeat(3, 18rem);
+    justify-content: flex-start;
+    max-width: none;
   }
-  @media (min-width: 1200px) {
-    width: 80%;
+
+  @media (min-width: 2048px) {
+    grid-template-columns: repeat(4, 18rem);
   }
 }

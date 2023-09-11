@@ -702,7 +702,7 @@
   }
 
   #idea-notes {
-    width: 70%;
+    width: 35%;
   }
 
   #recommended-content {
@@ -726,13 +726,6 @@
   }
 }
 
-@media (min-width: 992px) {
-  #idea-notes {
-    width: 50%;
-    padding-bottom: 5rem;
-  }
-}
-
 @media (min-width: 1200px) {
   #main-content {
     #main-body-1 {
@@ -743,10 +736,6 @@
         }
       }
     }
-  }
-
-  #idea-notes {
-    width: 45%;
   }
 }
 
@@ -786,10 +775,5 @@
         width: 35vw;
       }
     }
-  }
-
-  #idea-notes {
-    width: 50%;
-    padding-bottom: 3.5rem;
   }
 }
