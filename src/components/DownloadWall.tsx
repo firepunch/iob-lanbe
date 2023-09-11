@@ -54,7 +54,7 @@ export default function DownloadWall({
             {t('sign_in')}
           </Link>
 
-          <div className="download-text">
+          <div className="download-text sign-in-text">
             <p>{t('sign_in_cta')}</p>
           </div>
         </>
