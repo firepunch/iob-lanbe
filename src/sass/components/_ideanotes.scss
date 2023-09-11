@@ -113,7 +113,8 @@
   .user-note {
     width: 100%;
     height: rem(160);
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     line-height: 1.15rem;
     margin: 0;
   }
