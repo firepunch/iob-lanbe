@@ -2,11 +2,10 @@
 
 import { updatePassword } from '@/api_wp'
 import { InputField } from '@/components'
-import withNoAuth from '@/hocs/withNoAuth'
 import { useTranslation } from '@/i18n/client'
 import { TStringObj, ValidLocale } from '@/types'
 import Link from 'next/link'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 const SignInPasswordChange = ({

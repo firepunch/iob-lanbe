@@ -126,7 +126,7 @@ export async function updatePassword(data) {
     data,
   })
 
-  return res?.data
+  return res
 }
 
 export async function fetchCountContent(queryParams: ICountData) {
