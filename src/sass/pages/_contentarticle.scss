@@ -122,14 +122,6 @@
     }
   }
 
-  .signin-wall,
-  .signin-wall .button-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
   .signin-wall {
     width: 100%;
     padding: rem(24) rem(33);
@@ -137,6 +129,8 @@
     background-color: $white;
     border-top: 1px solid $black;
     border-bottom: 1px solid $black;
+    @include flex-center;
+    flex-direction: column;
 
     p {
       text-align: center;
@@ -155,6 +149,9 @@
     }
 
     .button-wrapper {
+      @include flex-center;
+      flex-direction: column;
+      max-width: rem(500);
       width: 100%;
 
       a {
@@ -192,14 +189,14 @@
     }
 
     figure.size-large {
-      width: 100vw;
+      width: calc(100vw - 0.9rem);
       margin-left: -1.5rem;
       margin-top: 2rem;
       margin-bottom: 4rem;
 
       img {
         width: 100%;
-        // padding-left: 5vw;
+        cursor: default;
       }
     }
 
