@@ -138,7 +138,7 @@ export default function Category({
             </div>
             {post?.featuredImage && (
               <Image 
-                id="content-thumbnail-img"
+                className="content-thumbnail-img"
                 src={post.featuredImage?.node.sourceUrl} 
                 alt={post.featuredImage?.node.altText} 
                 width={0}
@@ -149,13 +149,13 @@ export default function Category({
           </section>
           <section id="main-content">
             {/* content details: title, author, tags, date, etc. */}
-            <div id="content-details">
+            <div id="content-details" className="content-details">
               {post.tags?.edges && (
                 <Tags lang={lang} tags={post.tags} />
               )}
 
-              <div className="title-save">
-                <h3>{post?.title}</h3>
+              <div className="content-title">
+                <h3 className="h3">{post?.title}</h3>
                 <Bookmark 
                   isBlack
                   isSaved={post?.lanbeContent?.is_save}
@@ -166,20 +166,23 @@ export default function Category({
               </div>
 
               <div className="author-date">
-                <p>By {getAuthorInfo(post.author)}</p>
-                <p>{dateEnFormat(post?.date)}</p>
+                <p className="author">By {getAuthorInfo(post.author)}</p>
+                <p className="date">{dateEnFormat(post?.date)}</p>
               </div>
             </div>
 
             <div className={`content-article ${isZoomed ? 'zoomed' : ''}`}>
-              <PostOptions
-                isSaved={post.lanbeContent.is_save}
-                metaKey={META_KEY}
-                contentId={post?.databaseId}
-                onFontSize={handleFontSize}
-                onFetchData={handleReload}
-              />
+              {user?.databaseId && (
+                <PostOptions
+                  isSaved={post.lanbeContent.is_save}
+                  metaKey={META_KEY}
+                  contentId={post?.databaseId}
+                  onFontSize={handleFontSize}
+                  onFetchData={handleReload}
+                />
+              )}
               <div
+                className="wordpress-content"
                 dangerouslySetInnerHTML={{ 
                   __html: user?.databaseId === 0 ? 
                     post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
