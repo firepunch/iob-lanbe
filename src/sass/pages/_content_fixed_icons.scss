@@ -1,13 +1,28 @@
-// fixed icons on right side
+.iob-single-content.guest-user {
+  #content-fixed-icons .buttons-wrap {
+    display: none;
+  }
+}
+
 #content-fixed-icons {
   width: 2.5rem;
   height: 0;
   z-index: 10;
 
   display: block;
+  float: right;
   position: sticky;
   top: 60%;
-  left: 85%;
+
+  @media (min-width: 576px) {
+    margin-right: -#{rem(15)};
+    top: 50%;
+  }
+
+  @media (min-width: 768px) {
+    margin-right: -#{rem(70)};
+    top: 35%;
+  }
 
   .buttons-wrap {
     & > button,
@@ -92,18 +107,5 @@
         padding-top: 0;
       }
     }
-  }
-}
-
-@media (min-width: 576px) {
-  #content-fixed-icons {
-    left: 90%;
-    top: 50%;
-  }
-}
-
-@media (min-width: 768px) {
-  #content-fixed-icons {
-    top: 35%;
   }
 }
