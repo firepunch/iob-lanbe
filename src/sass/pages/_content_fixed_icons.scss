@@ -24,6 +24,10 @@
     top: 35%;
   }
 
+  @media (min-width: 1080px) {
+    margin-right: -#{rem(140)};
+  }
+
   .buttons-wrap {
     & > button,
     .share-button > button {
