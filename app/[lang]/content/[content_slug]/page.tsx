@@ -172,7 +172,7 @@ export default function Category({
             </div>
 
             <div className={`content-article ${isZoomed ? 'zoomed' : ''}`}>
-              {user?.databaseId && (
+              {user?.databaseId ? (
                 <PostOptions
                   isSaved={post.lanbeContent.is_save}
                   metaKey={META_KEY}
@@ -180,7 +180,7 @@ export default function Category({
                   onFontSize={handleFontSize}
                   onFetchData={handleReload}
                 />
-              )}
+              ) : null}
               <div
                 className="wordpress-content"
                 dangerouslySetInnerHTML={{ 
