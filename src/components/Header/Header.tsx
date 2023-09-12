@@ -69,19 +69,19 @@ export default function Header({
                   <li>{ct('market_research')}</li>
                   <li>
                     <Link href={`/${lang}/category/?name=market`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow"/>
                       {ct('market')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=corporate`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow"/>
                       {ct('corporate')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=consumer`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow"/>
                       {ct('consumer')}
                     </Link>
                   </li>
@@ -91,25 +91,25 @@ export default function Header({
                   <li>{ct('market_entry')}</li>
                   <li>
                     <Link href={`/${lang}/category/?name=marketing`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow" />
                       {ct('marketing')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=partnership`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow" />
                       {ct('partnership')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=channel`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow" />
                       {ct('channel')}
                     </Link>
                   </li>
                   <li>
                     <Link href={`/${lang}/category/?name=payment`}>
-                      <Icons type="arrowWhite" />
+                      <Icons type="arrowWhite" className="submenu-arrow" />
                       {ct('payment')}
                     </Link>
                   </li>

@@ -64,33 +64,33 @@
     }
 
     @media (min-width: 992px) {
-      img:not(.language-icon, .see-all-arrow) {
+      img:not(.language-icon, .see-all-arrow, .submenu-arrow) {
         filter: invert(100);
         transition: all 0.3s ease-in;
       }
     }
   }
+}
 
-  &.iob-scroll {
-    h1,
-    .center-nav,
-    .right-nav {
-      color: $black;
+.iob-project.iob-scroll {
+  h1,
+  .center-nav,
+  .right-nav {
+    color: $black;
+  }
+
+  .language-icon,
+  .hamburger-mobile img {
+    filter: invert(100);
+  }
+
+  @media (min-width: 992px) {
+    header img:not(.see-all-arrow) {
+      filter: none;
     }
 
-    .language-icon,
-    .hamburger-mobile img {
+    .right-nav .language-link img {
       filter: invert(100);
-    }
-
-    @media (min-width: 992px) {
-      header img:not(.see-all-arrow) {
-        filter: none;
-      }
-
-      .right-nav .language-link img {
-        filter: invert(100);
-      }
     }
   }
 }
