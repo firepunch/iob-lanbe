@@ -2,15 +2,6 @@
 $wp-side-padding: rem(32);
 $wp-side-padding-pc: rem(48);
 
-@mixin full-img-center {
-  // width: 100vw;
-  // position: relative;
-  // top: 0;
-  // left: 50%;
-  // transform: translateX(-50%);
-  overflow-x: hidden;
-}
-
 .iob-single-content {
   h2.title {
     font-size: rem(30);
@@ -196,12 +187,11 @@ $wp-side-padding-pc: rem(48);
     margin: rem(40) 0 rem(80);
 
     &.alignfull {
-      @include full-img-center;
-      // margin-left: -$wp-side-padding;
-
-      img {
-        // width: 100vw !important;
-      }
+      width: calc(100vw + 2.2rem);
+      position: relative;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
 
       .wp-element-caption {
         margin-left: -$wp-side-padding;
@@ -262,7 +252,7 @@ $wp-side-padding-pc: rem(48);
     .wp-block-group,
     .wp-block-image {
       &.alignfull {
-        margin-left: 0;
+        width: calc(100vw - 1rem);
 
         .wp-element-caption {
           margin-left: 0;
