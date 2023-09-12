@@ -436,6 +436,22 @@ export default async function TermsConditions({
           {t('article18-1')}
         </p>
 
+        <p>
+          {t('article18-2')}
+        </p>
+
+        <p>
+          {t('article18-3')}
+        </p>
+
+        <p>
+          {t('article18-4')}
+        </p>
+
+        <p>
+          {t('article18-5')}
+        </p>
+
         <h3>
           {t('article19')}
         </h3>

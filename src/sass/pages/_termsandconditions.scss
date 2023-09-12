@@ -17,10 +17,6 @@
   margin: auto;
   margin-top: 3rem;
 
-  .number-list li {
-    list-style: decimal;
-  }
-
   p {
     line-height: 1.5rem;
     margin-bottom: 1.5rem;
@@ -37,7 +33,7 @@
       line-height: 1.5rem;
       margin: 0.5rem 0;
       margin-left: 2rem;
-      list-style-type: "- ";
+      list-style-type: none;
     }
 
     .nested-list {
