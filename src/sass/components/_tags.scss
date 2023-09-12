@@ -31,5 +31,10 @@
   .tags {
     width: 95%;
     margin: auto 0;
+
+    .indiv-tag {
+      padding: 1rem;
+      font-size: rem(18);
+    }
   }
 }
