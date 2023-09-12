@@ -184,9 +184,10 @@ export default function Category({
               <div
                 className="wordpress-content"
                 dangerouslySetInnerHTML={{ 
-                  __html: user?.databaseId === 0 ? 
+                  __html: user?.databaseId === 0 ? (
                     post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
-                  post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE :
+                    post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE 
+                  ) :
                     post.content,
                 }} 
               />

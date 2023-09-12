@@ -67,6 +67,10 @@ $wp-side-padding-pc: rem(48);
     padding-right: 0;
   }
 
+  sub {
+    font-size: rem(12);
+    padding: 0 rem(2);
+  }
   a {
     text-decoration-line: underline;
     text-decoration-color: #0094ff;
