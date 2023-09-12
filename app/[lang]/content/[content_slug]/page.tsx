@@ -1,20 +1,20 @@
 'use client'
 
-import { getAllPosts, getContentBySlug, getContents } from '@/api_gql'
-import { createNote, createWatchList, deleteNote, fetchNotes, removeWatchList, updateCountView, updateNote } from '@/api_wp'
+import { getAllPosts, getContentBySlug } from '@/api_gql'
+import { fetchNotes, updateCountView } from '@/api_wp'
 import { Bookmark, ContentWall, Icons, IdeaNote, PostCard, PostOptions, Tags } from '@/components'
+import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import useContentState, { INIT_CONTENT_STATE } from '@/stores/contentStore'
+import useContentState from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import { MetaKey } from '@/types/api'
 import { dateEnFormat, getAuthorInfo, getCountry } from '@/utils/lib'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import useStore from '@/hooks/useStore'
-import { MetaKey } from '@/types/api'
 
-const FIRST_IMAGE = '<h4 class=\"wp-block-heading\"><strong>'
+const FIRST_IMAGE = '<h2 class=\"wp-block-heading\"><strong>'
 export default function Category({
   params,
 }: {
