@@ -1,3 +1,377 @@
+// Content
+$wp-side-padding: rem(32);
+$wp-side-padding-pc: rem(48);
+
+.iob-single-content {
+  h2.title {
+    font-size: rem(30);
+  }
+
+  #main-content {
+    width: 100%;
+    max-width: rem(680);
+    padding: $wp-side-padding;
+    margin: auto;
+
+    @media (min-width: 768px) {
+      padding: $wp-side-padding-pc;
+    }
+
+    @media (min-width: 1024px) {
+      padding: rem(100) 0;
+    }
+  }
+
+  .content-title-page {
+    .content-thumbnail-img {
+      width: 100%;
+      max-height: 100%;
+      @include background(50%);
+      cursor: cursor !important;
+    }
+  }
+}
+
+.iob-single-content .content-details {
+  .content-title {
+    display: flex;
+    justify-content: space-between;
+    margin: rem(9) 0;
+  }
+
+  .h3 {
+    max-width: rem(600);
+    font-size: rem(20);
+    margin: 0;
+  }
+
+  .author-date {
+    font-weight: $thin-font-weight;
+    font-size: rem(14);
+
+    .date {
+      margin-top: rem(5);
+      color: #969696;
+    }
+  }
+}
+
+.iob-single-content .wordpress-content {
+  padding-right: rem(50);
+  font-weight: $thin-font-weight;
+  line-height: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+
+  @media (min-width: 768px) {
+    padding-right: 0;
+  }
+
+  a {
+    color: #0094ff;
+    text-decoration: underline;
+  }
+
+  ul {
+    padding-left: $wp-side-padding;
+    margin: 0 0 rem(38) 0;
+
+    li {
+      list-style: disc;
+    }
+  }
+
+  p {
+    padding: 0;
+    margin: 0 0 rem(38) 0;
+  }
+
+  & > p:first-child {
+    // Excerpt
+    display: block;
+    font-size: rem(18);
+    font-weight: $bold-font-weight;
+    margin: rem(35) 0 rem(40);
+  }
+
+  h2.wp-block-heading {
+    font-size: rem(20);
+    font-weight: $bold-font-weight;
+    margin: rem(68) 0 rem(30);
+
+    &:first-of-type {
+      // Why it matters
+      font-style: italic;
+    }
+  }
+
+  h3.wp-block-heading {
+    font-size: rem(18);
+    font-weight: $bold-font-weight;
+    margin: rem(30) 0;
+  }
+
+  .wp-block-quote {
+    margin: 0;
+    padding: rem(34) 0 rem(44);
+    border-top: 2px solid $black;
+    border-bottom: 2px solid $black;
+
+    p {
+      margin-left: rem(40);
+      margin-right: rem(40);
+      font-weight: $bold-font-weight;
+    }
+
+    cite {
+      position: relative;
+      float: right;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -#{rem(24)};
+        width: rem(20);
+        height: 1px;
+        background-color: $black;
+      }
+    }
+
+    &::before {
+      content: "I.O.B Perspective";
+      display: block;
+      margin-bottom: rem(34);
+      font-size: rem(20);
+      font-weight: $bold-font-weight;
+    }
+
+    p:first-child {
+      position: relative;
+
+      &::before {
+        content: "“";
+        position: absolute;
+        top: 0;
+        left: -#{rem(40)};
+        display: block;
+        font-size: rem(50);
+      }
+    }
+
+    p:last-of-type {
+      position: relative;
+
+      &::after {
+        content: "”";
+        position: absolute;
+        bottom: -#{rem(24)};
+        right: -#{rem(40)};
+        display: block;
+        font-size: rem(50);
+      }
+    }
+  }
+
+  .wp-block-separator {
+    border: 2px solid $black;
+    margin: rem(60) 0;
+
+    & + .wp-block-heading {
+      margin-top: 0;
+    }
+  }
+
+  .wp-block-group,
+  .wp-block-image {
+    margin: rem(40) 0 rem(80);
+
+    &.alignfull {
+      width: calc(100vw + 2.2rem);
+      position: relative;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .wp-element-caption {
+        margin-left: -$wp-side-padding;
+      }
+    }
+
+    img {
+      width: 100% !important;
+      object-fit: contain;
+      object-position: center center;
+      cursor: default !important;
+    }
+
+    .wp-element-caption {
+      width: 100%;
+      font-size: rem(14);
+      text-align: center;
+      margin-top: rem(14);
+    }
+  }
+
+  .wp-block-group {
+    .wp-block-image:first-child {
+      margin-bottom: rem(20);
+    }
+  }
+
+  @media (min-width: 576px) {
+    .wp-block-group {
+      // width: 100vw;
+      @include flex-center;
+      align-items: baseline;
+      gap: 1rem;
+      margin-left: -$wp-side-padding;
+
+      &.alignwide,
+      &.is-content-justification-center {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .wp-block-image {
+        width: 50%;
+        @include flex-center;
+        flex-direction: column;
+        margin: 0;
+
+        img {
+          width: 100% !important;
+          height: 100% !important;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .wp-block-group,
+    .wp-block-image {
+      &.alignfull {
+        width: calc(100vw - 1rem);
+
+        .wp-element-caption {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.iob-single-content .zoomed {
+  .wordpress-content {
+    font-size: rem(20);
+    line-height: 1.6;
+
+    & > p:first-child {
+      font-size: rem(23);
+    }
+
+    h2.wp-block-heading {
+      // Excerpt
+      font-size: rem(28);
+    }
+
+    h3.wp-block-heading {
+      font-size: rem(23);
+    }
+
+    .wp-block-quote {
+      &::before {
+        font-size: rem(28);
+      }
+
+      p:first-child {
+        &::before {
+          font-size: rem(70);
+          top: -#{rem(40)};
+        }
+      }
+
+      p:last-of-type {
+        &::after {
+          font-size: rem(70);
+          bottom: -#{rem(70)};
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .iob-single-content .content-details {
+    .content-title {
+      .h3 {
+        font-size: rem(40);
+      }
+    }
+
+    .author-date {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        margin: 0;
+      }
+
+      .author {
+        font-size: rem(24);
+      }
+
+      .date {
+        font-size: rem(20);
+      }
+    }
+  }
+
+  .iob-single-content .wordpress-content {
+    font-size: rem(18);
+    font-weight: $regular-font-weight;
+    line-height: 1.5;
+
+    & > p:first-child {
+      // Excerpt
+      font-size: rem(22);
+      margin: rem(80) 0;
+      line-height: 1.3;
+    }
+
+    h2.wp-block-heading {
+      font-size: rem(24);
+    }
+
+    h3.wp-block-heading {
+      font-size: rem(22);
+    }
+
+    .wp-block-quote {
+      &::before {
+        font-size: rem(24);
+      }
+
+      p:first-child {
+        &::before {
+          font-size: rem(70);
+          top: -#{rem(40)};
+        }
+      }
+
+      p:last-of-type {
+        &::after {
+          font-size: rem(70);
+          bottom: -#{rem(70)};
+        }
+      }
+    }
+  }
+}
+
+// Common
 img {
   height: auto;
 }
