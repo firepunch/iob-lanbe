@@ -16,6 +16,8 @@
   width: 85%;
   margin: auto;
   margin-top: 3rem;
+  word-wrap: break-word;
+  word-break: keep-all;
 
   p {
     line-height: 1.5rem;
@@ -38,13 +40,14 @@
       margin-left: 2rem;
       list-style-type: "- ";
     }
+  }
 
-    .list-title {
-      list-style: none;
-      margin-left: 0.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
+  .list-title {
+    list-style: none;
+    margin-left: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: $bold-font-weight;
   }
 }
 

@@ -1,8 +1,6 @@
 import '@/sass/main.scss'
 import type { Metadata } from 'next'
 
-import FaviconIcon from '/public/favicon/favicon.ico'
-
 export const metadata: Metadata = {
   title: 'Ideas on board',
   description: 'Find your business opportunity',

@@ -16,7 +16,7 @@ export default async function CookiePolicy({
       <div id="cookie-title">
         <h2>{t('cookie-policy')}</h2>
 
-        <Link href={{ pathname: `/${lang}/my-page/settings` }} className="manage-preferences-button">
+        <Link target="_blank" href={{ pathname: `/${lang}/my-page/settings` }} className="manage-preferences-button">
           <Icons type={'arrowBlack'} />
           <p>{t('manage-preferences')}</p>
         </Link>
@@ -35,11 +35,11 @@ export default async function CookiePolicy({
 
         <p>
           {t('other-tracking-1')}
-          <Link href={'https://www.allaboutcookies.org'}>
+          <Link target="_blank" href={'https://www.allaboutcookies.org'}>
           www.allaboutcookies.org
           </Link>
           {t('and')}
-          <Link href={'https://www.youronlinechoices.eu'}>
+          <Link target="_blank" href={'https://www.youronlinechoices.eu'}>
           www.youronlinechoices.eu
           </Link>
           {t('other-tracking-2')}
@@ -139,7 +139,7 @@ export default async function CookiePolicy({
 
         <p>
           {t('refuse-1')}      
-          <Link href={'https://www.allaboutcookies.org'}>
+          <Link target="_blank" href={'https://www.allaboutcookies.org'}>
           www.allaboutcookies.org
           </Link>
           {t('refuse-1-1')}  
@@ -155,11 +155,11 @@ export default async function CookiePolicy({
 
         <p>
           {t('refuse-4')}       
-          <Link href={'https://www.youronlinechoices.eu'}>
+          <Link target="_blank" href={'https://www.youronlinechoices.eu'}>
           www.youronlinechoices.eu
           </Link>
           {t('refuse-5')} 
-          <Link href={'https://www.aboutads.info/choices'}>
+          <Link target="_blank" href={'https://www.aboutads.info/choices'}>
           www.aboutads.info/choices
           </Link>
           {t('refuse-6')} 

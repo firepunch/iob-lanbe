@@ -334,19 +334,19 @@ export default async function PrivacyPolicy({
               <li className="list-title">{t('organization')}</li>
               <li>
                 {t('organization-1')}
-                <Link href={{ pathname: `http://www.118.or.kr` }} >
-            http://www.118.or.kr
+                <Link target="_blank" href={{ pathname: `https://privacy.kisa.or.kr` }} >
+                https://privacy.kisa.or.kr
                 </Link>
               </li>
               <li>
                 {t('organization-2')}
-                <Link href={{ pathname: `http://cyberbureau.police.go.kr` }} >
+                <Link target="_blank" href={{ pathname: `http://cyberbureau.police.go.kr` }} >
                 http://cyberbureau.police.go.kr
                 </Link>
               </li>
               <li>
                 {t('organization-3')}
-                <Link href={{ pathname: `http://www.spo.go.kr` }} >
+                <Link target="_blank" href={{ pathname: `http://www.spo.go.kr` }} >
                 http://www.spo.go.kr
                 </Link>
               </li>
