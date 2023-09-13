@@ -10,7 +10,7 @@ export async function generateMetadata({
   const meta = await getMetaData({
     postSlug: decodeURIComponent(content_slug), 
   })
-  const author = meta.author?.node?.name
+  const author = meta.author?.node?.name?.replace('&amp;', '&')
 
   return meta?.title ? {
     robots: 'index,follow,max-image-preview:large',
