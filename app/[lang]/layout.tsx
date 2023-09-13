@@ -1,75 +1,30 @@
-'use client'
-
-import { Footer, Header, SimpleHeader } from '@/components'
+import { LocalBody } from '@/components'
 import { ValidLocale } from '@/i18n/settings'
-import useUserState from '@/stores/userStore'
-import { IResponseUser } from '@/types/store'
-import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import useHasScroll from '@/hooks/useScroll'
-import classNames from 'classnames'
 
-const SIMPLE_HEADER_MAP = [
-  'sign-in',
-  'sign-up',
-]
-
-const DESIGN_PAGE = [
-  'success',
-  'about',
-  'project',
-  'welcome',
-  'sign-in',
-  'sign-up',
-  'my-page',
-]
+export async function generateMetadata({ params }) {
+  return {
+    openGraph: {
+      title: 'I.O.B',
+      images: 'https://i0.wp.com/api.iob.team/wp-content/uploads/2023/09/link_thumbnail.jpg',
+      description: params?.lang === 'ko' ?
+        '동남아 시장에 진출하는 기업을 위해 비즈니스 콘텐츠를 제공하고 프로젝트를 수행합니다.' :
+        'I.O.B offers curated business content and professional services that help you enter the Southeast Asian market.',
+    },
+  }
+}
 
 export default function LocaleLayout({
-  children,
   params: { lang },
+  children,
 }: {
-  children: React.ReactNode,
   params: { lang: ValidLocale }
+  children: React.ReactNode,
 }) {
-  const pathName = usePathname()
-  const page = DESIGN_PAGE.find(item => (
-    item === 'sign-in' ? 
-      pathName.includes(item) && !pathName.includes('password') : 
-      pathName.includes(item)
-  ))
-  const { user, updateUser } = useUserState(state => state)
-  const [storageUser] = getStorageData(AUTH_TOKEN)
-  const [openMenu, setOpenMenu] = useState<'search' | undefined>()
-  const hasScroll = useHasScroll()
-
-  useEffect(( ) => {
-    if (storageUser && !user) {
-      updateUser(storageUser as IResponseUser)
-    }
-  }, [storageUser])
-
-  const handleOpenMenu = (menu?: 'search' | undefined) => setOpenMenu(menu)
-  
   return (
     <html lang={lang}>
-      <body className={(
-        classNames(`iob-${lang}`, {
-          [`iob-${page}`]: page,
-          ['iob-open']: openMenu,
-          ['iob-scroll']: hasScroll,
-        })
-      )}>
-        {
-          SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
-            <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :
-            <Header lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} />
-        }
-        <main>
-          {children}
-        </main>
-        <Footer lang={lang} />
-      </body>
+      <LocalBody lang={lang}>
+        {children}
+      </LocalBody>
     </html>
   )
 }

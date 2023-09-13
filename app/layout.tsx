@@ -1,5 +1,5 @@
-import '@/sass/main.scss'
 import type { Metadata } from 'next'
+import '@/sass/main.scss'
 
 export const metadata: Metadata = {
   title: 'Ideas on board',
@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'I.O.B',
     description: 'I.O.B offers curated business content and professional services that help you enter the Southeast Asian market.',
-    images: 'https://i0.wp.com/api.iob.team/wp-content/uploads/2023/09/link_thumbnail.jpg',
   },
 }
 
