@@ -71,6 +71,7 @@ $wp-side-padding-pc: rem(48);
     font-size: rem(12);
     padding: 0 rem(2);
   }
+
   a {
     text-decoration-line: underline;
     text-decoration-color: #0094ff;
@@ -89,6 +90,11 @@ $wp-side-padding-pc: rem(48);
   p {
     padding: 0;
     margin: 0 0 rem(24) 0;
+
+    &.has-small-font-size {
+      margin-top: -#{rem(20)};
+      font-size: rem(12);
+    }
   }
 
   & > p:first-child {
@@ -359,6 +365,11 @@ $wp-side-padding-pc: rem(48);
     font-size: rem(18);
     font-weight: $regular-font-weight;
     line-height: 1.5;
+
+    p.has-small-font-size {
+      margin-top: -#{rem(14)};
+      font-size: rem(14);
+    }
 
     & > p:first-child {
       // Excerpt
