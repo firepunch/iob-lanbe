@@ -1,17 +1,42 @@
+import { Icons } from '@/components'
+import { getTranslation } from '@/i18n/index'
 import { ValidLocale } from '@/i18n/settings'
 import Image from 'next/image'
 import Link from 'next/link'
-import  { Icons }  from '@/components'
-import { getTranslation } from '@/i18n/index'
 
-import endToEndIcon from '@/imgs/endtoend.png'
 import insightIcon from '@/imgs/businessinsight.png'
-import ourstoryIcon from '@/imgs/ourstory-growth.png'
-import linkedInIcon from '@/imgs/linkedin.png'
+import endToEndIcon from '@/imgs/endtoend.png'
 import junhaImg from '@/imgs/junhanim.jpg'
-import stayAheadIcon from '@/imgs/stay-ahead.png'
+import linkedInIcon from '@/imgs/linkedin.png'
+import ourstoryIcon from '@/imgs/ourstory-growth.png'
 import realOutcomesIcon from '@/imgs/real-outcomes.png'
+import stayAheadIcon from '@/imgs/stay-ahead.png'
 import growthIcon from '@/imgs/sustain-growth.png'
+import { IOB_KEYWORDS } from '@/utils/constants'
+
+export async function generateMetadata({ params: { lang } }) {
+  return {
+    robots: 'index,follow,max-image-preview:large',
+    title: `${lang === 'ko' ? '소개' : 'About'} | I.O.B`,
+    description: lang === 'ko' ? 
+      '동남아 시장에 최적화된 End-to-End 디지털 솔루션과 비즈니스 인사이트를 제공합니다.' :
+      'We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.',
+    keywords: [...IOB_KEYWORDS, 'trends', '트렌드', 'insights', '인사이트', 'strategies', '전략'],
+    authors: [{
+      name: 'I.O.B',
+    }, {
+      name: 'Junha Son',
+    }],
+    openGraph: {
+      type: 'article',
+      title: `${lang === 'ko' ? '소개' : 'About us'} | I.O.B`,
+      description: lang === 'ko' ?
+        '새롭게 동남아 시장에 진출하는 기업 또는 동남아 내 새로운 국가로 사업을 확장하거나 새로운 성장 전략을 구상하고 있는 기업들과 협력합니다. 동남아 시장에 대한 전문성을 기반으로, 기업의 목표와 환경에 맞는 팀을 구축하 프로젝트를 수행합니다.' :
+        'We collaborate with companies that are newly entering the Southeast Asian market, expanding their businesses to new countries within Southeast Asia or devising new growth strategies within the region. Leveraging our expertise in Southeast Asia, we assemble teams tailored to the specific goals and challenges of each company to execute projects effectively.',
+      images: 'https://i0.wp.com/api.iob.team/wp-content/uploads/2023/09/link_thumbnail.jpg',
+    },
+  }
+}
 
 export default async function About({
   params: { lang },

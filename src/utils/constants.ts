@@ -19,3 +19,5 @@ export const CATEGORY_IDS = {
     marketing: 122588,
   },
 }
+
+export const IOB_KEYWORDS = ['I.O.B', 'IOB', 'ideas on board', '동남아', '동남아 시장', 'Southeast Asian market']

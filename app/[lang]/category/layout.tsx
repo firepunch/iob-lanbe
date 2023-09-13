@@ -1,9 +1,11 @@
+import { IOB_KEYWORDS } from '@/utils/constants'
+
 export async function generateMetadata({ params }) {
   return {
     title: `${params?.lang === 'ko' ? '콘텐츠' : 'Content'} | I.O.B`,
     robots: 'index,follow,max-image-preview:large',
     keywords: [
-      'Ideas on board', 'IOB', 'I.O.B',
+      ...IOB_KEYWORDS,
       '시장 분석','market',
       '기업 사례','corporate',
       '소비자','consumer',

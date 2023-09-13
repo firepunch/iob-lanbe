@@ -1,4 +1,5 @@
 import { getMetaData } from '@/api_gql'
+import { IOB_KEYWORDS } from '@/utils/constants'
 import { stripPTag } from '@/utils/lib'
 import type { Metadata } from 'next'
 
@@ -16,7 +17,7 @@ export async function generateMetadata({
     robots: 'index,follow,max-image-preview:large',
     title: `${meta.title} | I.O.B`,
     keywords: [
-      'Ideas on board', 'IOB', 'I.O.B',
+      ...IOB_KEYWORDS,
       ...meta.categories?.nodes?.map(item => item?.name),
       ...meta.tags?.nodes?.map(item => item?.name),
     ],
