@@ -26,8 +26,8 @@ export default function ContentLayout({
   children: React.ReactNode,
 }) {
   return (
-    <div className="content-slug-container">
+    <>
       {children}
-    </div>
+    </>
   )
 }
