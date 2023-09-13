@@ -163,5 +163,5 @@ export const formatSearchTaxQuery = (keyword: string, lang:string) => {
 
 export const stripPTag = (value?: string) => {
   if (!value) return ''
-  return String(value)?.replace(/(\<p\>)|(\<\/p\>)/gi, '')
+  return String(value)?.replace(/(\<p\>)|(\<\/p\>)|(\\n)/gi, '')
 }
