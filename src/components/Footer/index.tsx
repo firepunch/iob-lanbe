@@ -1,14 +1,13 @@
 'use client'
 
-import { EmailForm } from '@/components'
 import Icons from '@/components/Icons'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
-import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
-import Link from 'next/link'
-import Image from 'next/image'
 import arrowBlackImg from '@/imgs/arrow_black.png'
+import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer({
   lang, 

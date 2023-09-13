@@ -1,17 +1,12 @@
-import { TStringObj } from './types'
 import {
-  ICreateNote,
-  ICreateUser,
-  IFetchNotes,
-  IEmailForm,
-  ILoginUser,
-  IFetchWatchList,
   IBodyWatchList,
-  IUpdateNote,
   ICountData,
+  ICreateNote,
+  IFetchNotes,
+  IFetchWatchList,
+  IUpdateNote,
 } from './types/api'
-import { isEmpty, AUTH_TOKEN, getStorageData, setStorageData } from './utils/lib'
-
+import { isEmpty } from './utils/lib'
 
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
 const API_MAP = {
@@ -170,16 +165,6 @@ export async function fetchCountDownload(queryParams: ICountData) {
     queryParams,
   })
 
-  return res
-}
-
-export async function sendEmailForm(data) {
-  const res = await fetchAPI({
-    prefixPath: 'formAPI',
-    path: '/3338/feedback',
-    method: 'POST',
-    data,
-  })
   return res
 }
 
