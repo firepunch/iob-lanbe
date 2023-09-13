@@ -14,7 +14,7 @@ export async function generateMetadata({
 
   return meta?.title ? {
     robots: 'index,follow,max-image-preview:large',
-    title: `${meta.title}${author ? ` | by ${author}` : ''} | I.O.B`,
+    title: `${meta.title} | I.O.B`,
     keywords: [
       'Ideas on board', 'IOB', 'I.O.B',
       ...meta.categories?.nodes?.map(item => item?.name),
