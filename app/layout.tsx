@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   title: 'Ideas on board',
   description: 'Find your business opportunity',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
-  themeColor: '#000',
+  themeColor: '#000000',
+  robots: 'index,follow',
   openGraph: {
     title: 'I.O.B',
     description: 'I.O.B offers curated business content and professional services that help you enter the Southeast Asian market.',

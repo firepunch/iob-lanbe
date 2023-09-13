@@ -10,12 +10,27 @@ export async function generateMetadata({
   const meta = await getMetaData({
     postSlug: decodeURIComponent(content_slug), 
   })
+  const author = meta.author?.node?.name
 
   return meta?.title ? {
+    robots: 'index,follow,max-image-preview:large',
+    title: `${meta.title}${author ? ` | by ${author}` : ''} | I.O.B`,
+    keywords: [
+      ...meta.categories?.nodes?.map(item => item?.name),
+      ...meta.tags?.nodes?.map(item => item?.name),
+    ],
+    description: stripPTag(meta.excerpt),
+    authors: {
+      name: author,
+    },
     openGraph: {
-      title: `${meta.title} | I.O.B`,
+      type: 'article',
+      title: meta.title,
       description: `${stripPTag(meta.excerpt)}`,
-      images: meta.featuredImage?.node?.sourceUrl,
+      images: {
+        url: meta.featuredImage?.node?.sourceUrl,
+        alt: meta.title,
+      },
     },
   } : {}
 }

@@ -67,9 +67,27 @@ query postMetaQuery($postSlug: ID!) {
   post(id: $postSlug, idType: SLUG) {
     title
     excerpt
+    dateGmt
+    categories {
+      nodes {
+        name
+      }
+    }
+    tags {
+      nodes {
+        name
+      }
+    }
+    author {
+      node {
+        name
+      }
+    }
     featuredImage {
       node {
+        link
         sourceUrl
+        uri
       }
     }
   }
