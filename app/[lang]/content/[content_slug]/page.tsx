@@ -186,7 +186,8 @@ export default function Category({
                 dangerouslySetInnerHTML={{ 
                   __html: user?.databaseId === 0 ? (
                     post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
-                    post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE 
+                    post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE +
+                    post.content.split(FIRST_IMAGE)?.[2] + FIRST_IMAGE 
                   ) :
                     post.content,
                 }} 
