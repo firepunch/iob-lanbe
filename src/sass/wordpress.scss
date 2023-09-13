@@ -29,7 +29,7 @@ $wp-side-padding-pc: rem(48);
       width: 100%;
       max-height: rem(800);
       @include background(50%);
-      cursor: cursor !important;
+      cursor: default !important;
     }
   }
 }
