@@ -207,7 +207,7 @@ $wp-side-padding-pc: rem(48);
     margin: rem(40) 0 rem(80);
 
     img {
-      width: 100% !important;
+      max-width: 100%;
       object-fit: contain;
       object-position: center center;
       cursor: default !important;
@@ -220,15 +220,21 @@ $wp-side-padding-pc: rem(48);
     }
   }
 
-  .wp-block-image.alignfull {
-    width: calc(100vw + 2.2rem);
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  .wp-block-image {
+    img {
+      margin: auto;
+    }
 
-    .wp-element-caption {
-      margin-left: -$wp-side-padding;
+    &.alignfull {
+      width: calc(100vw + 2.2rem);
+      position: relative;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .wp-element-caption {
+        margin-left: -$wp-side-padding;
+      }
     }
   }
 
