@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Bookmark from '../Bookmark'
 import { useParams } from 'next/navigation'
 import { ValidLocale } from '@/types'
+import { stripPTag } from '@/utils/lib'
 
 interface ReportCardProps extends IReport {
   onFetchData: (ids?: string[]) => void
@@ -46,7 +47,7 @@ export const ReportCard = ({
         </p>
 
         <p className="report-description">
-          {excerpt?.replace(/(\<p\>)|(\<\/p\>)/gi, '')}
+          {stripPTag(excerpt)}
         </p>
       </Link>
     </div>

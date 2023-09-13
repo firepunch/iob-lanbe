@@ -160,3 +160,8 @@ export const formatSearchTaxQuery = (keyword: string, lang:string) => {
   }
   return { relation: 'OR', taxArray }
 }
+
+export const stripPTag = (value?: string) => {
+  if (!value) return ''
+  return String(value)?.replace(/(\<p\>)|(\<\/p\>)/gi, '')
+}
