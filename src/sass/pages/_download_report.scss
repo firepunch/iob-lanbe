@@ -1,99 +1,54 @@
 #report-download {
   width: 100%;
   height: 100vh;
-  margin-bottom: 50vw;
   position: relative;
 
-  #report-titlepage-image {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    overflow: hidden;
-
-    img {
-      cursor: default !important;
-      width: 100%;
-      height: 100%;
-    }
+  .report-download-bg {
+    filter: brightness(50%);
+    cursor: default !important;
   }
 
-  .download-link {
-    cursor: pointer;
-
+  .report-download-content {
     position: absolute;
     top: 25%;
     left: 50%;
     right: 50%;
     transform: translateX(-50%);
+
+    @include flex-center;
+    flex-direction: column;
+    width: 80%;
+    max-width: rem(680);
     z-index: 2;
-
-    @include mobile-button-style($white);
-    width: 80%;
-    background-color: transparent;
     color: $white;
-    border: 3px solid $white;
-  }
-
-  .download-text {
-    width: 80%;
-    color: $white;
-    border-top: 3px solid $white;
-
-    position: absolute;
-    z-index: 9;
-    top: 40%;
-    left: 50%;
-    right: 50%;
-    transform: translateX(-50%);
-  }
-
-  .sign-in-text {
-    text-align: center;
-  }
-}
-
-@media (min-width: 576px) {
-  #report-download {
-    margin-bottom: 25vw;
-
-    #report-titlepage-image {
-      img {
-        transform: translateY(-25%);
-      }
-    }
+    word-wrap: break-word;
+    word-break: keep-all;
 
     .download-link {
-      top: 35%;
+      width: 100%;
+      cursor: pointer;
+      @include mobile-button-style($white);
+      background-color: transparent;
+      border: 3px solid $white;
+      margin-bottom: rem(48);
     }
 
     .download-text {
-      top: 50%;
+      width: 100%;
+      line-height: 1.5rem;
+      border-top: 3px solid $white;
+    }
+
+    .sign-in-text {
+      width: 100%;
+      text-align: center;
     }
   }
 }
 
 @media (min-width: 768px) {
   #report-download {
-    .download-link {
-      width: 50%;
-    }
-
-    .download-text {
-      width: 50%;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  #report-download {
-    margin-bottom: 10vw;
-
-    .download-link {
-      width: 30%;
-    }
-
-    .download-text {
+    .report-download-content {
       width: 30%;
     }
   }

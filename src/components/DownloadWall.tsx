@@ -24,42 +24,43 @@ export default function DownloadWall({
   return (
     <section id="report-download">
 
-      <div id="report-titlepage-image">
-        <Image 
-          src={bgImage !== '' ? bgImage : SampleBg} 
-          alt="Report Image"
-          fill
-          sizes="100vw"
-        />
+      <Image 
+        className="report-download-bg"
+        src={bgImage !== '' ? bgImage : SampleBg} 
+        alt="Report Image"
+        fill
+        sizes="100vw"
+      />
+
+      <div className="report-download-content">
+        {userId ? (
+          <>
+            <Link 
+              href={downloadLink} 
+              className="download-link" 
+              target="_blank"
+              onClick={onDownload}
+            >
+              {t('download')}
+            </Link>
+
+            <div className="download-text">
+              <p>{t('download_cta')}</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <Link href={`/${lang}/sign-in`} className="download-link">
+              {t('sign_in')}
+            </Link>
+
+            <div className="download-text sign-in-text">
+              <p>{t('sign_in_cta')}</p>
+            </div>
+          </>
+        )}
       </div>
-
-      {userId ? (
-        <>
-          <Link 
-            href={downloadLink} 
-            className="download-link" 
-            target="_blank"
-            onClick={onDownload}
-          >
-            {t('download')}
-          </Link>
-
-          <div className="download-text">
-            <p>{t('download_cta')}</p>
-          </div>
-        </>
-      ) : (
-        <>
-          <Link href={`/${lang}/sign-in`} className="download-link">
-            {t('sign_in')}
-          </Link>
-
-          <div className="download-text sign-in-text">
-            <p>{t('sign_in_cta')}</p>
-          </div>
-        </>
-      )}
-
+      
     </section>
   )
 }
