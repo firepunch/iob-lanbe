@@ -2,11 +2,13 @@ import { useLayoutEffect, useState } from 'react'
 import debounce from 'lodash/debounce'
 
 const useHasScroll = (): boolean => {
-  const [hasScroll, setHasScroll] = useState(window.scrollY > 280)
+  const [hasScroll, setHasScroll] = useState(
+    typeof window == 'undefined' ? false : window.scrollY > 280
+  )
 
   useLayoutEffect(() => {
     const updateScroll = (): void => {
-      setHasScroll(window.scrollY > 280)
+      setHasScroll(typeof window == 'undefined' ? false : window.scrollY > 280)
     }
     window.addEventListener('scroll', debounce(updateScroll, 250))
     return (): void => {
