@@ -89,7 +89,6 @@ query reportBySlug(
     uri
     slug
     date
-    content
     excerpt(format: RAW)
     translations {
       slug
