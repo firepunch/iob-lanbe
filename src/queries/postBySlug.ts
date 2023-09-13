@@ -69,7 +69,7 @@ query postMetaQuery($postSlug: ID!) {
     excerpt
     featuredImage {
       node {
-        link
+        sourceUrl
       }
     }
   }

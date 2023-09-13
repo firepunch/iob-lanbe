@@ -15,7 +15,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${meta.title} | I.O.B`,
       description: `${stripPTag(meta.excerpt)}`,
-      images: meta.featuredImage?.node?.link,
+      images: meta.featuredImage?.node?.sourceUrl,
     },
   } : {}
 }
