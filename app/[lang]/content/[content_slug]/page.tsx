@@ -14,7 +14,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-const FIRST_IMAGE = '<h2 class=\"wp-block-heading\"><strong>'
+const HEADING = '<h2 class=\"wp-block-heading\">'
+const PARAGRAPH = '<p>'
 export default function Category({
   params,
 }: {
@@ -185,9 +186,11 @@ export default function Category({
                 className="wordpress-content"
                 dangerouslySetInnerHTML={{ 
                   __html: user?.databaseId === 0 ? (
-                    post.content.split(FIRST_IMAGE)?.[0] + FIRST_IMAGE + 
-                    post.content.split(FIRST_IMAGE)?.[1] + FIRST_IMAGE +
-                    post.content.split(FIRST_IMAGE)?.[2] + FIRST_IMAGE 
+                    post.content.split(HEADING)?.[0] + HEADING + 
+                    post.content.split(HEADING)?.[1] + HEADING + 
+                    post.content.split(HEADING)?.[2]?.split(PARAGRAPH)?.[0] + PARAGRAPH +
+                    post.content.split(HEADING)?.[2]?.split(PARAGRAPH)?.[1] + PARAGRAPH +
+                    post.content.split(HEADING)?.[2]?.split(PARAGRAPH)?.[2] + PARAGRAPH 
                   ) :
                     post.content,
                 }} 
