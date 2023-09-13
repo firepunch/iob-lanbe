@@ -8,7 +8,7 @@ query postBySlug($postSlug: ID!, $userId: Float, $lang: String) {
     slug
     date
     content
-    excerpt(format: RAW)
+    excerpt
     translations {
       slug
     }

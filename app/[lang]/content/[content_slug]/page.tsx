@@ -184,6 +184,10 @@ export default function Category({
                 />
               ) : null}
               <div
+                className="wordpress-excerpt"
+                dangerouslySetInnerHTML={{ __html: post.excerpt }}
+              />
+              <div
                 className="wordpress-content"
                 dangerouslySetInnerHTML={{ 
                   __html: user?.databaseId === 0 ? (
