@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 
 const HEADING = '<h2 class=\"wp-block-heading\">'
 const PARAGRAPH = '<p>'
+
 export default function Category({
   params,
 }: {

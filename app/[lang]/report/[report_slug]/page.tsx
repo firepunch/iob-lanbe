@@ -2,7 +2,7 @@
 
 import { getReportBySlug } from '@/api_gql'
 import { updateCountDownload, updateCountView } from '@/api_wp'
-import { Bookmark, DownloadWall, ShareLinks, Tags } from '@/components'
+import { Bookmark, DownloadWall, ShareLinks } from '@/components'
 import useStore from '@/hooks/useStore'
 import { useTranslation } from '@/i18n/client'
 import { ValidLocale } from '@/i18n/settings'
@@ -11,7 +11,6 @@ import useContentState from '@/stores/contentStore'
 import useUserState, { INIT_USER_STATE } from '@/stores/userStore'
 import { dateFormat, getAuthorInfo } from '@/utils/lib'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Report({

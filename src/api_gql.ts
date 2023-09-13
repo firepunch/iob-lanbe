@@ -1,7 +1,7 @@
 import CATEGORIES_QUERY from '@/queries/categories'
 import { CHECKOUT_QUERY, FETCH_ORDER_QUERY, ORDER_QUERY } from '@/queries/orders'
 import DATABASEID_POSTS_QUERY from '@/queries/postByDatabaseid'
-import POST_BY_SLUG_QUERY from '@/queries/postBySlug'
+import POST_BY_SLUG_QUERY, { GET_POST_META_QUERY } from '@/queries/postBySlug'
 import POSTS_QUERY, { GET_POSTS_QUERY } from '@/queries/posts'
 import REPORT_BY_SLUG_QUERY from '@/queries/reportBySlug'
 import { LOGIN_QUERY, REFRESH_TOKEN_QUERY, REGISTER_QUERY, USER_QUERY } from '@/queries/users'
@@ -142,6 +142,13 @@ export async function getAllPosts(variables) {
     variables,
   })
   return data.posts
+}
+
+export async function getMetaData(variables) {
+  const data = await fetchAPI(GET_POST_META_QUERY, {
+    variables,
+  })
+  return data.post
 }
 
 export async function createUser(input) {

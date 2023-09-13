@@ -62,4 +62,18 @@ query postBySlug($postSlug: ID!, $userId: Float, $lang: String) {
 }
 `
 
+export const GET_POST_META_QUERY = `
+query postMetaQuery($postSlug: ID!) {
+  post(id: $postSlug, idType: SLUG) {
+    title
+    excerpt
+    featuredImage {
+      node {
+        link
+      }
+    }
+  }
+}
+`
+
 export default POST_BY_SLUG_QUERY
