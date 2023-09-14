@@ -6,6 +6,7 @@
   .report-download-bg {
     filter: brightness(50%);
     cursor: default !important;
+    object-fit: cover;
   }
 
   .report-download-content {

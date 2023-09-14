@@ -99,6 +99,8 @@
 
       img {
         width: 1.5rem;
+        height: 1.5rem;
+        object-fit: contain;
       }
     }
 
@@ -224,13 +226,21 @@
     margin: 8rem auto 2rem;
     flex-direction: row;
     gap: 2rem;
+    padding-left: 0;
+    padding-right: 0;
 
-    #report-firstpage-left,
-    #report-firstpage-right {
+    #report-firstpage-left {
       width: 50%;
+      .save-share {
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
     }
 
     #report-firstpage-right {
+      width: 50%;
       margin-top: rem(60);
 
       h4 {
