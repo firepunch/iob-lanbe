@@ -127,6 +127,10 @@ footer {
       width: 50%;
       align-items: flex-end;
 
+      .newsletter-link {
+        width: max-content;
+      }
+
       .footer-signup {
         img {
           right: 0.5vw;
