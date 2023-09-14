@@ -52,6 +52,7 @@ main #default-content #default-title .filters-wrap button {
     }
 
     button {
+      color: $black;
       border: 1px solid $black;
       border-radius: 10rem;
       background-color: transparent;
@@ -61,14 +62,13 @@ main #default-content #default-title .filters-wrap button {
       font-size: 0.6rem;
       margin-right: 0.25rem;
       margin-top: 0.5rem;
-
       cursor: pointer;
-    }
-  }
 
-  .selected {
-    background-color: $black !important;
-    color: $white;
+      &.selected {
+        background-color: $black !important;
+        color: $white;
+      }
+    }
   }
 
   .button-wrap-2 {
