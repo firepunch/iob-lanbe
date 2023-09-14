@@ -39,6 +39,11 @@
     align-items: center;
     justify-content: flex-end;
 
+    select,
+    option {
+      color: $black;
+    }
+
     label {
       font-size: 0.65rem;
       margin-right: 0.75rem;

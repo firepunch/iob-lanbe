@@ -74,15 +74,20 @@
           align-items: center;
           margin-right: 0.5rem;
           cursor: pointer;
-        }
 
-        .black-button {
-          background-color: $black !important;
-          color: $white;
+          &.black-button {
+            background-color: $black !important;
+            color: $white;
+          }
         }
       }
 
       .sort {
+        select,
+        option {
+          color: $black;
+        }
+
         label {
           font-size: 0.65rem;
         }
