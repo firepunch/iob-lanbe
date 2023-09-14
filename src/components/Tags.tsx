@@ -3,14 +3,16 @@ import { ITags } from '@/types/store'
 import { ValidLocale } from '@/types'
 
 const Tags = ({
+  maxLength = undefined,
   lang,
   tags,
 }: {
+  maxLength?: number
   lang: ValidLocale
   tags: ITags
 }) => (
   <div className="tags">
-    {tags.edges?.map(({ node }) => (
+    {(tags.edges?.slice(0, maxLength))?.map(({ node }) => (
       <Link 
         key={node.id}
         href={`/${lang}/search/${node.name}`}
@@ -19,6 +21,9 @@ const Tags = ({
         {node.name}
       </Link>
     ))}
+    {maxLength && tags.edges?.length > maxLength && (
+      <span className="indiv-tag">+</span>
+    )}
   </div>
 )
 

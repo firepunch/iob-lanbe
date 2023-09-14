@@ -480,14 +480,6 @@ aside {
 
   #iob-content {
     margin-top: -12.5rem;
-
-    #section-wrap {
-      .iob-latest-content {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        row-gap: 3rem;
-      }
-    }
   }
 
   #iob-report {
@@ -583,6 +575,13 @@ aside {
           }
         }
       }
+    }
+  }
+
+  #iob-content #section-wrap {
+    .iob-latest-content {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 3rem;
     }
   }
 

@@ -24,9 +24,11 @@ query getSearchResult(
         slug
         date
         tags {
-          nodes {
-            id
-            name
+          edges {
+            node {
+              id
+              name
+            }
           }
         }
         featuredImage {

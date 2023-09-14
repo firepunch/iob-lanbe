@@ -14,7 +14,7 @@ export type IFeaturedImage = {
 }
 
 export type ITags = {
-   edges: {
+  edges: {
     node: {
       id: string
       name: string

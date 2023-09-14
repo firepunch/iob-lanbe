@@ -1,40 +1,45 @@
 .tags {
-  width: 100%;
+  width: 90%;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 
   .indiv-tag {
     width: fit-content;
-    height: 1.5rem;
-    margin-right: 0.25rem;
-    padding: 0 0.5rem;
-
+    padding: 0.35rem 0.5rem;
+    white-space: nowrap;
     @include flex-center;
 
     font-size: 0.625rem;
     border: 1px solid $black;
     border-radius: 10rem;
   }
+}
 
-  .plus {
-    @include flex-center;
-
-    width: 1.25rem;
-    height: 1.25rem;
-    border: 1px solid $black;
-    border-radius: 10rem;
-    font-size: 0.75rem;
+.indiv-content {
+  .tags {
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
   .tags {
-    width: 95%;
-    margin: auto 0;
+    margin: 0 0 1rem 0;
 
     .indiv-tag {
-      padding: 1rem;
-      font-size: rem(18);
+      padding: 0.5rem 1rem;
+      font-size: rem(14);
+    }
+  }
+
+  .indiv-content {
+    .tags {
+      gap: 0.4rem;
+
+      .indiv-tag {
+        padding: 0.35rem 0.5rem;
+        font-size: rem(11);
+      }
     }
   }
 }

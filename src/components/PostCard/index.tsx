@@ -16,14 +16,14 @@ interface PostCardProps extends IPost {
 
 export const PostCard = ({
   featuredImage,
-  tags,
   databaseId,
   slug,
   title = '',
   date = '',
+  country,
   lanbeContent: { is_save },
   categories,
-  country,
+  tags,
   onFetchData,
 }: PostCardProps) => {
   const params = useParams()
@@ -66,7 +66,10 @@ export const PostCard = ({
         </p>
 
         {tags?.edges && (
-          <Tags lang={lang as ValidLocale} tags={tags} />
+          <Tags 
+            maxLength={4}
+            lang={lang as ValidLocale} 
+            tags={tags} />
         )}
       </div>
     </Link>
