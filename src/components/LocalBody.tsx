@@ -1,16 +1,17 @@
 'use client'
 
-import Footer from './Footer'
-import Header from './Header/Header'
-import SimpleHeader from './Header/SimpleHeader'
+import useHasScroll from '@/hooks/useScroll'
 import { ValidLocale } from '@/i18n/settings'
 import useUserState from '@/stores/userStore'
 import { IResponseUser } from '@/types/store'
 import { AUTH_TOKEN, getStorageData } from '@/utils/lib'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import useHasScroll from '@/hooks/useScroll'
 import classNames from 'classnames'
+import { usePathname } from 'next/navigation'
+import { Suspense, useEffect, useState } from 'react'
+import Analytics from './Analytics'
+import Footer from './Footer'
+import Header from './Header/Header'
+import SimpleHeader from './Header/SimpleHeader'
 
 const SIMPLE_HEADER_MAP = [
   'sign-in',
@@ -61,6 +62,9 @@ export default function LocalBody({
         ['iob-scroll']: hasScroll,
       })
     )}>
+      <Suspense>
+        <Analytics />
+      </Suspense>
       {
         SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
           <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :
