@@ -44,7 +44,7 @@ export default function CountryFilter({
               className={`${isSelected ? 'selected' : ''}`}
               onClick={() => handleToggle(isSelected, `${item.slug}-${lang}`)}
             >
-              {item.value?.toUpperCase()}
+              {item.label.toUpperCase()}
             </button>
           )
         })}

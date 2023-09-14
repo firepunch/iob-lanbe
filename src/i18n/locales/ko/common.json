@@ -14,7 +14,7 @@
   "selected": "선택됨",
   "clear_all": "선택 해제",
   "country_filter_options": [{
-    "label": "동남아시아",
+    "label": "동남아시아 전체",
     "value": "southeast asia",
     "slug": "southeast-asia"
   }, {
