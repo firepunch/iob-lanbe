@@ -59,6 +59,7 @@
 
   #all-reports-wrap {
     @include standard-grid;
+    column-gap: 2rem;
     padding-left: 1.5%;
   }
 }
