@@ -29,6 +29,8 @@ $wp-side-padding-pc: rem(48);
       width: 100%;
       max-height: rem(800);
       @include background(50%);
+      object-fit: cover;
+      object-position: center center;
       cursor: default !important;
     }
   }
@@ -202,6 +204,10 @@ $wp-side-padding-pc: rem(48);
     }
   }
 
+  figure {
+    overflow: hidden;
+  }
+
   .wp-block-group,
   .wp-block-image {
     margin: rem(40) 0 rem(80);
@@ -210,6 +216,7 @@ $wp-side-padding-pc: rem(48);
       max-width: 100%;
       object-fit: contain;
       object-position: center center;
+      margin: auto;
       cursor: default !important;
     }
 
@@ -217,50 +224,27 @@ $wp-side-padding-pc: rem(48);
       line-height: 1rem;
       font-size: rem(12);
       text-align: center;
-      margin-top: 0;
+      margin-top: rem(6);
     }
   }
 
-  .wp-block-image {
-    img {
-      margin: auto;
-    }
+  .alignfull {
+    width: 100vw;
+    margin-left: -$wp-side-padding;
 
-    &.alignfull {
-      width: calc(100vw + 2.2rem);
-      position: relative;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-
-      .wp-element-caption {
-        margin-left: -$wp-side-padding;
-      }
+    .wp-element-caption {
+      margin-left: -$wp-side-padding;
     }
   }
 
-  .wp-block-group {
-    &.alignfull {
-      width: 100vw;
-      position: relative;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-left: 0;
-
-      @media (min-width: 576px) {
-        width: calc(100vw + 2.2rem);
-      }
-    }
-  }
-
+  //
+  //
   @media (min-width: 576px) {
     .wp-block-group {
-      // width: 100vw;
       @include flex-center;
       align-items: baseline;
       gap: 1rem;
-      margin-left: -$wp-side-padding;
+      // margin-left: -$wp-side-padding;
 
       &.alignwide,
       &.is-content-justification-center {
@@ -283,24 +267,34 @@ $wp-side-padding-pc: rem(48);
     }
   }
 
-  @media (min-width: 768px) {
-    .wp-block-group,
-    .wp-block-image {
-      &.alignfull {
-        width: calc(100vw - 1rem);
-      }
+  @media (min-width: 680px) {
+    .wp-block-image.alignfull img {
+      width: 100vw;
+      max-width: none;
+    }
+
+    .alignfull {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0;
 
       .wp-element-caption {
-        margin-top: rem(4);
+        margin-left: 0;
       }
     }
   }
 
   @media (min-width: 2048px) {
-    .wp-block-group,
-    .wp-block-image {
+    .wp-block-image,
+    .wp-block-group {
       &.alignfull {
         width: 100%;
+
+        img {
+          width: 100%;
+          max-width: 100%;
+        }
       }
     }
   }
