@@ -119,11 +119,12 @@ main {
           background-color: transparent;
           border: 1px solid $black;
           border-radius: 10rem;
-        }
+          color: $black;
 
-        .black-button {
-          background-color: $black !important;
-          color: $white;
+          &.black-button {
+            background-color: $black !important;
+            color: $white;
+          }
         }
       }
     }
