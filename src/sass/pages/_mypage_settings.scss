@@ -6,6 +6,13 @@
       text-align: center;
     }
 
+    .personal-info-inputs-wrap {
+      select,
+      option {
+        color: $black;
+      }
+    }
+
     .personal-info-inputs-wrap,
     .account-info-inputs-wrap {
       .personal-info-inputs-row,
