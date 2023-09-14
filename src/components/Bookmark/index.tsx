@@ -75,7 +75,7 @@ export default function Bookmark({
 
   return (
     <div className="save" onClick={handleClick}>
-      <Image src={imgSrc} alt="Save" />
+      <Image className={`bookmark ${metaKey}`} src={imgSrc} alt="Save" />
     </div>
   )
 }
