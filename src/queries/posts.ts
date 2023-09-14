@@ -114,9 +114,11 @@ query getPostsQuery(
         date
         viewCounts
         tags {
-          nodes {
-            id
-            name
+          edges {
+            node {
+              id
+              name
+            }
           }
         }
         featuredImage {
