@@ -94,7 +94,7 @@ export default function Content({
       getPosts({
         ...fetchParams,
         taxQuery,
-        in: fetchParams.readIn.length ? fetchParams.savedIn :  ['0'],
+        in: fetchParams.readIn.length ? fetchParams.readIn :  ['0'],
       }).then(result => (
         updateReadPost(result?.edges)
       ))
