@@ -28,13 +28,13 @@ export default function PostOptions ({
   return (
     <div id="content-fixed-icons">
       <div className="buttons-wrap">
-        <button type="button" className="scroll-top arrow-button">
+        <button  className="scroll-top arrow-button">
           <a href="#top">
             <Image src={ScrollTopImg} alt="Scroll to top" />
           </a>
         </button>
     
-        <button type="button" className="bookmark-button">
+        <button  className="bookmark-button">
           <Bookmark 
             isSaved={isSaved}
             metaKey={metaKey}
@@ -44,15 +44,15 @@ export default function PostOptions ({
         </button>
     
         <div className="share-button">
-          <button type="button" onClick={() => setIsOpen(() => !isOpen)}>
-            <Image src={ShareImg} alt="Share" />
+          <button onClick={() => setIsOpen(() => !isOpen)}>
+            <Image src={ShareImg} alt="Share" className="share-icon" />
           </button>
           {isOpen && (
             <ShareLinks onClose={() => setIsOpen(() => !isOpen)} />
           )}
         </div>
     
-        <button type="button" className="font-size" onClick={onFontSize}>
+        <button  className="font-size" onClick={onFontSize}>
           <p>Aa</p>
         </button>
       </div>
