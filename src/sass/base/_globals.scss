@@ -24,6 +24,19 @@ body {
 
   &.iob-open {
     overflow: hidden;
+
+    header {
+      background-color: $white;
+
+      .language-link,
+      .hamburger-mobile {
+        filter: invert(100);
+      }
+
+      h1 {
+        color: $black;
+      }
+    }
   }
 
   input,
