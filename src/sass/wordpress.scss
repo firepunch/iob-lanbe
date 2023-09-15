@@ -236,7 +236,8 @@ $wp-side-padding-pc: rem(48);
     margin-left: -$wp-side-padding;
 
     .wp-element-caption {
-      margin-left: -$wp-side-padding;
+      margin-left: calc(50% - 2rem);
+      transform: translateX(-50%);
     }
   }
 
