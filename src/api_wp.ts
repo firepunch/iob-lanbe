@@ -45,6 +45,7 @@ async function fetchAPI({
   const params = queryParams ? '?' + new URLSearchParams(queryParams as Record<string,string>) : ''
   const res = await fetch(`${API_URL}${API_MAP[prefixPath]}${path}${params}`, {
     method,
+    mode: 'no-cors',
     ...!isEmpty(headers) && { headers },
     ...method !== 'GET' && {
       body: JSON.stringify({
