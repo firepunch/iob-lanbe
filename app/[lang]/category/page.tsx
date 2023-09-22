@@ -45,7 +45,7 @@ export default function Category({
   const [isOpenCategory, setIsOpenCategory] = useState(false)
   const [isOpenFilter, setIsOpenFilter] = useState(false)
   const [fetchParams, setFetchParams] = useState({
-    cateName: searchParams.get('name') || '',
+    cateName: searchParams?.get('name') || '',
     countries: [],
     lang,
     language: lang.toUpperCase(), 
@@ -79,7 +79,7 @@ export default function Category({
   }, [fetchParams])
 
   useEffect(() => {
-    const newCateName = searchParams.get('name') || ''
+    const newCateName = searchParams?.get('name') || ''
 
     if (newCateName !== fetchParams.cateName) {
       setFetchParams(prev => ({

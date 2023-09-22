@@ -38,8 +38,8 @@ const SignInPasswordChange = ({
 
     const result = await updatePassword({
       ...formProps,
-      key: params.get('key'),
-      email: params.get('email'),
+      key: params?.get('key'),
+      email: params?.get('email'),
     })
     setMessage({ info: t(result?.message) })
   }
@@ -54,7 +54,7 @@ const SignInPasswordChange = ({
             readOnly
             type="email"
             name="email"
-            defaultValue={params.get('email') || ''}
+            defaultValue={params?.get('email') || ''}
             label={t('email')}
           />
 

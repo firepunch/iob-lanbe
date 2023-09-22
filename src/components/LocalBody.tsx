@@ -38,8 +38,8 @@ export default function LocalBody({
   const pathName = usePathname()
   const page = DESIGN_PAGE.find(item => (
     item === 'sign-in' ? 
-      pathName.includes(item) && !pathName.includes('password') : 
-      pathName.includes(item)
+      pathName?.includes(item) && !pathName?.includes('password') : 
+      pathName?.includes(item)
   ))
   const { user, updateUser } = useUserState(state => state)
   const [storageUser] = getStorageData(AUTH_TOKEN)
@@ -66,7 +66,7 @@ export default function LocalBody({
         <Analytics />
       </Suspense>
       {
-        SIMPLE_HEADER_MAP.find(item => pathName.includes(item)) ?
+        SIMPLE_HEADER_MAP.find(item => pathName?.includes(item)) ?
           <SimpleHeader lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} /> :
           <Header lang={lang} openMenu={openMenu} onOpenMenu={handleOpenMenu} />
       }

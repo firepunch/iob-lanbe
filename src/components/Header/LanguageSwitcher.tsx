@@ -37,7 +37,7 @@ export default function LanguageSwitcher({
     const segments = pathName.split('/')
     segments[1] = locale
 
-    if ((!pathName.includes('my-page/report') && segments.length !== 4) && CHANGE_URL.find(item => pathName.includes(item))) {
+    if ((!pathName?.includes('my-page/report') && segments.length !== 4) && CHANGE_URL.find(item => pathName?.includes(item))) {
       let targetIdx = segments.length - 1
       let origin = segments[segments.length - 1]
       if (origin === '' ) {
@@ -45,7 +45,7 @@ export default function LanguageSwitcher({
         origin = segments[targetIdx]
       }
 
-      const contentSlug = pathName.includes('content') ? post?.translations?.[0]?.slug : report?.translations?.[0]?.slug
+      const contentSlug = pathName?.includes('content') ? post?.translations?.[0]?.slug : report?.translations?.[0]?.slug
       segments[targetIdx] = contentSlug || origin
     }
 
@@ -58,8 +58,8 @@ export default function LanguageSwitcher({
         src={
           WHITE_ICONS.find(item => (
             item === 'sign-in' ? 
-              pathName.includes(item) && !pathName.includes('password') : 
-              pathName.includes(item)
+              pathName?.includes(item) && !pathName?.includes('password') : 
+              pathName?.includes(item)
           )) ?
             LangWhiteImg :
             LangBlackImg
