@@ -63,6 +63,7 @@ header {
     .intro-text {
       width: 80%;
       font-size: $base-font-size;
+      word-break: keep-all;
       color: $white;
 
       top: 45%;
@@ -421,6 +422,7 @@ aside {
 
           .report-description {
             width: 95%;
+            word-break: keep-all;
           }
         }
       }
