@@ -153,4 +153,15 @@ query getPostsQuery(
 }
 `
 
+export const GET_POSTS_URL_QUERY = `
+query getSitemapUrls($language: LanguageCodeFilterEnum!) {
+  posts(where: {language: $language}, first: 1000) {
+    nodes {
+      slug
+      dateGmt
+    }
+  }
+}
+`
+
 export default POSTS_QUERY
