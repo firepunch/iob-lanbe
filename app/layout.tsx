@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   themeColor: '#000000',
   robots: 'index,follow',
   keywords: IOB_KEYWORDS,
+  other: {
+    'naver-site-verification': 'fbd86c3eebe19ac090efd53d1632becfeddb7734',
+  },
   openGraph: {
     title: 'I.O.B',
     description: 'I.O.B offers curated business content and professional services that help you enter the Southeast Asian market.',
