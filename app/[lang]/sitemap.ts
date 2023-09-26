@@ -3,7 +3,7 @@ import { ValidLocale } from '@/types'
 import { MetadataRoute } from 'next'
  
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL as string
+  const WEB_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || 'https://iob.team'
   const enPosts = await getSitemapUrls({
     language: 'EN', 
   })
@@ -12,12 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
 
   const enPostUrls = enPosts?.map(post => ({
-    url: `${API_URL}/en/content/${post?.slug}`,
+    url: `${WEB_URL}/en/content/${post?.slug}`,
     lastModified: new Date(post?.dateGmt),
   }))  
 
   const koPostUrls = koPosts?.map(post => ({
-    url: `${API_URL}/ko/content/${post?.slug}`,
+    url: `${WEB_URL}/ko/content/${post?.slug}`,
     lastModified: new Date(post?.dateGmt),
   }))  
 
