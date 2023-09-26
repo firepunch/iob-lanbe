@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /my-page/
-Sitemap: https://iob.team/sitemap.xml
+Sitemap: https://iob.team/en/sitemap.xml
