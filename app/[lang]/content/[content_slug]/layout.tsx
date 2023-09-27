@@ -17,11 +17,6 @@ export async function generateMetadata({
   return meta?.title ? {
     robots: 'index,follow,max-image-preview:large',
     title: `${meta.title} | I.O.B`,
-    keywords: [
-      ...IOB_KEYWORDS,
-      ...meta.categories?.nodes?.map(item => item?.name),
-      ...meta.tags?.nodes?.map(item => item?.name),
-    ],
     description: stripPTag(meta.excerpt),
     authors: {
       name: author,

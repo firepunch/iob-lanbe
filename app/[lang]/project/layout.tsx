@@ -7,7 +7,6 @@ export async function generateMetadata({ params: { lang } }) {
     description: lang === 'ko' ? 
       '우리는 동남아 시장에 최적화된 사업 및 브랜드 전략을 기업에게 제공하며, 디자인, 기술, 마케팅을 통해 동남아 시장에서 앞서가는 성공 사례를 만들어 냅니다.' :
       'We help companies strategize for the Southeast Asian market, and stay ahead in design, technology, and marketing.',
-    keywords: [...IOB_KEYWORDS, 'trends', '트렌드', 'insights', '인사이트', 'research', 'strategies', '전략', 'support', '성공', 'inquire', '문의'],
     authors: [{
       name: 'I.O.B',
     }, {
