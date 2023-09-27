@@ -7,7 +7,6 @@ import searchThinIcon from '@/imgs/search_thin.png'
 import { Options } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 import { useState } from 'react'
 
 export default function SearchWall({
