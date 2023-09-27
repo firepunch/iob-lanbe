@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
   themeColor: '#000000',
   robots: 'index,follow',
-  keywords: IOB_KEYWORDS,
   other: {
     'naver-site-verification': 'fbd86c3eebe19ac090efd53d1632becfeddb7734',
   },

@@ -21,7 +21,6 @@ export async function generateMetadata({ params: { lang } }) {
     description: lang === 'ko' ? 
       '동남아 시장에 최적화된 End-to-End 디지털 솔루션과 비즈니스 인사이트를 제공합니다.' :
       'We provide end-to-end digital solutions and business insights optimized for the Southeast Asian Market.',
-    keywords: [...IOB_KEYWORDS, 'trends', '트렌드', 'insights', '인사이트', 'strategies', '전략'],
     authors: [{
       name: 'I.O.B',
     }, {
