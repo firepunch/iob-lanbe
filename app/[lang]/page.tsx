@@ -101,11 +101,12 @@ export default function Home({
         </div>
 
         <div id="firstpage-img">
-          <p className="intro-slogan">{t('intro-slogan')}</p>
-
-          <p className="intro-text">
-            {t('intro-text')}
-          </p>
+          <div className="intro-paragraph">
+            <p className="intro-slogan">{t('intro-slogan')}</p>
+            <p className="intro-text">
+              {t('intro-text')}
+            </p>
+          </div>
           <div className="firstpage-cta">
             <Link href={{ pathname: `/${lang}/category` }} className="fp-cta" >
               <Icons type="arrowWhite" />
