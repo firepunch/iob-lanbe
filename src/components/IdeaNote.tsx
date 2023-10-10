@@ -208,7 +208,7 @@ export default function IdeaNote ({
                       {t.cancel}
                     </button>
                     <button className="loading-btn" onClick={handleDelete} disabled={isProcess}>
-                      <Spinner loading={isProcess} />
+                      <Spinner small loading={isProcess} />
                       {t.delete}
                     </button>
                   </div>
