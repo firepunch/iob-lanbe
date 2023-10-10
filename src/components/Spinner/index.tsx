@@ -6,7 +6,7 @@ const Spinner = ({
 }) => {
   return (
     loading && (
-      <div className={`lds-ring ${small ? 'small' :''}`}><div></div><div></div><div></div><div></div></div>
+      <div className={`lds-ring ${small ? 'small' : ''}`}><div></div><div></div><div></div><div></div></div>
     )
   )
 }

@@ -165,7 +165,7 @@ export default function IdeaNote ({
         </div>
       ) : noteType === 'view' ? (
         <div className="ideanote ideanote-view">
-          <p className="user-note" dangerouslySetInnerHTML={{ __html: value|| '' }} />
+          <p className="user-note" dangerouslySetInnerHTML={{ __html: value || '' }} />
           <div className="footer">
             <div>
               <p className="title">
