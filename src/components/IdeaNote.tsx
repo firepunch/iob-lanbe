@@ -157,7 +157,7 @@ export default function IdeaNote ({
                 </p>
               )}
             </div>
-            <button className="save-btn loading-btn" onClick={handleSave} disabled={isProcess}>
+            <button className="note-footer save-btn loading-btn" onClick={handleSave} disabled={isProcess}>
               <Spinner loading={isProcess} />
               {t.save}
             </button>
@@ -165,10 +165,7 @@ export default function IdeaNote ({
         </div>
       ) : noteType === 'view' ? (
         <div className="ideanote ideanote-view">
-          <p className="user-note">
-            {value}
-          </p>
-
+          <p className="user-note" dangerouslySetInnerHTML={{ __html: value|| '' }} />
           <div className="footer">
             <div>
               <p className="title">
@@ -186,7 +183,7 @@ export default function IdeaNote ({
               </p>
             </div>
 
-            <div className="footer-icons">
+            <div className="note-footer footer-icons">
               <Image 
                 src={EditIcon}
                 className="icon"
